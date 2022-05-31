@@ -52,9 +52,9 @@ Tomcat should start on port 8090.
 * Creating a user using Postman. Send a POST request to: http://localhost:8090/api/v1/registration with JSON body of User.
 ````
 {
-    "firstName": "Ritish",
+    "firstName": "email",
     "lastName": "Testing",
-    "email": "ritish78@email.com",
+    "email": "rizkipa0904@email.com",
     "password": "password"
 }
 ````
