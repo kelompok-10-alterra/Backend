@@ -54,7 +54,7 @@ Tomcat should start on port 8090.
 {
     "firstName": "email",
     "lastName": "Testing",
-    "email": "rizkipa0904@email.com",
+    "email": "testing@email.com",
     "password": "password"
 }
 ````
