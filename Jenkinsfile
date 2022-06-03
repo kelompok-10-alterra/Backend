@@ -14,9 +14,9 @@ pipeline{
             steps {
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: '*/master']],
+                    branches: [[name: '*/email-auth']],
                     extensions: [],
-                    userRemoteConfigs: [[url: 'https://github.com/rizkipa0904/mini-project-alta.git']]
+                    userRemoteConfigs: [[url: 'https://github.com/kelompok-10-alterra/Backend.git']]
                 ])
             }
         }
