@@ -96,6 +96,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>capstone-kelompok-sepuluh</finalName>
 	</build>
 
 </project>
