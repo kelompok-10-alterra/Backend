@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import com.capstone.kelompok10.model.dto.UserDto;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.model.payload.UserRegister;
 import com.capstone.kelompok10.repository.RoleRepository;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.UserService;
@@ -41,6 +42,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     public UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public UserEntity register(UserRegister register) {
+        UserEntity user = new UserEntity();
+            user.setUsername(register.getUsername());
+            if(userRepository.findByUsername(register.getUsername()) == null){
+            user.setPassword(crypt.encode(register.getPassword()));
+            user.setName(register.getName());
+            user.setEmail(register.getEmail());
+            user.setPhone(register.getPhone());
+            return userRepository.save(user);
+        } else{
+            log.info("User Already Exist");
+        }
+        return user;
     }
 
     @Override

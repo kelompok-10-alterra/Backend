@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.capstone.kelompok10.model.dto.UserDto;
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.model.payload.UserRegister;
 
 public interface UserService {
     List<UserEntity> getAllUser();
@@ -14,5 +15,6 @@ public interface UserService {
     void updateUser(Long user_id, UserEntity User);
     void deleteUser(Long user_id);
     UserEntity getUser(String username);
+    UserEntity register(UserRegister register);
 }
 

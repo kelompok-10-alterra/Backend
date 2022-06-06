@@ -36,7 +36,6 @@ public class MembershipServiceImpl implements MembershipService {
             MembershipDto dto = new MembershipDto();
             dto.setMembership_id(isi.getMembership_id());
             dto.setName(isi.getName());
-            dto.setPrice(isi.getPrice());
 
             membershipDtos.add(dto);
         });
@@ -58,7 +57,6 @@ public class MembershipServiceImpl implements MembershipService {
         MembershipEntity membership2 = membershipRepository.findById(membership_id).get();
         System.out.println(membership2.toString());
         membership2.setName(membership.getName());
-        membership2.setPrice(membership.getPrice());
         membershipRepository.save(membership2);
     }
 

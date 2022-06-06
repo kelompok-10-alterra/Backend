@@ -25,7 +25,7 @@ public class MembershipEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long membership_id;
     private String name;
-    private Long price;
+    private Boolean status = Boolean.FALSE;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
