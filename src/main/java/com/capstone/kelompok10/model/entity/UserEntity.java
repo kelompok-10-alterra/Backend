@@ -3,6 +3,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,6 +31,8 @@ public class UserEntity {
     private String password;
     private String email;
     private Long phone;
+    @Column(nullable = true)
+    private String token;
 
     @CreationTimestamp
     private Instant created_at;

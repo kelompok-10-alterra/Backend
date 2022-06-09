@@ -31,6 +31,7 @@ public class BookingEntity {
     private Instant created_at;
     @UpdateTimestamp
     private Instant updated_at;
+    private Boolean isDeleted = false;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

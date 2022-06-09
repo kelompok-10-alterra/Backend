@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.kelompok10.model.dto.BookingDto;
@@ -41,8 +42,8 @@ public class BookingController {
         return new ResponseEntity<>(bookingDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{booking_id}")
-    public ResponseEntity<BookingEntity> getBookingById(@PathVariable("booking_id") Long booking_id){
+    @GetMapping("/user")
+    public ResponseEntity<BookingEntity> getBookingById(@RequestParam("booking_id") Long booking_id){
         return new ResponseEntity<>(bookingService.getBookingById(booking_id), HttpStatus.OK);
     }
 

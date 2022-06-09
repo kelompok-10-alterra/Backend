@@ -3,8 +3,7 @@ package com.capstone.kelompok10.model.payload;
 import lombok.Data;
 
 @Data
-public class UserRegister {
-    private Long user_id;
+public class RegistrationRequest {
     private String name;
     private String username;
     private String password;

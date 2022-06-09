@@ -22,9 +22,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserEntity>> getAllUser(){
-        List<UserEntity> users = userService.getAllUser();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<List<UserEntity>> getAllUser(@RequestParam(required = false) String name){
+        return new ResponseEntity<>(userService.getAllUser(name), HttpStatus.OK);
     }
 
     @GetMapping("/dto")
@@ -33,8 +32,8 @@ public class UserController {
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{user_id}")
-    public ResponseEntity<UserEntity> getUserById(@PathVariable("user_id") Long user_id){
+    @GetMapping("/user")
+    public ResponseEntity<UserEntity> getUserById(@RequestParam(required = false) Long user_id, @RequestParam(required = false) String name){
         return new ResponseEntity<>(userService.getUserById(user_id), HttpStatus.OK);
     }
 

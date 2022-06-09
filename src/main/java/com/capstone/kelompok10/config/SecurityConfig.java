@@ -7,6 +7,8 @@ import com.capstone.kelompok10.security.CustomAuthenticationFilter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,6 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Bean
+    public JavaMailSender javaMailSender(){
+        return new JavaMailSenderImpl();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
@@ -37,26 +44,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         customAuthenticationFilter.setFilterProcessesUrl("/auth/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/auth/login/**", "/auth/token/refresh/**", "/auth/register/**").permitAll();
+        http.authorizeRequests().antMatchers("/auth/login/**", "/auth/token/refresh/**", "/auth/register/**", "/auth/confirm/**").permitAll();
         http.authorizeRequests().antMatchers("/swagger-ui/**").permitAll();
         http.authorizeRequests().antMatchers("/v3/api-docs/**").permitAll();
         http.authorizeRequests().antMatchers("/actuator/**").permitAll();
-        http.authorizeRequests().antMatchers("/capstone/booking/user/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers("/capstone/class/user/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers("/capstone/instructor/user/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers("/capstone/membership/user/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers("/capstone/user/user/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers("/capstone/booking/**").hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/class/**").hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/instructor/**").hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/membership/**").hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/user/**").hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/booking/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/class/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/instructor/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/membership/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/role/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/user/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/booking/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/class/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/instructor/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/membership/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/user/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/booking/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/class/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/instructor/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/membership/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
