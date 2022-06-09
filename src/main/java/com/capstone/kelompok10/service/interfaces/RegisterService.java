@@ -1,6 +1,5 @@
 package com.capstone.kelompok10.service.interfaces;
 
-import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.RegistrationRequest;
 
 public interface RegisterService {

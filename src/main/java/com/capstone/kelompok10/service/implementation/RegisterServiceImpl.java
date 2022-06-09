@@ -55,8 +55,8 @@ public class RegisterServiceImpl implements RegisterService {
             user.setToken(token);
             
             userRepository.save(user);
-            String link = "localhost:8081/auth/register/confirm?token=" + token;
-            emailSenderService.sendEmail(request.getEmail(), buildEmail(request.getName(), link));
+            // String link = "localhost:8081/auth/confirm?token=" + token;
+            // emailSenderService.sendEmail(request.getEmail(), buildEmail(request.getName(), link));
             return token;
         } else {
             throw new IllegalStateException("Email not valid or Email or Username already used");

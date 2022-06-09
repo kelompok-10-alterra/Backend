@@ -15,10 +15,10 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class EmailSenderServiceImpl implements EmailSenderService {
+    
+    private final JavaMailSender mailSender;
     private final static Logger LOGGER = LoggerFactory
             .getLogger(EmailSenderServiceImpl.class);
-
-    private final JavaMailSender mailSender;
 
     @Override
     @Async
