@@ -35,9 +35,14 @@ public class ClassServiceImpl implements ClassService {
         classs.forEach(isi ->{
             ClassDto dto = new ClassDto();
             dto.setClass_id(isi.getClass_id());
-            dto.setName(isi.getName());
-            dto.setDescription(isi.getDescription());
-            dto.setCategory(isi.getCategory());
+            dto.setCapacity(isi.getCapacity());
+            dto.setSchedule(isi.getSchedule().toString());
+            dto.setPrice(isi.getPrice());
+            dto.setStatus(isi.getStatus().toString());
+            dto.setType(isi.getType().toString());
+            dto.setInstructor(isi.getInstructor().getName());
+            dto.setCategory(isi.getCategory().getName());
+            dto.setRoom(isi.getRoom().getName());
 
             classDtos.add(dto);
         });
@@ -58,9 +63,14 @@ public class ClassServiceImpl implements ClassService {
     public void updateClass(Long class_id, ClassEntity classes) {
         ClassEntity class2 = classRepository.findById(class_id).get();
         System.out.println(class2.toString());
-        class2.setName(classes.getName());
-        class2.setDescription(classes.getDescription());
+        class2.setType(classes.getType());
+        class2.setStatus(classes.getStatus());
+        class2.setCapacity(classes.getCapacity());
+        class2.setSchedule(classes.getSchedule());
+        class2.setPrice(classes.getPrice());
         class2.setCategory(classes.getCategory());
+        class2.setInstructor(classes.getInstructor());
+        class2.setRoom(classes.getRoom());
         classRepository.save(class2);
     }
 

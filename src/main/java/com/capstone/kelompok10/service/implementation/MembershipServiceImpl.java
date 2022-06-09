@@ -35,7 +35,10 @@ public class MembershipServiceImpl implements MembershipService {
         memberships.forEach(isi ->{
             MembershipDto dto = new MembershipDto();
             dto.setMembership_id(isi.getMembership_id());
-            dto.setName(isi.getName());
+            dto.setType(isi.getType().toString());
+            dto.setStatus(isi.getStatus().toString());
+            dto.setUser(isi.getUser().getName());
+            dto.setMember(isi.getMember().getMember_id().toString());
 
             membershipDtos.add(dto);
         });
@@ -56,7 +59,10 @@ public class MembershipServiceImpl implements MembershipService {
     public void updateMembership(Long membership_id, MembershipEntity membership) {
         MembershipEntity membership2 = membershipRepository.findById(membership_id).get();
         System.out.println(membership2.toString());
-        membership2.setName(membership.getName());
+        membership2.setType(membership.getType());
+        membership2.setStatus(membership.getStatus());
+        membership2.setUser(membership.getUser());
+        membership2.setMember(membership.getMember());
         membershipRepository.save(membership2);
     }
 

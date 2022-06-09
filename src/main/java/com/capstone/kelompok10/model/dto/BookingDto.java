@@ -1,7 +1,5 @@
 package com.capstone.kelompok10.model.dto;
 
-import java.util.Date;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BookingDto {
     private Long booking_id;
-    private String name;
-    private Date date;
+    private String status;
+    private String user;
+    private Long classes;
 }

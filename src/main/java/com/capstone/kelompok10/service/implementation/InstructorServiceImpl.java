@@ -36,7 +36,7 @@ public class InstructorServiceImpl implements InstructorService {
             InstructorDto dto = new InstructorDto();
             dto.setInstructor_id(isi.getInstructor_id());
             dto.setName(isi.getName());
-            dto.setPhone(isi.getPhone());
+            dto.setContact(isi.getContact());
 
             instructorDtos.add(dto);
         });
@@ -58,7 +58,7 @@ public class InstructorServiceImpl implements InstructorService {
         InstructorEntity instructor2 = instructorRepository.findById(instructor_id).get();
         System.out.println(instructor2.toString());
         instructor2.setName(instructor.getName());
-        instructor2.setPhone(instructor.getPhone());
+        instructor2.setContact(instructor.getContact());
         instructorRepository.save(instructor2);
     }
 

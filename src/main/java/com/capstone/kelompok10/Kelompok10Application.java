@@ -29,14 +29,14 @@ public class Kelompok10Application {
 	@Bean
 	CommandLineRunner runner(UserService userService, RoleService roleService){
 		return args -> {
-			roleService.createRole(new RoleEntity(1L, "ROLE_USER", "role untuk user", null, null));
-			roleService.createRole(new RoleEntity(2L, "ROLE_ADMIN", "role untuk admin", null, null));
-			roleService.createRole(new RoleEntity(3L, "ROLE_SUPER_ADMIN", "role untuk super admin", null, null));
-			roleService.createRole(new RoleEntity(4L, "ROLE_GUEST", "role untuk guest", null, null));
+			roleService.createRole(new RoleEntity(1L, "ROLE_USER", null, null));
+			roleService.createRole(new RoleEntity(2L, "ROLE_ADMIN", null, null));
+			roleService.createRole(new RoleEntity(3L, "ROLE_SUPER_ADMIN", null, null));
 
-			userService.createUser(new UserEntity(1L, "Manager", "manager", "buatpasswordyangsusah", "manager@email.com", 123456L,null, null, null, new ArrayList<>()));
-			userService.createUser(new UserEntity(2L, "Admin", "admin", "yanginijugasusah", "admin@email.com", 123456L,null, null, null, new ArrayList<>()));
-			userService.createUser(new UserEntity(3L, "Rakha", "rakha", "yanginigampang", "user@email.com", 123456L,null, null, null, new ArrayList<>()));
+			userService.createUser(new UserEntity(4L, "Back End", "backend", "susahbenerinipassword", "backend@email.com", 123456L, "Kolong Jembatan", null, null, null, new ArrayList<>()));
+			userService.createUser(new UserEntity(1L, "Manager", "manager", "buatpasswordyangsusah", "manager@email.com", 123456L, "Valhalla", null, null, null, new ArrayList<>()));
+			userService.createUser(new UserEntity(2L, "Admin", "admin", "yanginijugasusah", "admin@email.com", 123456L, "Asgard", null, null, null, new ArrayList<>()));
+			userService.createUser(new UserEntity(3L, "User", "rakha", "yanginigampang", "user@email.com", 123456L, "Midgrad", null, null, null, new ArrayList<>()));
 
 			userService.addRoleToUser("manager", "ROLE_SUPER_ADMIN");
 			userService.addRoleToUser("admin", "ROLE_ADMIN");

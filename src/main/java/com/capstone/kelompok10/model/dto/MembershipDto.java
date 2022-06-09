@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MembershipDto {
     private Long membership_id;
-    private String name;
-    private Long price;
+    private String type;
+    private String status;
+    private String user;
+    private String member;
 }

@@ -23,7 +23,6 @@ public class RoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long role_id;
     private String name;
-    private String description;
 
     @CreationTimestamp
     private Instant created_at;

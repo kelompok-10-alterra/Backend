@@ -2,10 +2,13 @@ package com.capstone.kelompok10.repository;
 
 import com.capstone.kelompok10.model.entity.InstructorEntity;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InstructorRepository extends JpaRepository<InstructorEntity, Long> {
-    
+    Optional<InstructorEntity> findById(Long instructor_id);
+    InstructorEntity findByName(String name);
 }

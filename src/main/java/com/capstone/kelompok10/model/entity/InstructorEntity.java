@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,13 +23,11 @@ public class InstructorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long instructor_id;
     private String name;
-    private String phone;
+    private Long contact;
+
     @CreationTimestamp
     private Instant created_at;
+
     @UpdateTimestamp
     private Instant updated_at;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
 }

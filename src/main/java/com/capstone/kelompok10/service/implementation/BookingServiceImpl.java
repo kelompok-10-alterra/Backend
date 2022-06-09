@@ -35,8 +35,9 @@ public class BookingServiceImpl implements BookingService {
         bookings.forEach(isi ->{
             BookingDto dto = new BookingDto();
             dto.setBooking_id(isi.getBooking_id());
-            dto.setName(isi.getName());
-            dto.setDate(isi.getDate());
+            dto.setStatus(isi.getStatus().toString());
+            dto.setUser(isi.getUser().getName());
+            dto.setClasses(isi.getClasses().getClass_id());
 
             bookingDtos.add(dto);
         });
@@ -57,9 +58,9 @@ public class BookingServiceImpl implements BookingService {
     public void updateBooking(Long booking_id, BookingEntity booking) {
         BookingEntity booking2 = bookingRepository.findById(booking_id).get();
         System.out.println(booking2.toString());
+        booking2.setStatus(booking.getStatus());
+        booking2.setUser(booking.getUser());
 
-        booking2.setName(booking.getName());
-        booking2.setDate(booking.getDate());
         bookingRepository.save(booking2);
     }
 

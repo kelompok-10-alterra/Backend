@@ -1,0 +1,67 @@
+package com.capstone.kelompok10.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capstone.kelompok10.model.dto.MemberDto;
+import com.capstone.kelompok10.model.entity.MemberEntity;
+import com.capstone.kelompok10.service.interfaces.MemberService;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
+@RestController
+@RequestMapping("/capstone/member")
+public class MemberController {
+    MemberService memberService;
+
+    @Autowired
+    public MemberController(MemberService memberService){
+        this.memberService = memberService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MemberEntity>> getAllMember(){
+        List<MemberEntity> members = memberService.getAllMember();
+        return new ResponseEntity<>(members, HttpStatus.OK);
+    }
+
+    @GetMapping("/dto")
+    public ResponseEntity<List<MemberDto>> getAllMemberDto(){
+        List<MemberDto> memberDtos = memberService.getAllMemberDto();
+        return new ResponseEntity<>(memberDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<MemberEntity> getMemberById(@RequestParam("member_id") Long member_id){
+        return new ResponseEntity<>(memberService.getMemberById(member_id), HttpStatus.OK);
+    }
+
+    @PostMapping("/user")
+    public ResponseEntity<MemberEntity> createMember(@RequestBody MemberEntity member){
+        memberService.createMember(member);
+        return new ResponseEntity<>(member, HttpStatus.OK);
+    }
+
+    @PutMapping("/{Member_id}")
+    public ResponseEntity<MemberEntity> updateMember(@PathVariable("member_id") Long member_id, @RequestBody MemberEntity member){
+        memberService.updateMember(member_id, member);
+        return new ResponseEntity<>(memberService.getMemberById(member_id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/user/{Member_id}")
+    public ResponseEntity<MemberEntity> deleteMember(@PathVariable("Member_id") Long member_id){
+        memberService.deleteMember(member_id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}

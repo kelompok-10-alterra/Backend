@@ -43,7 +43,6 @@ public class RoleServiceImpl implements RoleService {
             RoleDto dto = new RoleDto();
             dto.setRole_id(isi.getRole_id());
             dto.setName(isi.getName());
-            dto.setDescription(isi.getDescription());
             
             roleDtos.add(dto);
         });
@@ -65,7 +64,6 @@ public class RoleServiceImpl implements RoleService {
         RoleEntity role2 = roleRepository.findById(role_id).get();
         System.out.println(role2.toString());
         role2.setName(role.getName());
-        role2.setDescription(role.getDescription());
         roleRepository.save(role2);
     }
 

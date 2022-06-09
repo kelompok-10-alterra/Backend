@@ -5,9 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class InstructorDto {
-    private Long instructor_id;
+public class CategoryDto {
+    private Long category_id;
     private String name;
-    private Long contact;
 }
-
