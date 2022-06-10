@@ -9,6 +9,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.capstone.kelompok10.model.dto.get.UserDtoGet;
+import com.capstone.kelompok10.model.dto.post.UserDtoPost;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.RoleRepository;
@@ -106,13 +107,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void updateUser(Long user_id, UserEntity user) {
+    public void updateUser(Long user_id, UserDtoPost userDtoPost) {
         UserEntity user2 = userRepository.findById(user_id).get(); 
-        System.out.println(user2.toString());
-        user2.setName(user.getName());
-        user2.setUsername(user.getUsername());
-        user2.setPhone(user.getPhone());
-        user2.setAddress(user.getAddress());
+        user2.setName(userDtoPost.getName());
+        user2.setUsername(userDtoPost.getUsername());
+        user2.setPhone(userDtoPost.getPhone());
+        user2.setAddress(userDtoPost.getAddress());
         userRepository.save(user2);
     }
 

@@ -12,6 +12,6 @@ public interface MemberService {
     MemberEntity getMemberById(Long member_id);
     void createMember(MemberEntity member);
     void createMemberDto(MemberDtoPost memberDtoPost);
-    void updateMember(Long member_id, MemberEntity member);
+    void updateMember(Long member_id, MemberDtoPost memberDtoPost);
     void deleteMember(Long member_id);
 }

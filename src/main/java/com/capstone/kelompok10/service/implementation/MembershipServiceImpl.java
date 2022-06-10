@@ -58,12 +58,19 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public void updateMembership(Long membership_id, MembershipEntity membership) {
+    public void updateMembership(Long membership_id, MembershipDtoPost membershipDtoPost) {
         MembershipEntity membership2 = membershipRepository.findById(membership_id).get();
-        System.out.println(membership2.toString());
-        membership2.setStatus(membership.getStatus());
-        membership2.setUser(membership.getUser());
-        membership2.setMember(membership.getMember());
+
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMember_id(membershipDtoPost.getMember_id());
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUser_id(membershipDtoPost.getUser_id()); 
+
+        membership2.setStatus(membershipDtoPost.getStatus());
+        membership2.setUser(userEntity);
+        membership2.setMember(memberEntity);
+
         membershipRepository.save(membership2);
     }
 

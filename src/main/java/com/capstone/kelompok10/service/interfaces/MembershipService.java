@@ -12,7 +12,7 @@ public interface MembershipService {
     MembershipEntity getMembershipById(Long membership_id);
     void createMembership(MembershipEntity membership);
     void createMembershipDto(MembershipDtoPost membershipDtoPost);
-    void updateMembership(Long membership_id, MembershipEntity membership);
+    void updateMembership(Long membership_id, MembershipDtoPost membershipDtoPost);
     void deleteMembership(Long membership_id);
 }
 

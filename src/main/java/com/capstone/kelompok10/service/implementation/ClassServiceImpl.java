@@ -65,16 +65,30 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public void updateClass(Long class_id, ClassEntity classes) {
+    public void updateClass(Long class_id, ClassDtoPost classesDtoPost) {
         ClassEntity class2 = classRepository.findById(class_id).get();
-        System.out.println(class2.toString());
-        class2.setStatus(classes.getStatus());
-        class2.setCapacity(classes.getCapacity());
-        class2.setSchedule(classes.getSchedule());
-        class2.setPrice(classes.getPrice());
-        class2.setCategory(classes.getCategory());
-        class2.setInstructor(classes.getInstructor());
-        class2.setRoom(classes.getRoom());
+
+        InstructorEntity instructorEntity = new InstructorEntity();
+        instructorEntity.setInstructor_id(classesDtoPost.getInstructor_id());
+
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setCategory_id(classesDtoPost.getCategory_id());
+
+        RoomEntity roomEntity = new RoomEntity();
+        roomEntity.setRoom_id(classesDtoPost.getRoom_id());
+
+        TypeEntity typeEntity = new TypeEntity();
+        typeEntity.setType_id(classesDtoPost.getType_id());
+
+        class2.setStatus(classesDtoPost.getStatus());
+        class2.setCapacity(classesDtoPost.getCapacity());
+        class2.setSchedule(classesDtoPost.getSchedule());
+        class2.setPrice(classesDtoPost.getPrice());
+        class2.setCategory(categoryEntity);
+        class2.setInstructor(instructorEntity);
+        class2.setRoom(roomEntity);
+        class2.setType(typeEntity);
+        
         classRepository.save(class2);
     }
 

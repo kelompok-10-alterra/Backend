@@ -12,6 +12,6 @@ public interface TypeService {
     TypeEntity getTypeById(Long type_id);
     void createType(TypeEntity type);
     void createTypeDto(TypeDtoPost typeDtoPost);
-    void updateType(Long type_id, TypeEntity type);
+    void updateType(Long type_id, TypeDtoPost typeDtoPost);
     void deleteType(Long type_id);
 }

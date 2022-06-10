@@ -55,10 +55,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateCategory(Long category_id, CategoryEntity category) {
+    public void updateCategory(Long category_id, CategoryDtoPost categoryDtoPost) {
         CategoryEntity category2 = categoryRepository.findById(category_id).get();
-        System.out.println(category2.toString());
-        category2.setName(category.getName());
+        category2.setName(categoryDtoPost.getName());
 
         categoryRepository.save(category2);
     }

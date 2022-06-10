@@ -55,11 +55,10 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void updateInstructor(Long instructor_id, InstructorEntity instructor) {
+    public void updateInstructor(Long instructor_id, InstructorDtoPost instructorDtoPost) {
         InstructorEntity instructor2 = instructorRepository.findById(instructor_id).get();
-        System.out.println(instructor2.toString());
-        instructor2.setName(instructor.getName());
-        instructor2.setContact(instructor.getContact());
+        instructor2.setName(instructorDtoPost.getName());
+        instructor2.setContact(instructorDtoPost.getContact());
         instructorRepository.save(instructor2);
     }
 

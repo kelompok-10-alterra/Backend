@@ -12,6 +12,6 @@ public interface RoomService {
     RoomEntity getRoomById(Long room_id);
     void createRoom(RoomEntity room);
     void createRoomDto(RoomDtoPost roomDtoPost);
-    void updateRoom(Long room_id, RoomEntity room);
+    void updateRoom(Long room_id, RoomDtoPost roomDtoPost);
     void deleteRoom(Long room_id);
 }

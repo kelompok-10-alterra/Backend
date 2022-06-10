@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MembershipDtoGet {
     private Long membership_id;
-    private String type;
     private Boolean status;
     private String user;
     private String member;

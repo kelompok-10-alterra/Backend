@@ -60,8 +60,8 @@ public class BookingController {
     }
 
     @PutMapping("/{booking_id}")
-    public ResponseEntity<BookingEntity> updateBooking(@PathVariable("booking_id") Long booking_id, @RequestBody BookingEntity booking){
-        bookingService.updateBooking(booking_id, booking);
+    public ResponseEntity<BookingEntity> updateBooking(@PathVariable("booking_id") Long booking_id, @RequestBody BookingDtoPost bookingDtoPost){
+        bookingService.updateBooking(booking_id, bookingDtoPost);
         return new ResponseEntity<>(bookingService.getBookingById(booking_id), HttpStatus.OK);
     }
 

@@ -54,10 +54,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void updateRoom(Long room_id, RoomEntity room) {
+    public void updateRoom(Long room_id, RoomDtoPost roomDtoPost) {
         RoomEntity room2 = roomRepository.findById(room_id).get();
-        System.out.println(room2.toString());
-        room2.setName(room.getName());
+        room2.setName(roomDtoPost.getName());
 
         roomRepository.save(room2);
     }

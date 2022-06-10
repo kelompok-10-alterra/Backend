@@ -60,8 +60,8 @@ public class RoomController {
     }
 
     @PutMapping("/{room_id}")
-    public ResponseEntity<RoomEntity> updateRoom(@PathVariable("room_id") Long room_id, @RequestBody RoomEntity room){
-        roomService.updateRoom(room_id, room);
+    public ResponseEntity<RoomEntity> updateRoom(@PathVariable("room_id") Long room_id, @RequestBody RoomDtoPost roomDtoPost){
+        roomService.updateRoom(room_id, roomDtoPost);
         return new ResponseEntity<>(roomService.getRoomById(room_id), HttpStatus.OK);
     }
 

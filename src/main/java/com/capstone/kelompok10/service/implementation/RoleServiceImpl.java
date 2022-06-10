@@ -61,10 +61,9 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void updateRole(Long role_id, RoleEntity role) {
+    public void updateRole(Long role_id, RoleDtoPost roleDtoPost) {
         RoleEntity role2 = roleRepository.findById(role_id).get();
-        System.out.println(role2.toString());
-        role2.setName(role.getName());
+        role2.setName(roleDtoPost.getName());
         roleRepository.save(role2);
     }
 

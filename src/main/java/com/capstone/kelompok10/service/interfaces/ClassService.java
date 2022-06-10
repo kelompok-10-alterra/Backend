@@ -12,6 +12,6 @@ public interface ClassService {
     ClassEntity getClassById(Long class_id);
     void createClass(ClassEntity classes);
     void createClassDto(ClassDtoPost classDtoPost);
-    void updateClass(Long class_id, ClassEntity classes);
+    void updateClass(Long class_id, ClassDtoPost classesDtoPost);
     void deleteClass(Long class_id);
 }

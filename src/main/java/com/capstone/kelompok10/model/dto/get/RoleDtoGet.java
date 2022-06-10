@@ -8,5 +8,4 @@ import lombok.NoArgsConstructor;
 public class RoleDtoGet {
     private Long role_id;
     private String name;
-    private String description;
 }

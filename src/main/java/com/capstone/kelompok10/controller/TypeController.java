@@ -60,8 +60,8 @@ public class TypeController {
     }
 
     @PutMapping("/{type_id}")
-    public ResponseEntity<TypeEntity> updateType(@PathVariable("Type_id") Long type_id, @RequestBody TypeEntity type){
-        typeService.updateType(type_id, type);
+    public ResponseEntity<TypeEntity> updateType(@PathVariable("Type_id") Long type_id, @RequestBody TypeDtoPost typeDtoPost){
+        typeService.updateType(type_id, typeDtoPost);
         return new ResponseEntity<>(typeService.getTypeById(type_id), HttpStatus.OK);
     }
 

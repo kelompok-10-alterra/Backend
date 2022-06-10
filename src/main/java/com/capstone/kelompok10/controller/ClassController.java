@@ -59,8 +59,8 @@ public class ClassController {
     }
 
     @PutMapping("/{class_id}")
-    public ResponseEntity<ClassEntity> updateClass(@PathVariable("class_id") Long class_id, @RequestBody ClassEntity classes){
-        classService.updateClass(class_id, classes);
+    public ResponseEntity<ClassEntity> updateClass(@PathVariable("class_id") Long class_id, @RequestBody ClassDtoPost classesDtoPost){
+        classService.updateClass(class_id, classesDtoPost);
         return new ResponseEntity<>(classService.getClassById(class_id), HttpStatus.OK);
     }
 

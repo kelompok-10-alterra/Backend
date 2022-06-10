@@ -12,6 +12,6 @@ public interface InstructorService {
     InstructorEntity getInstructorById(Long instructor_id);
     void createInstructor(InstructorEntity instructor);
     void createInstructorDto(InstructorDtoPost instructorDtoPost);
-    void updateInstructor(Long instructor_id, InstructorEntity instructor);
+    void updateInstructor(Long instructor_id, InstructorDtoPost instructorDtoPost);
     void deleteInstructor(Long instructor_id);
 }

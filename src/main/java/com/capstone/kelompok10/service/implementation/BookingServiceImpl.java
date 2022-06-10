@@ -58,11 +58,18 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void updateBooking(Long booking_id, BookingEntity booking) {
+    public void updateBooking(Long booking_id, BookingDtoPost bookingDtoPost) {
         BookingEntity booking2 = bookingRepository.findById(booking_id).get();
-        System.out.println(booking2.toString());
-        booking2.setStatus(booking.getStatus());
-        booking2.setUser(booking.getUser());
+        
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUser_id(bookingDtoPost.getUser_id());
+
+        ClassEntity classEntity = new ClassEntity();
+        classEntity.setClass_id(bookingDtoPost.getClass_id());
+
+        booking2.setStatus(bookingDtoPost.getStatus());
+        booking2.setUser(userEntity);
+        booking2.setClasses(classEntity);
 
         bookingRepository.save(booking2);
     }

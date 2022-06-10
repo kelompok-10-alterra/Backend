@@ -57,10 +57,9 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public void updateType(Long type_id, TypeEntity type) {
+    public void updateType(Long type_id, TypeDtoPost typeDtoPost) {
         TypeEntity type2 = typeRepository.findById(type_id).get();
-        System.out.println(type2.toString());
-        type2.setName(type.getName());
+        type2.setName(typeDtoPost.getName());
 
         typeRepository.save(type2);
     }

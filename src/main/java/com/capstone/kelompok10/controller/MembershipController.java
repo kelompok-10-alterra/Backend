@@ -59,8 +59,8 @@ public class MembershipController {
     }
 
     @PutMapping("/{membership_id}")
-    public ResponseEntity<MembershipEntity> updateMembership(@PathVariable("membership_id") Long membership_id, @RequestBody MembershipEntity membership){
-        membershipService.updateMembership(membership_id, membership);
+    public ResponseEntity<MembershipEntity> updateMembership(@PathVariable("membership_id") Long membership_id, @RequestBody MembershipDtoPost membershipDtoPost){
+        membershipService.updateMembership(membership_id, membershipDtoPost);
         return new ResponseEntity<>(membershipService.getMembershipById(membership_id), HttpStatus.OK);
     }
 
