@@ -1,6 +1,6 @@
 FROM openjdk:18-jdk-alpine
 
-ADD target/capstone-sepuluh.jar capstone-kelompok-sepuluh.jar
+ADD target/capstone-kelompok-sepuluh.jar capstone-kelompok-sepuluh.jar
 
 EXPOSE 8081
 
