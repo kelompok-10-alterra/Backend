@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
       - name: gymapi
-        image: rafdev0904/gym:15
+        image: rafdev0904/gym:18
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
         resources:
           limits:
             cpu: 500m
@@ -39,5 +39,5 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 8080
+    targetPort: 8081
     nodePort: 31112
