@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gymapi
-        image: rafdev0904/gym:11
+        image: rafdev0904/gym:14
         ports:
         - containerPort: 8081
         resources:
@@ -31,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: gymapi-service
+  name: gymapi-svc
 spec:
   selector:
     app: gymapi
