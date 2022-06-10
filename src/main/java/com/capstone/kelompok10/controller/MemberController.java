@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.MemberDto;
+import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
+import com.capstone.kelompok10.model.dto.post.MemberDtoPost;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.service.interfaces.MemberService;
 
@@ -36,8 +37,8 @@ public class MemberController {
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<MemberDto>> getAllMemberDto(){
-        List<MemberDto> memberDtos = memberService.getAllMemberDto();
+    public ResponseEntity<List<MemberDtoGet>> getAllMemberDto(){
+        List<MemberDtoGet> memberDtos = memberService.getAllMemberDto();
         return new ResponseEntity<>(memberDtos, HttpStatus.OK);
     }
 
@@ -50,6 +51,12 @@ public class MemberController {
     public ResponseEntity<MemberEntity> createMember(@RequestBody MemberEntity member){
         memberService.createMember(member);
         return new ResponseEntity<>(member, HttpStatus.OK);
+    }
+
+    @PostMapping("/dto")
+    public ResponseEntity<MemberDtoPost> createMemberDto(@RequestBody MemberDtoPost memberDtoPost){
+        memberService.createMemberDto(memberDtoPost);
+        return new ResponseEntity<>(memberDtoPost, HttpStatus.OK);
     }
 
     @PutMapping("/{member_id}")

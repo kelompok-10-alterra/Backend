@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.ClassDto;
+import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
+import com.capstone.kelompok10.model.dto.post.ClassDtoPost;
 import com.capstone.kelompok10.model.entity.ClassEntity;
 import com.capstone.kelompok10.service.interfaces.ClassService;
 
@@ -35,8 +36,8 @@ public class ClassController {
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<ClassDto>> getAllClassDto(){
-        List<ClassDto> classDtos = classService.getAllClassDto();
+    public ResponseEntity<List<ClassDtoGet>> getAllClassDto(){
+        List<ClassDtoGet> classDtos = classService.getAllClassDto();
         return new ResponseEntity<>(classDtos, HttpStatus.OK);
     }
 
@@ -49,6 +50,12 @@ public class ClassController {
     public ResponseEntity<ClassEntity> createClass(@RequestBody ClassEntity classes){
         classService.createClass(classes);
         return new ResponseEntity<>(classes, HttpStatus.OK);
+    }
+
+    @PostMapping("/dto")
+    public ResponseEntity<ClassDtoPost> createClassDto(@RequestBody ClassDtoPost classDtoPost){
+        classService.createClassDto(classDtoPost);
+        return new ResponseEntity<>(classDtoPost, HttpStatus.OK);
     }
 
     @PutMapping("/{class_id}")

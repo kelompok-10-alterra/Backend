@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.CategoryDto;
+import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
+import com.capstone.kelompok10.model.dto.post.CategoryDtoPost;
 import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
 
@@ -36,8 +37,8 @@ public class CategoryController {
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<CategoryDto>> getAllCategoryDto(){
-        List<CategoryDto> categoryDtos = categoryService.getAllCategoryDto();
+    public ResponseEntity<List<CategoryDtoGet>> getAllCategoryDto(){
+        List<CategoryDtoGet> categoryDtos = categoryService.getAllCategoryDto();
         return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
     }
 
@@ -50,6 +51,12 @@ public class CategoryController {
     public ResponseEntity<CategoryEntity> createCategory(@RequestBody CategoryEntity category){
         categoryService.createCategory(category);
         return new ResponseEntity<>(category, HttpStatus.OK);
+    }
+
+    @PostMapping("/dto")
+    public ResponseEntity<CategoryDtoPost> createCategoryDto(@RequestBody CategoryDtoPost categoryDtoPost){
+        categoryService.createCategoryDto(categoryDtoPost);
+        return new ResponseEntity<>(categoryDtoPost, HttpStatus.OK);
     }
 
     @PutMapping("/{category_id}")

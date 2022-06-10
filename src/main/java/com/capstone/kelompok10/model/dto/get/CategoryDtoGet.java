@@ -1,11 +1,11 @@
-package com.capstone.kelompok10.model.dto;
+package com.capstone.kelompok10.model.dto.get;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TypeDto {
-    private Long type_id;
+public class CategoryDtoGet {
+    private Long category_id;
     private String name;
 }

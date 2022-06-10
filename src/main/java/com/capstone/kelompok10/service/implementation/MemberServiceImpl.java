@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capstone.kelompok10.model.dto.MemberDto;
+import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
+import com.capstone.kelompok10.model.dto.post.MemberDtoPost;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.repository.MemberRepository;
 import com.capstone.kelompok10.service.interfaces.MemberService;
@@ -31,12 +32,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberDto> getAllMemberDto() {
+    public List<MemberDtoGet> getAllMemberDto() {
         List<MemberEntity> members = memberRepository.findAll();
-        List<MemberDto> memberDtos = new ArrayList<>();
+        List<MemberDtoGet> memberDtos = new ArrayList<>();
         
         members.forEach(isi ->{
-            MemberDto dto = new MemberDto();
+            MemberDtoGet dto = new MemberDtoGet();
             dto.setMember_id(isi.getMember_id());
             dto.setLength(isi.getLength());
             dto.setPrice(isi.getPrice());
@@ -70,4 +71,13 @@ public class MemberServiceImpl implements MemberService {
     public void deleteMember(Long member_id) {
         memberRepository.deleteById(member_id);
     }
+
+	@Override
+	public void createMemberDto(MemberDtoPost memberDtoPost) {
+		MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setLength(memberDtoPost.getLength());
+        memberEntity.setPrice(memberDtoPost.getPrice());
+
+        memberRepository.save(memberEntity);
+	}
 }

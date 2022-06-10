@@ -3,8 +3,11 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.kelompok10.model.dto.MembershipDto;
+import com.capstone.kelompok10.model.dto.get.MembershipDtoGet;
+import com.capstone.kelompok10.model.dto.post.MembershipDtoPost;
+import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.model.entity.MembershipEntity;
+import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.MembershipRepository;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 
@@ -28,12 +31,12 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public List<MembershipDto> getAllMembershipDto() {
+    public List<MembershipDtoGet> getAllMembershipDto() {
         List<MembershipEntity> memberships = membershipRepository.findAll();
-        List<MembershipDto> membershipDtos = new ArrayList<>();
+        List<MembershipDtoGet> membershipDtos = new ArrayList<>();
         
         memberships.forEach(isi ->{
-            MembershipDto dto = new MembershipDto();
+            MembershipDtoGet dto = new MembershipDtoGet();
             dto.setMembership_id(isi.getMembership_id());
             dto.setStatus(isi.getStatus());
             dto.setUser(isi.getUser().getName());
@@ -68,5 +71,22 @@ public class MembershipServiceImpl implements MembershipService {
     public void deleteMembership(Long membership_id) {
         membershipRepository.deleteById(membership_id);
         
+    }
+
+    @Override
+    public void createMembershipDto(MembershipDtoPost membershipDtoPost) {
+        MembershipEntity membershipEntity = new MembershipEntity();
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUser_id(membershipDtoPost.getUser_id());
+
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMember_id(membershipDtoPost.getMember_id());
+
+        membershipEntity.setStatus(membershipDtoPost.getStatus());
+        membershipEntity.setUser(userEntity);
+        membershipEntity.setMember(memberEntity);
+
+        membershipRepository.save(membershipEntity);
     }
 }

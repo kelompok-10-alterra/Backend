@@ -3,8 +3,11 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.kelompok10.model.dto.BookingDto;
+import com.capstone.kelompok10.model.dto.get.BookingDtoGet;
+import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
+import com.capstone.kelompok10.model.entity.ClassEntity;
+import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.BookingRepository;
 import com.capstone.kelompok10.service.interfaces.BookingService;
 
@@ -28,12 +31,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDto> getAllBookingDto() {
+    public List<BookingDtoGet> getAllBookingDto() {
         List<BookingEntity> bookings = bookingRepository.findAll();
-        List<BookingDto> bookingDtos = new ArrayList<>();
+        List<BookingDtoGet> bookingDtos = new ArrayList<>();
         
         bookings.forEach(isi ->{
-            BookingDto dto = new BookingDto();
+            BookingDtoGet dto = new BookingDtoGet();
             dto.setBooking_id(isi.getBooking_id());
             dto.setStatus(isi.getStatus().toString());
             dto.setUser(isi.getUser().getName());
@@ -67,5 +70,20 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void deleteBooking(Long booking_id) {
         bookingRepository.deleteById(booking_id);
+    }
+
+    @Override
+    public void createBookingDto(BookingDtoPost bookingDtoPost) {
+        BookingEntity bookingEntity = new BookingEntity();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUser_id(bookingDtoPost.getUser_id());
+        ClassEntity classEntity = new ClassEntity();
+        classEntity.setClass_id(bookingDtoPost.getClass_id());
+
+        bookingEntity.setStatus(bookingDtoPost.getStatus());
+        bookingEntity.setClasses(classEntity);
+        bookingEntity.setUser(userEntity);
+        
+        bookingRepository.save(bookingEntity);
     }
 }

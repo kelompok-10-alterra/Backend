@@ -3,7 +3,8 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.kelompok10.model.dto.RoleDto;
+import com.capstone.kelompok10.model.dto.get.RoleDtoGet;
+import com.capstone.kelompok10.model.dto.post.RoleDtoPost;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.repository.RoleRepository;
 import com.capstone.kelompok10.repository.UserRepository;
@@ -35,12 +36,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<RoleDto> getAllRoleDto() {
+    public List<RoleDtoGet> getAllRoleDto() {
         List<RoleEntity> roles = roleRepository.findAll();
-        List<RoleDto> roleDtos = new ArrayList<>();
+        List<RoleDtoGet> roleDtos = new ArrayList<>();
         
         roles.forEach(isi ->{
-            RoleDto dto = new RoleDto();
+            RoleDtoGet dto = new RoleDtoGet();
             dto.setRole_id(isi.getRole_id());
             dto.setName(isi.getName());
             
@@ -71,5 +72,13 @@ public class RoleServiceImpl implements RoleService {
     public void deleteRole(Long role_id) {
         roleRepository.deleteById(role_id);  
     }
+
+	@Override
+	public void createRoleDto(RoleDtoPost roleDtoPost) {
+		RoleEntity roleEntity = new RoleEntity();
+        roleEntity.setName(roleDtoPost.getName());
+
+		roleRepository.save(roleEntity);
+	}
 }
 

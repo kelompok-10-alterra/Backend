@@ -2,7 +2,8 @@ package com.capstone.kelompok10.controller;
 
 import java.util.List;
 
-import com.capstone.kelompok10.model.dto.MembershipDto;
+import com.capstone.kelompok10.model.dto.get.MembershipDtoGet;
+import com.capstone.kelompok10.model.dto.post.MembershipDtoPost;
 import com.capstone.kelompok10.model.entity.MembershipEntity;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 
@@ -35,8 +36,8 @@ public class MembershipController {
     }
 
     @GetMapping("/user/dto")
-    public ResponseEntity<List<MembershipDto>> getAllMembershipDto(){
-        List<MembershipDto> membershipDtos = membershipService.getAllMembershipDto();
+    public ResponseEntity<List<MembershipDtoGet>> getAllMembershipDto(){
+        List<MembershipDtoGet> membershipDtos = membershipService.getAllMembershipDto();
         return new ResponseEntity<>(membershipDtos, HttpStatus.OK);
     }
 
@@ -49,6 +50,12 @@ public class MembershipController {
     public ResponseEntity<MembershipEntity> createMembership(@RequestBody MembershipEntity membership){
         membershipService.createMembership(membership);
         return new ResponseEntity<>(membership, HttpStatus.OK);
+    }
+
+    @PostMapping("/dto")
+    public ResponseEntity<MembershipDtoPost> createMemberDto(@RequestBody MembershipDtoPost membershipDtoPost){
+        membershipService.createMembershipDto(membershipDtoPost);
+        return new ResponseEntity<>(membershipDtoPost, HttpStatus.OK);
     }
 
     @PutMapping("/{membership_id}")

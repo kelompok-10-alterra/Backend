@@ -1,11 +1,11 @@
-package com.capstone.kelompok10.model.dto;
+package com.capstone.kelompok10.model.dto.get;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MembershipDto {
+public class MembershipDtoGet {
     private Long membership_id;
     private String type;
     private Boolean status;

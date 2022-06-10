@@ -1,6 +1,7 @@
 package com.capstone.kelompok10.controller;
 
-import com.capstone.kelompok10.model.dto.InstructorDto;
+import com.capstone.kelompok10.model.dto.get.InstructorDtoGet;
+import com.capstone.kelompok10.model.dto.post.InstructorDtoPost;
 import com.capstone.kelompok10.model.entity.InstructorEntity;
 import com.capstone.kelompok10.service.interfaces.InstructorService;
 
@@ -35,8 +36,8 @@ public class InstructorController {
     }
 
     @GetMapping("/user/dto")
-    public ResponseEntity<List<InstructorDto>> getAllInstructorDto(){
-        List<InstructorDto> instructorDtos = instructorService.getAllInstructorDto();
+    public ResponseEntity<List<InstructorDtoGet>> getAllInstructorDto(){
+        List<InstructorDtoGet> instructorDtos = instructorService.getAllInstructorDto();
         return new ResponseEntity<>(instructorDtos, HttpStatus.OK);
     }
 
@@ -49,6 +50,12 @@ public class InstructorController {
     public ResponseEntity<InstructorEntity> createInstructor(@RequestBody InstructorEntity instructor){
         instructorService.createInstructor(instructor);
         return new ResponseEntity<>(instructor, HttpStatus.OK);
+    }
+
+    @PostMapping("/dto")
+    public ResponseEntity<InstructorDtoPost> createInstructorDto(@RequestBody InstructorDtoPost instructorDtoPost){
+        instructorService.createInstructorDto(instructorDtoPost);
+        return new ResponseEntity<>(instructorDtoPost, HttpStatus.OK);
     }
 
     @PutMapping("/{instructor_id}")

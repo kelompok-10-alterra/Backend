@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.RoomDto;
+import com.capstone.kelompok10.model.dto.get.RoomDtoGet;
+import com.capstone.kelompok10.model.dto.post.RoomDtoPost;
 import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.service.interfaces.RoomService;
 
@@ -36,8 +37,8 @@ public class RoomController {
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<RoomDto>> getAllRoomDto(){
-        List<RoomDto> roomDtos = roomService.getAllRoomDto();
+    public ResponseEntity<List<RoomDtoGet>> getAllRoomDto(){
+        List<RoomDtoGet> roomDtos = roomService.getAllRoomDto();
         return new ResponseEntity<>(roomDtos, HttpStatus.OK);
     }
 
@@ -50,6 +51,12 @@ public class RoomController {
     public ResponseEntity<RoomEntity> createRoom(@RequestBody RoomEntity room){
         roomService.createRoom(room);
         return new ResponseEntity<>(room, HttpStatus.OK);
+    }
+
+    @PostMapping("/dto")
+    public ResponseEntity<RoomDtoPost> createRoomDto(@RequestBody RoomDtoPost roomDtoPost){
+        roomService.createRoomDto(roomDtoPost);
+        return new ResponseEntity<>(roomDtoPost, HttpStatus.OK);
     }
 
     @PutMapping("/{room_id}")

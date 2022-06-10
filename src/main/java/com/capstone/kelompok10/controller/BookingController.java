@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.BookingDto;
+import com.capstone.kelompok10.model.dto.get.BookingDtoGet;
+import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
 import com.capstone.kelompok10.service.interfaces.BookingService;
 
@@ -36,8 +37,8 @@ public class BookingController {
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<BookingDto>> getAllBookingDto(){
-        List<BookingDto> bookingDtos = bookingService.getAllBookingDto();
+    public ResponseEntity<List<BookingDtoGet>> getAllBookingDto(){
+        List<BookingDtoGet> bookingDtos = bookingService.getAllBookingDto();
         return new ResponseEntity<>(bookingDtos, HttpStatus.OK);
     }
 
@@ -50,6 +51,12 @@ public class BookingController {
     public ResponseEntity<BookingEntity> createBooking(@RequestBody BookingEntity booking){
         bookingService.createBooking(booking);
         return new ResponseEntity<>(booking, HttpStatus.OK);
+    }
+
+    @PostMapping("/user/dto")
+    public ResponseEntity<BookingDtoPost> createBookingDto(@RequestBody BookingDtoPost bookingDtoPost){
+        bookingService.createBookingDto(bookingDtoPost);
+        return new ResponseEntity<>(bookingDtoPost, HttpStatus.OK);
     }
 
     @PutMapping("/{booking_id}")

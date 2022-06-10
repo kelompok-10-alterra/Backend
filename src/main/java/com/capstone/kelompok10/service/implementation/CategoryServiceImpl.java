@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capstone.kelompok10.model.dto.CategoryDto;
+import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
+import com.capstone.kelompok10.model.dto.post.CategoryDtoPost;
 import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.repository.CategoryRepository;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
@@ -29,12 +30,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> getAllCategoryDto() {
+    public List<CategoryDtoGet> getAllCategoryDto() {
         List<CategoryEntity> categorys = categoryRepository.findAll();
-        List<CategoryDto> CategoryDtos = new ArrayList<>();
+        List<CategoryDtoGet> CategoryDtos = new ArrayList<>();
         
         categorys.forEach(isi ->{
-            CategoryDto dto = new CategoryDto();
+            CategoryDtoGet dto = new CategoryDtoGet();
             dto.setCategory_id(isi.getCategory_id());
             dto.setName(isi.getName());
 
@@ -66,4 +67,12 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(Long category_id) {
         categoryRepository.deleteById(category_id);
     }
+
+	@Override
+	public void createCategoryDto(CategoryDtoPost categoryDtoPost) {
+		CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setName(categoryDtoPost.getName());
+		
+        categoryRepository.save(categoryEntity);
+	}
 }

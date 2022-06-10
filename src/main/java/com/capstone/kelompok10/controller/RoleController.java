@@ -2,7 +2,8 @@ package com.capstone.kelompok10.controller;
 
 import java.util.List;
 
-import com.capstone.kelompok10.model.dto.RoleDto;
+import com.capstone.kelompok10.model.dto.get.RoleDtoGet;
+import com.capstone.kelompok10.model.dto.post.RoleDtoPost;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 
@@ -35,8 +36,8 @@ public class RoleController {
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<RoleDto>> getAllRoleDto(){
-        List<RoleDto> roleDtos = roleService.getAllRoleDto();
+    public ResponseEntity<List<RoleDtoGet>> getAllRoleDto(){
+        List<RoleDtoGet> roleDtos = roleService.getAllRoleDto();
         return new ResponseEntity<>(roleDtos, HttpStatus.OK);
     }
 
@@ -49,6 +50,12 @@ public class RoleController {
     public ResponseEntity<RoleEntity> createRole(@RequestBody RoleEntity role){
         roleService.createRole(role);
         return new ResponseEntity<>(role, HttpStatus.OK);
+    }
+
+    @PostMapping("/dto")
+    public ResponseEntity<RoleDtoPost> createRoleDto(@RequestBody RoleDtoPost roleDtoPost){
+        roleService.createRoleDto(roleDtoPost);
+        return new ResponseEntity<>(roleDtoPost, HttpStatus.OK);
     }
 
     @PutMapping("/{role_id}")

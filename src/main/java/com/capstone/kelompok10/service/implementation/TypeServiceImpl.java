@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capstone.kelompok10.model.dto.TypeDto;
+import com.capstone.kelompok10.model.dto.get.TypeDtoGet;
+import com.capstone.kelompok10.model.dto.post.TypeDtoPost;
 import com.capstone.kelompok10.model.entity.TypeEntity;
 import com.capstone.kelompok10.repository.TypeRepository;
 import com.capstone.kelompok10.service.interfaces.TypeService;
@@ -31,12 +32,12 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<TypeDto> getAllTypeDto() {
+    public List<TypeDtoGet> getAllTypeDto() {
         List<TypeEntity> types = typeRepository.findAll();
-        List<TypeDto> typeDtos = new ArrayList<>();
+        List<TypeDtoGet> typeDtos = new ArrayList<>();
         
         types.forEach(isi ->{
-            TypeDto dto = new TypeDto();
+            TypeDtoGet dto = new TypeDtoGet();
             dto.setType_id(isi.getType_id());
             dto.setName(isi.getName());
 
@@ -67,5 +68,13 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public void deleteType(Long type_id) {
         typeRepository.deleteById(type_id);
+    }
+
+    @Override
+    public void createTypeDto(TypeDtoPost typeDtoPost) {
+        TypeEntity typeEntity = new TypeEntity();
+        typeEntity.setName(typeDtoPost.getName());
+
+        typeRepository.save(typeEntity);
     }
 }

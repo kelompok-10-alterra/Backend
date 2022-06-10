@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.capstone.kelompok10.model.dto.UserDto;
+import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.RoleRepository;
@@ -75,12 +75,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<UserDto> getAllUserDto() {
+    public List<UserDtoGet> getAllUserDto() {
         List<UserEntity> users = userRepository.findAll();
-        List<UserDto> userDtos = new ArrayList<>();
+        List<UserDtoGet> userDtos = new ArrayList<>();
         
         users.forEach(isi ->{
-            UserDto dto = new UserDto();
+            UserDtoGet dto = new UserDtoGet();
             dto.setUser_id(isi.getUser_id());
             dto.setName(isi.getName());
             dto.setUsername(isi.getUsername());

@@ -3,8 +3,13 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.kelompok10.model.dto.ClassDto;
+import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
+import com.capstone.kelompok10.model.dto.post.ClassDtoPost;
+import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.model.entity.ClassEntity;
+import com.capstone.kelompok10.model.entity.InstructorEntity;
+import com.capstone.kelompok10.model.entity.RoomEntity;
+import com.capstone.kelompok10.model.entity.TypeEntity;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.service.interfaces.ClassService;
 
@@ -28,12 +33,12 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<ClassDto> getAllClassDto() {
+    public List<ClassDtoGet> getAllClassDto() {
         List<ClassEntity> classs = classRepository.findAll();
-        List<ClassDto> classDtos = new ArrayList<>();
+        List<ClassDtoGet> classDtos = new ArrayList<>();
         
         classs.forEach(isi ->{
-            ClassDto dto = new ClassDto();
+            ClassDtoGet dto = new ClassDtoGet();
             dto.setClass_id(isi.getClass_id());
             dto.setCapacity(isi.getCapacity());
             dto.setSchedule(isi.getSchedule().toString());
@@ -78,4 +83,34 @@ public class ClassServiceImpl implements ClassService {
         classRepository.deleteById(class_id);
         
     }
+
+	@Override
+	public void createClassDto(ClassDtoPost classDtoPost) {
+		ClassEntity classEntity = new ClassEntity();
+
+        InstructorEntity instructorEntity = new InstructorEntity();
+        instructorEntity.setInstructor_id(classDtoPost.getInstructor_id());
+
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setCategory_id(classDtoPost.getCategory_id());
+
+        RoomEntity roomEntity = new RoomEntity();
+        roomEntity.setRoom_id(classDtoPost.getRoom_id());
+
+        TypeEntity typeEntity = new TypeEntity();
+        typeEntity.setType_id(classDtoPost.getType_id());
+
+        classEntity.setStatus(classDtoPost.getStatus());
+        classEntity.setCapacity(classDtoPost.getCapacity());
+        classEntity.setSchedule(classDtoPost.getSchedule());
+        classEntity.setPrice(classDtoPost.getPrice());
+        classEntity.setInstructor(instructorEntity);
+        classEntity.setCategory(categoryEntity);
+        classEntity.setRoom(roomEntity);
+        classEntity.setType(typeEntity);
+
+        classRepository.save(classEntity);
+
+		
+	}
 }

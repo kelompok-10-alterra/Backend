@@ -3,7 +3,8 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.kelompok10.model.dto.InstructorDto;
+import com.capstone.kelompok10.model.dto.get.InstructorDtoGet;
+import com.capstone.kelompok10.model.dto.post.InstructorDtoPost;
 import com.capstone.kelompok10.model.entity.InstructorEntity;
 import com.capstone.kelompok10.repository.InstructorRepository;
 import com.capstone.kelompok10.service.interfaces.InstructorService;
@@ -28,12 +29,12 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public List<InstructorDto> getAllInstructorDto() {
+    public List<InstructorDtoGet> getAllInstructorDto() {
         List<InstructorEntity> instructors = instructorRepository.findAll();
-        List<InstructorDto> instructorDtos = new ArrayList<>();
+        List<InstructorDtoGet> instructorDtos = new ArrayList<>();
 
         instructors.forEach(isi ->{
-            InstructorDto dto = new InstructorDto();
+            InstructorDtoGet dto = new InstructorDtoGet();
             dto.setInstructor_id(isi.getInstructor_id());
             dto.setName(isi.getName());
             dto.setContact(isi.getContact());
@@ -66,5 +67,14 @@ public class InstructorServiceImpl implements InstructorService {
     public void deleteInstructor(Long instructor_id) {
         instructorRepository.deleteById(instructor_id);
     }
+
+	@Override
+	public void createInstructorDto(InstructorDtoPost instructorDtoPost) {
+		InstructorEntity instructorEntity = new InstructorEntity();
+        instructorEntity.setName(instructorDtoPost.getName());
+        instructorEntity.setContact(instructorDtoPost.getContact());
+        
+		instructorRepository.save(instructorEntity);
+	}
 }
 

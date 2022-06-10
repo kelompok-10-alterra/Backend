@@ -55,7 +55,7 @@ public class RegisterServiceImpl implements RegisterService {
             user.setToken(token);
             
             userRepository.save(user);
-            String link = "https://www.api.rafdev.my.id/auth/confirm?token=" + token;
+            String link = "http://a327d060d68dc43b1bfa026001e1e330-1327007092.ap-southeast-1.elb.amazonaws.com:8081/auth/confirm?token=" + token;
             emailSenderService.sendEmail(request.getEmail(), buildEmail(request.getUsername(), link));
             return token;
         } else {

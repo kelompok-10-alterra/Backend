@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.TypeDto;
+import com.capstone.kelompok10.model.dto.get.TypeDtoGet;
+import com.capstone.kelompok10.model.dto.post.TypeDtoPost;
 import com.capstone.kelompok10.model.entity.TypeEntity;
 import com.capstone.kelompok10.service.interfaces.TypeService;
 
@@ -36,8 +37,8 @@ public class TypeController {
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<TypeDto>> getAllTypeDto(){
-        List<TypeDto> typeDtos = typeService.getAllTypeDto();
+    public ResponseEntity<List<TypeDtoGet>> getAllTypeDto(){
+        List<TypeDtoGet> typeDtos = typeService.getAllTypeDto();
         return new ResponseEntity<>(typeDtos, HttpStatus.OK);
     }
 
@@ -50,6 +51,12 @@ public class TypeController {
     public ResponseEntity<TypeEntity> createType(@RequestBody TypeEntity type){
         typeService.createType(type);
         return new ResponseEntity<>(type, HttpStatus.OK);
+    }
+
+    @PostMapping("/dto")
+    public ResponseEntity<TypeDtoPost> createTypeDto(@RequestBody TypeDtoPost typeDtoPost){
+        typeService.createTypeDto(typeDtoPost);
+        return new ResponseEntity<>(typeDtoPost, HttpStatus.OK);
     }
 
     @PutMapping("/{type_id}")

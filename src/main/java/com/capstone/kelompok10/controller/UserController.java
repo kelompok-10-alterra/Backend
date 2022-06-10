@@ -1,6 +1,6 @@
 package com.capstone.kelompok10.controller;
 
-import com.capstone.kelompok10.model.dto.UserDto;
+import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.RoleToUser;
 import com.capstone.kelompok10.service.interfaces.UserService;
@@ -27,8 +27,8 @@ public class UserController {
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<UserDto>> getAllUserDto(){
-        List<UserDto> userDtos = userService.getAllUserDto();
+    public ResponseEntity<List<UserDtoGet>> getAllUserDto(){
+        List<UserDtoGet> userDtos = userService.getAllUserDto();
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 

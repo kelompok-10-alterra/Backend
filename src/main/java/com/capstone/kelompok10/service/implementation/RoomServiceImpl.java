@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capstone.kelompok10.model.dto.RoomDto;
+import com.capstone.kelompok10.model.dto.get.RoomDtoGet;
+import com.capstone.kelompok10.model.dto.post.RoomDtoPost;
 import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.repository.RoomRepository;
 import com.capstone.kelompok10.service.interfaces.RoomService;
@@ -28,12 +29,12 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<RoomDto> getAllRoomDto() {
+    public List<RoomDtoGet> getAllRoomDto() {
         List<RoomEntity> rooms = roomRepository.findAll();
-        List<RoomDto> roomDtos = new ArrayList<>();
+        List<RoomDtoGet> roomDtos = new ArrayList<>();
         
         rooms.forEach(isi ->{
-            RoomDto dto = new RoomDto();
+            RoomDtoGet dto = new RoomDtoGet();
             dto.setRoom_id(isi.getRoom_id());
             dto.setName(isi.getName());
 
@@ -65,4 +66,12 @@ public class RoomServiceImpl implements RoomService {
     public void deleteRoom(Long room_id) {
         roomRepository.deleteById(room_id);
     }
+
+	@Override
+	public void createRoomDto(RoomDtoPost roomDtoPost) {
+		RoomEntity roomEntity = new RoomEntity();
+        roomEntity.setName(roomDtoPost.getName());
+		
+        roomRepository.save(roomEntity);
+	}
 }
