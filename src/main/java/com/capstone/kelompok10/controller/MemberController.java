@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.kelompok10.model.dto.MemberDto;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.service.interfaces.MemberService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/capstone/member")
@@ -47,20 +46,20 @@ public class MemberController {
         return new ResponseEntity<>(memberService.getMemberById(member_id), HttpStatus.OK);
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public ResponseEntity<MemberEntity> createMember(@RequestBody MemberEntity member){
         memberService.createMember(member);
         return new ResponseEntity<>(member, HttpStatus.OK);
     }
 
-    @PutMapping("/{Member_id}")
+    @PutMapping("/{member_id}")
     public ResponseEntity<MemberEntity> updateMember(@PathVariable("member_id") Long member_id, @RequestBody MemberEntity member){
         memberService.updateMember(member_id, member);
         return new ResponseEntity<>(memberService.getMemberById(member_id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{Member_id}")
-    public ResponseEntity<MemberEntity> deleteMember(@PathVariable("Member_id") Long member_id){
+    @DeleteMapping("/{member_id}")
+    public ResponseEntity<MemberEntity> deleteMember(@PathVariable("member_id") Long member_id){
         memberService.deleteMember(member_id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

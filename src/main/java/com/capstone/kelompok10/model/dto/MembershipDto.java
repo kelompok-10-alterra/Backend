@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class MembershipDto {
     private Long membership_id;
     private String type;
-    private String status;
+    private Boolean status;
     private String user;
     private String member;
 }

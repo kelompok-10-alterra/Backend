@@ -10,7 +10,7 @@ public class ClassDto {
     private Long capacity;
     private String schedule;
     private Long price;
-    private String status;
+    private Boolean status;
     private String type;
     private String instructor;
     private String category;

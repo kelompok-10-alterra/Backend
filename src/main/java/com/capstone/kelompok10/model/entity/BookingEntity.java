@@ -3,8 +3,6 @@ package com.capstone.kelompok10.model.entity;
 import java.time.Instant;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,8 +11,6 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.capstone.kelompok10.model.payload.StatusEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,8 +24,7 @@ public class BookingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long booking_id;
-    @Enumerated(EnumType.STRING)
-    private StatusEnum status;
+    private Boolean status;
 
     @CreationTimestamp
     private Instant created_at;

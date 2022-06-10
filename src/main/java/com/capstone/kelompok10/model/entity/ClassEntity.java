@@ -4,8 +4,6 @@ import java.time.Instant;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,9 +12,6 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.capstone.kelompok10.model.payload.StatusEnum;
-import com.capstone.kelompok10.model.payload.TypeEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,10 +25,7 @@ public class ClassEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long class_id;
-    @Enumerated(EnumType.STRING)
-    private TypeEnum type;
-    @Enumerated(EnumType.STRING)
-    private StatusEnum status;
+    private Boolean status;
     private Long capacity;
     private Date schedule;
     private Long price;
@@ -49,6 +41,10 @@ public class ClassEntity {
     @ManyToOne
     @JoinColumn(name = "room_id")
     private RoomEntity room;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private TypeEntity type;
 
     @CreationTimestamp
     private Instant created_at;

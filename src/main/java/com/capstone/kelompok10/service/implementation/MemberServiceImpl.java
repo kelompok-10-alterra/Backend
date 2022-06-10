@@ -11,7 +11,10 @@ import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.repository.MemberRepository;
 import com.capstone.kelompok10.service.interfaces.MemberService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
     MemberRepository memberRepository;
 

@@ -38,11 +38,11 @@ public class ClassServiceImpl implements ClassService {
             dto.setCapacity(isi.getCapacity());
             dto.setSchedule(isi.getSchedule().toString());
             dto.setPrice(isi.getPrice());
-            dto.setStatus(isi.getStatus().toString());
-            dto.setType(isi.getType().toString());
+            dto.setStatus(isi.getStatus());
             dto.setInstructor(isi.getInstructor().getName());
             dto.setCategory(isi.getCategory().getName());
             dto.setRoom(isi.getRoom().getName());
+            dto.setType(isi.getType().getName());
 
             classDtos.add(dto);
         });
@@ -63,7 +63,6 @@ public class ClassServiceImpl implements ClassService {
     public void updateClass(Long class_id, ClassEntity classes) {
         ClassEntity class2 = classRepository.findById(class_id).get();
         System.out.println(class2.toString());
-        class2.setType(classes.getType());
         class2.setStatus(classes.getStatus());
         class2.setCapacity(classes.getCapacity());
         class2.setSchedule(classes.getSchedule());

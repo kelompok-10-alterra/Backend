@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.kelompok10.model.dto.CategoryDto;
 import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/capstone/category")
@@ -47,19 +46,19 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getCategoryById(category_id), HttpStatus.OK);
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public ResponseEntity<CategoryEntity> createCategory(@RequestBody CategoryEntity category){
         categoryService.createCategory(category);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
-    @PutMapping("/{Category_id}")
+    @PutMapping("/{category_id}")
     public ResponseEntity<CategoryEntity> updateCategory(@PathVariable("category_id") Long category_id, @RequestBody CategoryEntity category){
         categoryService.updateCategory(category_id, category);
         return new ResponseEntity<>(categoryService.getCategoryById(category_id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{Category_id}")
+    @DeleteMapping("/{category_id}")
     public ResponseEntity<CategoryEntity> deleteCategory(@PathVariable("category_id") Long category_id){
         categoryService.deleteCategory(category_id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

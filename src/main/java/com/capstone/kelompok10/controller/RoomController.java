@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.kelompok10.model.dto.RoomDto;
 import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.service.interfaces.RoomService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/capstone/room")
@@ -47,7 +46,7 @@ public class RoomController {
         return new ResponseEntity<>(roomService.getRoomById(room_id), HttpStatus.OK);
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public ResponseEntity<RoomEntity> createRoom(@RequestBody RoomEntity room){
         roomService.createRoom(room);
         return new ResponseEntity<>(room, HttpStatus.OK);
@@ -59,7 +58,7 @@ public class RoomController {
         return new ResponseEntity<>(roomService.getRoomById(room_id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{room_id}")
+    @DeleteMapping("/{room_id}")
     public ResponseEntity<RoomEntity> deleteRoom(@PathVariable("room_id") Long room_id){
         roomService.deleteRoom(room_id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
