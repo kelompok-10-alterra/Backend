@@ -6,5 +6,4 @@ public interface RegisterService {
     String register(RegistrationRequest request);
     boolean confirmToken(String token);
     String buildEmail(String name, String link);
-    // void sendVerificationEmail(UserEntity userEntity, String siteURL);
 }
