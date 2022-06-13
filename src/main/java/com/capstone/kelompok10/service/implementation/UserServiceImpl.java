@@ -96,6 +96,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserEntity getUserById(Long user_id) {
+        if(userRepository.findById(user_id) == null){
+            log.info("User with id {} not found", user_id);
+        }
         return userRepository.findById(user_id).get();
     }
 

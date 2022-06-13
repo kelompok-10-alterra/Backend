@@ -6,7 +6,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.model.payload.ForgotPassword;
 import com.capstone.kelompok10.model.payload.RegistrationRequest;
+import com.capstone.kelompok10.model.payload.ResendToken;
 import com.capstone.kelompok10.service.interfaces.RegisterService;
 import com.capstone.kelompok10.service.interfaces.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -87,6 +89,25 @@ public class AuthController {
             return "Verify Success";
         }else{
             return "Verify Fail";
+        }
+    }
+
+    @PostMapping("/resend")
+    public String resend(@RequestBody ResendToken resendToken){
+        return registerService.resendToken(resendToken);
+    }
+
+    @PostMapping("/forgot")
+    public String resetPass(@RequestBody ResendToken reset){
+        return registerService.resetPassword(reset);
+    }
+
+    @PostMapping("/reset")
+    public String resetPassword(@RequestParam("token") String token, @RequestBody ForgotPassword forgotPassword){
+        if (registerService.forgotPassword(token, forgotPassword)){
+            return "Password Changed";
+        }else{
+            return "Password not Changed";
         }
     }
 }

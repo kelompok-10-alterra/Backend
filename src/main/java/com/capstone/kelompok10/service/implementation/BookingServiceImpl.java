@@ -11,10 +11,13 @@ import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.BookingRepository;
 import com.capstone.kelompok10.service.interfaces.BookingService;
 
+import lombok.extern.log4j.Log4j2;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Log4j2
 public class BookingServiceImpl implements BookingService {
     BookingRepository bookingRepository;
 
@@ -49,7 +52,12 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingEntity getBookingById(Long booking_id) {
-        return bookingRepository.findById(booking_id).get();
+        if(bookingRepository.findById(booking_id) == null){
+            log.info("Booking id not found");
+            return null;
+        }
+        log.info("Booking with id {} found", booking_id);
+        return bookingRepository.findById(booking_id).get();            
     }
 
     @Override

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.model.payload.ResendToken;
+import com.capstone.kelompok10.model.payload.ForgotPassword;
 import com.capstone.kelompok10.model.payload.RegistrationRequest;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.email.EmailSenderService;
@@ -64,6 +66,49 @@ public class RegisterServiceImpl implements RegisterService {
         }
     }
 
+
+    @Override
+    public String resendToken(ResendToken resendToken) {
+        UserEntity user = userRepository.findByEmail(resendToken.getEmail());
+        if (userRepository.findByEmail(resendToken.getEmail()) != null){
+            user.setToken(null);
+            userRepository.save(user);
+
+            String token = UUID.randomUUID().toString();
+            String username = user.getUsername().toString();
+            String email = user.getEmail().toString();
+            user.setEmail(email);
+            user.setToken(token);
+            userRepository.save(user);
+            String link = "https://www.api.rafdev.my.id/auth/confirm?token=" + token;
+            emailSenderService.sendEmail(resendToken.getEmail(), buildEmail(username, link));
+            return token;
+        } else {
+            throw new IllegalStateException("Email not found");
+        }
+    }
+
+    @Override
+    public String resetPassword(ResendToken reset) {
+        UserEntity user = userRepository.findByEmail(reset.getEmail());
+        if (userRepository.findByEmail(reset.getEmail()) != null){
+            user.setToken(null);
+            userRepository.save(user);
+
+            String token = UUID.randomUUID().toString();
+            String username = user.getUsername().toString();
+            String email = user.getEmail().toString();
+            user.setEmail(email);
+            user.setToken(token);
+            userRepository.save(user);
+            String link = "https://www.api.rafdev.my.id/auth/reset?token=" + token;
+            emailSenderService.sendEmail(reset.getEmail(), buildEmail(username, link));
+            return token;
+        } else {
+            throw new IllegalStateException("Email not found");
+        }
+    }
+
     @Override
     public boolean confirmToken(String token) {
         UserEntity user = userRepository.findByToken(token);
@@ -73,6 +118,19 @@ public class RegisterServiceImpl implements RegisterService {
             user.setToken(null);
             userRepository.save(user);
             userService.addRoleToUser(user.getUsername(), "ROLE_USER");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean forgotPassword(String token, ForgotPassword forgotPassword) {
+        UserEntity user = userRepository.findByToken(token);
+        if(user == null){
+            return false;
+        }else{
+            user.setToken(null);
+            user.setPassword(crypt.encode(forgotPassword.getPassword()));
+            userRepository.save(user);
         }
         return true;
     }

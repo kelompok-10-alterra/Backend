@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         customAuthenticationFilter.setFilterProcessesUrl("/auth/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/auth/login/**", "/auth/token/refresh/**", "/auth/register/**", "/auth/confirm/**").permitAll();
+        http.authorizeRequests().antMatchers("/auth/login/**", "/auth/token/refresh/**", "/auth/register/**", "/auth/confirm/**", "/auth/resend/**", "/auth/reset/**").permitAll();
         http.authorizeRequests().antMatchers("/swagger-ui/**").permitAll();
         http.authorizeRequests().antMatchers("/v3/api-docs/**").permitAll();
         http.authorizeRequests().antMatchers("/actuator/**").permitAll();
