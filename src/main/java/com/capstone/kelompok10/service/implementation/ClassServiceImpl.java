@@ -44,6 +44,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setSchedule(isi.getSchedule().toString());
             dto.setPrice(isi.getPrice());
             dto.setStatus(isi.getStatus());
+            dto.setImageUrl(isi.getImageUrl());
             dto.setInstructor(isi.getInstructor().getName());
             dto.setCategory(isi.getCategory().getName());
             dto.setRoom(isi.getRoom().getName());
@@ -84,6 +85,7 @@ public class ClassServiceImpl implements ClassService {
         class2.setCapacity(classesDtoPost.getCapacity());
         class2.setSchedule(classesDtoPost.getSchedule());
         class2.setPrice(classesDtoPost.getPrice());
+        class2.setImageUrl(classesDtoPost.getImageUrl());
         class2.setCategory(categoryEntity);
         class2.setInstructor(instructorEntity);
         class2.setRoom(roomEntity);
@@ -118,6 +120,7 @@ public class ClassServiceImpl implements ClassService {
         classEntity.setCapacity(classDtoPost.getCapacity());
         classEntity.setSchedule(classDtoPost.getSchedule());
         classEntity.setPrice(classDtoPost.getPrice());
+        classEntity.setImageUrl(classDtoPost.getImageUrl());
         classEntity.setInstructor(instructorEntity);
         classEntity.setCategory(categoryEntity);
         classEntity.setRoom(roomEntity);

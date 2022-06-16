@@ -12,6 +12,7 @@ public class ClassDtoPost {
     private Long capacity;
     private Date schedule;
     private Long price;
+    private String imageUrl;
     private Long instructor_id;
     private Long category_id;
     private Long room_id;

@@ -38,6 +38,7 @@ public class InstructorServiceImpl implements InstructorService {
             dto.setInstructor_id(isi.getInstructor_id());
             dto.setName(isi.getName());
             dto.setContact(isi.getContact());
+            dto.setImageUrl(isi.getImageUrl());
 
             instructorDtos.add(dto);
         });
@@ -59,6 +60,7 @@ public class InstructorServiceImpl implements InstructorService {
         InstructorEntity instructor2 = instructorRepository.findById(instructor_id).get();
         instructor2.setName(instructorDtoPost.getName());
         instructor2.setContact(instructorDtoPost.getContact());
+        instructor2.setImageUrl(instructorDtoPost.getImageUrl());
         instructorRepository.save(instructor2);
     }
 
@@ -72,6 +74,7 @@ public class InstructorServiceImpl implements InstructorService {
 		InstructorEntity instructorEntity = new InstructorEntity();
         instructorEntity.setName(instructorDtoPost.getName());
         instructorEntity.setContact(instructorDtoPost.getContact());
+        instructorEntity.setImageUrl(instructorDtoPost.getImageUrl());
         
 		instructorRepository.save(instructorEntity);
 	}

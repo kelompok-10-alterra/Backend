@@ -88,6 +88,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             dto.setEmail(isi.getEmail());
             dto.setPhone(isi.getPhone());
             dto.setAddress(isi.getAddress());
+            dto.setImageUrl(isi.getImageUrl());
 
             userDtos.add(dto);
         });
@@ -116,6 +117,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user2.setUsername(userDtoPost.getUsername());
         user2.setPhone(userDtoPost.getPhone());
         user2.setAddress(userDtoPost.getAddress());
+        user2.setImageUrl(userDtoPost.getImageUrl());
         userRepository.save(user2);
     }
 

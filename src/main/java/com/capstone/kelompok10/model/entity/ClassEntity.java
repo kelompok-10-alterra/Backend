@@ -29,6 +29,7 @@ public class ClassEntity {
     private Long capacity;
     private Date schedule;
     private Long price;
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "instructor_id")

@@ -12,6 +12,7 @@ public class ClassDtoGet {
     private Long price;
     private Boolean status;
     private String type;
+    private String imageUrl;
     private String instructor;
     private String category;
     private String room;

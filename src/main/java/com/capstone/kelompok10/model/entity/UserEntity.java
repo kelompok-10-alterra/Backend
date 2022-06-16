@@ -32,6 +32,7 @@ public class UserEntity {
     private String email;
     private Long phone;
     private String address;
+    private String imageUrl;
 
     @Column(nullable = true)
     private String token;

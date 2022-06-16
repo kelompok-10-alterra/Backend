@@ -12,4 +12,5 @@ public class UserDtoGet {
     private String email;
     private Long phone;
     private String address;
+    private String imageUrl;
 }
