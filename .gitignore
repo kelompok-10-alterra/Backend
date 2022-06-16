@@ -1,5 +1,9 @@
 HELP.md
+<<<<<<< HEAD
 target/
+=======
+*/target/**
+>>>>>>> ec0faab0a6b69ba9e9e52700bd5203fd7b196b49
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
