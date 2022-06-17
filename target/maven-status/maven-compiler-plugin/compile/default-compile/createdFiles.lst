@@ -62,6 +62,7 @@ com\capstone\kelompok10\service\implementation\RoomServiceImpl.class
 com\capstone\kelompok10\model\dto\get\MembershipDtoGet.class
 com\capstone\kelompok10\repository\RoomRepository.class
 com\capstone\kelompok10\model\payload\ForgotPassword.class
+com\capstone\kelompok10\Kelompok10Application$1.class
 com\capstone\kelompok10\model\dto\get\ClassDtoGet.class
 com\capstone\kelompok10\model\dto\get\RoleDtoGet.class
 com\capstone\kelompok10\service\implementation\UserServiceImpl.class
