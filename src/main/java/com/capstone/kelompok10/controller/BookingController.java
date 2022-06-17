@@ -3,6 +3,7 @@ package com.capstone.kelompok10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,14 +32,26 @@ public class BookingController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BookingEntity>> getAllBooking(){
-        List<BookingEntity> bookings = bookingService.getAllBooking();
-        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    public ResponseEntity<List<BookingEntity>> findAll(){
+        List<BookingEntity> booking = bookingService.findAll();
+        return new ResponseEntity<>(booking, HttpStatus.OK);
+    }
+
+    @GetMapping("/{offset}/{pageSize}")
+    public ResponseEntity<Page<BookingEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+        Page<BookingEntity> booking = bookingService.findAllPagination(offset, pageSize);
+        return new ResponseEntity<>(booking, HttpStatus.OK);
+    }
+
+    @GetMapping("/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<BookingEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+        Page<BookingEntity> booking = bookingService.findAllPaginationSort(offset, pageSize, field);
+        return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<BookingDtoGet>> getAllBookingDto(){
-        List<BookingDtoGet> bookingDtos = bookingService.getAllBookingDto();
+    public ResponseEntity<List<BookingDtoGet>> findAllDto(){
+        List<BookingDtoGet> bookingDtos = bookingService.findAllDto();
         return new ResponseEntity<>(bookingDtos, HttpStatus.OK);
     }
 

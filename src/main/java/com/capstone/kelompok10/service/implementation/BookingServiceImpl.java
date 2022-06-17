@@ -11,13 +11,18 @@ import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.BookingRepository;
 import com.capstone.kelompok10.service.interfaces.BookingService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
+@RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     BookingRepository bookingRepository;
 
@@ -27,23 +32,35 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingEntity> getAllBooking() {
-        List<BookingEntity> bookings = new ArrayList<>();
-        bookingRepository.findAll().forEach(bookings::add);
-        return bookings;
+    public List<BookingEntity> findAll() {
+        List<BookingEntity> booking = new ArrayList<>();
+        bookingRepository.findAll().forEach(booking::add);
+        return booking;
+    }
+    
+    @Override
+    public Page<BookingEntity> findAllPagination(int offset, int pageSize) {
+        Page<BookingEntity> booking = bookingRepository.findAll(PageRequest.of(offset, pageSize));
+        return booking;
     }
 
     @Override
-    public List<BookingDtoGet> getAllBookingDto() {
+    public Page<BookingEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<BookingEntity> booking = bookingRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return booking;
+    }
+
+    @Override
+    public List<BookingDtoGet> findAllDto() {
         List<BookingEntity> bookings = bookingRepository.findAll();
         List<BookingDtoGet> bookingDtos = new ArrayList<>();
         
         bookings.forEach(isi ->{
             BookingDtoGet dto = new BookingDtoGet();
-            dto.setBooking_id(isi.getBooking_id());
+            dto.setBookingId(isi.getBookingId());
             dto.setStatus(isi.getStatus().toString());
             dto.setUser(isi.getUser().getName());
-            dto.setClasses(isi.getClasses().getClass_id());
+            dto.setClasses(isi.getClasses().getClassId());
 
             bookingDtos.add(dto);
         });
@@ -70,10 +87,10 @@ public class BookingServiceImpl implements BookingService {
         BookingEntity booking2 = bookingRepository.findById(booking_id).get();
         
         UserEntity userEntity = new UserEntity();
-        userEntity.setUser_id(bookingDtoPost.getUser_id());
+        userEntity.setUserId(bookingDtoPost.getUserId());
 
         ClassEntity classEntity = new ClassEntity();
-        classEntity.setClass_id(bookingDtoPost.getClass_id());
+        classEntity.setClassId(bookingDtoPost.getClassId());
 
         booking2.setStatus(bookingDtoPost.getStatus());
         booking2.setUser(userEntity);
@@ -91,9 +108,9 @@ public class BookingServiceImpl implements BookingService {
     public void createBookingDto(BookingDtoPost bookingDtoPost) {
         BookingEntity bookingEntity = new BookingEntity();
         UserEntity userEntity = new UserEntity();
-        userEntity.setUser_id(bookingDtoPost.getUser_id());
+        userEntity.setUserId(bookingDtoPost.getUserId());
         ClassEntity classEntity = new ClassEntity();
-        classEntity.setClass_id(bookingDtoPost.getClass_id());
+        classEntity.setClassId(bookingDtoPost.getClassId());
 
         bookingEntity.setStatus(bookingDtoPost.getStatus());
         bookingEntity.setClasses(classEntity);

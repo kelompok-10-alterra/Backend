@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BookingDtoPost {
     private Boolean status;
-    private Long user_id;
-    private Long class_id;
+    private Long price;
+    private Long userId;
+    private Long classId;
 }

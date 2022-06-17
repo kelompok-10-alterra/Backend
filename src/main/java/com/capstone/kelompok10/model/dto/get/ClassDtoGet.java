@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ClassDtoGet {
-    private Long class_id;
+    private Long classId;
     private Long capacity;
     private String schedule;
     private Long price;

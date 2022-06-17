@@ -23,15 +23,15 @@ import lombok.NoArgsConstructor;
 public class MembershipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long membership_id;
+    private Long membershipId;
     private Boolean status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "memberId")
     private MemberEntity member;
 
     @CreationTimestamp

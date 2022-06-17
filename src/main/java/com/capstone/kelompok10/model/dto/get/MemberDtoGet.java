@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MemberDtoGet {
-    private Long member_id;
+    private Long memberId;
     private String length;
     private Long price;
 }

@@ -23,8 +23,9 @@ import lombok.NoArgsConstructor;
 public class BookingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long booking_id;
+    private Long bookingId;
     private Boolean status;
+    private Long price;
 
     @CreationTimestamp
     private Instant created_at;
@@ -33,10 +34,10 @@ public class BookingEntity {
     private Instant updated_at;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private UserEntity user;
 
     @OneToOne
-    @JoinColumn(name = "class_id")
+    @JoinColumn(name = "classId")
     private ClassEntity classes;
 }

@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MembershipDtoPost {
     private Boolean status;
-    private Long user_id;
-    private Long member_id;
+    private Long userId;
+    private Long memberId;
 }

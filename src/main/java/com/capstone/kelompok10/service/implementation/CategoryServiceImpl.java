@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
@@ -23,20 +26,32 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryEntity> getAllCategory() {
-        List<CategoryEntity> categorys = new ArrayList<>();
-        categoryRepository.findAll().forEach(categorys::add);
-        return categorys;
+    public List<CategoryEntity> findAll() {
+        List<CategoryEntity> category = new ArrayList<>();
+        categoryRepository.findAll().forEach(category::add);
+        return category;
+    }
+    
+    @Override
+    public Page<CategoryEntity> findAllPagination(int offset, int pageSize) {
+        Page<CategoryEntity> category = categoryRepository.findAll(PageRequest.of(offset, pageSize));
+        return category;
     }
 
     @Override
-    public List<CategoryDtoGet> getAllCategoryDto() {
+    public Page<CategoryEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<CategoryEntity> category = categoryRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return category;
+    }
+
+    @Override
+    public List<CategoryDtoGet> findAllDto() {
         List<CategoryEntity> categorys = categoryRepository.findAll();
         List<CategoryDtoGet> CategoryDtos = new ArrayList<>();
         
         categorys.forEach(isi ->{
             CategoryDtoGet dto = new CategoryDtoGet();
-            dto.setCategory_id(isi.getCategory_id());
+            dto.setCategoryId(isi.getCategoryId());
             dto.setName(isi.getName());
 
             CategoryDtos.add(dto);

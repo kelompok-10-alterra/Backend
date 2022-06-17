@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class RoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long room_id;
+    private Long roomId;
     private String name;
     
     @CreationTimestamp

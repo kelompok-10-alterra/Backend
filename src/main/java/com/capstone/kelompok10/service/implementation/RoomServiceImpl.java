@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.RoomDtoGet;
@@ -22,20 +25,32 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<RoomEntity> getAllRoom() {
-        List<RoomEntity> rooms = new ArrayList<>();
-        roomRepository.findAll().forEach(rooms::add);
-        return rooms;
+    public List<RoomEntity> findAll() {
+        List<RoomEntity> room = new ArrayList<>();
+        roomRepository.findAll().forEach(room::add);
+        return room;
+    }
+    
+    @Override
+    public Page<RoomEntity> findAllPagination(int offset, int pageSize) {
+        Page<RoomEntity> room = roomRepository.findAll(PageRequest.of(offset, pageSize));
+        return room;
     }
 
     @Override
-    public List<RoomDtoGet> getAllRoomDto() {
+    public Page<RoomEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<RoomEntity> room = roomRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return room;
+    }
+
+    @Override
+    public List<RoomDtoGet> findAllDto() {
         List<RoomEntity> rooms = roomRepository.findAll();
         List<RoomDtoGet> roomDtos = new ArrayList<>();
         
         rooms.forEach(isi ->{
             RoomDtoGet dto = new RoomDtoGet();
-            dto.setRoom_id(isi.getRoom_id());
+            dto.setRoomId(isi.getRoomId());
             dto.setName(isi.getName());
 
             roomDtos.add(dto);

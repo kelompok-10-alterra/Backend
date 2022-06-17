@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class InstructorDtoGet {
-    private Long instructor_id;
+    private Long instructorId;
     private String name;
     private Long contact;
     private String imageUrl;

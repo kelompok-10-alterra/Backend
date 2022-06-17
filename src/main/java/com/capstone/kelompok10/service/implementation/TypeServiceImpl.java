@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.TypeDtoGet;
@@ -25,20 +28,32 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<TypeEntity> getAllType() {
-        List<TypeEntity> types = new ArrayList<>();
-        typeRepository.findAll().forEach(types::add);
-        return types;
+    public List<TypeEntity> findAll() {
+        List<TypeEntity> type = new ArrayList<>();
+        typeRepository.findAll().forEach(type::add);
+        return type;
+    }
+    
+    @Override
+    public Page<TypeEntity> findAllPagination(int offset, int pageSize) {
+        Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize));
+        return type;
     }
 
     @Override
-    public List<TypeDtoGet> getAllTypeDto() {
+    public Page<TypeEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return type;
+    }
+
+    @Override
+    public List<TypeDtoGet> findAllDto() {
         List<TypeEntity> types = typeRepository.findAll();
         List<TypeDtoGet> typeDtos = new ArrayList<>();
         
         types.forEach(isi ->{
             TypeDtoGet dto = new TypeDtoGet();
-            dto.setType_id(isi.getType_id());
+            dto.setTypeId(isi.getTypeId());
             dto.setName(isi.getName());
 
             typeDtos.add(dto);

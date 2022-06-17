@@ -3,6 +3,7 @@ package com.capstone.kelompok10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
@@ -30,20 +30,32 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<CategoryEntity>> getAllCategory(){
-        List<CategoryEntity> categorys = categoryService.getAllCategory();
+    @GetMapping("/user")
+    public ResponseEntity<List<CategoryEntity>> findAll(){
+        List<CategoryEntity> categorys = categoryService.findAll();
+        return new ResponseEntity<>(categorys, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{offset}/{pageSize}")
+    public ResponseEntity<Page<CategoryEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+        Page<CategoryEntity> categorys = categoryService.findAllPagination(offset, pageSize);
+        return new ResponseEntity<>(categorys, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<CategoryEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+        Page<CategoryEntity> categorys = categoryService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(categorys, HttpStatus.OK);
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<CategoryDtoGet>> getAllCategoryDto(){
-        List<CategoryDtoGet> categoryDtos = categoryService.getAllCategoryDto();
+    public ResponseEntity<List<CategoryDtoGet>> findAllDto(){
+        List<CategoryDtoGet> categoryDtos = categoryService.findAllDto();
         return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<CategoryEntity> getCategoryById(@RequestParam("category_id") Long category_id){
+    @GetMapping("/user/{category_id}")
+    public ResponseEntity<CategoryEntity> getCategoryById(@PathVariable Long category_id){
         return new ResponseEntity<>(categoryService.getCategoryById(category_id), HttpStatus.OK);
     }
 

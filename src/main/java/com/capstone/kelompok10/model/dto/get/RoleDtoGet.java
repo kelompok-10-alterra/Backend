@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class RoleDtoGet {
-    private Long role_id;
+    private Long roleId;
     private String name;
 }

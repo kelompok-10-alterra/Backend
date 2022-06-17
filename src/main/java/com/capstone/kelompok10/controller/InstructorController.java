@@ -8,6 +8,7 @@ import com.capstone.kelompok10.service.interfaces.InstructorService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,14 +31,26 @@ public class InstructorController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<InstructorEntity>> getAllInstructor(){
-        List<InstructorEntity> instructors = instructorService.getAllInstructor();
+    public ResponseEntity<List<InstructorEntity>> findAll(){
+        List<InstructorEntity> instructors = instructorService.findAll();
+        return new ResponseEntity<>(instructors, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{offset}/{pageSize}")
+    public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+        Page<InstructorEntity> instructors = instructorService.findAllPagination(offset, pageSize);
+        return new ResponseEntity<>(instructors, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+        Page<InstructorEntity> instructors = instructorService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(instructors, HttpStatus.OK);
     }
 
     @GetMapping("/user/dto")
-    public ResponseEntity<List<InstructorDtoGet>> getAllInstructorDto(){
-        List<InstructorDtoGet> instructorDtos = instructorService.getAllInstructorDto();
+    public ResponseEntity<List<InstructorDtoGet>> findAllDto(){
+        List<InstructorDtoGet> instructorDtos = instructorService.findAllDto();
         return new ResponseEntity<>(instructorDtos, HttpStatus.OK);
     }
 

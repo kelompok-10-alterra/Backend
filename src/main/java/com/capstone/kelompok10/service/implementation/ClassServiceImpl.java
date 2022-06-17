@@ -14,6 +14,9 @@ import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.service.interfaces.ClassService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,20 +29,32 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<ClassEntity> getAllClass() {
-        List<ClassEntity> classs = new ArrayList<>();
-        classRepository.findAll().forEach(classs::add);
-        return classs;
+    public List<ClassEntity> findAll() {
+        List<ClassEntity> instructor = new ArrayList<>();
+        classRepository.findAll().forEach(instructor::add);
+        return instructor;
+    }
+    
+    @Override
+    public Page<ClassEntity> findAllPagination(int offset, int pageSize) {
+        Page<ClassEntity> instructor = classRepository.findAll(PageRequest.of(offset, pageSize));
+        return instructor;
     }
 
     @Override
-    public List<ClassDtoGet> getAllClassDto() {
+    public Page<ClassEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<ClassEntity> instructor = classRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return instructor;
+    }
+
+    @Override
+    public List<ClassDtoGet> findAllDto() {
         List<ClassEntity> classs = classRepository.findAll();
         List<ClassDtoGet> classDtos = new ArrayList<>();
         
         classs.forEach(isi ->{
             ClassDtoGet dto = new ClassDtoGet();
-            dto.setClass_id(isi.getClass_id());
+            dto.setClassId(isi.getClassId());
             dto.setCapacity(isi.getCapacity());
             dto.setSchedule(isi.getSchedule().toString());
             dto.setPrice(isi.getPrice());
@@ -70,16 +85,16 @@ public class ClassServiceImpl implements ClassService {
         ClassEntity class2 = classRepository.findById(class_id).get();
 
         InstructorEntity instructorEntity = new InstructorEntity();
-        instructorEntity.setInstructor_id(classesDtoPost.getInstructor_id());
+        instructorEntity.setInstructorId(classesDtoPost.getInstructorId());
 
         CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setCategory_id(classesDtoPost.getCategory_id());
+        categoryEntity.setCategoryId(classesDtoPost.getCategoryId());
 
         RoomEntity roomEntity = new RoomEntity();
-        roomEntity.setRoom_id(classesDtoPost.getRoom_id());
+        roomEntity.setRoomId(classesDtoPost.getRoomId());
 
         TypeEntity typeEntity = new TypeEntity();
-        typeEntity.setType_id(classesDtoPost.getType_id());
+        typeEntity.setTypeId(classesDtoPost.getTypeId());
 
         class2.setStatus(classesDtoPost.getStatus());
         class2.setCapacity(classesDtoPost.getCapacity());
@@ -105,16 +120,16 @@ public class ClassServiceImpl implements ClassService {
 		ClassEntity classEntity = new ClassEntity();
 
         InstructorEntity instructorEntity = new InstructorEntity();
-        instructorEntity.setInstructor_id(classDtoPost.getInstructor_id());
+        instructorEntity.setInstructorId(classDtoPost.getInstructorId());
 
         CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setCategory_id(classDtoPost.getCategory_id());
+        categoryEntity.setCategoryId(classDtoPost.getCategoryId());
 
         RoomEntity roomEntity = new RoomEntity();
-        roomEntity.setRoom_id(classDtoPost.getRoom_id());
+        roomEntity.setRoomId(classDtoPost.getRoomId());
 
         TypeEntity typeEntity = new TypeEntity();
-        typeEntity.setType_id(classDtoPost.getType_id());
+        typeEntity.setTypeId(classDtoPost.getTypeId());
 
         classEntity.setStatus(classDtoPost.getStatus());
         classEntity.setCapacity(classDtoPost.getCapacity());

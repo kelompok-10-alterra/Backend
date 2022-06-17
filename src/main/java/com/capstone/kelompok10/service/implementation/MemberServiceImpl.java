@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
@@ -25,20 +28,32 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberEntity> getAllMember() {
-        List<MemberEntity> members = new ArrayList<>();
-        memberRepository.findAll().forEach(members::add);
-        return members;
+    public List<MemberEntity> findAll() {
+        List<MemberEntity> member = new ArrayList<>();
+        memberRepository.findAll().forEach(member::add);
+        return member;
+    }
+    
+    @Override
+    public Page<MemberEntity> findAllPagination(int offset, int pageSize) {
+        Page<MemberEntity> member = memberRepository.findAll(PageRequest.of(offset, pageSize));
+        return member;
     }
 
     @Override
-    public List<MemberDtoGet> getAllMemberDto() {
+    public Page<MemberEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<MemberEntity> member = memberRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return member;
+    }
+
+    @Override
+    public List<MemberDtoGet> findAllDto() {
         List<MemberEntity> members = memberRepository.findAll();
         List<MemberDtoGet> memberDtos = new ArrayList<>();
         
         members.forEach(isi ->{
             MemberDtoGet dto = new MemberDtoGet();
-            dto.setMember_id(isi.getMember_id());
+            dto.setMemberId(isi.getMemberId());
             dto.setLength(isi.getLength());
             dto.setPrice(isi.getPrice());
 

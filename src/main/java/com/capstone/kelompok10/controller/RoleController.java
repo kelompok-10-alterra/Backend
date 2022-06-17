@@ -8,6 +8,7 @@ import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,14 +31,26 @@ public class RoleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RoleEntity>> getAllRole(){
-        List<RoleEntity> roles = roleService.getAllRole();
+    public ResponseEntity<List<RoleEntity>> findAll(){
+        List<RoleEntity> roles = roleService.findAll();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
+
+    @GetMapping("/{offset}/{pageSize}")
+    public ResponseEntity<Page<RoleEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+        Page<RoleEntity> roles = roleService.findAllPagination(offset, pageSize);
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
+
+    @GetMapping("/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<RoleEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+        Page<RoleEntity> roles = roleService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<RoleDtoGet>> getAllRoleDto(){
-        List<RoleDtoGet> roleDtos = roleService.getAllRoleDto();
+    public ResponseEntity<List<RoleDtoGet>> findAllDto(){
+        List<RoleDtoGet> roleDtos = roleService.findAllDto();
         return new ResponseEntity<>(roleDtos, HttpStatus.OK);
     }
 

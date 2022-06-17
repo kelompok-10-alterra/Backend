@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class TypeDtoGet {
-    private Long type_id;
+    private Long typeId;
     private String name;
 }

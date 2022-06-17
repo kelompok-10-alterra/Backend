@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class TypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long type_id;
+    private Long typeId;
     private String name;
 
     @CreationTimestamp

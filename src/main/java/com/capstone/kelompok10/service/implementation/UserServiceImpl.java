@@ -18,6 +18,9 @@ import com.capstone.kelompok10.service.interfaces.RoleService;
 import com.capstone.kelompok10.service.interfaces.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -65,24 +68,32 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<UserEntity> getAllUser(String name) {
-        List<UserEntity> users = new ArrayList<>();
-        if(name == null){
-            userRepository.findAll().forEach(user -> users.add(user));
-        }else{
-            return userRepository.findByName(name);
-        }
-        return users;
+    public List<UserEntity> findAll() {
+        List<UserEntity> user = new ArrayList<>();
+        userRepository.findAll().forEach(user::add);
+        return user;
+    }
+    
+    @Override
+    public Page<UserEntity> findAllPagination(int offset, int pageSize) {
+        Page<UserEntity> user = userRepository.findAll(PageRequest.of(offset, pageSize));
+        return user;
     }
 
     @Override
-    public List<UserDtoGet> getAllUserDto() {
+    public Page<UserEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<UserEntity> user = userRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return user;
+    }
+
+    @Override
+    public List<UserDtoGet> findAllDto() {
         List<UserEntity> users = userRepository.findAll();
         List<UserDtoGet> userDtos = new ArrayList<>();
         
         users.forEach(isi ->{
             UserDtoGet dto = new UserDtoGet();
-            dto.setUser_id(isi.getUser_id());
+            dto.setUserId(isi.getUserId());
             dto.setName(isi.getName());
             dto.setUsername(isi.getUsername());
             dto.setEmail(isi.getEmail());

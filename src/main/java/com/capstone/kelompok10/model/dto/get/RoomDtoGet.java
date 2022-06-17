@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class RoomDtoGet {
-    private Long room_id;
+    private Long roomId;
     private String name;
 }

@@ -12,6 +12,9 @@ import com.capstone.kelompok10.repository.MembershipRepository;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,23 +27,35 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public List<MembershipEntity> getAllMembership() {
-        List<MembershipEntity> memberships = new ArrayList<>();
-        membershipRepository.findAll().forEach(memberships::add);
-        return memberships;
+    public List<MembershipEntity> findAll() {
+        List<MembershipEntity> membership = new ArrayList<>();
+        membershipRepository.findAll().forEach(membership::add);
+        return membership;
+    }
+    
+    @Override
+    public Page<MembershipEntity> findAllPagination(int offset, int pageSize) {
+        Page<MembershipEntity> membership = membershipRepository.findAll(PageRequest.of(offset, pageSize));
+        return membership;
     }
 
     @Override
-    public List<MembershipDtoGet> getAllMembershipDto() {
+    public Page<MembershipEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<MembershipEntity> membership = membershipRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return membership;
+    }
+
+    @Override
+    public List<MembershipDtoGet> findAllDto() {
         List<MembershipEntity> memberships = membershipRepository.findAll();
         List<MembershipDtoGet> membershipDtos = new ArrayList<>();
         
         memberships.forEach(isi ->{
             MembershipDtoGet dto = new MembershipDtoGet();
-            dto.setMembership_id(isi.getMembership_id());
+            dto.setMembershipId(isi.getMembershipId());
             dto.setStatus(isi.getStatus());
             dto.setUser(isi.getUser().getName());
-            dto.setMember(isi.getMember().getMember_id().toString());
+            dto.setMember(isi.getMember().getMemberId().toString());
 
             membershipDtos.add(dto);
         });
@@ -62,10 +77,10 @@ public class MembershipServiceImpl implements MembershipService {
         MembershipEntity membership2 = membershipRepository.findById(membership_id).get();
 
         MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setMember_id(membershipDtoPost.getMember_id());
+        memberEntity.setMemberId(membershipDtoPost.getMemberId());
 
         UserEntity userEntity = new UserEntity();
-        userEntity.setUser_id(membershipDtoPost.getUser_id()); 
+        userEntity.setUserId(membershipDtoPost.getUserId()); 
 
         membership2.setStatus(membershipDtoPost.getStatus());
         membership2.setUser(userEntity);
@@ -85,10 +100,10 @@ public class MembershipServiceImpl implements MembershipService {
         MembershipEntity membershipEntity = new MembershipEntity();
 
         UserEntity userEntity = new UserEntity();
-        userEntity.setUser_id(membershipDtoPost.getUser_id());
+        userEntity.setUserId(membershipDtoPost.getUserId());
 
         MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setMember_id(membershipDtoPost.getMember_id());
+        memberEntity.setMemberId(membershipDtoPost.getMemberId());
 
         membershipEntity.setStatus(membershipDtoPost.getStatus());
         membershipEntity.setUser(userEntity);

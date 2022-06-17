@@ -10,6 +10,9 @@ import com.capstone.kelompok10.repository.InstructorRepository;
 import com.capstone.kelompok10.service.interfaces.InstructorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,22 +23,34 @@ public class InstructorServiceImpl implements InstructorService {
     public InstructorServiceImpl(InstructorRepository instructorRepository){
         this.instructorRepository = instructorRepository;
     }
-
+    
     @Override
-    public List<InstructorEntity> getAllInstructor() {
-        List<InstructorEntity> instructors = new ArrayList<>();
-        instructorRepository.findAll().forEach(instructors::add);
-        return instructors;
+    public List<InstructorEntity> findAll() {
+        List<InstructorEntity> instructor = new ArrayList<>();
+        instructorRepository.findAll().forEach(instructor::add);
+        return instructor;
+    }
+    
+    @Override
+    public Page<InstructorEntity> findAllPagination(int offset, int pageSize) {
+        Page<InstructorEntity> instructor = instructorRepository.findAll(PageRequest.of(offset, pageSize));
+        return instructor;
     }
 
     @Override
-    public List<InstructorDtoGet> getAllInstructorDto() {
+    public Page<InstructorEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<InstructorEntity> instructor = instructorRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return instructor;
+    }
+
+    @Override
+    public List<InstructorDtoGet> findAllDto() {
         List<InstructorEntity> instructors = instructorRepository.findAll();
         List<InstructorDtoGet> instructorDtos = new ArrayList<>();
 
         instructors.forEach(isi ->{
             InstructorDtoGet dto = new InstructorDtoGet();
-            dto.setInstructor_id(isi.getInstructor_id());
+            dto.setInstructorId(isi.getInstructorId());
             dto.setName(isi.getName());
             dto.setContact(isi.getContact());
             dto.setImageUrl(isi.getImageUrl());

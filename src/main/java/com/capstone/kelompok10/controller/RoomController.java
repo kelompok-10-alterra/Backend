@@ -3,6 +3,7 @@ package com.capstone.kelompok10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.kelompok10.model.dto.get.RoomDtoGet;
@@ -30,20 +30,32 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<RoomEntity>> getAllRoom(){
-        List<RoomEntity> rooms = roomService.getAllRoom();
+    @GetMapping("/user")
+    public ResponseEntity<List<RoomEntity>> findAll(){
+        List<RoomEntity> rooms = roomService.findAll();
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
-    @GetMapping("/dto")
-    public ResponseEntity<List<RoomDtoGet>> getAllRoomDto(){
-        List<RoomDtoGet> roomDtos = roomService.getAllRoomDto();
+    @GetMapping("/user/{offset}/{pageSize}")
+    public ResponseEntity<Page<RoomEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+        Page<RoomEntity> rooms = roomService.findAllPagination(offset, pageSize);
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<RoomEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+        Page<RoomEntity> rooms = roomService.findAllPaginationSort(offset, pageSize, field);
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/dto")
+    public ResponseEntity<List<RoomDtoGet>> findAllDto(){
+        List<RoomDtoGet> roomDtos = roomService.findAllDto();
         return new ResponseEntity<>(roomDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<RoomEntity> getRoomById(@RequestParam("room_id") Long room_id){
+    @GetMapping("/user/{room_id}")
+    public ResponseEntity<RoomEntity> getRoomById(@PathVariable Long room_id){
         return new ResponseEntity<>(roomService.getRoomById(room_id), HttpStatus.OK);
     }
 

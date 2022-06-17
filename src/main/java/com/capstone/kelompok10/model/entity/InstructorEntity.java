@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class InstructorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long instructor_id;
+    private Long instructorId;
     private String name;
     private Long contact;
     private String imageUrl;

@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class ClassEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long class_id;
+    private Long classId;
     private Boolean status;
     private Long capacity;
     private Date schedule;
@@ -32,19 +32,19 @@ public class ClassEntity {
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "instructor_id")
+    @JoinColumn(name = "instructorId")
     private InstructorEntity instructor;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "categoryId")
     private CategoryEntity category;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "roomId")
     private RoomEntity room;
 
     @ManyToOne
-    @JoinColumn(name = "type_id")
+    @JoinColumn(name = "typeId")
     private TypeEntity type;
 
     @CreationTimestamp

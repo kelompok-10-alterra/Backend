@@ -6,6 +6,7 @@ import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.RoleToUser;
 import com.capstone.kelompok10.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +24,26 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserEntity>> getAllUser(@RequestParam(required = false) String name){
-        return new ResponseEntity<>(userService.getAllUser(name), HttpStatus.OK);
+    public ResponseEntity<List<UserEntity>> findAll(){
+        List<UserEntity> users = userService.findAll();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/{offset}/{pageSize}")
+    public ResponseEntity<Page<UserEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+        Page<UserEntity> users = userService.findAllPagination(offset, pageSize);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<UserEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+        Page<UserEntity> users = userService.findAllPaginationSort(offset, pageSize, field);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<UserDtoGet>> getAllUserDto(){
-        List<UserDtoGet> userDtos = userService.getAllUserDto();
+    public ResponseEntity<List<UserDtoGet>> findAllDto(){
+        List<UserDtoGet> userDtos = userService.findAllDto();
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 

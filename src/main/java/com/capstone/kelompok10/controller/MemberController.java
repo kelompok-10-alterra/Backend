@@ -3,6 +3,7 @@ package com.capstone.kelompok10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,14 +32,26 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MemberEntity>> getAllMember(){
-        List<MemberEntity> members = memberService.getAllMember();
+    public ResponseEntity<List<MemberEntity>> findAll(){
+        List<MemberEntity> members = memberService.findAll();
+        return new ResponseEntity<>(members, HttpStatus.OK);
+    }
+
+    @GetMapping("/{offset}/{pageSize}")
+    public ResponseEntity<Page<MemberEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+        Page<MemberEntity> members = memberService.findAllPagination(offset, pageSize);
+        return new ResponseEntity<>(members, HttpStatus.OK);
+    }
+
+    @GetMapping("/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<MemberEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+        Page<MemberEntity> members = memberService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
     @GetMapping("/dto")
-    public ResponseEntity<List<MemberDtoGet>> getAllMemberDto(){
-        List<MemberDtoGet> memberDtos = memberService.getAllMemberDto();
+    public ResponseEntity<List<MemberDtoGet>> findAllDto(){
+        List<MemberDtoGet> memberDtos = memberService.findAllDto();
         return new ResponseEntity<>(memberDtos, HttpStatus.OK);
     }
 

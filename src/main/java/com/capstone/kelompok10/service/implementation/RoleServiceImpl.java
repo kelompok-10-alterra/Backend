@@ -11,6 +11,9 @@ import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -29,20 +32,32 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<RoleEntity> getAllRole() {
-        List<RoleEntity> roles = new ArrayList<>();
-        roleRepository.findAll().forEach(roles::add);
-        return roles;
+    public List<RoleEntity> findAll() {
+        List<RoleEntity> role = new ArrayList<>();
+        roleRepository.findAll().forEach(role::add);
+        return role;
+    }
+    
+    @Override
+    public Page<RoleEntity> findAllPagination(int offset, int pageSize) {
+        Page<RoleEntity> role = roleRepository.findAll(PageRequest.of(offset, pageSize));
+        return role;
     }
 
     @Override
-    public List<RoleDtoGet> getAllRoleDto() {
+    public Page<RoleEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        Page<RoleEntity> role = roleRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return role;
+    }
+
+    @Override
+    public List<RoleDtoGet> findAllDto() {
         List<RoleEntity> roles = roleRepository.findAll();
         List<RoleDtoGet> roleDtos = new ArrayList<>();
         
         roles.forEach(isi ->{
             RoleDtoGet dto = new RoleDtoGet();
-            dto.setRole_id(isi.getRole_id());
+            dto.setRoleId(isi.getRoleId());
             dto.setName(isi.getName());
             
             roleDtos.add(dto);

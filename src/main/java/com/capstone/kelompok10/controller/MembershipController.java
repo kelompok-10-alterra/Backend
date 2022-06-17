@@ -8,6 +8,7 @@ import com.capstone.kelompok10.model.entity.MembershipEntity;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,14 +31,26 @@ public class MembershipController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<MembershipEntity>> getAllMembership(){
-        List<MembershipEntity> memberships = membershipService.getAllMembership();
+    public ResponseEntity<List<MembershipEntity>> findAll(){
+        List<MembershipEntity> memberships = membershipService.findAll();
+        return new ResponseEntity<>(memberships, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{offset}/{pageSize}")
+    public ResponseEntity<Page<MembershipEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+        Page<MembershipEntity> memberships = membershipService.findAllPagination(offset, pageSize);
+        return new ResponseEntity<>(memberships, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<MembershipEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+        Page<MembershipEntity> memberships = membershipService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(memberships, HttpStatus.OK);
     }
 
     @GetMapping("/user/dto")
-    public ResponseEntity<List<MembershipDtoGet>> getAllMembershipDto(){
-        List<MembershipDtoGet> membershipDtos = membershipService.getAllMembershipDto();
+    public ResponseEntity<List<MembershipDtoGet>> findAllDto(){
+        List<MembershipDtoGet> membershipDtos = membershipService.findAllDto();
         return new ResponseEntity<>(membershipDtos, HttpStatus.OK);
     }
 

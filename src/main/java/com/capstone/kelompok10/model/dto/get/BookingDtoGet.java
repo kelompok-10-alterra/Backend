@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BookingDtoGet {
-    private Long booking_id;
+    private Long bookingId;
     private String status;
     private String user;
     private Long classes;
