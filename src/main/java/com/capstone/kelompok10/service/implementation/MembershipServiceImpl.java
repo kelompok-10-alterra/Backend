@@ -63,8 +63,8 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public MembershipEntity getMembershipById(Long membership_id) {
-        return membershipRepository.findById(membership_id).get();
+    public MembershipEntity getMembershipById(Long membershipId) {
+        return membershipRepository.findById(membershipId).get();
     }
 
     @Override
@@ -73,8 +73,8 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public void updateMembership(Long membership_id, MembershipDtoPost membershipDtoPost) {
-        MembershipEntity membership2 = membershipRepository.findById(membership_id).get();
+    public void updateMembership(Long membershipId, MembershipDtoPost membershipDtoPost) {
+        MembershipEntity membership2 = membershipRepository.findById(membershipId).get();
 
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberId(membershipDtoPost.getMemberId());
@@ -90,8 +90,8 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public void deleteMembership(Long membership_id) {
-        membershipRepository.deleteById(membership_id);
+    public void deleteMembership(Long membershipId) {
+        membershipRepository.deleteById(membershipId);
         
     }
 

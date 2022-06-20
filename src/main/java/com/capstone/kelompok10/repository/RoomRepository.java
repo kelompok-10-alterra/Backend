@@ -9,7 +9,7 @@ import com.capstone.kelompok10.model.entity.RoomEntity;
 
 @Repository
 public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
-    Optional<RoomEntity> findById(Long room_id);
+    Optional<RoomEntity> findById(Long roomId);
     RoomEntity findByName(String name);
 
 }

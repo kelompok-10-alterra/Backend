@@ -13,10 +13,10 @@ public interface MembershipService {
     List<MembershipDtoGet> findAllDto();
     Page<MembershipEntity> findAllPagination(int offset, int pageSize);
     Page<MembershipEntity> findAllPaginationSort(int offset, int pageSize, String field);
-    MembershipEntity getMembershipById(Long membership_id);
+    MembershipEntity getMembershipById(Long membershipId);
     void createMembership(MembershipEntity membership);
     void createMembershipDto(MembershipDtoPost membershipDtoPost);
-    void updateMembership(Long membership_id, MembershipDtoPost membershipDtoPost);
-    void deleteMembership(Long membership_id);
+    void updateMembership(Long membershipId, MembershipDtoPost membershipDtoPost);
+    void deleteMembership(Long membershipId);
 }
 

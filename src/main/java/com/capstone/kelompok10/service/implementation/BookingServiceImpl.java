@@ -9,6 +9,8 @@ import com.capstone.kelompok10.model.entity.BookingEntity;
 import com.capstone.kelompok10.model.entity.ClassEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.BookingRepository;
+import com.capstone.kelompok10.repository.ClassRepository;
+import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.BookingService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     BookingRepository bookingRepository;
+
+    @Autowired
+    public UserRepository userRepository;
+
+    @Autowired
+    public ClassRepository classRepository;
 
     @Autowired
     public BookingServiceImpl(BookingRepository bookingRepository){
@@ -68,13 +76,13 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingEntity getBookingById(Long booking_id) {
-        if(bookingRepository.findById(booking_id) == null){
+    public BookingEntity getBookingById(Long bookingId) {
+        if(bookingRepository.findById(bookingId) == null){
             log.info("Booking id not found");
             return null;
         }
-        log.info("Booking with id {} found", booking_id);
-        return bookingRepository.findById(booking_id).get();            
+        log.info("Booking with id {} found", bookingId);
+        return bookingRepository.findById(bookingId).get();            
     }
 
     @Override
@@ -83,8 +91,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void updateBooking(Long booking_id, BookingDtoPost bookingDtoPost) {
-        BookingEntity booking2 = bookingRepository.findById(booking_id).get();
+    public void updateBooking(Long bookingId, BookingDtoPost bookingDtoPost) {
+        BookingEntity booking2 = bookingRepository.findById(bookingId).get();
         
         UserEntity userEntity = new UserEntity();
         userEntity.setUserId(bookingDtoPost.getUserId());
@@ -100,8 +108,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void deleteBooking(Long booking_id) {
-        bookingRepository.deleteById(booking_id);
+    public void deleteBooking(Long bookingId) {
+        bookingRepository.deleteById(bookingId);
     }
 
     @Override
@@ -112,10 +120,23 @@ public class BookingServiceImpl implements BookingService {
         ClassEntity classEntity = new ClassEntity();
         classEntity.setClassId(bookingDtoPost.getClassId());
 
-        bookingEntity.setStatus(bookingDtoPost.getStatus());
-        bookingEntity.setClasses(classEntity);
-        bookingEntity.setUser(userEntity);
+        if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null){
+            Long price = classEntity.getPrice();
+            Long total;
+            if(userEntity.getMembership() != null){
+                total = price - (price*10/100);
+            }else{
+                total = price;
+            }
+
+            bookingEntity.setStatus(bookingDtoPost.getStatus());
+            bookingEntity.setClasses(classEntity);
+            bookingEntity.setUser(userEntity);
+            bookingEntity.setPrice(total);
         
-        bookingRepository.save(bookingEntity);
+            bookingRepository.save(bookingEntity);
+        }else{
+            throw new IllegalStateException("Class / User not found");
+        }
     }
 }

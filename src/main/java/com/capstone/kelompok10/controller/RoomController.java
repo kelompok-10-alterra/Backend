@@ -54,9 +54,9 @@ public class RoomController {
         return new ResponseEntity<>(roomDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{room_id}")
-    public ResponseEntity<RoomEntity> getRoomById(@PathVariable Long room_id){
-        return new ResponseEntity<>(roomService.getRoomById(room_id), HttpStatus.OK);
+    @GetMapping("/user/{roomId}")
+    public ResponseEntity<RoomEntity> getRoomById(@PathVariable Long roomId){
+        return new ResponseEntity<>(roomService.getRoomById(roomId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -71,15 +71,15 @@ public class RoomController {
         return new ResponseEntity<>(roomDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{room_id}")
-    public ResponseEntity<RoomEntity> updateRoom(@PathVariable("room_id") Long room_id, @RequestBody RoomDtoPost roomDtoPost){
-        roomService.updateRoom(room_id, roomDtoPost);
-        return new ResponseEntity<>(roomService.getRoomById(room_id), HttpStatus.OK);
+    @PutMapping("/{roomId}")
+    public ResponseEntity<RoomEntity> updateRoom(@PathVariable("roomId") Long roomId, @RequestBody RoomDtoPost roomDtoPost){
+        roomService.updateRoom(roomId, roomDtoPost);
+        return new ResponseEntity<>(roomService.getRoomById(roomId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{room_id}")
-    public ResponseEntity<RoomEntity> deleteRoom(@PathVariable("room_id") Long room_id){
-        roomService.deleteRoom(room_id);
+    @DeleteMapping("/{roomId}")
+    public ResponseEntity<RoomEntity> deleteRoom(@PathVariable("roomId") Long roomId){
+        roomService.deleteRoom(roomId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

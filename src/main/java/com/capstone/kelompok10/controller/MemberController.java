@@ -56,8 +56,8 @@ public class MemberController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<MemberEntity> getMemberById(@RequestParam("member_id") Long member_id){
-        return new ResponseEntity<>(memberService.getMemberById(member_id), HttpStatus.OK);
+    public ResponseEntity<MemberEntity> getMemberById(@RequestParam("memberId") Long memberId){
+        return new ResponseEntity<>(memberService.getMemberById(memberId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -72,15 +72,15 @@ public class MemberController {
         return new ResponseEntity<>(memberDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{member_id}")
-    public ResponseEntity<MemberEntity> updateMember(@PathVariable("member_id") Long member_id, @RequestBody MemberDtoPost memberDtoPost){
-        memberService.updateMember(member_id, memberDtoPost);
-        return new ResponseEntity<>(memberService.getMemberById(member_id), HttpStatus.OK);
+    @PutMapping("/{memberId}")
+    public ResponseEntity<MemberEntity> updateMember(@PathVariable("memberId") Long memberId, @RequestBody MemberDtoPost memberDtoPost){
+        memberService.updateMember(memberId, memberDtoPost);
+        return new ResponseEntity<>(memberService.getMemberById(memberId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{member_id}")
-    public ResponseEntity<MemberEntity> deleteMember(@PathVariable("member_id") Long member_id){
-        memberService.deleteMember(member_id);
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<MemberEntity> deleteMember(@PathVariable("memberId") Long memberId){
+        memberService.deleteMember(memberId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

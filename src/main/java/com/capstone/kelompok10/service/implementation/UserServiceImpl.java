@@ -100,6 +100,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             dto.setPhone(isi.getPhone());
             dto.setAddress(isi.getAddress());
             dto.setImageUrl(isi.getImageUrl());
+            dto.setMembership(isi.getMembership().getMembershipId());
 
             userDtos.add(dto);
         });
@@ -107,11 +108,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserEntity getUserById(Long user_id) {
-        if(userRepository.findById(user_id) == null){
-            log.info("User with id {} not found", user_id);
+    public UserEntity getUserById(Long userId) {
+        if(userRepository.findById(userId) == null){
+            log.info("User with id {} not found", userId);
         }
-        return userRepository.findById(user_id).get();
+        return userRepository.findById(userId).get();
     }
 
     @Override
@@ -122,8 +123,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void updateUser(Long user_id, UserDtoPost userDtoPost) {
-        UserEntity user2 = userRepository.findById(user_id).get(); 
+    public void updateUser(Long userId, UserDtoPost userDtoPost) {
+        UserEntity user2 = userRepository.findById(userId).get(); 
         user2.setName(userDtoPost.getName());
         user2.setUsername(userDtoPost.getUsername());
         user2.setPhone(userDtoPost.getPhone());
@@ -133,8 +134,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void deleteUser(Long user_id) {
-        userRepository.deleteById(user_id);
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
     }
 
     @Override

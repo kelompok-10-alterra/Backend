@@ -51,7 +51,6 @@ public class CategoryServiceImpl implements CategoryService {
         
         categorys.forEach(isi ->{
             CategoryDtoGet dto = new CategoryDtoGet();
-            dto.setCategoryId(isi.getCategoryId());
             dto.setName(isi.getName());
 
             CategoryDtos.add(dto);
@@ -60,8 +59,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryEntity getCategoryById(Long category_id) {
-        return categoryRepository.findById(category_id).get();
+    public CategoryEntity getCategoryById(Long categoryId) {
+        return categoryRepository.findById(categoryId).get();
     }
 
     @Override
@@ -70,16 +69,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateCategory(Long category_id, CategoryDtoPost categoryDtoPost) {
-        CategoryEntity category2 = categoryRepository.findById(category_id).get();
+    public void updateCategory(Long categoryId, CategoryDtoPost categoryDtoPost) {
+        CategoryEntity category2 = categoryRepository.findById(categoryId).get();
         category2.setName(categoryDtoPost.getName());
 
         categoryRepository.save(category2);
     }
 
     @Override
-    public void deleteCategory(Long category_id) {
-        categoryRepository.deleteById(category_id);
+    public void deleteCategory(Long categoryId) {
+        categoryRepository.deleteById(categoryId);
     }
 
 	@Override

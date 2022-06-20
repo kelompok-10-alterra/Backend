@@ -50,5 +50,5 @@ public class UserEntity {
 
     @OneToOne
     @JoinColumn(name = "membershipId", nullable = true)
-    private MembershipEntity membershipEntity;
+    private MembershipEntity membership;
 }

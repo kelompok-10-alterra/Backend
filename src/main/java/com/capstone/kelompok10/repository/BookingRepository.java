@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
-    Optional<BookingEntity> findById(Long booking_id);
+    Optional<BookingEntity> findById(Long bookingId);
     BookingEntity findByStatus(Boolean status);
     Page<BookingEntity> findAll(Pageable pageable);
 }

@@ -62,8 +62,8 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public TypeEntity getTypeById(Long type_id) {
-        return typeRepository.findById(type_id).get();
+    public TypeEntity getTypeById(Long typeId) {
+        return typeRepository.findById(typeId).get();
     }
 
     @Override
@@ -72,16 +72,16 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public void updateType(Long type_id, TypeDtoPost typeDtoPost) {
-        TypeEntity type2 = typeRepository.findById(type_id).get();
+    public void updateType(Long typeId, TypeDtoPost typeDtoPost) {
+        TypeEntity type2 = typeRepository.findById(typeId).get();
         type2.setName(typeDtoPost.getName());
 
         typeRepository.save(type2);
     }
 
     @Override
-    public void deleteType(Long type_id) {
-        typeRepository.deleteById(type_id);
+    public void deleteType(Long typeId) {
+        typeRepository.deleteById(typeId);
     }
 
     @Override

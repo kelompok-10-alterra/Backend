@@ -14,10 +14,10 @@ public interface UserService {
     List<UserDtoGet> findAllDto();
     Page<UserEntity> findAllPagination(int offset, int pageSize);
     Page<UserEntity> findAllPaginationSort(int offset, int pageSize, String field);
-    UserEntity getUserById(Long user_id);
+    UserEntity getUserById(Long userId);
     void createUser(UserEntity user);
-    void updateUser(Long user_id, UserDtoPost UserDtoPost);
-    void deleteUser(Long user_id);
+    void updateUser(Long userId, UserDtoPost UserDtoPost);
+    void deleteUser(Long userId);
 
     // Auth method
     UserEntity getUser(String username);

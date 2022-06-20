@@ -71,8 +71,8 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public ClassEntity getClassById(Long class_id) {
-        return classRepository.findById(class_id).get();
+    public ClassEntity getClassById(Long classId) {
+        return classRepository.findById(classId).get();
     }
 
     @Override
@@ -81,8 +81,8 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public void updateClass(Long class_id, ClassDtoPost classesDtoPost) {
-        ClassEntity class2 = classRepository.findById(class_id).get();
+    public void updateClass(Long classId, ClassDtoPost classesDtoPost) {
+        ClassEntity class2 = classRepository.findById(classId).get();
 
         InstructorEntity instructorEntity = new InstructorEntity();
         instructorEntity.setInstructorId(classesDtoPost.getInstructorId());
@@ -110,8 +110,8 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public void deleteClass(Long class_id) {
-        classRepository.deleteById(class_id);
+    public void deleteClass(Long classId) {
+        classRepository.deleteById(classId);
         
     }
 

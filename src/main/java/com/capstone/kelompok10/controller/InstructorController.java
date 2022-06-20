@@ -54,9 +54,9 @@ public class InstructorController {
         return new ResponseEntity<>(instructorDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{instructor_id}")
-    public ResponseEntity<InstructorEntity> getInstructorById(@PathVariable("instructor_id") Long instructor_id){
-        return new ResponseEntity<>(instructorService.getInstructorById(instructor_id), HttpStatus.OK);
+    @GetMapping("/user/{instructorId}")
+    public ResponseEntity<InstructorEntity> getInstructorById(@PathVariable("instructorId") Long instructorId){
+        return new ResponseEntity<>(instructorService.getInstructorById(instructorId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -71,15 +71,15 @@ public class InstructorController {
         return new ResponseEntity<>(instructorDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{instructor_id}")
-    public ResponseEntity<InstructorEntity> updateInstructor(@PathVariable("instructor_id") Long instructor_id, @RequestBody InstructorDtoPost instructorDtoPost){
-        instructorService.updateInstructor(instructor_id, instructorDtoPost);
-        return new ResponseEntity<>(instructorService.getInstructorById(instructor_id), HttpStatus.OK);
+    @PutMapping("/{instructorId}")
+    public ResponseEntity<InstructorEntity> updateInstructor(@PathVariable("instructorId") Long instructorId, @RequestBody InstructorDtoPost instructorDtoPost){
+        instructorService.updateInstructor(instructorId, instructorDtoPost);
+        return new ResponseEntity<>(instructorService.getInstructorById(instructorId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{instructor_id}")
-    public ResponseEntity<InstructorEntity> deleteInstructor(@PathVariable("instructor_id") Long instructor_id){
-        instructorService.deleteInstructor(instructor_id);
+    @DeleteMapping("/{instructorId}")
+    public ResponseEntity<InstructorEntity> deleteInstructor(@PathVariable("instructorId") Long instructorId){
+        instructorService.deleteInstructor(instructorId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

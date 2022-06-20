@@ -54,9 +54,9 @@ public class TypeController {
         return new ResponseEntity<>(typeDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{type_id}")
-    public ResponseEntity<TypeEntity> getTypeById(@PathVariable Long type_id){
-        return new ResponseEntity<>(typeService.getTypeById(type_id), HttpStatus.OK);
+    @GetMapping("/user/{typeId}")
+    public ResponseEntity<TypeEntity> getTypeById(@PathVariable Long typeId){
+        return new ResponseEntity<>(typeService.getTypeById(typeId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -71,15 +71,15 @@ public class TypeController {
         return new ResponseEntity<>(typeDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{type_id}")
-    public ResponseEntity<TypeEntity> updateType(@PathVariable("Type_id") Long type_id, @RequestBody TypeDtoPost typeDtoPost){
-        typeService.updateType(type_id, typeDtoPost);
-        return new ResponseEntity<>(typeService.getTypeById(type_id), HttpStatus.OK);
+    @PutMapping("/{typeId}")
+    public ResponseEntity<TypeEntity> updateType(@PathVariable("typeId") Long typeId, @RequestBody TypeDtoPost typeDtoPost){
+        typeService.updateType(typeId, typeDtoPost);
+        return new ResponseEntity<>(typeService.getTypeById(typeId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{type_id}")
-    public ResponseEntity<TypeEntity> deleteType(@PathVariable("type_id") Long type_id){
-        typeService.deleteType(type_id);
+    @DeleteMapping("/{typeId}")
+    public ResponseEntity<TypeEntity> deleteType(@PathVariable("typeId") Long typeId){
+        typeService.deleteType(typeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

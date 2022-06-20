@@ -54,9 +54,9 @@ public class ClassController {
         return new ResponseEntity<>(classDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{class_id}")
-    public ResponseEntity<ClassEntity> getClassById(@PathVariable("class_id") Long class_id){
-        return new ResponseEntity<>(classService.getClassById(class_id), HttpStatus.OK);
+    @GetMapping("/user/{classId}")
+    public ResponseEntity<ClassEntity> getClassById(@PathVariable("classId") Long classId){
+        return new ResponseEntity<>(classService.getClassById(classId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -71,15 +71,15 @@ public class ClassController {
         return new ResponseEntity<>(classDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{class_id}")
-    public ResponseEntity<ClassEntity> updateClass(@PathVariable("class_id") Long class_id, @RequestBody ClassDtoPost classesDtoPost){
-        classService.updateClass(class_id, classesDtoPost);
-        return new ResponseEntity<>(classService.getClassById(class_id), HttpStatus.OK);
+    @PutMapping("/{classId}")
+    public ResponseEntity<ClassEntity> updateClass(@PathVariable("classId") Long classId, @RequestBody ClassDtoPost classesDtoPost){
+        classService.updateClass(classId, classesDtoPost);
+        return new ResponseEntity<>(classService.getClassById(classId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{class_id}")
-    public ResponseEntity<ClassEntity> deleteClass(@PathVariable("class_id") Long class_id){
-        classService.deleteClass(class_id);
+    @DeleteMapping("/{classId}")
+    public ResponseEntity<ClassEntity> deleteClass(@PathVariable("classId") Long classId){
+        classService.deleteClass(classId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

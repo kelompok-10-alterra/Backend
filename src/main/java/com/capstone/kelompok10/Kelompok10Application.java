@@ -33,7 +33,7 @@ public class Kelompok10Application {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry){
-				registry.addMapping("/auth/login").allowedOrigins("https://www.api.rafdev.my.id");
+				registry.addMapping("**").allowedOrigins("**");
 			}
 		};
 	}

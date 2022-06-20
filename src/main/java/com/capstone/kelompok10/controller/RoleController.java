@@ -54,9 +54,9 @@ public class RoleController {
         return new ResponseEntity<>(roleDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/{role_id}")
-    public ResponseEntity<RoleEntity> getRoleById(@PathVariable("role_id") Long role_id){
-        return new ResponseEntity<>(roleService.getRoleById(role_id), HttpStatus.OK);
+    @GetMapping("/{roleId}")
+    public ResponseEntity<RoleEntity> getRoleById(@PathVariable("roleId") Long roleId){
+        return new ResponseEntity<>(roleService.getRoleById(roleId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -71,15 +71,15 @@ public class RoleController {
         return new ResponseEntity<>(roleDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{role_id}")
-    public ResponseEntity<RoleEntity> updateRole(@PathVariable("role_id") Long role_id, @RequestBody RoleDtoPost roleDtoPost){
-        roleService.updateRole(role_id, roleDtoPost);
-        return new ResponseEntity<>(roleService.getRoleById(role_id), HttpStatus.OK);
+    @PutMapping("/{roleId}")
+    public ResponseEntity<RoleEntity> updateRole(@PathVariable("roleId") Long roleId, @RequestBody RoleDtoPost roleDtoPost){
+        roleService.updateRole(roleId, roleDtoPost);
+        return new ResponseEntity<>(roleService.getRoleById(roleId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{role_id}")
-    public ResponseEntity<RoleEntity> deleteRole(@PathVariable("role_id") Long role_id){
-        roleService.deleteRole(role_id);
+    @DeleteMapping("/{roleId}")
+    public ResponseEntity<RoleEntity> deleteRole(@PathVariable("roleId") Long roleId){
+        roleService.deleteRole(roleId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

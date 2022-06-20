@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InstructorRepository extends JpaRepository<InstructorEntity, Long> {
-    Optional<InstructorEntity> findById(Long instructor_id);
+    Optional<InstructorEntity> findById(Long instructorId);
     InstructorEntity findByName(String name);
     Page<InstructorEntity> findAll(Pageable pageable);
 }

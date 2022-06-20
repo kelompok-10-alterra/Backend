@@ -66,8 +66,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleEntity getRoleById(Long role_id) {
-        return roleRepository.findById(role_id).get();
+    public RoleEntity getRoleById(Long roleId) {
+        return roleRepository.findById(roleId).get();
     }
 
     @Override
@@ -76,15 +76,15 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void updateRole(Long role_id, RoleDtoPost roleDtoPost) {
-        RoleEntity role2 = roleRepository.findById(role_id).get();
+    public void updateRole(Long roleId, RoleDtoPost roleDtoPost) {
+        RoleEntity role2 = roleRepository.findById(roleId).get();
         role2.setName(roleDtoPost.getName());
         roleRepository.save(role2);
     }
 
     @Override
-    public void deleteRole(Long role_id) {
-        roleRepository.deleteById(role_id);  
+    public void deleteRole(Long roleId) {
+        roleRepository.deleteById(roleId);  
     }
 
 	@Override

@@ -9,6 +9,6 @@ import com.capstone.kelompok10.model.entity.TypeEntity;
 
 @Repository
 public interface TypeRepository extends JpaRepository<TypeEntity, Long> {
-    Optional<TypeEntity> findById(Long type_id);
+    Optional<TypeEntity> findById(Long typeId);
     TypeEntity findByName(String name);
 }

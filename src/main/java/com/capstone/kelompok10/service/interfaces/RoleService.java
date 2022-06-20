@@ -13,9 +13,9 @@ public interface RoleService {
     List<RoleDtoGet> findAllDto();
     Page<RoleEntity> findAllPagination(int offset, int pageSize);
     Page<RoleEntity> findAllPaginationSort(int offset, int pageSize, String field);
-    RoleEntity getRoleById(Long role_id);
+    RoleEntity getRoleById(Long roleId);
     void createRole(RoleEntity role);
     void createRoleDto(RoleDtoPost roleDtoPost);
-    void updateRole(Long role_id, RoleDtoPost roleDtoPost);
-    void deleteRole(Long role_id);
+    void updateRole(Long roleId, RoleDtoPost roleDtoPost);
+    void deleteRole(Long roleId);
 }

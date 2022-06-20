@@ -9,6 +9,6 @@ import com.capstone.kelompok10.model.entity.CategoryEntity;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
-    Optional<CategoryEntity> findById(Long category_id);
+    Optional<CategoryEntity> findById(Long categoryId);
     CategoryEntity findByName(String name);
 }

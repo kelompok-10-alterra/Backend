@@ -61,8 +61,8 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public InstructorEntity getInstructorById(Long instructor_id) {
-        return instructorRepository.findById(instructor_id).get();
+    public InstructorEntity getInstructorById(Long instructorId) {
+        return instructorRepository.findById(instructorId).get();
     }
 
     @Override
@@ -71,8 +71,8 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void updateInstructor(Long instructor_id, InstructorDtoPost instructorDtoPost) {
-        InstructorEntity instructor2 = instructorRepository.findById(instructor_id).get();
+    public void updateInstructor(Long instructorId, InstructorDtoPost instructorDtoPost) {
+        InstructorEntity instructor2 = instructorRepository.findById(instructorId).get();
         instructor2.setName(instructorDtoPost.getName());
         instructor2.setContact(instructorDtoPost.getContact());
         instructor2.setImageUrl(instructorDtoPost.getImageUrl());
@@ -80,8 +80,8 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void deleteInstructor(Long instructor_id) {
-        instructorRepository.deleteById(instructor_id);
+    public void deleteInstructor(Long instructorId) {
+        instructorRepository.deleteById(instructorId);
     }
 
 	@Override

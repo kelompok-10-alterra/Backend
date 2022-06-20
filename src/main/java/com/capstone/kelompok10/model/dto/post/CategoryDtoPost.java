@@ -6,6 +6,5 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CategoryDtoPost {
-    private Long categoryId;
     private String name;
 }

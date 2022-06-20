@@ -13,9 +13,9 @@ public interface ClassService {
     List<ClassDtoGet> findAllDto();
     Page<ClassEntity> findAllPagination(int offset, int pageSize);
     Page<ClassEntity> findAllPaginationSort(int offset, int pageSize, String field);
-    ClassEntity getClassById(Long class_id);
+    ClassEntity getClassById(Long classId);
     void createClass(ClassEntity classes);
     void createClassDto(ClassDtoPost classDtoPost);
-    void updateClass(Long class_id, ClassDtoPost classesDtoPost);
-    void deleteClass(Long class_id);
+    void updateClass(Long classId, ClassDtoPost classesDtoPost);
+    void deleteClass(Long classId);
 }

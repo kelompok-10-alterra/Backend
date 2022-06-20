@@ -13,9 +13,9 @@ public interface CategoryService {
     List<CategoryDtoGet> findAllDto();
     Page<CategoryEntity> findAllPagination(int offset, int pageSize);
     Page<CategoryEntity> findAllPaginationSort(int offset, int pageSize, String field);
-    CategoryEntity getCategoryById(Long category_id);
+    CategoryEntity getCategoryById(Long categoryId);
     void createCategory(CategoryEntity category);
     void createCategoryDto(CategoryDtoPost categoryDtoPost);
-    void updateCategory(Long category_id, CategoryDtoPost categoryDtoPost);
-    void deleteCategory(Long category_id);
+    void updateCategory(Long categoryId, CategoryDtoPost categoryDtoPost);
+    void deleteCategory(Long categoryId);
 }

@@ -59,8 +59,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public RoomEntity getRoomById(Long room_id) {
-        return roomRepository.findById(room_id).get();
+    public RoomEntity getRoomById(Long roomId) {
+        return roomRepository.findById(roomId).get();
     }
 
     @Override
@@ -69,16 +69,16 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void updateRoom(Long room_id, RoomDtoPost roomDtoPost) {
-        RoomEntity room2 = roomRepository.findById(room_id).get();
+    public void updateRoom(Long roomId, RoomDtoPost roomDtoPost) {
+        RoomEntity room2 = roomRepository.findById(roomId).get();
         room2.setName(roomDtoPost.getName());
 
         roomRepository.save(room2);
     }
 
     @Override
-    public void deleteRoom(Long room_id) {
-        roomRepository.deleteById(room_id);
+    public void deleteRoom(Long roomId) {
+        roomRepository.deleteById(roomId);
     }
 
 	@Override

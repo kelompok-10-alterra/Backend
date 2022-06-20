@@ -54,9 +54,9 @@ public class MembershipController {
         return new ResponseEntity<>(membershipDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{membership_id}")
-    public ResponseEntity<MembershipEntity> getMembershipById(@PathVariable("membership_id") Long membership_id){
-        return new ResponseEntity<>(membershipService.getMembershipById(membership_id), HttpStatus.OK);
+    @GetMapping("/user/{membershipId}")
+    public ResponseEntity<MembershipEntity> getMembershipById(@PathVariable("membershipId") Long membershipId){
+        return new ResponseEntity<>(membershipService.getMembershipById(membershipId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -71,15 +71,15 @@ public class MembershipController {
         return new ResponseEntity<>(membershipDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{membership_id}")
-    public ResponseEntity<MembershipEntity> updateMembership(@PathVariable("membership_id") Long membership_id, @RequestBody MembershipDtoPost membershipDtoPost){
-        membershipService.updateMembership(membership_id, membershipDtoPost);
-        return new ResponseEntity<>(membershipService.getMembershipById(membership_id), HttpStatus.OK);
+    @PutMapping("/{membershipId}")
+    public ResponseEntity<MembershipEntity> updateMembership(@PathVariable("membershipId") Long membershipId, @RequestBody MembershipDtoPost membershipDtoPost){
+        membershipService.updateMembership(membershipId, membershipDtoPost);
+        return new ResponseEntity<>(membershipService.getMembershipById(membershipId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{membership_id}")
-    public ResponseEntity<MembershipEntity> deleteMembership(@PathVariable("membership_id") Long membership_id){
-        membershipService.deleteMembership(membership_id);
+    @DeleteMapping("/{membershipId}")
+    public ResponseEntity<MembershipEntity> deleteMembership(@PathVariable("membershipId") Long membershipId){
+        membershipService.deleteMembership(membershipId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

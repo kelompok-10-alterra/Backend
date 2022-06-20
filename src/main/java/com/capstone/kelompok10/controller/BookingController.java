@@ -56,8 +56,8 @@ public class BookingController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<BookingEntity> getBookingById(@RequestParam("booking_id") Long booking_id){
-        return new ResponseEntity<>(bookingService.getBookingById(booking_id), HttpStatus.OK);
+    public ResponseEntity<BookingEntity> getBookingById(@RequestParam("bookingId") Long bookingId){
+        return new ResponseEntity<>(bookingService.getBookingById(bookingId), HttpStatus.OK);
     }
 
     @PostMapping("/user")
@@ -72,15 +72,15 @@ public class BookingController {
         return new ResponseEntity<>(bookingDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{booking_id}")
-    public ResponseEntity<BookingEntity> updateBooking(@PathVariable("booking_id") Long booking_id, @RequestBody BookingDtoPost bookingDtoPost){
-        bookingService.updateBooking(booking_id, bookingDtoPost);
-        return new ResponseEntity<>(bookingService.getBookingById(booking_id), HttpStatus.OK);
+    @PutMapping("/{bookingId}")
+    public ResponseEntity<BookingEntity> updateBooking(@PathVariable("bookingId") Long bookingId, @RequestBody BookingDtoPost bookingDtoPost){
+        bookingService.updateBooking(bookingId, bookingDtoPost);
+        return new ResponseEntity<>(bookingService.getBookingById(bookingId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{booking_id}")
-    public ResponseEntity<BookingEntity> deleteBooking(@PathVariable("booking_id") Long booking_id){
-        bookingService.deleteBooking(booking_id);
+    @DeleteMapping("/user/{bookingId}")
+    public ResponseEntity<BookingEntity> deleteBooking(@PathVariable("bookingId") Long bookingId){
+        bookingService.deleteBooking(bookingId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
