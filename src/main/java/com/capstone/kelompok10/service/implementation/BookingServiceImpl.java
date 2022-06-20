@@ -119,8 +119,9 @@ public class BookingServiceImpl implements BookingService {
         userEntity.setUserId(bookingDtoPost.getUserId());
         ClassEntity classEntity = new ClassEntity();
         classEntity.setClassId(bookingDtoPost.getClassId());
+        Long capacity = classEntity.getCapacity();
 
-        if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null){
+        if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null && capacity > 0){
             Long price = classEntity.getPrice();
             Long total;
             if(userEntity.getMembership() != null){
@@ -133,8 +134,10 @@ public class BookingServiceImpl implements BookingService {
             bookingEntity.setClasses(classEntity);
             bookingEntity.setUser(userEntity);
             bookingEntity.setPrice(total);
-        
             bookingRepository.save(bookingEntity);
+
+            classEntity.setCapacity(capacity - 1);
+            classRepository.save(classEntity);
         }else{
             throw new IllegalStateException("Class / User not found");
         }
