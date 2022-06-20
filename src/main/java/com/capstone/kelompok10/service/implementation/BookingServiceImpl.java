@@ -139,7 +139,7 @@ public class BookingServiceImpl implements BookingService {
             classEntity.setCapacity(capacity - 1);
             classRepository.save(classEntity);
         }else{
-            throw new IllegalStateException("Class / User not found");
+            throw new IllegalStateException("Class / User not found or Class Full");
         }
     }
 }
