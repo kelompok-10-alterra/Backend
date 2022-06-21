@@ -12,6 +12,7 @@ import com.capstone.kelompok10.repository.BookingRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.BookingService;
+import com.capstone.kelompok10.service.interfaces.ClassService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,6 +28,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     BookingRepository bookingRepository;
+
+    @Autowired
+    private ClassService classService;
 
     @Autowired
     public UserRepository userRepository;
@@ -119,25 +123,16 @@ public class BookingServiceImpl implements BookingService {
         userEntity.setUserId(bookingDtoPost.getUserId());
         ClassEntity classEntity = new ClassEntity();
         classEntity.setClassId(bookingDtoPost.getClassId());
-        Long capacity = classEntity.getCapacity();
 
-        if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null && capacity > 0){
-            Long price = classEntity.getPrice();
-            Long total;
-            if(userEntity.getMembership() != null){
-                total = price - (price*10/100);
-            }else{
-                total = price;
-            }
+        if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null){
 
             bookingEntity.setStatus(bookingDtoPost.getStatus());
             bookingEntity.setClasses(classEntity);
             bookingEntity.setUser(userEntity);
-            bookingEntity.setPrice(total);
+            // bookingEntity.setPrice(total);
             bookingRepository.save(bookingEntity);
 
-            classEntity.setCapacity(capacity - 1);
-            classRepository.save(classEntity);
+            classService.classBooked(bookingDtoPost.getClassId());
         }else{
             throw new IllegalStateException("Class / User not found or Class Full");
         }
