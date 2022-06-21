@@ -108,6 +108,10 @@ public class BookingServiceImpl implements BookingService {
         ClassEntity classEntity = new ClassEntity();
         classEntity.setClassId(bookingDtoPost.getClassId());
 
+        if(bookingDtoPost.getClassId() != booking2.getClasses().getClassId()){
+            classService.unBookClass(bookingDtoPost.getClassId());
+        }
+
         booking2.setStatus(bookingDtoPost.getStatus());
         booking2.setUser(userEntity);
         booking2.setClasses(classEntity);

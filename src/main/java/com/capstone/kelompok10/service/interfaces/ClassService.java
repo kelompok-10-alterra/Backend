@@ -21,6 +21,7 @@ public interface ClassService {
 
     // Verify Method
     void classBooked(Long classId);
+    void unBookClass(Long classId);
     Boolean classFull(Long classId);
     Long classPrice(Long classId);
 }

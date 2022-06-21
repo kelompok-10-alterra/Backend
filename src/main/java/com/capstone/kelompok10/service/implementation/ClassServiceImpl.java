@@ -171,4 +171,12 @@ public class ClassServiceImpl implements ClassService {
         Long price = class2.getPrice();
 		return price;
 	}
+
+    @Override
+    public void unBookClass(Long classId) {
+        ClassEntity class2 = classRepository.findById(classId).get();
+        Long capacity = class2.getCapacity();
+        class2.setCapacity(capacity + 1);
+        classRepository.save(class2);
+    }
 }
