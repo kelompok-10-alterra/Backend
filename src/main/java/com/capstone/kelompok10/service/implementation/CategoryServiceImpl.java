@@ -15,7 +15,10 @@ import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.repository.CategoryRepository;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
 
+import lombok.extern.log4j.Log4j2;
+
 @Service
+@Log4j2
 public class CategoryServiceImpl implements CategoryService {
 
     CategoryRepository categoryRepository;
@@ -60,32 +63,47 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryEntity getCategoryById(Long categoryId) {
-        return categoryRepository.findById(categoryId).get();
-    }
-
-    @Override
-    public void createCategory(CategoryEntity category) {
-        categoryRepository.save(category);
+        if(categoryRepository.findById(categoryId) == null){
+            log.info("Can't find category with id {}", categoryId);
+            throw new IllegalStateException("Cant find category you're trying to find");
+        }else{
+            return categoryRepository.findById(categoryId).get();
+        }
     }
 
     @Override
     public void updateCategory(Long categoryId, CategoryDtoPost categoryDtoPost) {
-        CategoryEntity category2 = categoryRepository.findById(categoryId).get();
-        category2.setName(categoryDtoPost.getName());
+        if(categoryRepository.findById(categoryId) == null){
+            log.info("Can't find category with id {}", categoryId);
+            throw new IllegalStateException("Cant find category you're trying to find");
+        }else{
+            CategoryEntity category2 = categoryRepository.findById(categoryId).get();
+            category2.setName(categoryDtoPost.getName());
 
-        categoryRepository.save(category2);
+            categoryRepository.save(category2);
+        }
     }
 
     @Override
     public void deleteCategory(Long categoryId) {
-        categoryRepository.deleteById(categoryId);
+        if(categoryRepository.findById(categoryId) == null){
+            log.info("Can't find category with id {}", categoryId);
+            throw new IllegalStateException("Cant find category you're trying to find");
+        }else{
+            categoryRepository.deleteById(categoryId);
+        }
     }
 
 	@Override
 	public void createCategoryDto(CategoryDtoPost categoryDtoPost) {
-		CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setName(categoryDtoPost.getName());
+        if(categoryRepository.findByName(categoryDtoPost.getName()) == null){
+            CategoryEntity categoryEntity = new CategoryEntity();
+            categoryEntity.setName(categoryDtoPost.getName());
 		
-        categoryRepository.save(categoryEntity);
+            categoryRepository.save(categoryEntity);
+        }else{
+            log.info("Category with name {} already exist", categoryDtoPost.getName());
+            throw new IllegalStateException("Name you're trying to input already exist");
+        }
 	}
 }

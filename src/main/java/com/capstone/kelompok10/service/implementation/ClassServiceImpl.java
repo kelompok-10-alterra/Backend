@@ -13,6 +13,8 @@ import com.capstone.kelompok10.model.entity.TypeEntity;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.service.interfaces.ClassService;
 
+import lombok.extern.log4j.Log4j2;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
+@Log4j2
 public class ClassServiceImpl implements ClassService {
     ClassRepository classRepository;
 
@@ -72,47 +75,57 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public ClassEntity getClassById(Long classId) {
-        return classRepository.findById(classId).get();
-    }
-
-    @Override
-    public void createClass(ClassEntity classes) {
-        classRepository.save(classes);
+        if(classRepository.findById(classId) == null){
+            log.info("Class with id {} can't be found", classId);
+            throw new IllegalStateException("Class not found");
+        }else{
+            return classRepository.findById(classId).get();
+        }
     }
 
     @Override
     public void updateClass(Long classId, ClassDtoPost classesDtoPost) {
-        ClassEntity class2 = classRepository.findById(classId).get();
+        if(classRepository.findById(classId) == null){
+            log.info("Class with id {} can't be found", classId);
+            throw new IllegalStateException("Class not found");
+        }else{
+            ClassEntity class2 = classRepository.findById(classId).get();
 
-        InstructorEntity instructorEntity = new InstructorEntity();
-        instructorEntity.setInstructorId(classesDtoPost.getInstructorId());
+            InstructorEntity instructorEntity = new InstructorEntity();
+            instructorEntity.setInstructorId(classesDtoPost.getInstructorId());
 
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setCategoryId(classesDtoPost.getCategoryId());
+            CategoryEntity categoryEntity = new CategoryEntity();
+            categoryEntity.setCategoryId(classesDtoPost.getCategoryId());
 
-        RoomEntity roomEntity = new RoomEntity();
-        roomEntity.setRoomId(classesDtoPost.getRoomId());
+            RoomEntity roomEntity = new RoomEntity();
+            roomEntity.setRoomId(classesDtoPost.getRoomId());
 
-        TypeEntity typeEntity = new TypeEntity();
-        typeEntity.setTypeId(classesDtoPost.getTypeId());
+            TypeEntity typeEntity = new TypeEntity();
+            typeEntity.setTypeId(classesDtoPost.getTypeId());
 
-        class2.setStatus(classesDtoPost.getStatus());
-        class2.setCapacity(classesDtoPost.getCapacity());
-        class2.setSchedule(classesDtoPost.getSchedule());
-        class2.setPrice(classesDtoPost.getPrice());
-        class2.setImageUrl(classesDtoPost.getImageUrl());
-        class2.setCategory(categoryEntity);
-        class2.setInstructor(instructorEntity);
-        class2.setRoom(roomEntity);
-        class2.setType(typeEntity);
-        
-        classRepository.save(class2);
+            class2.setStatus(classesDtoPost.getStatus());
+            class2.setCapacity(classesDtoPost.getCapacity());
+            class2.setSchedule(classesDtoPost.getSchedule());
+            class2.setPrice(classesDtoPost.getPrice());
+            class2.setImageUrl(classesDtoPost.getImageUrl());
+            class2.setCategory(categoryEntity);
+            class2.setInstructor(instructorEntity);
+            class2.setRoom(roomEntity);
+            class2.setType(typeEntity);
+            
+            classRepository.save(class2);
+        }
     }
 
     @Override
     public void deleteClass(Long classId) {
-        classRepository.deleteById(classId);
-        
+        if(classRepository.findById(classId) == null){
+            log.info("Class with id {} can't be found", classId);
+            throw new IllegalStateException("Class not found");
+        }else{
+            log.info("Class successfully deleted");
+            classRepository.deleteById(classId);
+        }
     }
 
 	@Override
@@ -142,8 +155,6 @@ public class ClassServiceImpl implements ClassService {
         classEntity.setType(typeEntity);
 
         classRepository.save(classEntity);
-
-		
 	}
 
     @Override

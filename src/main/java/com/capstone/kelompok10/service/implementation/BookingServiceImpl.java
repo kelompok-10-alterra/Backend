@@ -94,29 +94,30 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void createBooking(BookingEntity booking) {
-        bookingRepository.save(booking);
-    }
-
-    @Override
     public void updateBooking(Long bookingId, BookingDtoPost bookingDtoPost) {
-        BookingEntity booking2 = bookingRepository.findById(bookingId).get();
+        if(bookingRepository.findById(bookingId) != null){
+            BookingEntity booking2 = bookingRepository.findById(bookingId).get();
         
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserId(bookingDtoPost.getUserId());
+            UserEntity userEntity = new UserEntity();
+            userEntity.setUserId(bookingDtoPost.getUserId());
 
-        ClassEntity classEntity = new ClassEntity();
-        classEntity.setClassId(bookingDtoPost.getClassId());
+            ClassEntity classEntity = new ClassEntity();
+            classEntity.setClassId(bookingDtoPost.getClassId());
 
-        if(bookingDtoPost.getClassId() != booking2.getClasses().getClassId()){
-            classService.unBookClass(bookingDtoPost.getClassId());
+            if(bookingDtoPost.getClassId() != booking2.getClasses().getClassId()){
+                classService.unBookClass(bookingDtoPost.getClassId());
+            }
+
+            booking2.setStatus(bookingDtoPost.getStatus());
+            booking2.setUser(userEntity);
+            booking2.setClasses(classEntity);
+
+            bookingRepository.save(booking2);
         }
-
-        booking2.setStatus(bookingDtoPost.getStatus());
-        booking2.setUser(userEntity);
-        booking2.setClasses(classEntity);
-
-        bookingRepository.save(booking2);
+        else{
+            log.info("Booking with id {} not found", bookingId);
+            throw new IllegalStateException("Booking you search not found");
+        }
     }
 
     @Override

@@ -14,7 +14,6 @@ public interface BookingService {
     Page<BookingEntity> findAllPagination(int offset, int pageSize);
     Page<BookingEntity> findAllPaginationSort(int offset, int pageSize, String field);
     BookingEntity getBookingById(Long bookingId);
-    void createBooking(BookingEntity booking);
     void createBookingDto(BookingDtoPost bookingDtoPost);
     void updateBooking(Long bookingId, BookingDtoPost bookingDtoPost);
     void deleteBooking(Long bookingId);

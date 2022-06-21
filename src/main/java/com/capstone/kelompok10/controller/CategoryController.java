@@ -61,12 +61,6 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getCategoryById(categoryId), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<CategoryEntity> createCategory(@RequestBody CategoryEntity category){
-        categoryService.createCategory(category);
-        return new ResponseEntity<>(category, HttpStatus.OK);
-    }
-
     @PostMapping("/dto")
     public ResponseEntity<CategoryDtoPost> createCategoryDto(@RequestBody CategoryDtoPost categoryDtoPost){
         categoryService.createCategoryDto(categoryDtoPost);

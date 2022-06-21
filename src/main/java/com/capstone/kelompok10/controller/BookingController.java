@@ -62,12 +62,6 @@ public class BookingController {
         return new ResponseEntity<>(bookingService.getBookingById(bookingId), HttpStatus.OK);
     }
 
-    @PostMapping("/user")
-    public ResponseEntity<BookingEntity> createBooking(@RequestBody BookingEntity booking){
-        bookingService.createBooking(booking);
-        return new ResponseEntity<>(booking, HttpStatus.OK);
-    }
-
     @PostMapping("/user/dto")
     public ResponseEntity<BookingDtoPost> createBookingDto(@RequestBody BookingDtoPost bookingDtoPost){
         bookingService.createBookingDto(bookingDtoPost);

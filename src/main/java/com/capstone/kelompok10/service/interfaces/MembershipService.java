@@ -14,7 +14,6 @@ public interface MembershipService {
     Page<MembershipEntity> findAllPagination(int offset, int pageSize);
     Page<MembershipEntity> findAllPaginationSort(int offset, int pageSize, String field);
     MembershipEntity getMembershipById(Long membershipId);
-    void createMembership(MembershipEntity membership);
     void createMembershipDto(MembershipDtoPost membershipDtoPost);
     void updateMembership(Long membershipId, MembershipDtoPost membershipDtoPost);
     void deleteMembership(Long membershipId);

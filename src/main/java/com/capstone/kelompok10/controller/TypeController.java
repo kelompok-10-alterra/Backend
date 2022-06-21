@@ -61,12 +61,6 @@ public class TypeController {
         return new ResponseEntity<>(typeService.getTypeById(typeId), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<TypeEntity> createType(@RequestBody TypeEntity type){
-        typeService.createType(type);
-        return new ResponseEntity<>(type, HttpStatus.OK);
-    }
-
     @PostMapping("/dto")
     public ResponseEntity<TypeDtoPost> createTypeDto(@RequestBody TypeDtoPost typeDtoPost){
         typeService.createTypeDto(typeDtoPost);

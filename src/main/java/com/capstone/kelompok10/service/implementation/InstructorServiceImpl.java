@@ -66,11 +66,6 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void createInstructor(InstructorEntity instructor) {
-        instructorRepository.save(instructor);
-    }
-
-    @Override
     public void updateInstructor(Long instructorId, InstructorDtoPost instructorDtoPost) {
         InstructorEntity instructor2 = instructorRepository.findById(instructorId).get();
         instructor2.setName(instructorDtoPost.getName());

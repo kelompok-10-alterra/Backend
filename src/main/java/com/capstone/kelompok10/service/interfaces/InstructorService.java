@@ -14,7 +14,6 @@ public interface InstructorService {
     Page<InstructorEntity> findAllPagination(int offset, int pageSize);
     Page<InstructorEntity> findAllPaginationSort(int offset, int pageSize, String field);
     InstructorEntity getInstructorById(Long instructorId);
-    void createInstructor(InstructorEntity instructor);
     void createInstructorDto(InstructorDtoPost instructorDtoPost);
     void updateInstructor(Long instructorId, InstructorDtoPost instructorDtoPost);
     void deleteInstructor(Long instructorId);

@@ -68,11 +68,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void createMember(MemberEntity member) {
-        memberRepository.save(member);
-    }
-
-    @Override
     public void updateMember(Long memberId, MemberDtoPost memberDtoPost) {
         MemberEntity member2 = memberRepository.findById(memberId).get();
         member2.setLength(memberDtoPost.getLength());

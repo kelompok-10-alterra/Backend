@@ -68,11 +68,6 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public void createMembership(MembershipEntity membership) {
-        membershipRepository.save(membership);
-    }
-
-    @Override
     public void updateMembership(Long membershipId, MembershipDtoPost membershipDtoPost) {
         MembershipEntity membership2 = membershipRepository.findById(membershipId).get();
 

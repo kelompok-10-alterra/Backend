@@ -61,12 +61,6 @@ public class InstructorController {
         return new ResponseEntity<>(instructorService.getInstructorById(instructorId), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<InstructorEntity> createInstructor(@RequestBody InstructorEntity instructor){
-        instructorService.createInstructor(instructor);
-        return new ResponseEntity<>(instructor, HttpStatus.OK);
-    }
-
     @PostMapping("/dto")
     public ResponseEntity<InstructorDtoPost> createInstructorDto(@RequestBody InstructorDtoPost instructorDtoPost){
         instructorService.createInstructorDto(instructorDtoPost);

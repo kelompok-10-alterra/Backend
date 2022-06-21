@@ -62,12 +62,6 @@ public class MemberController {
         return new ResponseEntity<>(memberService.getMemberById(memberId), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<MemberEntity> createMember(@RequestBody MemberEntity member){
-        memberService.createMember(member);
-        return new ResponseEntity<>(member, HttpStatus.OK);
-    }
-
     @PostMapping("/dto")
     public ResponseEntity<MemberDtoPost> createMemberDto(@RequestBody MemberDtoPost memberDtoPost){
         memberService.createMemberDto(memberDtoPost);

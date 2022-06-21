@@ -61,12 +61,6 @@ public class ClassController {
         return new ResponseEntity<>(classService.getClassById(classId), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<ClassEntity> createClass(@RequestBody ClassEntity classes){
-        classService.createClass(classes);
-        return new ResponseEntity<>(classes, HttpStatus.OK);
-    }
-
     @PostMapping("/dto")
     public ResponseEntity<ClassDtoPost> createClassDto(@RequestBody ClassDtoPost classDtoPost){
         classService.createClassDto(classDtoPost);

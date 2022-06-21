@@ -14,7 +14,6 @@ public interface TypeService {
     Page<TypeEntity> findAllPagination(int offset, int pageSize);
     Page<TypeEntity> findAllPaginationSort(int offset, int pageSize, String field);
     TypeEntity getTypeById(Long typeId);
-    void createType(TypeEntity type);
     void createTypeDto(TypeDtoPost typeDtoPost);
     void updateType(Long typeId, TypeDtoPost typeDtoPost);
     void deleteType(Long typeId);
