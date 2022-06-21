@@ -13,6 +13,7 @@ import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.BookingService;
 import com.capstone.kelompok10.service.interfaces.ClassService;
+import com.capstone.kelompok10.service.interfaces.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,6 +32,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private ClassService classService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public UserRepository userRepository;
@@ -82,7 +86,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingEntity getBookingById(Long bookingId) {
         if(bookingRepository.findById(bookingId) == null){
-            log.info("Booking id not found");
+            log.info("Booking with id {} not found", bookingId);
             return null;
         }
         log.info("Booking with id {} found", bookingId);
@@ -113,7 +117,14 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void deleteBooking(Long bookingId) {
-        bookingRepository.deleteById(bookingId);
+        if(bookingRepository.findById(bookingId) != null){
+            bookingRepository.deleteById(bookingId);
+            log.info("Booking with id {} successfully deleted", bookingId);
+        }else{
+            log.info("Booking with id {} not found", bookingId);
+            throw new IllegalStateException("Booking you search not found");
+        }
+        
     }
 
     @Override
@@ -124,12 +135,21 @@ public class BookingServiceImpl implements BookingService {
         ClassEntity classEntity = new ClassEntity();
         classEntity.setClassId(bookingDtoPost.getClassId());
 
-        if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null){
-
+        if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null && classService.classFull(bookingDtoPost.getClassId()) == false){
+            Long price = classService.classPrice(bookingDtoPost.getClassId());
+            Long total;
+            if (userService.userHaveMembership(bookingDtoPost.getUserId()) == true){
+                log.info("User have membership and get discount price");
+                total = price - (price * 10 * 100);
+                bookingEntity.setPrice(total);
+            }else{
+                log.info("User don't have membership and didn't get discount price");
+                total = price;
+                bookingEntity.setPrice(total);
+            }
             bookingEntity.setStatus(bookingDtoPost.getStatus());
             bookingEntity.setClasses(classEntity);
             bookingEntity.setUser(userEntity);
-            // bookingEntity.setPrice(total);
             bookingRepository.save(bookingEntity);
 
             classService.classBooked(bookingDtoPost.getClassId());

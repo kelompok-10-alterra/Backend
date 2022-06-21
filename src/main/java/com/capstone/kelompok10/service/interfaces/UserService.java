@@ -22,5 +22,8 @@ public interface UserService {
     // Auth method
     UserEntity getUser(String username);
     void addRoleToUser(String username, String roleName);
+
+    // Verify method
+    Boolean userHaveMembership(Long userId);
 }
 

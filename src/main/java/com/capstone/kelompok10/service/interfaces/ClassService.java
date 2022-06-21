@@ -18,5 +18,9 @@ public interface ClassService {
     void createClassDto(ClassDtoPost classDtoPost);
     void updateClass(Long classId, ClassDtoPost classesDtoPost);
     void deleteClass(Long classId);
+
+    // Verify Method
     void classBooked(Long classId);
+    Boolean classFull(Long classId);
+    Long classPrice(Long classId);
 }

@@ -150,9 +150,25 @@ public class ClassServiceImpl implements ClassService {
     public void classBooked(Long classId) {
         ClassEntity class2 = classRepository.findById(classId).get();
         Long capacity = class2.getCapacity();
-        Long price = class2.getPrice();
         class2.setCapacity(capacity - 1);
-        class2.setPrice(price);
         classRepository.save(class2);
     }
+
+    @Override
+    public Boolean classFull(Long classId) {
+        ClassEntity class2 = classRepository.findById(classId).get();
+        Long capacity = class2.getCapacity();
+        if(capacity > 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+	@Override
+	public Long classPrice(Long classId) {
+		ClassEntity class2 = classRepository.findById(classId).get();
+        Long price = class2.getPrice();
+		return price;
+	}
 }

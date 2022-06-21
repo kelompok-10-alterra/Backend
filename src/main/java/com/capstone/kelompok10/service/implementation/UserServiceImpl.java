@@ -151,4 +151,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserEntity getUser(String username){
         return userRepository.findByUsername(username);
     }
+
+    @Override
+    public Boolean userHaveMembership(Long userId) {
+        UserEntity user = userRepository.findById(userId).get();
+        if(user.getMembership() == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }
