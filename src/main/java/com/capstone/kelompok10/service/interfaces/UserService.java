@@ -25,5 +25,6 @@ public interface UserService {
 
     // Verify method
     Boolean userHaveMembership(Long userId);
+    Boolean userExist(Long userId);
 }
 

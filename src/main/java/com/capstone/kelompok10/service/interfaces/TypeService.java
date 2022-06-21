@@ -17,4 +17,7 @@ public interface TypeService {
     void createTypeDto(TypeDtoPost typeDtoPost);
     void updateType(Long typeId, TypeDtoPost typeDtoPost);
     void deleteType(Long typeId);
+
+    //Verify Method
+    Boolean typeExist(Long typeId);
 }

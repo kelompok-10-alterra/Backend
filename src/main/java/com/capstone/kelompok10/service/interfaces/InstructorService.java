@@ -17,4 +17,7 @@ public interface InstructorService {
     void createInstructorDto(InstructorDtoPost instructorDtoPost);
     void updateInstructor(Long instructorId, InstructorDtoPost instructorDtoPost);
     void deleteInstructor(Long instructorId);
+
+    //Verify Method
+    Boolean instructorExist(Long instructorId);
 }

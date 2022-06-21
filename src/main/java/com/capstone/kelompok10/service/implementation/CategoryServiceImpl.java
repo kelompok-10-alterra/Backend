@@ -30,6 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryEntity> findAll() {
+        log.info("Get all Category without DTO");
         List<CategoryEntity> category = new ArrayList<>();
         categoryRepository.findAll().forEach(category::add);
         return category;
@@ -37,18 +38,21 @@ public class CategoryServiceImpl implements CategoryService {
     
     @Override
     public Page<CategoryEntity> findAllPagination(int offset, int pageSize) {
+        log.info("Get all Category with Pagination");
         Page<CategoryEntity> category = categoryRepository.findAll(PageRequest.of(offset, pageSize));
         return category;
     }
 
     @Override
     public Page<CategoryEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        log.info("Get all Category with Pagination and Sorting");
         Page<CategoryEntity> category = categoryRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
         return category;
     }
 
     @Override
     public List<CategoryDtoGet> findAllDto() {
+        log.info("Get all Category with DTO");
         List<CategoryEntity> categorys = categoryRepository.findAll();
         List<CategoryDtoGet> CategoryDtos = new ArrayList<>();
         
@@ -67,6 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
             log.info("Can't find category with id {}", categoryId);
             throw new IllegalStateException("Cant find category you're trying to find");
         }else{
+            log.info("Category with id {} found", categoryId);
             return categoryRepository.findById(categoryId).get();
         }
     }
@@ -81,6 +86,7 @@ public class CategoryServiceImpl implements CategoryService {
             category2.setName(categoryDtoPost.getName());
 
             categoryRepository.save(category2);
+            log.info("Category updated");
         }
     }
 
@@ -91,6 +97,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new IllegalStateException("Cant find category you're trying to find");
         }else{
             categoryRepository.deleteById(categoryId);
+            log.info("Caegory with id {} successfully deleted", categoryId);
         }
     }
 
@@ -101,9 +108,19 @@ public class CategoryServiceImpl implements CategoryService {
             categoryEntity.setName(categoryDtoPost.getName());
 		
             categoryRepository.save(categoryEntity);
+            log.info("Category created");
         }else{
             log.info("Category with name {} already exist", categoryDtoPost.getName());
             throw new IllegalStateException("Name you're trying to input already exist");
         }
 	}
+
+    @Override
+    public Boolean categoryExist(Long categoryId) {
+        if(categoryRepository.findById(categoryId) == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

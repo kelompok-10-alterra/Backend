@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public List<UserEntity> findAll() {
+        log.info("Get all User without DTO");
         List<UserEntity> user = new ArrayList<>();
         userRepository.findAll().forEach(user::add);
         return user;
@@ -76,18 +77,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     
     @Override
     public Page<UserEntity> findAllPagination(int offset, int pageSize) {
+        log.info("Get all User with Pagination");
         Page<UserEntity> user = userRepository.findAll(PageRequest.of(offset, pageSize));
         return user;
     }
 
     @Override
     public Page<UserEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        log.info("Get all User with Pagination and Sorting");
         Page<UserEntity> user = userRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
         return user;
     }
 
     @Override
     public List<UserDtoGet> findAllDto() {
+        log.info("Get all User with DTO");
         List<UserEntity> users = userRepository.findAll();
         List<UserDtoGet> userDtos = new ArrayList<>();
         
@@ -111,8 +115,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserEntity getUserById(Long userId) {
         if(userRepository.findById(userId) == null){
             log.info("User with id {} not found", userId);
+            throw new IllegalStateException("User not Found");
         }
-        return userRepository.findById(userId).get();
+            log.info("User with id {} found", userId);
+            return userRepository.findById(userId).get();
     }
 
     @Override
@@ -124,18 +130,30 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void updateUser(Long userId, UserDtoPost userDtoPost) {
-        UserEntity user2 = userRepository.findById(userId).get(); 
-        user2.setName(userDtoPost.getName());
-        user2.setUsername(userDtoPost.getUsername());
-        user2.setPhone(userDtoPost.getPhone());
-        user2.setAddress(userDtoPost.getAddress());
-        user2.setImageUrl(userDtoPost.getImageUrl());
-        userRepository.save(user2);
+        if(userRepository.findById(userId) != null){
+            UserEntity user2 = userRepository.findById(userId).get(); 
+            user2.setName(userDtoPost.getName());
+            user2.setUsername(userDtoPost.getUsername());
+            user2.setPhone(userDtoPost.getPhone());
+            user2.setAddress(userDtoPost.getAddress());
+            user2.setImageUrl(userDtoPost.getImageUrl());
+            userRepository.save(user2);
+            log.info("User updated");
+        }else{
+            log.info("User with id {} not found", userId);
+            throw new IllegalStateException("User Not Found");
+        }
     }
 
     @Override
     public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
+        if(userRepository.findById(userId) != null){
+            userRepository.deleteById(userId);
+            log.info("User with id {} successfully deleted", userId);
+        }else{
+            log.info("User with id {} not found", userId);
+            throw new IllegalStateException("User Not Found");
+        }
     }
 
     @Override
@@ -156,6 +174,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Boolean userHaveMembership(Long userId) {
         UserEntity user = userRepository.findById(userId).get();
         if(user.getMembership() == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    @Override
+    public Boolean userExist(Long userId) {
+        if(userRepository.findById(userId) == null){
             return false;
         }else{
             return true;

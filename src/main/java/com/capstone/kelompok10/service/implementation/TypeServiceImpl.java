@@ -16,7 +16,9 @@ import com.capstone.kelompok10.repository.TypeRepository;
 import com.capstone.kelompok10.service.interfaces.TypeService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class TypeServiceImpl implements TypeService {
@@ -29,6 +31,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public List<TypeEntity> findAll() {
+        log.info("Get all Type without DTO");
         List<TypeEntity> type = new ArrayList<>();
         typeRepository.findAll().forEach(type::add);
         return type;
@@ -36,18 +39,21 @@ public class TypeServiceImpl implements TypeService {
     
     @Override
     public Page<TypeEntity> findAllPagination(int offset, int pageSize) {
+        log.info("Get all Type with Pagination");
         Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize));
         return type;
     }
 
     @Override
     public Page<TypeEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        log.info("Get all Type with Pagination and Sorting");
         Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
         return type;
     }
 
     @Override
     public List<TypeDtoGet> findAllDto() {
+        log.info("Get all Type with DTO");
         List<TypeEntity> types = typeRepository.findAll();
         List<TypeDtoGet> typeDtos = new ArrayList<>();
         
@@ -63,27 +69,60 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public TypeEntity getTypeById(Long typeId) {
-        return typeRepository.findById(typeId).get();
+        if(typeRepository.findById(typeId) != null){
+            log.info("Type with id {} found", typeId);
+            return typeRepository.findById(typeId).get();
+        }else{
+            log.info("Type with id {} not found", typeId);
+            throw new IllegalStateException("Type not Found");
+        }
     }
 
     @Override
     public void updateType(Long typeId, TypeDtoPost typeDtoPost) {
-        TypeEntity type2 = typeRepository.findById(typeId).get();
-        type2.setName(typeDtoPost.getName());
+        if(typeRepository.findById(typeId) != null){
+            TypeEntity type2 = typeRepository.findById(typeId).get();
+            type2.setName(typeDtoPost.getName());
 
-        typeRepository.save(type2);
+            typeRepository.save(type2);
+            log.info("Type updated");
+        }else{
+            log.info("Type with id {} not found", typeId);
+            throw new IllegalStateException("Type not Found");
+        }
     }
 
     @Override
     public void deleteType(Long typeId) {
-        typeRepository.deleteById(typeId);
+        if(typeRepository.findById(typeId) != null){
+            typeRepository.deleteById(typeId);
+            log.info("Type with id {} successfully deleted", typeId);
+        }else{
+            log.info("Type with id {} not found", typeId);
+            throw new IllegalStateException("Type not Found");
+        }
     }
 
     @Override
     public void createTypeDto(TypeDtoPost typeDtoPost) {
-        TypeEntity typeEntity = new TypeEntity();
-        typeEntity.setName(typeDtoPost.getName());
+        if(typeRepository.findByName(typeDtoPost.getName()) == null){
+            TypeEntity typeEntity = new TypeEntity();
+            typeEntity.setName(typeDtoPost.getName());
 
-        typeRepository.save(typeEntity);
+            typeRepository.save(typeEntity);
+            log.info("Type created");
+        }else{
+            log.info("Type with name {} already exist", typeDtoPost.getName());
+            throw new IllegalStateException("Type already Exist");
+        }
+    }
+
+    @Override
+    public Boolean typeExist(Long typeId) {
+        if(typeRepository.findById(typeId) == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

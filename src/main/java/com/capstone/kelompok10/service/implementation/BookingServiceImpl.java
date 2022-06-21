@@ -49,6 +49,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingEntity> findAll() {
+        log.info("Get all Booking without DTO");
         List<BookingEntity> booking = new ArrayList<>();
         bookingRepository.findAll().forEach(booking::add);
         return booking;
@@ -56,18 +57,21 @@ public class BookingServiceImpl implements BookingService {
     
     @Override
     public Page<BookingEntity> findAllPagination(int offset, int pageSize) {
+        log.info("Get all Booking with Pagination");
         Page<BookingEntity> booking = bookingRepository.findAll(PageRequest.of(offset, pageSize));
         return booking;
     }
 
     @Override
     public Page<BookingEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        log.info("Get all Booking with Pagination and Sorting");
         Page<BookingEntity> booking = bookingRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
         return booking;
     }
 
     @Override
     public List<BookingDtoGet> findAllDto() {
+        log.info("Get all Booking with DTO");
         List<BookingEntity> bookings = bookingRepository.findAll();
         List<BookingDtoGet> bookingDtos = new ArrayList<>();
         
@@ -113,6 +117,7 @@ public class BookingServiceImpl implements BookingService {
             booking2.setClasses(classEntity);
 
             bookingRepository.save(booking2);
+            log.info("Booking updated");
         }
         else{
             log.info("Booking with id {} not found", bookingId);
@@ -123,6 +128,8 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void deleteBooking(Long bookingId) {
         if(bookingRepository.findById(bookingId) != null){
+            BookingEntity booking = bookingRepository.findById(bookingId).get();
+            classService.unBookClass(booking.getClasses().getClassId());
             bookingRepository.deleteById(bookingId);
             log.info("Booking with id {} successfully deleted", bookingId);
         }else{
@@ -158,7 +165,9 @@ public class BookingServiceImpl implements BookingService {
             bookingRepository.save(bookingEntity);
 
             classService.classBooked(bookingDtoPost.getClassId());
+            log.info("Booking created");
         }else{
+            log.info("Failed to create Booking");
             throw new IllegalStateException("Class / User not found or Class Full");
         }
     }

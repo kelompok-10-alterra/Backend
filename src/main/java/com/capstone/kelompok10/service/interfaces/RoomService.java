@@ -14,8 +14,10 @@ public interface RoomService {
     Page<RoomEntity> findAllPagination(int offset, int pageSize);
     Page<RoomEntity> findAllPaginationSort(int offset, int pageSize, String field);
     RoomEntity getRoomById(Long roomId);
-    void createRoom(RoomEntity room);
     void createRoomDto(RoomDtoPost roomDtoPost);
     void updateRoom(Long roomId, RoomDtoPost roomDtoPost);
     void deleteRoom(Long roomId);
+
+    //Verify Method
+    Boolean roomExist(Long roomId);
 }

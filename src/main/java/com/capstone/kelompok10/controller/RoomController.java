@@ -61,12 +61,6 @@ public class RoomController {
         return new ResponseEntity<>(roomService.getRoomById(roomId), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<RoomEntity> createRoom(@RequestBody RoomEntity room){
-        roomService.createRoom(room);
-        return new ResponseEntity<>(room, HttpStatus.OK);
-    }
-
     @PostMapping("/dto")
     public ResponseEntity<RoomDtoPost> createRoomDto(@RequestBody RoomDtoPost roomDtoPost){
         roomService.createRoomDto(roomDtoPost);

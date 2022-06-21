@@ -17,4 +17,7 @@ public interface MemberService {
     void createMemberDto(MemberDtoPost memberDtoPost);
     void updateMember(Long memberId, MemberDtoPost memberDtoPost);
     void deleteMember(Long memberId);
+
+    //Verify Method
+    Boolean memberExist(Long memberId);
 }

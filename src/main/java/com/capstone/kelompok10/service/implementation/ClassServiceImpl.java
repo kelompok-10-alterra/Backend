@@ -11,7 +11,11 @@ import com.capstone.kelompok10.model.entity.InstructorEntity;
 import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.model.entity.TypeEntity;
 import com.capstone.kelompok10.repository.ClassRepository;
+import com.capstone.kelompok10.service.interfaces.CategoryService;
 import com.capstone.kelompok10.service.interfaces.ClassService;
+import com.capstone.kelompok10.service.interfaces.InstructorService;
+import com.capstone.kelompok10.service.interfaces.RoomService;
+import com.capstone.kelompok10.service.interfaces.TypeService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -27,31 +31,47 @@ public class ClassServiceImpl implements ClassService {
     ClassRepository classRepository;
 
     @Autowired
+    private RoomService roomService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private TypeService typeService;
+
+    @Autowired
+    private InstructorService instructorService;
+
+    @Autowired
     public ClassServiceImpl(ClassRepository classRepository){
         this.classRepository = classRepository;
     }
 
     @Override
     public List<ClassEntity> findAll() {
-        List<ClassEntity> instructor = new ArrayList<>();
-        classRepository.findAll().forEach(instructor::add);
-        return instructor;
+        log.info("Get all Class without DTO");
+        List<ClassEntity> classes = new ArrayList<>();
+        classRepository.findAll().forEach(classes::add);
+        return classes;
     }
     
     @Override
     public Page<ClassEntity> findAllPagination(int offset, int pageSize) {
-        Page<ClassEntity> instructor = classRepository.findAll(PageRequest.of(offset, pageSize));
-        return instructor;
+        log.info("Get all Class with Pagination");
+        Page<ClassEntity> classes = classRepository.findAll(PageRequest.of(offset, pageSize));
+        return classes;
     }
 
     @Override
     public Page<ClassEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        Page<ClassEntity> instructor = classRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return instructor;
+        log.info("Get all Class with Pagination and Sorting");
+        Page<ClassEntity> classes = classRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return classes;
     }
 
     @Override
     public List<ClassDtoGet> findAllDto() {
+        log.info("Get all Class with DTO");
         List<ClassEntity> classs = classRepository.findAll();
         List<ClassDtoGet> classDtos = new ArrayList<>();
         
@@ -79,6 +99,7 @@ public class ClassServiceImpl implements ClassService {
             log.info("Class with id {} can't be found", classId);
             throw new IllegalStateException("Class not found");
         }else{
+            log.info("Class with id {} found", classId);
             return classRepository.findById(classId).get();
         }
     }
@@ -103,17 +124,23 @@ public class ClassServiceImpl implements ClassService {
             TypeEntity typeEntity = new TypeEntity();
             typeEntity.setTypeId(classesDtoPost.getTypeId());
 
-            class2.setStatus(classesDtoPost.getStatus());
-            class2.setCapacity(classesDtoPost.getCapacity());
-            class2.setSchedule(classesDtoPost.getSchedule());
-            class2.setPrice(classesDtoPost.getPrice());
-            class2.setImageUrl(classesDtoPost.getImageUrl());
-            class2.setCategory(categoryEntity);
-            class2.setInstructor(instructorEntity);
-            class2.setRoom(roomEntity);
-            class2.setType(typeEntity);
-            
-            classRepository.save(class2);
+            if(instructorService.instructorExist(classesDtoPost.getInstructorId()) == true && categoryService.categoryExist(classesDtoPost.getCategoryId()) == true &&
+                roomService.roomExist(classesDtoPost.getRoomId()) == true && typeService.typeExist(classesDtoPost.getTypeId()) == true){
+                    class2.setStatus(classesDtoPost.getStatus());
+                    class2.setCapacity(classesDtoPost.getCapacity());
+                    class2.setSchedule(classesDtoPost.getSchedule());
+                    class2.setPrice(classesDtoPost.getPrice());
+                    class2.setImageUrl(classesDtoPost.getImageUrl());
+                    class2.setCategory(categoryEntity);
+                    class2.setInstructor(instructorEntity);
+                    class2.setRoom(roomEntity);
+                    class2.setType(typeEntity);
+                    
+                    classRepository.save(class2);
+                    log.info("Class updated");
+                }
+            log.info("Failed to Update Class");
+            throw new IllegalStateException("Instructor, Category, Room or Type didn't exist");  
         }
     }
 
@@ -143,19 +170,24 @@ public class ClassServiceImpl implements ClassService {
 
         TypeEntity typeEntity = new TypeEntity();
         typeEntity.setTypeId(classDtoPost.getTypeId());
-
-        classEntity.setStatus(classDtoPost.getStatus());
-        classEntity.setCapacity(classDtoPost.getCapacity());
-        classEntity.setSchedule(classDtoPost.getSchedule());
-        classEntity.setPrice(classDtoPost.getPrice());
-        classEntity.setImageUrl(classDtoPost.getImageUrl());
-        classEntity.setInstructor(instructorEntity);
-        classEntity.setCategory(categoryEntity);
-        classEntity.setRoom(roomEntity);
-        classEntity.setType(typeEntity);
-
-        classRepository.save(classEntity);
-	}
+        if(instructorService.instructorExist(classDtoPost.getInstructorId()) == true && categoryService.categoryExist(classDtoPost.getCategoryId()) == true &&
+            roomService.roomExist(classDtoPost.getRoomId()) == true && typeService.typeExist(classDtoPost.getTypeId()) == true){
+                classEntity.setStatus(classDtoPost.getStatus());
+                classEntity.setCapacity(classDtoPost.getCapacity());
+                classEntity.setSchedule(classDtoPost.getSchedule());
+                classEntity.setPrice(classDtoPost.getPrice());
+                classEntity.setImageUrl(classDtoPost.getImageUrl());
+                classEntity.setInstructor(instructorEntity);
+                classEntity.setCategory(categoryEntity);
+                classEntity.setRoom(roomEntity);
+                classEntity.setType(typeEntity);
+                classRepository.save(classEntity);
+                log.info("Class created");
+            }else{
+                log.info("Failed to create Class");
+                throw new IllegalStateException("Instructor, Category, Room or Type didn't exist");
+            }
+    }
 
     @Override
     public void classBooked(Long classId) {
