@@ -24,13 +24,11 @@ public class Kelompok10Application {
 	}
 
 	@Bean
-	public WebMvcConfigurer corsConfigurer(){
+	public WebMvcConfigurer getCorsConfigurer(){
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry){
-				registry.addMapping("/**")
-				.allowedOriginPatterns("*")
-				.allowedMethods("GET", "POST", "PUT", "DELETE");
+				registry.addMapping("/**").allowedOrigins("http://localhost:3000").allowCredentials(true);
 			}
 		};
 	}

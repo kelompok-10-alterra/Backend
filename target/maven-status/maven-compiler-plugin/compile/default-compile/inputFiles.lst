@@ -33,6 +33,7 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\mo
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\post\BookingDtoPost.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\RoleServiceImpl.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\post\MemberDtoPost.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\payload\TokenResponse.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\AuthController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\Kelompok10Application.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\UserServiceImpl.java
@@ -44,7 +45,9 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\re
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\MembershipEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\RoleController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\RoomController.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\config\CorsConfig.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\get\RoomDtoGet.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\payload\UsernamePassword.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\email\EmailSenderService.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\InstructorController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\InstructorService.java
