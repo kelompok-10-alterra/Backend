@@ -15,11 +15,15 @@ import com.capstone.kelompok10.model.payload.RegistrationRequest;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.email.EmailSenderService;
 import com.capstone.kelompok10.service.email.EmailValidatorService;
+import com.capstone.kelompok10.service.email.PhonePasswordValidator;
 import com.capstone.kelompok10.service.interfaces.RegisterService;
+import com.capstone.kelompok10.service.interfaces.RoleService;
 import com.capstone.kelompok10.service.interfaces.UserService;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Service
 @AllArgsConstructor
 @Transactional
@@ -30,6 +34,12 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     EmailValidatorService emailValidatorService;
+
+    @Autowired
+    PhonePasswordValidator phonePasswordValidator;
+
+    @Autowired
+    RoleService roleService;
 
     @Autowired
     UserService userService;
@@ -48,19 +58,24 @@ public class RegisterServiceImpl implements RegisterService {
         UserEntity user = new UserEntity();
         boolean isValidEmail = emailValidatorService.test(request.getEmail());
         if (isValidEmail && userRepository.findByUsername(request.getUsername()) == null && userRepository.findByEmail(request.getEmail()) == null){
-            String token = UUID.randomUUID().toString();
-            user.setUsername(request.getUsername());
-            user.setPassword(crypt.encode(request.getPassword()));
-            user.setName(request.getName());
-            user.setEmail(request.getEmail());
-            user.setPhone(request.getPhone());
-            user.setAddress(request.getAddress());
-            user.setToken(token);
-            
-            userRepository.save(user);
-            String link = "https://www.api.rafdev.my.id/auth/confirm?token=" + token;
-            emailSenderService.sendEmail(request.getEmail(), buildEmail(request.getUsername(), link));
-            return token;
+            if(phonePasswordValidator.phoneValidator(request.getPhone()) == true && phonePasswordValidator.passwordValidator(request.getPassword()) == true){
+                String token = UUID.randomUUID().toString();
+                user.setUsername(request.getUsername());
+                user.setPassword(crypt.encode(request.getPassword()));
+                user.setName(request.getName());
+                user.setEmail(request.getEmail());
+                user.setPhone(request.getPhone());
+                user.setAddress(request.getAddress());
+                user.setToken(token);
+                
+                userRepository.save(user);
+                String link = "https://www.api.rafdev.my.id/auth/confirm?token=" + token;
+                emailSenderService.sendEmail(request.getEmail(), buildEmail(request.getUsername(), link));
+                return token;
+            }else{
+                log.info("Phone or Password invalid");
+                throw new IllegalStateException("Phone or Password invalid");
+            }
         } else {
             throw new IllegalStateException("Email not valid or Email or Username already used");
         }
@@ -117,7 +132,7 @@ public class RegisterServiceImpl implements RegisterService {
         }else{
             user.setToken(null);
             userRepository.save(user);
-            userService.addRoleToUser(user.getUsername(), "ROLE_USER");
+            roleService.addRoleToUser(user.getUsername(), "ROLE_USER");
         }
         return true;
     }

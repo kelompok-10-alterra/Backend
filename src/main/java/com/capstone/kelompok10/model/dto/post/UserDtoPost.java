@@ -14,4 +14,5 @@ public class UserDtoPost {
     private String address;
     private String imageUrl;
     private Long membershipId;
+    private String roleName;
 }

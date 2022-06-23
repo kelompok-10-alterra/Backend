@@ -3,7 +3,6 @@ package com.capstone.kelompok10.controller;
 import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.dto.post.UserDtoPost;
 import com.capstone.kelompok10.model.entity.UserEntity;
-import com.capstone.kelompok10.model.payload.RoleToUser;
 import com.capstone.kelompok10.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/capstone/user")
 public class UserController {
@@ -65,9 +63,9 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/addRole")
-    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUser form){
-        userService.addRoleToUser(form.getUsername(), form.getRoleName());
-        return ResponseEntity.ok().build();
+    @PostMapping
+    public ResponseEntity<UserDtoPost> createUser(@RequestBody UserDtoPost userDtoPost){
+        userService.createUserDto(userDtoPost);
+        return new ResponseEntity<>(userDtoPost, HttpStatus.OK);
     }
 }
