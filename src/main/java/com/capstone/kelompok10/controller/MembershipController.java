@@ -76,4 +76,9 @@ public class MembershipController {
         membershipService.deleteMembership(membershipId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/totalMembership")
+    public int totalUser(){
+        return membershipService.totalMembership();
+    }
 }

@@ -132,7 +132,7 @@ public class RegisterServiceImpl implements RegisterService {
         }else{
             user.setToken(null);
             userRepository.save(user);
-            roleService.addRoleToUser(user.getUsername(), "ROLE_USER");
+            userService.addRoleToUser(user.getUsername(), "ROLE_USER");
         }
         return true;
     }

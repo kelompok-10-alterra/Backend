@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 
 import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.dto.post.UserDtoPost;
-import com.capstone.kelompok10.model.entity.MembershipEntity;
+import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.RoleRepository;
 import com.capstone.kelompok10.repository.UserRepository;
@@ -29,11 +29,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Transactional
 @Log4j2
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -191,35 +191,46 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void createUserDto(UserDtoPost userDtoPost) {
         UserEntity user = new UserEntity();
-        MembershipEntity membership = new MembershipEntity();
-        membership.setMembershipId(userDtoPost.getMembershipId());
-        Boolean isValidEmail = emailValidatorService.test(userDtoPost.getEmail());
-
-        if(isValidEmail && userRepository.findByName(userDtoPost.getName()) == null 
-            && userRepository.findByEmail(userDtoPost.getEmail()) == null
-            && phonePasswordValidator.phoneValidator(userDtoPost.getPhone()) == true
-            && phonePasswordValidator.passwordValidator(userDtoPost.getPassword()) == true){
-            if(roleRepository.findByName(userDtoPost.getRoleName()) != null){
-                user.setName(userDtoPost.getName());
+        boolean isValidEmail = emailValidatorService.test(userDtoPost.getEmail());
+        if (isValidEmail && userRepository.findByUsername(userDtoPost.getUsername()) == null && userRepository.findByEmail(userDtoPost.getEmail()) == null){
+            if(phonePasswordValidator.phoneValidator(userDtoPost.getPhone()) == true && phonePasswordValidator.passwordValidator(userDtoPost.getPassword()) == true){
                 user.setUsername(userDtoPost.getUsername());
                 user.setPassword(crypt.encode(userDtoPost.getPassword()));
-                user.setEmail(userDtoPost.getEmail());
                 user.setPhone(userDtoPost.getPhone());
+                user.setEmail(userDtoPost.getEmail());
+                user.setName(userDtoPost.getName());
                 user.setAddress(userDtoPost.getAddress());
                 user.setImageUrl(userDtoPost.getImageUrl());
-                user.setMembership(membership);
+                user.setMembership(null);
+                user.setToken(null);
 
                 userRepository.save(user);
-
-                roleService.addRoleToUser(userDtoPost.getUsername(), userDtoPost.getRoleName());
+                log.info("user created succesfully");
+                addRoleToUser(userDtoPost.getUsername(), "ROLE_USER");
             }else{
-                log.info("Role name didn't exist");
-                throw new IllegalStateException("Role name didn't exist");
+                log.info("Phone or Password invalid");
+                throw new IllegalStateException("Phone or Password invalid");
             }
-        }else{
-            log.info("Username or Email already taken");
-            log.info("Phone or Password not correct");
-            throw new IllegalStateException("Failed to create new user");
+        } else {
+            throw new IllegalStateException("Email not valid or Email or Username already used");
         }
+    }
+    
+    @Override
+    public void addRoleToUser(String username, String roleName) {
+        log.info("Menambahkan Role {} ke user {}", roleName, username);
+        UserEntity user = userRepository.findByUsername(username);
+        RoleEntity role = roleRepository.findByName(roleName);
+        user.getRoles().add(role);
+        
+    }
+
+    
+    @Override
+    public int totalUser() {
+        List<UserEntity> user = new ArrayList<>();
+        userRepository.findAll().forEach(user::add);
+        int sum = user.size();
+        return sum;
     }
 }

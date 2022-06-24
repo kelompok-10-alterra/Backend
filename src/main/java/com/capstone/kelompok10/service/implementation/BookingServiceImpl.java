@@ -171,4 +171,12 @@ public class BookingServiceImpl implements BookingService {
             throw new IllegalStateException("Class / User not found or Class Full");
         }
     }
+
+    @Override
+    public int totalBooking() {
+        List<BookingEntity> booking = new ArrayList<>();
+        bookingRepository.findAll().forEach(booking::add);
+        int sum = booking.size();
+        return sum;
+    }
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import com.capstone.kelompok10.model.dto.get.RoleDtoGet;
 import com.capstone.kelompok10.model.dto.post.RoleDtoPost;
 import com.capstone.kelompok10.model.entity.RoleEntity;
-import com.capstone.kelompok10.model.payload.RoleToUser;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,12 +75,5 @@ public class RoleController {
     public ResponseEntity<RoleEntity> deleteRole(@PathVariable("roleId") Long roleId){
         roleService.deleteRole(roleId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    
-    @PostMapping("/addRole")
-    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUser form){
-        roleService.addRoleToUser(form.getUsername(), form.getRoleName());
-        return ResponseEntity.ok().build();
     }
 }

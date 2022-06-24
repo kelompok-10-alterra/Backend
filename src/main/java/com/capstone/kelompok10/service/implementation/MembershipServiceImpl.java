@@ -150,4 +150,12 @@ public class MembershipServiceImpl implements MembershipService {
             throw new IllegalStateException("User or Member did'ny exist");
         }
     }
+
+    @Override
+    public int totalMembership() {
+        List<MembershipEntity> membership = new ArrayList<>();
+        membershipRepository.findAll().forEach(membership::add);
+        int sum = membership.size();
+        return sum;
+    }
 }

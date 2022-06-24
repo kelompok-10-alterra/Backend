@@ -77,4 +77,9 @@ public class BookingController {
         bookingService.deleteBooking(bookingId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/totalBooking")
+    public int totalUser(){
+        return bookingService.totalBooking();
+    }
 }

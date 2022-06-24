@@ -6,7 +6,6 @@ import java.util.List;
 import com.capstone.kelompok10.model.dto.get.RoleDtoGet;
 import com.capstone.kelompok10.model.dto.post.RoleDtoPost;
 import com.capstone.kelompok10.model.entity.RoleEntity;
-import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.RoleRepository;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.RoleService;
@@ -126,14 +125,5 @@ public class RoleServiceImpl implements RoleService {
             log.info("Role created");
         }
 	}
-
-    @Override
-    public void addRoleToUser(String username, String roleName) {
-        log.info("Menambahkan Role {} ke user {}", roleName, username);
-        UserEntity user = userRepository.findByUsername(username);
-        RoleEntity role = roleRepository.findByName(roleName);
-        user.getRoles().add(role);
-        
-    }
 }
 

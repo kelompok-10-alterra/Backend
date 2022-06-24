@@ -50,10 +50,10 @@ public class Kelompok10Application {
 			userService.createUser(new UserEntity(2L, "Admin", "admin", "yanginijugasusah", "admin@email.com", 123456L, "Asgard",null, null, null, null, new ArrayList<>(), null));
 			userService.createUser(new UserEntity(3L, "User", "rakha", "yanginigampang", "user@email.com", 123456L, "Midgrad",null, null, null, null, new ArrayList<>(), null));
 
-			roleService.addRoleToUser("backend", "ROLE_SUPER_ADMIN");
-			roleService.addRoleToUser("manager", "ROLE_SUPER_ADMIN");
-			roleService.addRoleToUser("admin", "ROLE_ADMIN");
-			roleService.addRoleToUser("rakha", "ROLE_USER");
+			userService.addRoleToUser("backend", "ROLE_SUPER_ADMIN");
+			userService.addRoleToUser("manager", "ROLE_SUPER_ADMIN");
+			userService.addRoleToUser("admin", "ROLE_ADMIN");
+			userService.addRoleToUser("rakha", "ROLE_USER");
 		};
 	}
 
