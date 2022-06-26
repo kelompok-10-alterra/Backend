@@ -30,48 +30,48 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    @GetMapping
+    @GetMapping("/managerOnly/getAllRole")
     public ResponseEntity<List<RoleEntity>> findAll(){
         List<RoleEntity> roles = roleService.findAll();
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
-    @GetMapping("/{offset}/{pageSize}")
+    @GetMapping("/managerOnly/{offset}/{pageSize}")
     public ResponseEntity<Page<RoleEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<RoleEntity> roles = roleService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
-    @GetMapping("/{offset}/{pageSize}/{field}")
+    @GetMapping("/managerOnly/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<RoleEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<RoleEntity> roles = roleService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
-    @GetMapping("/dto")
+    @GetMapping("/managerOnly/getAllRoleWithDto")
     public ResponseEntity<List<RoleDtoGet>> findAllDto(){
         List<RoleDtoGet> roleDtos = roleService.findAllDto();
         return new ResponseEntity<>(roleDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/{roleId}")
+    @GetMapping("/managerOnly/getRoleById/{roleId}")
     public ResponseEntity<RoleEntity> getRoleById(@PathVariable("roleId") Long roleId){
         return new ResponseEntity<>(roleService.getRoleById(roleId), HttpStatus.OK);
     }
 
-    @PostMapping("/dto")
+    @PostMapping("/managerOnly/createNewRole")
     public ResponseEntity<RoleDtoPost> createRoleDto(@RequestBody RoleDtoPost roleDtoPost){
         roleService.createRoleDto(roleDtoPost);
         return new ResponseEntity<>(roleDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{roleId}")
+    @PutMapping("/managerOnly/updateRole/{roleId}")
     public ResponseEntity<RoleEntity> updateRole(@PathVariable("roleId") Long roleId, @RequestBody RoleDtoPost roleDtoPost){
         roleService.updateRole(roleId, roleDtoPost);
         return new ResponseEntity<>(roleService.getRoleById(roleId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{roleId}")
+    @DeleteMapping("/managerOnly/deleteRole/{roleId}")
     public ResponseEntity<RoleEntity> deleteRole(@PathVariable("roleId") Long roleId){
         roleService.deleteRole(roleId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -30,48 +30,48 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/userAccess/getAllCategory")
     public ResponseEntity<List<CategoryEntity>> findAll(){
         List<CategoryEntity> categorys = categoryService.findAll();
         return new ResponseEntity<>(categorys, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}")
+    @GetMapping("/userAccess/{offset}/{pageSize}")
     public ResponseEntity<Page<CategoryEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<CategoryEntity> categorys = categoryService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(categorys, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}/{field}")
+    @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<CategoryEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<CategoryEntity> categorys = categoryService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(categorys, HttpStatus.OK);
     }
 
-    @GetMapping("/dto")
+    @GetMapping("userAccess/getAllCategoryWithDto")
     public ResponseEntity<List<CategoryDtoGet>> findAllDto(){
         List<CategoryDtoGet> categoryDtos = categoryService.findAllDto();
         return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{categoryId}")
+    @GetMapping("/userAccess/getCategoryById/{categoryId}")
     public ResponseEntity<CategoryEntity> getCategoryById(@PathVariable Long categoryId){
         return new ResponseEntity<>(categoryService.getCategoryById(categoryId), HttpStatus.OK);
     }
 
-    @PostMapping("/dto")
+    @PostMapping("/adminAccess/createNewCategory")
     public ResponseEntity<CategoryDtoPost> createCategoryDto(@RequestBody CategoryDtoPost categoryDtoPost){
         categoryService.createCategoryDto(categoryDtoPost);
         return new ResponseEntity<>(categoryDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{categoryId}")
+    @PutMapping("/adminAccess/updateCategory/{categoryId}")
     public ResponseEntity<CategoryEntity> updateCategory(@PathVariable("categoryId") Long categoryId, @RequestBody CategoryDtoPost categoryDtoPost){
         categoryService.updateCategory(categoryId, categoryDtoPost);
         return new ResponseEntity<>(categoryService.getCategoryById(categoryId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{categoryId}")
+    @DeleteMapping("/adminAccess/deleteCategory/{categoryId}")
     public ResponseEntity<CategoryEntity> deleteCategory(@PathVariable("categoryId") Long categoryId){
         categoryService.deleteCategory(categoryId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

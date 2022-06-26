@@ -23,60 +23,78 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/adminAccess/getAllUser")
     public ResponseEntity<List<UserEntity>> findAll(){
         List<UserEntity> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{offset}/{pageSize}")
+    @GetMapping("/adminAccess/getAllUser/{offset}/{pageSize}")
     public ResponseEntity<Page<UserEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<UserEntity> users = userService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{offset}/{pageSize}/{field}")
+    @GetMapping("/adminAccess/getAllUser/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<UserEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<UserEntity> users = userService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/dto")
+    @GetMapping("/userAccess/findAllRoleUser")
+    public ResponseEntity<List<UserEntity>> findAllRoleUser(){
+        List<UserEntity> users = userService.getAllRoleUser();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/adminAccess/findAllRoleAdmin")
+    public ResponseEntity<List<UserEntity>> findAllRoleAdmin(){
+        List<UserEntity> users = userService.getAllRoleAdmin();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/adminAccess/findAllRoleSuperAdmin")
+    public ResponseEntity<List<UserEntity>> findAllRoleSuperAdmin(){
+        List<UserEntity> users = userService.getAllRoleSuperAdmin();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/adminAccess/getAllUserWithDto")
     public ResponseEntity<List<UserDtoGet>> findAllDto(){
         List<UserDtoGet> userDtos = userService.findAllDto();
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/userAccess/getUserById")
     public ResponseEntity<UserEntity> getUserById(@RequestParam(required = false) Long userId, @RequestParam(required = false) String name){
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 
-    @PutMapping("/user/{userId}")
+    @PutMapping("/userAccess/updateUser/{userId}")
     public ResponseEntity<UserEntity> updateUser(@PathVariable("userId") Long userId, @RequestBody UserDtoPost userDtoPost){
         userService.updateUser(userId, userDtoPost);
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/adminAccess/deleteUser/{userId}")
     public ResponseEntity<UserEntity> deleteUser(@PathVariable("userId") Long userId){
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/adminAccess/createUser")
     public ResponseEntity<UserDtoPost> createUser(@RequestBody UserDtoPost userDtoPost){
         userService.createUserDto(userDtoPost);
         return new ResponseEntity<>(userDtoPost, HttpStatus.OK);
     }
 
-    @PostMapping("/addRole")
+    @PostMapping("/managerOnly/addRoleToUser")
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUser form){
         userService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/totalUser")
+    @GetMapping("/adminAccess/countTotalUser")
     public int totalUser(){
         return userService.totalUser();
     }

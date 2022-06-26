@@ -30,48 +30,48 @@ public class InstructorController {
         this.instructorService = instructorService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/userAcess/getAllInstructure")
     public ResponseEntity<List<InstructorEntity>> findAll(){
         List<InstructorEntity> instructors = instructorService.findAll();
         return new ResponseEntity<>(instructors, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}")
+    @GetMapping("/userAcess/{offset}/{pageSize}")
     public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<InstructorEntity> instructors = instructorService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(instructors, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}/{field}")
+    @GetMapping("/userAcess/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<InstructorEntity> instructors = instructorService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(instructors, HttpStatus.OK);
     }
 
-    @GetMapping("/user/dto")
+    @GetMapping("/userAcess/getAllInstructureWithDto")
     public ResponseEntity<List<InstructorDtoGet>> findAllDto(){
         List<InstructorDtoGet> instructorDtos = instructorService.findAllDto();
         return new ResponseEntity<>(instructorDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{instructorId}")
+    @GetMapping("/userAcess/getInstructureWithId/{instructorId}")
     public ResponseEntity<InstructorEntity> getInstructorById(@PathVariable("instructorId") Long instructorId){
         return new ResponseEntity<>(instructorService.getInstructorById(instructorId), HttpStatus.OK);
     }
 
-    @PostMapping("/dto")
+    @PostMapping("/adminAccess/createNewInstructure")
     public ResponseEntity<InstructorDtoPost> createInstructorDto(@RequestBody InstructorDtoPost instructorDtoPost){
         instructorService.createInstructorDto(instructorDtoPost);
         return new ResponseEntity<>(instructorDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{instructorId}")
+    @PutMapping("/adminAccess/updateInstructure/{instructorId}")
     public ResponseEntity<InstructorEntity> updateInstructor(@PathVariable("instructorId") Long instructorId, @RequestBody InstructorDtoPost instructorDtoPost){
         instructorService.updateInstructor(instructorId, instructorDtoPost);
         return new ResponseEntity<>(instructorService.getInstructorById(instructorId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{instructorId}")
+    @DeleteMapping("/adminAccess/deleteInstructure/{instructorId}")
     public ResponseEntity<InstructorEntity> deleteInstructor(@PathVariable("instructorId") Long instructorId){
         instructorService.deleteInstructor(instructorId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

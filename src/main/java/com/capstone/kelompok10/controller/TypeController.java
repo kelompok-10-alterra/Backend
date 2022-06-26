@@ -30,48 +30,48 @@ public class TypeController {
         this.typeService = typeService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/userAccess/getAllType")
     public ResponseEntity<List<TypeEntity>> findAll(){
         List<TypeEntity> types = typeService.findAll();
         return new ResponseEntity<>(types, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}")
+    @GetMapping("/userAccess/{offset}/{pageSize}")
     public ResponseEntity<Page<TypeEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<TypeEntity> types = typeService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(types, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}/{field}")
+    @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<TypeEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<TypeEntity> types = typeService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(types, HttpStatus.OK);
     }
 
-    @GetMapping("/dto")
+    @GetMapping("/userAccess/getAllTypeWithDto")
     public ResponseEntity<List<TypeDtoGet>> findAllDto(){
         List<TypeDtoGet> typeDtos = typeService.findAllDto();
         return new ResponseEntity<>(typeDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{typeId}")
+    @GetMapping("/userAccess/getTypeById/{typeId}")
     public ResponseEntity<TypeEntity> getTypeById(@PathVariable Long typeId){
         return new ResponseEntity<>(typeService.getTypeById(typeId), HttpStatus.OK);
     }
 
-    @PostMapping("/dto")
+    @PostMapping("/adminAccess/createNewType")
     public ResponseEntity<TypeDtoPost> createTypeDto(@RequestBody TypeDtoPost typeDtoPost){
         typeService.createTypeDto(typeDtoPost);
         return new ResponseEntity<>(typeDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{typeId}")
+    @PutMapping("/adminAccess/updateType/{typeId}")
     public ResponseEntity<TypeEntity> updateType(@PathVariable("typeId") Long typeId, @RequestBody TypeDtoPost typeDtoPost){
         typeService.updateType(typeId, typeDtoPost);
         return new ResponseEntity<>(typeService.getTypeById(typeId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{typeId}")
+    @DeleteMapping("/adminAccess/deleteType/{typeId}")
     public ResponseEntity<TypeEntity> deleteType(@PathVariable("typeId") Long typeId){
         typeService.deleteType(typeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

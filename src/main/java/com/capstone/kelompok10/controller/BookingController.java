@@ -31,54 +31,54 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @GetMapping
+    @GetMapping("/adminAccess/getAllBooking")
     public ResponseEntity<List<BookingEntity>> findAll(){
         List<BookingEntity> booking = bookingService.findAll();
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
-    @GetMapping("/{offset}/{pageSize}")
+    @GetMapping("/adminAccess/{offset}/{pageSize}")
     public ResponseEntity<Page<BookingEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<BookingEntity> booking = bookingService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
-    @GetMapping("/{offset}/{pageSize}/{field}")
+    @GetMapping("/adminAccess/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<BookingEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<BookingEntity> booking = bookingService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
-    @GetMapping("/dto")
+    @GetMapping("/adminAccess/getAllWithDto")
     public ResponseEntity<List<BookingDtoGet>> findAllDto(){
         List<BookingDtoGet> bookingDtos = bookingService.findAllDto();
         return new ResponseEntity<>(bookingDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/userAcess/getBookingById")
     public ResponseEntity<BookingEntity> getBookingById(@RequestParam("bookingId") Long bookingId){
         return new ResponseEntity<>(bookingService.getBookingById(bookingId), HttpStatus.OK);
     }
 
-    @PostMapping("/user/dto")
+    @PostMapping("/userAcess/createNewBooking")
     public ResponseEntity<BookingDtoPost> createBookingDto(@RequestBody BookingDtoPost bookingDtoPost){
         bookingService.createBookingDto(bookingDtoPost);
         return new ResponseEntity<>(bookingDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{bookingId}")
+    @PutMapping("/adminAccess/updateBooking/{bookingId}")
     public ResponseEntity<BookingEntity> updateBooking(@PathVariable("bookingId") Long bookingId, @RequestBody BookingDtoPost bookingDtoPost){
         bookingService.updateBooking(bookingId, bookingDtoPost);
         return new ResponseEntity<>(bookingService.getBookingById(bookingId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{bookingId}")
+    @DeleteMapping("/adminAccess/deleteBooking/{bookingId}")
     public ResponseEntity<BookingEntity> deleteBooking(@PathVariable("bookingId") Long bookingId){
         bookingService.deleteBooking(bookingId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/totalBooking")
+    @GetMapping("/adminAccess/countTotalBooking")
     public int totalUser(){
         return bookingService.totalBooking();
     }

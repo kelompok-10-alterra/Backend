@@ -35,6 +35,7 @@ public class UserEntity {
     private Long phone;
     private String address;
     private String imageUrl;
+    private String roleName;
 
     @Column(nullable = true)
     private String token;

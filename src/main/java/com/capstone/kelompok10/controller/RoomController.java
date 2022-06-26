@@ -30,48 +30,48 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/userAccess/getAllRoom")
     public ResponseEntity<List<RoomEntity>> findAll(){
         List<RoomEntity> rooms = roomService.findAll();
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}")
+    @GetMapping("/userAccess/{offset}/{pageSize}")
     public ResponseEntity<Page<RoomEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<RoomEntity> rooms = roomService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}/{field}")
+    @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<RoomEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<RoomEntity> rooms = roomService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
-    @GetMapping("/user/dto")
+    @GetMapping("/userAccess/getAllRoomWithDto")
     public ResponseEntity<List<RoomDtoGet>> findAllDto(){
         List<RoomDtoGet> roomDtos = roomService.findAllDto();
         return new ResponseEntity<>(roomDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{roomId}")
+    @GetMapping("/userAccess/getRoomById/{roomId}")
     public ResponseEntity<RoomEntity> getRoomById(@PathVariable Long roomId){
         return new ResponseEntity<>(roomService.getRoomById(roomId), HttpStatus.OK);
     }
 
-    @PostMapping("/dto")
+    @PostMapping("/adminAccess/createNewRoom")
     public ResponseEntity<RoomDtoPost> createRoomDto(@RequestBody RoomDtoPost roomDtoPost){
         roomService.createRoomDto(roomDtoPost);
         return new ResponseEntity<>(roomDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{roomId}")
+    @PutMapping("/adminAccess/updateRoom/{roomId}")
     public ResponseEntity<RoomEntity> updateRoom(@PathVariable("roomId") Long roomId, @RequestBody RoomDtoPost roomDtoPost){
         roomService.updateRoom(roomId, roomDtoPost);
         return new ResponseEntity<>(roomService.getRoomById(roomId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{roomId}")
+    @DeleteMapping("/adminAccess/deleteRoom/{roomId}")
     public ResponseEntity<RoomEntity> deleteRoom(@PathVariable("roomId") Long roomId){
         roomService.deleteRoom(roomId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

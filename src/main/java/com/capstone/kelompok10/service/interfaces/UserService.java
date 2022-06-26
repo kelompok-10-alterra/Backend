@@ -14,6 +14,9 @@ public interface UserService {
     List<UserDtoGet> findAllDto();
     Page<UserEntity> findAllPagination(int offset, int pageSize);
     Page<UserEntity> findAllPaginationSort(int offset, int pageSize, String field);
+    List<UserEntity> getAllRoleUser();
+    List<UserEntity> getAllRoleAdmin();
+    List<UserEntity> getAllRoleSuperAdmin();
     UserEntity getUserById(Long userId);
     void createUser(UserEntity user);
     void createUserDto(UserDtoPost userDtoPost);

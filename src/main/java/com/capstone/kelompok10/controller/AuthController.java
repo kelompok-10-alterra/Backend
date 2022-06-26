@@ -83,7 +83,7 @@ public class AuthController {
         return registerService.register(register);
     }
 
-    @GetMapping("/confirm")
+    @GetMapping("/confirmToken")
     public String verifyUser(@RequestParam("token") String token){
         if (registerService.confirmToken(token)){
             return "Verify Success";
@@ -92,17 +92,17 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/resend")
+    @PostMapping("/resendToken")
     public String resend(@RequestBody ResendToken resendToken){
         return registerService.resendToken(resendToken);
     }
 
-    @PostMapping("/forgot")
+    @PostMapping("/forgotPassword")
     public String resetPass(@RequestBody ResendToken reset){
         return registerService.resetPassword(reset);
     }
 
-    @PostMapping("/reset")
+    @PostMapping("/resetPassword")
     public String resetPassword(@RequestParam("token") String token, @RequestBody ForgotPassword forgotPassword){
         if (registerService.forgotPassword(token, forgotPassword)){
             return "Password Changed";

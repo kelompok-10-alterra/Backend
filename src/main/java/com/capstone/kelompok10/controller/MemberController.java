@@ -31,48 +31,48 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping
+    @GetMapping("/userAccess/getAllMember")
     public ResponseEntity<List<MemberEntity>> findAll(){
         List<MemberEntity> members = memberService.findAll();
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
-    @GetMapping("/{offset}/{pageSize}")
+    @GetMapping("/userAccess/{offset}/{pageSize}")
     public ResponseEntity<Page<MemberEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<MemberEntity> members = memberService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
-    @GetMapping("/{offset}/{pageSize}/{field}")
+    @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<MemberEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<MemberEntity> members = memberService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
-    @GetMapping("/dto")
+    @GetMapping("/userAccess/getAllMemberById")
     public ResponseEntity<List<MemberDtoGet>> findAllDto(){
         List<MemberDtoGet> memberDtos = memberService.findAllDto();
         return new ResponseEntity<>(memberDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/userAccess/getMemberById")
     public ResponseEntity<MemberEntity> getMemberById(@RequestParam("memberId") Long memberId){
         return new ResponseEntity<>(memberService.getMemberById(memberId), HttpStatus.OK);
     }
 
-    @PostMapping("/dto")
+    @PostMapping("/adminAccess/createNewMember")
     public ResponseEntity<MemberDtoPost> createMemberDto(@RequestBody MemberDtoPost memberDtoPost){
         memberService.createMemberDto(memberDtoPost);
         return new ResponseEntity<>(memberDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{memberId}")
+    @PutMapping("/adminAccess/updateMember/{memberId}")
     public ResponseEntity<MemberEntity> updateMember(@PathVariable("memberId") Long memberId, @RequestBody MemberDtoPost memberDtoPost){
         memberService.updateMember(memberId, memberDtoPost);
         return new ResponseEntity<>(memberService.getMemberById(memberId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{memberId}")
+    @DeleteMapping("/adminAccess/deleteMember/{memberId}")
     public ResponseEntity<MemberEntity> deleteMember(@PathVariable("memberId") Long memberId){
         memberService.deleteMember(memberId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -98,6 +98,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+	public List<UserEntity> getAllRoleUser(){
+		List<UserEntity> user = new ArrayList<>();
+        userRepository.findByRoleName("ROLE_USER").forEach(user::add);
+		return user;
+	}
+
+    @Override
+	public List<UserEntity> getAllRoleAdmin(){
+		List<UserEntity> user = new ArrayList<>();
+        userRepository.findByRoleName("ROLE_ADMIN").forEach(user::add);
+		return user;
+	}
+
+    @Override
+	public List<UserEntity> getAllRoleSuperAdmin(){
+		List<UserEntity> user = new ArrayList<>();
+        userRepository.findByRoleName("ROLE_SUPER_ADMIN").forEach(user::add);
+		return user;
+	}
+
+    @Override
     public List<UserDtoGet> findAllDto() {
         log.info("Get all User with DTO");
         List<UserEntity> users = userRepository.findAll();
@@ -220,8 +241,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void addRoleToUser(String username, String roleName) {
         log.info("Menambahkan Role {} ke user {}", roleName, username);
         UserEntity user = userRepository.findByUsername(username);
-        RoleEntity role = roleRepository.findByName(roleName);
-        user.getRoles().add(role);
+        if(userRepository.findByUsername(username) != null && roleRepository.findByName(roleName) != null){
+            if(user.getRoles().isEmpty()){
+                RoleEntity role = roleRepository.findByName(roleName);
+                user.getRoles().add(role);
+                user.setRoleName(roleName);
+                userRepository.save(user);
+                log.info("Succesfully added role to user {}", username);
+            }else{
+                user.getRoles().removeAll(user.getRoles());
+                RoleEntity role = roleRepository.findByName(roleName);
+                user.getRoles().add(role);
+                user.setRoleName(roleName);
+                userRepository.save(user);
+                log.info("Previous role for {} has been changed to {}", username, roleName);
+            }
+        }else{
+            log.info("Role / Username did'nt exist");
+        }
         
     }
 

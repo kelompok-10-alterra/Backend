@@ -30,48 +30,48 @@ public class ClassController {
         this.classService = classService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/userAccess/getAllClass")
     public ResponseEntity<List<ClassEntity>> findAll(){
         List<ClassEntity> classs = classService.findAll();
         return new ResponseEntity<>(classs, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}")
+    @GetMapping("/userAccess/{offset}/{pageSize}")
     public ResponseEntity<Page<ClassEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<ClassEntity> classs = classService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(classs, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{offset}/{pageSize}/{field}")
+    @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<ClassEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<ClassEntity> classs = classService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(classs, HttpStatus.OK);
     }
 
-    @GetMapping("/user/dto")
+    @GetMapping("/userAccess/getAllClassWithDto")
     public ResponseEntity<List<ClassDtoGet>> findAllDto(){
         List<ClassDtoGet> classDtos = classService.findAllDto();
         return new ResponseEntity<>(classDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{classId}")
+    @GetMapping("/userAccess/getClassById/{classId}")
     public ResponseEntity<ClassEntity> getClassById(@PathVariable("classId") Long classId){
         return new ResponseEntity<>(classService.getClassById(classId), HttpStatus.OK);
     }
 
-    @PostMapping("/dto")
+    @PostMapping("/adminAccess/createNewClass")
     public ResponseEntity<ClassDtoPost> createClassDto(@RequestBody ClassDtoPost classDtoPost){
         classService.createClassDto(classDtoPost);
         return new ResponseEntity<>(classDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/{classId}")
+    @PutMapping("/adminAccess/updateClass/{classId}")
     public ResponseEntity<ClassEntity> updateClass(@PathVariable("classId") Long classId, @RequestBody ClassDtoPost classesDtoPost){
         classService.updateClass(classId, classesDtoPost);
         return new ResponseEntity<>(classService.getClassById(classId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{classId}")
+    @DeleteMapping("/adminAccess/deleteClass/{classId}")
     public ResponseEntity<ClassEntity> deleteClass(@PathVariable("classId") Long classId){
         classService.deleteClass(classId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
