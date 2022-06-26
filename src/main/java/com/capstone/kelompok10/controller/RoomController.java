@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.kelompok10.model.dto.get.RoomDtoGet;
@@ -54,8 +55,8 @@ public class RoomController {
         return new ResponseEntity<>(roomDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getRoomById/{roomId}")
-    public ResponseEntity<RoomEntity> getRoomById(@PathVariable Long roomId){
+    @GetMapping("/userAccess/getRoomById")
+    public ResponseEntity<RoomEntity> getRoomById(@RequestParam("roomId") Long roomId){
         return new ResponseEntity<>(roomService.getRoomById(roomId), HttpStatus.OK);
     }
 

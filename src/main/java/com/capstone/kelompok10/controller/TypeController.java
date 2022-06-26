@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.kelompok10.model.dto.get.TypeDtoGet;
@@ -54,8 +55,8 @@ public class TypeController {
         return new ResponseEntity<>(typeDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getTypeById/{typeId}")
-    public ResponseEntity<TypeEntity> getTypeById(@PathVariable Long typeId){
+    @GetMapping("/userAccess/getTypeById")
+    public ResponseEntity<TypeEntity> getTypeById(@RequestParam("typeId") Long typeId){
         return new ResponseEntity<>(typeService.getTypeById(typeId), HttpStatus.OK);
     }
 

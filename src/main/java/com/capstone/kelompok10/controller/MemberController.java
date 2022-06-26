@@ -49,7 +49,7 @@ public class MemberController {
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getAllMemberById")
+    @GetMapping("/userAccess/getAllMemberByWithDto")
     public ResponseEntity<List<MemberDtoGet>> findAllDto(){
         List<MemberDtoGet> memberDtos = memberService.findAllDto();
         return new ResponseEntity<>(memberDtos, HttpStatus.OK);

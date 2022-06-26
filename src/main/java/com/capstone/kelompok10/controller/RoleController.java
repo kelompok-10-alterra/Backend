@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -54,8 +55,8 @@ public class RoleController {
         return new ResponseEntity<>(roleDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/managerOnly/getRoleById/{roleId}")
-    public ResponseEntity<RoleEntity> getRoleById(@PathVariable("roleId") Long roleId){
+    @GetMapping("/managerOnly/getRoleById")
+    public ResponseEntity<RoleEntity> getRoleById(@RequestParam("roleId") Long roleId){
         return new ResponseEntity<>(roleService.getRoleById(roleId), HttpStatus.OK);
     }
 

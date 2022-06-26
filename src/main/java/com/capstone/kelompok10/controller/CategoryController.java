@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
@@ -54,8 +55,8 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getCategoryById/{categoryId}")
-    public ResponseEntity<CategoryEntity> getCategoryById(@PathVariable Long categoryId){
+    @GetMapping("/userAccess/getCategoryById")
+    public ResponseEntity<CategoryEntity> getCategoryById(@RequestParam("categoryId") Long categoryId){
         return new ResponseEntity<>(categoryService.getCategoryById(categoryId), HttpStatus.OK);
     }
 

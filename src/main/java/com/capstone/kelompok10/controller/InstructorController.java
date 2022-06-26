@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -54,8 +55,8 @@ public class InstructorController {
         return new ResponseEntity<>(instructorDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/userAcess/getInstructureWithId/{instructorId}")
-    public ResponseEntity<InstructorEntity> getInstructorById(@PathVariable("instructorId") Long instructorId){
+    @GetMapping("/userAcess/getInstructureWithId")
+    public ResponseEntity<InstructorEntity> getInstructorById(@RequestParam("instructorId") Long instructorId){
         return new ResponseEntity<>(instructorService.getInstructorById(instructorId), HttpStatus.OK);
     }
 

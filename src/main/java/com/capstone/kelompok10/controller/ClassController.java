@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
@@ -54,8 +55,8 @@ public class ClassController {
         return new ResponseEntity<>(classDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getClassById/{classId}")
-    public ResponseEntity<ClassEntity> getClassById(@PathVariable("classId") Long classId){
+    @GetMapping("/userAccess/getClassById")
+    public ResponseEntity<ClassEntity> getClassById(@RequestParam("classId") Long classId){
         return new ResponseEntity<>(classService.getClassById(classId), HttpStatus.OK);
     }
 

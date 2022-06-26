@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -54,8 +55,8 @@ public class MembershipController {
         return new ResponseEntity<>(membershipDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getMembershipById/{membershipId}")
-    public ResponseEntity<MembershipEntity> getMembershipById(@PathVariable("membershipId") Long membershipId){
+    @GetMapping("/userAccess/getMembershipById")
+    public ResponseEntity<MembershipEntity> getMembershipById(@RequestParam("membershipId") Long membershipId){
         return new ResponseEntity<>(membershipService.getMembershipById(membershipId), HttpStatus.OK);
     }
 
