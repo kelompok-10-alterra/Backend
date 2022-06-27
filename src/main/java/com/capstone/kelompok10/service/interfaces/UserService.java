@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.dto.post.UserDtoPost;
+import com.capstone.kelompok10.model.dto.put.UserDtoPut;
 import com.capstone.kelompok10.model.entity.UserEntity;
 
 public interface UserService {
@@ -20,7 +21,7 @@ public interface UserService {
     UserEntity getUserById(Long userId);
     void createUser(UserEntity user);
     void createUserDto(UserDtoPost userDtoPost);
-    void updateUser(Long userId, UserDtoPost UserDtoPost);
+    void updateUser(Long userId, UserDtoPut userDtoPut);
     void deleteUser(Long userId);
 
     // Auth method

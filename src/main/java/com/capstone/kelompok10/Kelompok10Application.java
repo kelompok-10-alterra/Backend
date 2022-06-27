@@ -52,7 +52,7 @@ public class Kelompok10Application {
 
 			userService.addRoleToUser("manager", "ROLE_SUPER_ADMIN");
 			userService.addRoleToUser("admin", "ROLE_ADMIN");
-			userService.addRoleToUser("rakha", "ROLE_USER");
+			userService.addRoleToUser("user", "ROLE_USER");
 			userService.addRoleToUser("backend", "ROLE_SUPER_ADMIN");
 		};
 	}

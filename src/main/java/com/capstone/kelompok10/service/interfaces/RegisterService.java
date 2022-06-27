@@ -9,6 +9,7 @@ public interface RegisterService {
     boolean confirmToken(String token);
     String resendToken(ResendToken resendToken);
     String buildEmail(String name, String link);
+    String buildEmailReset(String name, String link);
     String resetPassword(ResendToken reset);
     boolean forgotPassword(String token, ForgotPassword forgotPassword);
 }

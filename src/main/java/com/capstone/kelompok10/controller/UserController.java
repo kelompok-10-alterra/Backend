@@ -2,6 +2,7 @@ package com.capstone.kelompok10.controller;
 
 import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.dto.post.UserDtoPost;
+import com.capstone.kelompok10.model.dto.put.UserDtoPut;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.RoleToUser;
 import com.capstone.kelompok10.service.interfaces.UserService;
@@ -71,8 +72,8 @@ public class UserController {
     }
 
     @PutMapping("/userAccess/updateUser/{userId}")
-    public ResponseEntity<UserEntity> updateUser(@PathVariable("userId") Long userId, @RequestBody UserDtoPost userDtoPost){
-        userService.updateUser(userId, userDtoPost);
+    public ResponseEntity<UserEntity> updateUser(@PathVariable("userId") Long userId, @RequestBody UserDtoPut userDtoPut){
+        userService.updateUser(userId, userDtoPut);
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 

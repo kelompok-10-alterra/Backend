@@ -87,6 +87,7 @@ com\capstone\kelompok10\service\implementation\RoomServiceImpl.class
 com\capstone\kelompok10\model\payload\UsernamePassword.class
 com\capstone\kelompok10\model\dto\get\ClassDtoGet.class
 com\capstone\kelompok10\model\dto\get\RoleDtoGet.class
+com\capstone\kelompok10\model\dto\put\UserDtoPut.class
 com\capstone\kelompok10\model\entity\RoleEntity.class
 com\capstone\kelompok10\service\implementation\MembershipServiceImpl.class
 com\capstone\kelompok10\service\interfaces\UserService.class

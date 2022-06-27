@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 
 import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.dto.post.UserDtoPost;
+import com.capstone.kelompok10.model.dto.put.UserDtoPut;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.RoleRepository;
@@ -158,14 +159,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void updateUser(Long userId, UserDtoPost userDtoPost) {
+    public void updateUser(Long userId, UserDtoPut userDtoPut) {
         if(userRepository.findById(userId) != null){
             UserEntity user2 = userRepository.findById(userId).get(); 
-            user2.setName(userDtoPost.getName());
-            user2.setUsername(userDtoPost.getUsername());
-            user2.setPhone(userDtoPost.getPhone());
-            user2.setAddress(userDtoPost.getAddress());
-            user2.setImageUrl(userDtoPost.getImageUrl());
+            user2.setName(userDtoPut.getName());
+            user2.setPhone(userDtoPut.getPhone());
+            user2.setAddress(userDtoPut.getAddress());
+            user2.setImageUrl(userDtoPut.getImageUrl());
             userRepository.save(user2);
             log.info("User updated");
         }else{
