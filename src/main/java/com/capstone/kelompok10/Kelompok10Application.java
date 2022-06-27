@@ -34,9 +34,9 @@ public class Kelompok10Application {
 	}
 
 	@Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+	public PasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder();
+	}
 
 	@Bean
 	CommandLineRunner runner(UserService userService, RoleService roleService){
