@@ -78,6 +78,8 @@ public class ClassServiceImpl implements ClassService {
         classs.forEach(isi ->{
             ClassDtoGet dto = new ClassDtoGet();
             dto.setClassId(isi.getClassId());
+            dto.setName(isi.getName());
+            dto.setDescription(isi.getDescription());
             dto.setCapacity(isi.getCapacity());
             dto.setSchedule(isi.getSchedule().toString());
             dto.setPrice(isi.getPrice());
@@ -127,6 +129,8 @@ public class ClassServiceImpl implements ClassService {
             if(instructorService.instructorExist(classesDtoPost.getInstructorId()) == true && categoryService.categoryExist(classesDtoPost.getCategoryId()) == true &&
                 roomService.roomExist(classesDtoPost.getRoomId()) == true && typeService.typeExist(classesDtoPost.getTypeId()) == true){
                     class2.setStatus(classesDtoPost.getStatus());
+                    class2.setName(classesDtoPost.getName());
+                    class2.setDescription(classesDtoPost.getDescription());
                     class2.setCapacity(classesDtoPost.getCapacity());
                     class2.setSchedule(classesDtoPost.getSchedule());
                     class2.setPrice(classesDtoPost.getPrice());
@@ -173,6 +177,8 @@ public class ClassServiceImpl implements ClassService {
         if(instructorService.instructorExist(classDtoPost.getInstructorId()) == true && categoryService.categoryExist(classDtoPost.getCategoryId()) == true &&
             roomService.roomExist(classDtoPost.getRoomId()) == true && typeService.typeExist(classDtoPost.getTypeId()) == true){
                 classEntity.setStatus(classDtoPost.getStatus());
+                classEntity.setName(classDtoPost.getName());
+                classEntity.setDescription(classDtoPost.getDescription());
                 classEntity.setCapacity(classDtoPost.getCapacity());
                 classEntity.setSchedule(classDtoPost.getSchedule());
                 classEntity.setPrice(classDtoPost.getPrice());

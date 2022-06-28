@@ -1,6 +1,7 @@
 package com.capstone.kelompok10.model.entity;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
@@ -34,8 +34,8 @@ public class MembershipEntity {
     @JoinColumn(name = "memberId")
     private MemberEntity member;
 
-    @CreationTimestamp
-    private Instant created_at;
+    private LocalDateTime createdAt;
+    private LocalDateTime expiredAt;
     
     @UpdateTimestamp
     private Instant updated_at;

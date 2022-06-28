@@ -13,5 +13,5 @@ public class UserDtoGet {
     private Long phone;
     private String address;
     private String imageUrl;
-    private Long membership;
+    private String membership;
 }

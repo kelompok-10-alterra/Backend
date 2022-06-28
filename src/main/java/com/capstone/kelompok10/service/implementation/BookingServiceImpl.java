@@ -79,8 +79,15 @@ public class BookingServiceImpl implements BookingService {
             BookingDtoGet dto = new BookingDtoGet();
             dto.setBookingId(isi.getBookingId());
             dto.setStatus(isi.getStatus().toString());
+            dto.setPrice(isi.getPrice());
             dto.setUser(isi.getUser().getName());
+            dto.setMembership(isi.getUser().getMembership());
             dto.setClasses(isi.getClasses().getClassId());
+            dto.setSchedule(isi.getClasses().getSchedule());
+            dto.setInstructure(isi.getClasses().getInstructor().getName());
+            dto.setCategory(isi.getClasses().getCategory().getName());
+            dto.setRoom(isi.getClasses().getRoom().getName());
+            dto.setType(isi.getClasses().getType().getName());
 
             bookingDtos.add(dto);
         });
@@ -107,7 +114,6 @@ public class BookingServiceImpl implements BookingService {
 
             ClassEntity classEntity = new ClassEntity();
             classEntity.setClassId(bookingDtoPost.getClassId());
-
             if(bookingDtoPost.getClassId() != booking2.getClasses().getClassId()){
                 classService.unBookClass(bookingDtoPost.getClassId());
             }
@@ -152,7 +158,7 @@ public class BookingServiceImpl implements BookingService {
             Long total;
             if (userService.userHaveMembership(bookingDtoPost.getUserId()) == true){
                 log.info("User have membership and get discount price");
-                total = price - (price * 10 * 100);
+                total = price - (price * 10 / 100);
                 bookingEntity.setPrice(total);
             }else{
                 log.info("User don't have membership and didn't get discount price");

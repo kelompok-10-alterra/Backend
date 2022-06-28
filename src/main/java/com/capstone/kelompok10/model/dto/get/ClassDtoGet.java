@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClassDtoGet {
     private Long classId;
+    private String name;
+    private String description;
+    private Boolean status;
     private Long capacity;
     private String schedule;
     private Long price;
-    private Boolean status;
     private String type;
     private String imageUrl;
     private String instructor;

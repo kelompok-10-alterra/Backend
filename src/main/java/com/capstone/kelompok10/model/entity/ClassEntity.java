@@ -25,6 +25,8 @@ public class ClassEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long classId;
+    private String name;
+    private String description;
     private Boolean status;
     private Long capacity;
     private Date schedule;

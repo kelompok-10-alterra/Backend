@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClassDtoPost {
     private Boolean status;
+    private String name;
+    private String description;
     private Long capacity;
     private Date schedule;
     private Long price;

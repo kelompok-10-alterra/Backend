@@ -1,5 +1,7 @@
 package com.capstone.kelompok10.model.dto.get;
 
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,4 +12,5 @@ public class MembershipDtoGet {
     private Boolean status;
     private String user;
     private String member;
+    private LocalDateTime expiredAt;
 }

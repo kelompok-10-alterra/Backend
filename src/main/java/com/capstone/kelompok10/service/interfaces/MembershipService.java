@@ -17,6 +17,7 @@ public interface MembershipService {
     void createMembershipDto(MembershipDtoPost membershipDtoPost);
     void updateMembership(Long membershipId, MembershipDtoPost membershipDtoPost);
     void deleteMembership(Long membershipId);
+    Boolean membershipExpired(Long membershipId);
     int totalMembership();
 }
 

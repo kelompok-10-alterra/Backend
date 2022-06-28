@@ -1,5 +1,6 @@
 package com.capstone.kelompok10.service.implementation;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import com.capstone.kelompok10.service.interfaces.MemberService;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 import com.capstone.kelompok10.service.interfaces.UserService;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 @Log4j2
 @Service
+@AllArgsConstructor
 public class MembershipServiceImpl implements MembershipService {
     MembershipRepository membershipRepository;
 
@@ -70,7 +73,12 @@ public class MembershipServiceImpl implements MembershipService {
             dto.setMembershipId(isi.getMembershipId());
             dto.setStatus(isi.getStatus());
             dto.setUser(isi.getUser().getName());
-            dto.setMember(isi.getMember().getMemberId().toString());
+            if(isi.getMember() == null){
+                dto.setMember("no membership");
+            }else{
+                dto.setMember(isi.getMember().getLength());
+            }
+            dto.setExpiredAt(isi.getExpiredAt());
 
             membershipDtos.add(dto);
         });
@@ -100,11 +108,17 @@ public class MembershipServiceImpl implements MembershipService {
             userEntity.setUserId(membershipDtoPost.getUserId());
             
             if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true){
-                membership2.setStatus(membershipDtoPost.getStatus());
                 membership2.setUser(userEntity);
                 membership2.setMember(memberEntity);
-    
+                if(membershipDtoPost.getMemberId() == 1){
+                    membership2.setExpiredAt(LocalDateTime.now().plusMonths(1));
+                }if(membershipDtoPost.getMemberId() == 2){
+                    membership2.setExpiredAt(LocalDateTime.now().plusMonths(3));
+                }if(membershipDtoPost.getMemberId() == 3){
+                    membership2.setExpiredAt(LocalDateTime.now().plusMonths(6));
+                }
                 membershipRepository.save(membership2);
+                userService.getMembership(membershipDtoPost.getUserId(), membershipDtoPost.getMemberId(), membershipId);
                 log.info("membership updated");
             }else{
                 log.info("failed to update membership");
@@ -139,11 +153,19 @@ public class MembershipServiceImpl implements MembershipService {
         memberEntity.setMemberId(membershipDtoPost.getMemberId());
 
         if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true){
-            membershipEntity.setStatus(membershipDtoPost.getStatus());
+            membershipEntity.setStatus(true);
             membershipEntity.setUser(userEntity);
             membershipEntity.setMember(memberEntity);
-
+            membershipEntity.setCreatedAt(LocalDateTime.now());
+            if(membershipDtoPost.getMemberId() == 1){
+                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(1));
+            }if(membershipDtoPost.getMemberId() == 2){
+                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(3));
+            }if(membershipDtoPost.getMemberId() == 3){
+                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(6));
+            }
             membershipRepository.save(membershipEntity);
+            userService.getMembership(membershipDtoPost.getUserId(), membershipDtoPost.getMemberId(), membershipEntity.getMembershipId());
             log.info("membership created");
         }else{
             log.info("failed to create membership");
@@ -158,4 +180,19 @@ public class MembershipServiceImpl implements MembershipService {
         int sum = membership.size();
         return sum;
     }
+
+	@Override
+	public Boolean membershipExpired(Long membershipId) {
+        MembershipEntity member = membershipRepository.findById(membershipId).get();
+		if(member.getExpiredAt().isAfter(LocalDateTime.now())){
+            log.info("Membership is not expired yet");
+            return false;
+        }else{
+            log.info("Membership has been expired");
+            member.setMember(null);
+            member.setStatus(false);
+            membershipRepository.save(member);
+            return true;
+        }
+	}
 }
