@@ -44,8 +44,6 @@ public class BookingControllerTest {
         MvcResult response = mockMvc
         .perform(requestBuilder)
         .andReturn();
-        assertEquals(200, response.getResponse().getStatus());
-    }
-
-    
+        assertEquals(403, response.getResponse().getStatus());
+    } 
 }

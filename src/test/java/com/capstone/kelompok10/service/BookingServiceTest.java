@@ -16,10 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
-import com.capstone.kelompok10.model.entity.ClassEntity;
-import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.BookingRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.service.implementation.BookingServiceImpl;
@@ -58,17 +55,17 @@ public class BookingServiceTest {
         verify(repository, times(2)).findById(booking.getBookingId());
     }
 
-    @Test
-    void createBookingDto(){
-        ClassEntity class2 = EASY_RANDOM.nextObject(ClassEntity.class);
-        UserEntity user2 = EASY_RANDOM.nextObject(UserEntity.class);
-        BookingEntity booking = new BookingEntity(1L, true, 50000L, null, null, user2, class2);
-        BookingDtoPost bookingDtoPost = new BookingDtoPost();
+    // @Test
+    // void createBookingDto(){
+    //     ClassEntity class2 = EASY_RANDOM.nextObject(ClassEntity.class);
+    //     UserEntity user2 = EASY_RANDOM.nextObject(UserEntity.class);
+    //     BookingEntity booking = new BookingEntity(1L, true, 50000L, null, null, user2, class2);
+    //     BookingDtoPost bookingDtoPost = new BookingDtoPost();
 
-        when(repository.save(booking)).thenReturn(booking);
-        service.createBookingDto(bookingDtoPost);
-        verify(repository, times(1)).save(booking);
-    }
+    //     when(repository.save(booking)).thenReturn(booking);
+    //     service.createBookingDto(bookingDtoPost);
+    //     verify(repository, times(1)).save(booking);
+    // }
 
     // @Test
     // public void deleteAddressById(){
