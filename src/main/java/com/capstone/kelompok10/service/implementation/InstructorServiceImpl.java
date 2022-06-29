@@ -106,7 +106,7 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public void deleteInstructor(Long instructorId) {
-        if(instructorRepository.findById(instructorId) != null){
+        if(instructorRepository.findById(instructorId).isPresent() == true){
             log.info("Instructor with id {} successfully deleted", instructorId);
             instructorRepository.deleteById(instructorId);
         }else{
@@ -128,10 +128,10 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public Boolean instructorExist(Long instructorId) {
-        if(instructorRepository.findById(instructorId) == null){
-            return false;
-        }else{
+        if(instructorRepository.findById(instructorId).isPresent() == true){
             return true;
+        }else{
+            return false;
         }
     }
 }

@@ -129,10 +129,10 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public Boolean typeExist(Long typeId) {
-        if(typeRepository.findById(typeId) == null){
-            return false;
-        }else{
+        if(typeRepository.findById(typeId).isPresent() == true){
             return true;
+        }else{
+            return false;
         }
     }
 }

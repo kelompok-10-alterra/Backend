@@ -283,4 +283,13 @@ public class ClassServiceImpl implements ClassService {
         class2.setCapacity(capacity + 1);
         classRepository.save(class2);
     }
+
+    @Override
+    public Boolean classExist(Long classId) {
+        if(classRepository.findById(classId).isPresent() == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

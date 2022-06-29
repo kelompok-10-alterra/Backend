@@ -127,10 +127,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Boolean categoryExist(Long categoryId) {
-        if(categoryRepository.findById(categoryId) == null){
-            return false;
-        }else{
+        if(categoryRepository.findById(categoryId).isPresent() == true){
             return true;
+        }else{
+            return false;
         }
     }
 }

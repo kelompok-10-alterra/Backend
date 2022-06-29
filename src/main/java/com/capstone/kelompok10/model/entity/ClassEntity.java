@@ -2,7 +2,7 @@ package com.capstone.kelompok10.model.entity;
 
 import java.time.Instant;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -60,7 +60,7 @@ public class ClassEntity {
     private TypeEntity type;
 
     @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private Set<BookingEntity> booking;
+    private List<BookingEntity> booking;
 
     @CreationTimestamp
     private Instant created_at;

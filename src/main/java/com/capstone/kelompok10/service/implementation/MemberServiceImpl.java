@@ -106,7 +106,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void deleteMember(Long memberId) {
-        if(memberRepository.findById(memberId) != null){
+        if(memberRepository.findById(memberId).isPresent() == true){
             memberRepository.deleteById(memberId);
             log.info("Member with id {} successfully deleted", memberId);
         }else{

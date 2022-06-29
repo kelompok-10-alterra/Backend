@@ -187,7 +187,7 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public void deleteMembership(Long membershipId) {
-        if(membershipRepository.findById(membershipId) != null){
+        if(membershipRepository.findById(membershipId).isPresent() == true){
             log.info("Membership with id {} successfully deleted", membershipId);
             membershipRepository.deleteById(membershipId);
         }else{

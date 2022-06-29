@@ -125,10 +125,10 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Boolean roomExist(Long roomId) {
-        if(roomRepository.findById(roomId) == null){
-            return false;
-        }else{
+        if(roomRepository.findById(roomId).isPresent() == true){
             return true;
+        }else{
+            return false;
         }
     }
 }

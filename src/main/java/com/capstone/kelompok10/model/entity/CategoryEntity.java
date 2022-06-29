@@ -1,7 +1,7 @@
 package com.capstone.kelompok10.model.entity;
 
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ public class CategoryEntity {
 
     // @JsonIgnore
     @OneToMany(mappedBy = "category", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private Set<ClassEntity> classes;
+    private List<ClassEntity> classes;
 
     @CreationTimestamp
     private Instant created_at;

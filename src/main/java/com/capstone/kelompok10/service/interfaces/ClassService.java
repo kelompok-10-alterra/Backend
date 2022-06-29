@@ -24,4 +24,5 @@ public interface ClassService {
     void unBookClass(Long classId);
     Boolean classFull(Long classId);
     Long classPrice(Long classId);
+    Boolean classExist(Long classId);
 }

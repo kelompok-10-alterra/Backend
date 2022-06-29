@@ -160,11 +160,16 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void deleteBooking(Long bookingId) {
-        if(bookingRepository.findById(bookingId) != null){
+        if(bookingRepository.findById(bookingId).isPresent() == true){
             BookingEntity booking = bookingRepository.findById(bookingId).get();
-            classService.unBookClass(booking.getClasses().getClassId());
-            bookingRepository.deleteById(bookingId);
-            log.info("Booking with id {} successfully deleted", bookingId);
+            if(classService.classExist(booking.getClasses().getClassId()) == true){
+                classService.unBookClass(booking.getClasses().getClassId());
+                bookingRepository.deleteById(bookingId);
+                log.info("Booking with id {} successfully deleted", bookingId);
+            }else{
+                bookingRepository.deleteById(bookingId);
+                log.info("Booking with id {} successfully deleted", bookingId);
+            }
         }else{
             log.info("Booking with id {} not found", bookingId);
             throw new IllegalStateException("Booking you search not found");

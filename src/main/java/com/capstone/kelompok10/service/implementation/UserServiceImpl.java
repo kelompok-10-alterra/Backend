@@ -211,10 +211,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Boolean userExist(Long userId) {
-        if(userRepository.findById(userId) == null){
-            return false;
-        }else{
+        if(userRepository.findById(userId).isPresent() == true){
             return true;
+        }else{
+            return false;
         }
     }
 
