@@ -14,6 +14,7 @@ import com.capstone.kelompok10.model.dto.put.UserDtoPut;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.repository.MemberRepository;
 import com.capstone.kelompok10.repository.RoleRepository;
 import com.capstone.kelompok10.repository.UserRepository;
@@ -60,6 +61,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    ClassRepository classRepository;
 
     @Autowired
     MemberRepository memberRepository;
@@ -298,4 +302,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         List<UserEntity> user = userRepository.findAll(keyword);
         return user;
     }
+
+    @Override
+    public void getPoint(Long userId){
+        UserEntity user = userRepository.findById(userId).get();
+        Long point = user.getPoint();
+        user.setPoint(point + 100L);
+    }
+
+    @Override
+    public UserEntity getUserByUsername(String username) {
+        UserEntity user = userRepository.findByUsername(username);
+        return user;
+    }
+
+    // @Override
+    // public void addFavorite(String username, String name) {
+    //     UserEntity user = userRepository.findByUsername(username);
+    //     ClassEntity isi = classRepository.findByName(name);
+    //     user.getClasses().add(isi);
+    // }
 }

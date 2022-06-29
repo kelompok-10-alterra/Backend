@@ -203,6 +203,7 @@ public class BookingServiceImpl implements BookingService {
             bookingRepository.save(bookingEntity);
 
             classService.classBooked(bookingDtoPost.getClassId());
+            userService.getPoint(bookingDtoPost.getUserId());
             log.info("Booking created");
         }else{
             log.info("Failed to create Booking");

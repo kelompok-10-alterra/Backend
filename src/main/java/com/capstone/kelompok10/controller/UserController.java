@@ -105,8 +105,19 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    // @PostMapping("/userAccess/addFavorite")
+    // public ResponseEntity<?> AddFavorite(@RequestBody Favorite fav){
+    //     userService.addFavorite(fav.getUsername(), fav.getName());
+    //     return ResponseEntity.ok().build();
+    // }
+
     @GetMapping("/adminAccess/countTotalUser")
     public int totalUser(){
         return userService.totalUser();
+    }
+
+    @GetMapping("/userAccess/getUserByUsername")
+    public ResponseEntity<UserEntity> getUserUsingUsername(String username){
+        return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
     }
 }

@@ -35,6 +35,7 @@ public class UserEntity {
     private String imageUrl;
     private String roleName;
     private String membership;
+    private Long point = 0L;
 
     // @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     // private Set<MembershipEntity> memberships;
@@ -53,4 +54,8 @@ public class UserEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<RoleEntity> roles = new ArrayList<>();
+
+    // @ManyToMany(fetch = FetchType.EAGER)
+    // @JsonIgnore
+    // private Collection<ClassEntity> classes = new ArrayList<>();
 }
