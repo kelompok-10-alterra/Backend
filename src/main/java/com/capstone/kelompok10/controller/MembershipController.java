@@ -61,8 +61,8 @@ public class MembershipController {
     }
 
     @GetMapping("/userAccess/getMembershipById")
-    public ResponseEntity<MembershipEntity> getMembershipById(@RequestParam("membershipId") Long membershipId){
-        return new ResponseEntity<>(membershipService.getMembershipById(membershipId), HttpStatus.OK);
+    public ResponseEntity<MembershipDtoGet> getMembershipByIdDto(@RequestParam("membershipId") Long membershipId){
+        return new ResponseEntity<>(membershipService.getMembershipByIdDto(membershipId), HttpStatus.OK);
     }
 
     @PostMapping("/adminAccess/createNewMembership")
