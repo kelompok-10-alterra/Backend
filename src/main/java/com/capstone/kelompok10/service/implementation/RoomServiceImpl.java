@@ -26,11 +26,21 @@ public class RoomServiceImpl implements RoomService {
     
 
     @Override
-    public List<RoomEntity> findAll() {
+    public List<RoomDtoGet> findAll() {
         log.info("Get all Room without DTO");
-        List<RoomEntity> room = new ArrayList<>();
-        roomRepository.findAll().forEach(room::add);
-        return room;
+        List<RoomEntity> rooms = roomRepository.findAll();
+        List<RoomDtoGet> roomDtos = new ArrayList<>();
+        
+        rooms.forEach(isi ->{
+            RoomDtoGet dto = new RoomDtoGet();
+            dto.setRoomId(isi.getRoomId());
+            dto.setName(isi.getName());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+
+            roomDtos.add(dto);
+        });
+        return roomDtos;
     }
     
     @Override
@@ -47,21 +57,21 @@ public class RoomServiceImpl implements RoomService {
         return room;
     }
 
-    @Override
-    public List<RoomDtoGet> findAllDto() {
-        log.info("Get all Room with DTO");
-        List<RoomEntity> rooms = roomRepository.findAll();
-        List<RoomDtoGet> roomDtos = new ArrayList<>();
+    // @Override
+    // public List<RoomDtoGet> findAllDto() {
+    //     log.info("Get all Room with DTO");
+    //     List<RoomEntity> rooms = roomRepository.findAll();
+    //     List<RoomDtoGet> roomDtos = new ArrayList<>();
         
-        rooms.forEach(isi ->{
-            RoomDtoGet dto = new RoomDtoGet();
-            dto.setRoomId(isi.getRoomId());
-            dto.setName(isi.getName());
+    //     rooms.forEach(isi ->{
+    //         RoomDtoGet dto = new RoomDtoGet();
+    //         dto.setRoomId(isi.getRoomId());
+    //         dto.setName(isi.getName());
 
-            roomDtos.add(dto);
-        });
-        return roomDtos;
-    }
+    //         roomDtos.add(dto);
+    //     });
+    //     return roomDtos;
+    // }
 
     @Override
     public RoomEntity getRoomById(Long roomId) {

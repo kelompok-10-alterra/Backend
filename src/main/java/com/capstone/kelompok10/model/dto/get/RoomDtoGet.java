@@ -8,4 +8,6 @@ import lombok.NoArgsConstructor;
 public class RoomDtoGet {
     private Long roomId;
     private String name;
+    private String createdAt;
+    private String updatedAt;
 }

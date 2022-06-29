@@ -29,11 +29,20 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryEntity> findAll() {
-        log.info("Get all Category without DTO");
-        List<CategoryEntity> category = new ArrayList<>();
-        categoryRepository.findAll().forEach(category::add);
-        return category;
+    public List<CategoryDtoGet> findAll() {
+        List<CategoryEntity> categorys = categoryRepository.findAll();
+        List<CategoryDtoGet> CategoryDtos = new ArrayList<>();
+        
+        categorys.forEach(isi ->{
+            CategoryDtoGet dto = new CategoryDtoGet();
+            dto.setCategoryId(isi.getCategoryId());
+            dto.setName(isi.getName());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+
+            CategoryDtos.add(dto);
+        });
+        return CategoryDtos;
     }
     
     @Override
@@ -50,21 +59,21 @@ public class CategoryServiceImpl implements CategoryService {
         return category;
     }
 
-    @Override
-    public List<CategoryDtoGet> findAllDto() {
-        log.info("Get all Category with DTO");
-        List<CategoryEntity> categorys = categoryRepository.findAll();
-        List<CategoryDtoGet> CategoryDtos = new ArrayList<>();
+    // @Override
+    // public List<CategoryDtoGet> findAllDto() {
+    //     log.info("Get all Category with DTO");
+    //     List<CategoryEntity> categorys = categoryRepository.findAll();
+    //     List<CategoryDtoGet> CategoryDtos = new ArrayList<>();
         
-        categorys.forEach(isi ->{
-            CategoryDtoGet dto = new CategoryDtoGet();
-            dto.setCategoryId(isi.getCategoryId());
-            dto.setName(isi.getName());
+    //     categorys.forEach(isi ->{
+    //         CategoryDtoGet dto = new CategoryDtoGet();
+    //         dto.setCategoryId(isi.getCategoryId());
+    //         dto.setName(isi.getName());
 
-            CategoryDtos.add(dto);
-        });
-        return CategoryDtos;
-    }
+    //         CategoryDtos.add(dto);
+    //     });
+    //     return CategoryDtos;
+    // }
 
     @Override
     public CategoryEntity getCategoryById(Long categoryId) {

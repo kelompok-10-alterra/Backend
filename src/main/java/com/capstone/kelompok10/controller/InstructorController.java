@@ -32,8 +32,8 @@ public class InstructorController {
     }
 
     @GetMapping("/userAcess/getAllInstructure")
-    public ResponseEntity<List<InstructorEntity>> findAll(){
-        List<InstructorEntity> instructors = instructorService.findAll();
+    public ResponseEntity<List<InstructorDtoGet>> findAll(){
+        List<InstructorDtoGet> instructors = instructorService.findAll();
         return new ResponseEntity<>(instructors, HttpStatus.OK);
     }
 
@@ -49,11 +49,11 @@ public class InstructorController {
         return new ResponseEntity<>(instructors, HttpStatus.OK);
     }
 
-    @GetMapping("/userAcess/getAllInstructureWithDto")
-    public ResponseEntity<List<InstructorDtoGet>> findAllDto(){
-        List<InstructorDtoGet> instructorDtos = instructorService.findAllDto();
-        return new ResponseEntity<>(instructorDtos, HttpStatus.OK);
-    }
+    // @GetMapping("/userAcess/getAllInstructureWithDto")
+    // public ResponseEntity<List<InstructorDtoGet>> findAllDto(){
+    //     List<InstructorDtoGet> instructorDtos = instructorService.findAllDto();
+    //     return new ResponseEntity<>(instructorDtos, HttpStatus.OK);
+    // }
 
     @GetMapping("/userAcess/getInstructureWithId")
     public ResponseEntity<InstructorEntity> getInstructorById(@RequestParam("instructorId") Long instructorId){

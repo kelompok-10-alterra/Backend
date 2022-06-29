@@ -16,7 +16,6 @@ com\capstone\kelompok10\Kelompok10Application.class
 com\capstone\kelompok10\model\payload\RoleToUser.class
 com\capstone\kelompok10\repository\ContentRepository.class
 com\capstone\kelompok10\service\interfaces\TypeService.class
-com\capstone\kelompok10\model\dto\get\BookingDtoGet.class
 com\capstone\kelompok10\model\entity\BookingEntity.class
 com\capstone\kelompok10\controller\InstructorController.class
 com\capstone\kelompok10\controller\TypeController.class

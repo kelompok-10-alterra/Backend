@@ -9,4 +9,6 @@ public class MemberDtoGet {
     private Long memberId;
     private String period;
     private Long price;
+    private String createdAt;
+    private String updatedAt;
 }

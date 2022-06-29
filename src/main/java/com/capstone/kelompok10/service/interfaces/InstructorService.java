@@ -9,8 +9,8 @@ import com.capstone.kelompok10.model.dto.post.InstructorDtoPost;
 import com.capstone.kelompok10.model.entity.InstructorEntity;
 
 public interface InstructorService {
-    List<InstructorEntity> findAll();
-    List<InstructorDtoGet> findAllDto();
+    List<InstructorDtoGet> findAll();
+    // List<InstructorDtoGet> findAllDto();
     Page<InstructorEntity> findAllPagination(int offset, int pageSize);
     Page<InstructorEntity> findAllPaginationSort(int offset, int pageSize, String field);
     InstructorEntity getInstructorById(Long instructorId);

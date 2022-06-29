@@ -30,11 +30,21 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberEntity> findAll() {
-        log.info("Get all Member without DTO");
-        List<MemberEntity> member = new ArrayList<>();
-        memberRepository.findAll().forEach(member::add);
-        return member;
+    public List<MemberDtoGet> findAll() {
+        List<MemberEntity> members = memberRepository.findAll();
+        List<MemberDtoGet> memberDtos = new ArrayList<>();
+        
+        members.forEach(isi ->{
+            MemberDtoGet dto = new MemberDtoGet();
+            dto.setMemberId(isi.getMemberId());
+            dto.setPeriod(isi.getPeriod());
+            dto.setPrice(isi.getPrice());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+
+            memberDtos.add(dto);
+        });
+        return memberDtos;
     }
     
     @Override
@@ -51,22 +61,22 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
-    @Override
-    public List<MemberDtoGet> findAllDto() {
-        log.info("Get all Member with DTO");
-        List<MemberEntity> members = memberRepository.findAll();
-        List<MemberDtoGet> memberDtos = new ArrayList<>();
+    // @Override
+    // public List<MemberDtoGet> findAllDto() {
+    //     log.info("Get all Member with DTO");
+    //     List<MemberEntity> members = memberRepository.findAll();
+    //     List<MemberDtoGet> memberDtos = new ArrayList<>();
         
-        members.forEach(isi ->{
-            MemberDtoGet dto = new MemberDtoGet();
-            dto.setMemberId(isi.getMemberId());
-            dto.setPeriod(isi.getPeriod());
-            dto.setPrice(isi.getPrice());
+    //     members.forEach(isi ->{
+    //         MemberDtoGet dto = new MemberDtoGet();
+    //         dto.setMemberId(isi.getMemberId());
+    //         dto.setPeriod(isi.getPeriod());
+    //         dto.setPrice(isi.getPrice());
 
-            memberDtos.add(dto);
-        });
-        return memberDtos;
-    }
+    //         memberDtos.add(dto);
+    //     });
+    //     return memberDtos;
+    // }
 
     @Override
     public MemberEntity getMemberById(Long memberId) {

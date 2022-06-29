@@ -10,8 +10,8 @@ import com.capstone.kelompok10.model.entity.CategoryEntity;
 
 public interface CategoryService {
     //CRUD Method
-    List<CategoryEntity> findAll();
-    List<CategoryDtoGet> findAllDto();
+    List<CategoryDtoGet> findAll();
+    // List<CategoryDtoGet> findAllDto();
     Page<CategoryEntity> findAllPagination(int offset, int pageSize);
     Page<CategoryEntity> findAllPaginationSort(int offset, int pageSize, String field);
     CategoryEntity getCategoryById(Long categoryId);

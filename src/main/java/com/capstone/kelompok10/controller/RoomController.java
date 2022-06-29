@@ -32,8 +32,8 @@ public class RoomController {
     }
 
     @GetMapping("/userAccess/getAllRoom")
-    public ResponseEntity<List<RoomEntity>> findAll(){
-        List<RoomEntity> rooms = roomService.findAll();
+    public ResponseEntity<List<RoomDtoGet>> findAll(){
+        List<RoomDtoGet> rooms = roomService.findAll();
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
@@ -49,11 +49,11 @@ public class RoomController {
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getAllRoomWithDto")
-    public ResponseEntity<List<RoomDtoGet>> findAllDto(){
-        List<RoomDtoGet> roomDtos = roomService.findAllDto();
-        return new ResponseEntity<>(roomDtos, HttpStatus.OK);
-    }
+    // @GetMapping("/userAccess/getAllRoomWithDto")
+    // public ResponseEntity<List<RoomDtoGet>> findAllDto(){
+    //     List<RoomDtoGet> roomDtos = roomService.findAllDto();
+    //     return new ResponseEntity<>(roomDtos, HttpStatus.OK);
+    // }
 
     @GetMapping("/userAccess/getRoomById")
     public ResponseEntity<RoomEntity> getRoomById(@RequestParam("roomId") Long roomId){
