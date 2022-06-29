@@ -288,7 +288,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setMembership(null);
             userRepository.save(user);
         }else{
-            user.setMembership(member.getLength());
+            user.setMembership(member.getPeriod());
             userRepository.save(user);
         }
     }

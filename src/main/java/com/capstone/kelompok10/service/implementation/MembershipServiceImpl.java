@@ -41,11 +41,31 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public List<MembershipEntity> findAll() {
-        log.info("Get all Membership without DTO");
-        List<MembershipEntity> membership = new ArrayList<>();
-        membershipRepository.findAll().forEach(membership::add);
-        return membership;
+    public List<MembershipDtoGet> findAll() {
+        List<MembershipEntity> memberships = membershipRepository.findAll();
+        List<MembershipDtoGet> membershipDtos = new ArrayList<>();
+        
+        memberships.forEach(isi ->{
+            MembershipDtoGet dto = new MembershipDtoGet();
+            dto.setMembershipId(isi.getMembershipId());
+            dto.setStatus(isi.getStatus());
+            dto.setCreatedAt(isi.getCreatedAt().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setUserId(isi.getUser().getUserId());
+            dto.setUserName(isi.getUser().getName());
+            if(isi.getMember() == null){
+                dto.setMemberId(null);
+                dto.setMember("no membership");
+            }else{
+                dto.setMemberId(isi.getMember().getMemberId());
+                dto.setMember(isi.getMember().getPeriod());
+            }
+            dto.setContact(isi.getUser().getPhone());
+            dto.setExpiredAt(isi.getExpiredAt());
+
+            membershipDtos.add(dto);
+        });
+        return membershipDtos;
     }
     
     @Override
@@ -72,17 +92,52 @@ public class MembershipServiceImpl implements MembershipService {
             MembershipDtoGet dto = new MembershipDtoGet();
             dto.setMembershipId(isi.getMembershipId());
             dto.setStatus(isi.getStatus());
-            dto.setUser(isi.getUser().getName());
+            dto.setCreatedAt(isi.getCreatedAt().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setUserId(isi.getUser().getUserId());
+            dto.setUserName(isi.getUser().getName());
             if(isi.getMember() == null){
+                dto.setMemberId(null);
                 dto.setMember("no membership");
             }else{
-                dto.setMember(isi.getMember().getLength());
+                dto.setMemberId(isi.getMember().getMemberId());
+                dto.setMember(isi.getMember().getPeriod());
             }
+            dto.setContact(isi.getUser().getPhone());
             dto.setExpiredAt(isi.getExpiredAt());
 
             membershipDtos.add(dto);
         });
         return membershipDtos;
+    }
+
+    @Override
+    public MembershipDtoGet getMembershipByIdDto(Long membershipId) {
+        if(membershipRepository.findById(membershipId) != null){
+            log.info("Membership with id {} found", membershipId);
+            MembershipEntity isi = membershipRepository.findById(membershipId).get();
+            MembershipDtoGet dto = new MembershipDtoGet();
+            dto.setMembershipId(isi.getMembershipId());
+            dto.setStatus(isi.getStatus());
+            dto.setCreatedAt(isi.getCreatedAt().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setUserId(isi.getUser().getUserId());
+            dto.setUserName(isi.getUser().getName());
+            if(isi.getMember() == null){
+                dto.setMemberId(null);
+                dto.setMember("no membership");
+            }else{
+                dto.setMemberId(isi.getMember().getMemberId());
+                dto.setMember(isi.getMember().getPeriod());
+            }
+            dto.setContact(isi.getUser().getPhone());
+            dto.setExpiredAt(isi.getExpiredAt());
+            
+            return dto;
+        }else{
+            log.info("Membership with id {} not found", membershipId);
+            throw new IllegalStateException("Membership not Found");
+        }
     }
 
     @Override

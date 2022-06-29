@@ -3,7 +3,7 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.kelompok10.model.dto.get.BookingDtoGet;
+import com.capstone.kelompok10.model.dto.get.BookingDtoGetDetailed;
 import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
 import com.capstone.kelompok10.model.entity.ClassEntity;
@@ -48,11 +48,33 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingEntity> findAll() {
-        log.info("Get all Booking without DTO");
-        List<BookingEntity> booking = new ArrayList<>();
-        bookingRepository.findAll().forEach(booking::add);
-        return booking;
+    public List<BookingDtoGetDetailed> findAll() {
+        List<BookingEntity> booking = bookingRepository.findAll();
+        List<BookingDtoGetDetailed> booking2 = new ArrayList<>();
+        booking.forEach(isi ->{
+            BookingDtoGetDetailed dto = new BookingDtoGetDetailed();
+            dto.setBookingId(isi.getBookingId());
+            dto.setStatus(isi.getStatus());
+            dto.setPrice(isi.getPrice());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setUserId(isi.getUser().getUserId());
+            dto.setUserName(isi.getUser().getName());
+            dto.setMembership(isi.getUser().getMembership());
+            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getClasses().getInstructor().getName());
+            dto.setClassId(isi.getClasses().getClassId());
+            dto.setClassName(isi.getClasses().getName());
+            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());
+            dto.setCategoryName(isi.getClasses().getCategory().getName());
+            dto.setSchedule(isi.getClasses().getSchedule());
+            dto.setRoom(isi.getClasses().getRoom().getName());
+            dto.setType(isi.getClasses().getType().getName());
+
+            booking2.add(dto);
+
+        });
+        return booking2;
     }
     
     @Override
@@ -70,28 +92,33 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDtoGet> findAllDto() {
-        log.info("Get all Booking with DTO");
-        List<BookingEntity> bookings = bookingRepository.findAll();
-        List<BookingDtoGet> bookingDtos = new ArrayList<>();
-        
-        bookings.forEach(isi ->{
-            BookingDtoGet dto = new BookingDtoGet();
-            dto.setBookingId(isi.getBookingId());
-            dto.setStatus(isi.getStatus().toString());
+    public BookingDtoGetDetailed getBookingByIdDto(Long bookingId) {
+        if(bookingRepository.findById(bookingId) == null){
+            log.info("Booking with id {} not found", bookingId);
+            return null;
+        }
+        log.info("Booking with id {} found", bookingId);
+        BookingEntity isi = bookingRepository.findById(bookingId).get();
+        BookingDtoGetDetailed dto = new BookingDtoGetDetailed();
+        dto.setBookingId(isi.getBookingId());
+            dto.setStatus(isi.getStatus());
             dto.setPrice(isi.getPrice());
-            dto.setUser(isi.getUser().getName());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setUserId(isi.getUser().getUserId());
+            dto.setUserName(isi.getUser().getName());
             dto.setMembership(isi.getUser().getMembership());
-            dto.setClasses(isi.getClasses().getClassId());
+            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getClasses().getInstructor().getName());
+            dto.setClassId(isi.getClasses().getClassId());
+            dto.setClassName(isi.getClasses().getName());
+            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());
+            dto.setCategoryName(isi.getClasses().getCategory().getName());
             dto.setSchedule(isi.getClasses().getSchedule());
-            dto.setInstructure(isi.getClasses().getInstructor().getName());
-            dto.setCategory(isi.getClasses().getCategory().getName());
             dto.setRoom(isi.getClasses().getRoom().getName());
             dto.setType(isi.getClasses().getType().getName());
 
-            bookingDtos.add(dto);
-        });
-        return bookingDtos;
+        return dto;            
     }
 
     @Override
@@ -101,7 +128,7 @@ public class BookingServiceImpl implements BookingService {
             return null;
         }
         log.info("Booking with id {} found", bookingId);
-        return bookingRepository.findById(bookingId).get();            
+        return bookingRepository.findById(bookingId).get();
     }
 
     @Override

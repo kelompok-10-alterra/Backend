@@ -10,7 +10,12 @@ import lombok.NoArgsConstructor;
 public class MembershipDtoGet {
     private Long membershipId;
     private Boolean status;
-    private String user;
+    private String createdAt;
+    private String updatedAt;
+    private Long userId;
+    private String userName;
+    private Long contact;
+    private Long memberId;
     private String member;
     private LocalDateTime expiredAt;
 }

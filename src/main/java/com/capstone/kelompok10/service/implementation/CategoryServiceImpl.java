@@ -58,6 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
         
         categorys.forEach(isi ->{
             CategoryDtoGet dto = new CategoryDtoGet();
+            dto.setCategoryId(isi.getCategoryId());
             dto.setName(isi.getName());
 
             CategoryDtos.add(dto);

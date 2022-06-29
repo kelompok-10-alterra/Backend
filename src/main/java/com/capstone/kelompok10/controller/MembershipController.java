@@ -32,8 +32,8 @@ public class MembershipController {
     }
 
     @GetMapping("/adminAccess/getAllMembership")
-    public ResponseEntity<List<MembershipEntity>> findAll(){
-        List<MembershipEntity> memberships = membershipService.findAll();
+    public ResponseEntity<List<MembershipDtoGet>> findAll(){
+        List<MembershipDtoGet> memberships = membershipService.findAll();
         return new ResponseEntity<>(memberships, HttpStatus.OK);
     }
 

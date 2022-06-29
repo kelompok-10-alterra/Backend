@@ -2,16 +2,22 @@ package com.capstone.kelompok10.model.entity;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,21 +39,28 @@ public class ClassEntity {
     private Long price;
     private String imageUrl;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instructorId")
     private InstructorEntity instructor;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId")
     private CategoryEntity category;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roomId")
     private RoomEntity room;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "typeId")
     private TypeEntity type;
+
+    @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private Set<BookingEntity> booking;
 
     @CreationTimestamp
     private Instant created_at;

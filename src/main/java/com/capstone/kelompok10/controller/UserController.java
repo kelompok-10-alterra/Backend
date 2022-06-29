@@ -77,11 +77,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/adminAccess/deleteUser/{userId}")
-    public ResponseEntity<UserEntity> deleteUser(@PathVariable("userId") Long userId){
-        userService.deleteUser(userId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    // @DeleteMapping("/adminAccess/deleteUser/{userId}")
+    // public ResponseEntity<UserEntity> deleteUser(@PathVariable("userId") Long userId){
+    //     userService.deleteUser(userId);
+    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    // }
 
     @PostMapping("/adminAccess/createUser")
     public ResponseEntity<UserDtoPost> createUser(@RequestBody UserDtoPost userDtoPost){

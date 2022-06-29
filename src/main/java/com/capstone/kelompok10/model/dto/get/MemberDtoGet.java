@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberDtoGet {
     private Long memberId;
-    private String length;
+    private String period;
     private Long price;
 }

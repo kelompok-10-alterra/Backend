@@ -1,27 +1,29 @@
 package com.capstone.kelompok10.model.dto.get;
 
+
+import java.util.Date;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ClassDtoGet {
-    private Long classId;
-    private String name;
-    private String description;
+public class BookingDtoGetDetailed {
+    private Long bookingId;
     private Boolean status;
-    private Long capacity;
-    private String schedule;
     private Long price;
-    private String imageUrl;
     private String createdAt;
     private String updatedAt;
-    private Long typeId;
-    private String typeName;
+    private Long userId;
+    private String userName;
+    private String membership;
     private Long instructureId;
     private String instructureName;
+    private Long classId;
+    private String className;
     private Long categoryId;
     private String categoryName;
-    private Long roomId;
-    private String roomName;
+    private Date schedule;
+    private String room;
+    private String type;
 }

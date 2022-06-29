@@ -36,6 +36,12 @@ public class UserEntity {
     private String roleName;
     private String membership;
 
+    // @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    // private Set<MembershipEntity> memberships;
+
+    // @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    // private Set<BookingEntity> booking;
+
     @Column(nullable = true)
     private String token;
 

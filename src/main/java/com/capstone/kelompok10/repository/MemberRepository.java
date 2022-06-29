@@ -10,6 +10,6 @@ import com.capstone.kelompok10.model.entity.MemberEntity;
 @Repository
 public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     Optional<MemberEntity> findById(Long memberId);
-    MemberEntity findByLength(String length);
+    MemberEntity findByPeriod(String period);
     MemberEntity findByPrice(Long price);
 }

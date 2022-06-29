@@ -3,7 +3,6 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,17 +14,16 @@ import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.repository.RoomRepository;
 import com.capstone.kelompok10.service.interfaces.RoomService;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
+@AllArgsConstructor
 public class RoomServiceImpl implements RoomService {
-    RoomRepository roomRepository;
+    private RoomRepository roomRepository;
 
-    @Autowired
-    public RoomServiceImpl(RoomRepository roomRepository){
-        this.roomRepository = roomRepository;
-    }
+    
 
     @Override
     public List<RoomEntity> findAll() {

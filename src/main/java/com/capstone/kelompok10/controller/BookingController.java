@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.get.BookingDtoGet;
+import com.capstone.kelompok10.model.dto.get.BookingDtoGetDetailed;
 import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
 import com.capstone.kelompok10.service.interfaces.BookingService;
@@ -32,8 +32,8 @@ public class BookingController {
     }
 
     @GetMapping("/adminAccess/getAllBooking")
-    public ResponseEntity<List<BookingEntity>> findAll(){
-        List<BookingEntity> booking = bookingService.findAll();
+    public ResponseEntity<List<BookingDtoGetDetailed>> findAll(){
+        List<BookingDtoGetDetailed> booking = bookingService.findAll();
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
@@ -49,15 +49,14 @@ public class BookingController {
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
-    @GetMapping("/adminAccess/getAllWithDto")
-    public ResponseEntity<List<BookingDtoGet>> findAllDto(){
-        List<BookingDtoGet> bookingDtos = bookingService.findAllDto();
-        return new ResponseEntity<>(bookingDtos, HttpStatus.OK);
-    }
-
     @GetMapping("/userAcess/getBookingById")
     public ResponseEntity<BookingEntity> getBookingById(@RequestParam("bookingId") Long bookingId){
         return new ResponseEntity<>(bookingService.getBookingById(bookingId), HttpStatus.OK);
+    }
+
+    @GetMapping("/userAcess/getBookingByIdDto")
+    public ResponseEntity<BookingDtoGetDetailed> getBookingByIdDto(@RequestParam("bookingId") Long bookingId){
+        return new ResponseEntity<>(bookingService.getBookingByIdDto(bookingId), HttpStatus.OK);
     }
 
     @PostMapping("/userAcess/createNewBooking")
