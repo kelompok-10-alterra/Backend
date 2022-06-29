@@ -52,7 +52,9 @@ public class MembershipServiceImpl implements MembershipService {
             dto.setCreatedAt(isi.getCreatedAt().toString());
             dto.setUpdatedAt(isi.getUpdated_at().toString());
             dto.setUserId(isi.getUser().getUserId());
-            dto.setUserName(isi.getUser().getName());
+            dto.setUsername(isi.getUser().getUsername());
+            dto.setEmail(isi.getUser().getEmail());
+            dto.setName(isi.getUser().getName());
             if(isi.getMember() == null){
                 dto.setMemberId(null);
                 dto.setMember("no membership");
@@ -95,7 +97,9 @@ public class MembershipServiceImpl implements MembershipService {
             dto.setCreatedAt(isi.getCreatedAt().toString());
             dto.setUpdatedAt(isi.getUpdated_at().toString());
             dto.setUserId(isi.getUser().getUserId());
-            dto.setUserName(isi.getUser().getName());
+            dto.setUsername(isi.getUser().getUsername());
+            dto.setEmail(isi.getUser().getEmail());
+            dto.setName(isi.getUser().getName());
             if(isi.getMember() == null){
                 dto.setMemberId(null);
                 dto.setMember("no membership");
@@ -122,7 +126,9 @@ public class MembershipServiceImpl implements MembershipService {
             dto.setCreatedAt(isi.getCreatedAt().toString());
             dto.setUpdatedAt(isi.getUpdated_at().toString());
             dto.setUserId(isi.getUser().getUserId());
-            dto.setUserName(isi.getUser().getName());
+            dto.setUsername(isi.getUser().getUsername());
+            dto.setEmail(isi.getUser().getEmail());
+            dto.setName(isi.getUser().getName());
             if(isi.getMember() == null){
                 dto.setMemberId(null);
                 dto.setMember("no membership");
@@ -263,7 +269,9 @@ public class MembershipServiceImpl implements MembershipService {
             dto.setCreatedAt(isi.getCreatedAt().toString());
             dto.setUpdatedAt(isi.getUpdated_at().toString());
             dto.setUserId(isi.getUser().getUserId());
-            dto.setUserName(isi.getUser().getName());
+            dto.setUsername(isi.getUser().getUsername());
+            dto.setEmail(isi.getUser().getEmail());
+            dto.setName(isi.getUser().getName());
             if(isi.getMember() == null){
                 dto.setMemberId(null);
                 dto.setMember("no membership");
