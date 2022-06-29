@@ -8,4 +8,6 @@ import lombok.NoArgsConstructor;
 public class CategoryDtoGet {
     private Long categoryId;
     private String name;
+    private String createdAt;
+    private String updatedAt;
 }

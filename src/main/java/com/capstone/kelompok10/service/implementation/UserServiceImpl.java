@@ -11,12 +11,15 @@ import javax.transaction.Transactional;
 import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.dto.post.UserDtoPost;
 import com.capstone.kelompok10.model.dto.put.UserDtoPut;
+import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.repository.MemberRepository;
 import com.capstone.kelompok10.repository.RoleRepository;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.email.EmailValidatorService;
 import com.capstone.kelompok10.service.email.PhonePasswordValidator;
+import com.capstone.kelompok10.service.interfaces.MembershipService;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 import com.capstone.kelompok10.service.interfaces.UserService;
 
@@ -50,10 +53,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     RoleService roleService;
 
     @Autowired
+    MembershipService membershipService;
+
+    @Autowired
     PasswordEncoder crypt;
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    MemberRepository memberRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository){
@@ -133,8 +142,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             dto.setEmail(isi.getEmail());
             dto.setPhone(isi.getPhone());
             dto.setAddress(isi.getAddress());
+            dto.setMembership(isi.getMembership());
             dto.setImageUrl(isi.getImageUrl());
-            dto.setMembership(isi.getMembership().getMembershipId());
 
             userDtos.add(dto);
         });
@@ -202,10 +211,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Boolean userExist(Long userId) {
-        if(userRepository.findById(userId) == null){
-            return false;
-        }else{
+        if(userRepository.findById(userId).isPresent() == true){
             return true;
+        }else{
+            return false;
         }
     }
 
@@ -258,10 +267,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
         }else{
             log.info("Role / Username did'nt exist");
+            throw new IllegalStateException("Role / Username did'nt exist");
         }
         
     }
-
     
     @Override
     public int totalUser() {
@@ -269,5 +278,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.findAll().forEach(user::add);
         int sum = user.size();
         return sum;
+    }
+
+    @Override
+    public void getMembership(Long userId, Long memberId, Long membershipId) {
+        UserEntity user = userRepository.findById(userId).get();
+        MemberEntity member = memberRepository.findById(memberId).get();
+        if(membershipService.membershipExpired(membershipId) == true){
+            user.setMembership(null);
+            userRepository.save(user);
+        }else{
+            user.setMembership(member.getPeriod());
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public List<UserEntity> findAll(String keyword) {
+        List<UserEntity> user = userRepository.findAll(keyword);
+        return user;
     }
 }

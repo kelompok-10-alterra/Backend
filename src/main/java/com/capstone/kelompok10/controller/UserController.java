@@ -25,9 +25,14 @@ public class UserController {
     }
 
     @GetMapping("/adminAccess/getAllUser")
-    public ResponseEntity<List<UserEntity>> findAll(){
-        List<UserEntity> users = userService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<List<UserEntity>> findAll(@RequestParam(required = false) String keyword){
+        if(keyword == null){
+            List<UserEntity> users = userService.findAll();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }else{
+            List<UserEntity> users = userService.findAll(keyword);
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }  
     }
 
     @GetMapping("/adminAccess/getAllUser/{offset}/{pageSize}")
@@ -43,9 +48,14 @@ public class UserController {
     }
 
     @GetMapping("/userAccess/findAllRoleUser")
-    public ResponseEntity<List<UserEntity>> findAllRoleUser(){
-        List<UserEntity> users = userService.getAllRoleUser();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<List<UserEntity>> findAllRoleUser(@RequestParam(required = false) String keyword){
+        if(keyword == null){
+            List<UserEntity> users = userService.getAllRoleUser();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }else{
+            List<UserEntity> users = userService.findAll(keyword);
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } 
     }
 
     @GetMapping("/adminAccess/findAllRoleAdmin")
@@ -77,11 +87,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/adminAccess/deleteUser/{userId}")
-    public ResponseEntity<UserEntity> deleteUser(@PathVariable("userId") Long userId){
-        userService.deleteUser(userId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    // @DeleteMapping("/adminAccess/deleteUser/{userId}")
+    // public ResponseEntity<UserEntity> deleteUser(@PathVariable("userId") Long userId){
+    //     userService.deleteUser(userId);
+    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    // }
 
     @PostMapping("/adminAccess/createUser")
     public ResponseEntity<UserDtoPost> createUser(@RequestBody UserDtoPost userDtoPost){

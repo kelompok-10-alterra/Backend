@@ -32,9 +32,14 @@ public class MembershipController {
     }
 
     @GetMapping("/adminAccess/getAllMembership")
-    public ResponseEntity<List<MembershipEntity>> findAll(){
-        List<MembershipEntity> memberships = membershipService.findAll();
-        return new ResponseEntity<>(memberships, HttpStatus.OK);
+    public ResponseEntity<List<MembershipDtoGet>> findAll(@RequestParam(required = false) Boolean keyword){
+        if(keyword == null){
+            List<MembershipDtoGet> memberships = membershipService.findAll();
+            return new ResponseEntity<>(memberships, HttpStatus.OK);
+        }else{
+            List<MembershipDtoGet> memberships = membershipService.findAll(keyword);
+            return new ResponseEntity<>(memberships, HttpStatus.OK);
+        }
     }
 
     @GetMapping("/adminAccess/{offset}/{pageSize}")

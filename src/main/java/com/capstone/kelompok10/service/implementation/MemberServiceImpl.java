@@ -30,11 +30,21 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberEntity> findAll() {
-        log.info("Get all Member without DTO");
-        List<MemberEntity> member = new ArrayList<>();
-        memberRepository.findAll().forEach(member::add);
-        return member;
+    public List<MemberDtoGet> findAll() {
+        List<MemberEntity> members = memberRepository.findAll();
+        List<MemberDtoGet> memberDtos = new ArrayList<>();
+        
+        members.forEach(isi ->{
+            MemberDtoGet dto = new MemberDtoGet();
+            dto.setMemberId(isi.getMemberId());
+            dto.setPeriod(isi.getPeriod());
+            dto.setPrice(isi.getPrice());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+
+            memberDtos.add(dto);
+        });
+        return memberDtos;
     }
     
     @Override
@@ -51,22 +61,22 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
-    @Override
-    public List<MemberDtoGet> findAllDto() {
-        log.info("Get all Member with DTO");
-        List<MemberEntity> members = memberRepository.findAll();
-        List<MemberDtoGet> memberDtos = new ArrayList<>();
+    // @Override
+    // public List<MemberDtoGet> findAllDto() {
+    //     log.info("Get all Member with DTO");
+    //     List<MemberEntity> members = memberRepository.findAll();
+    //     List<MemberDtoGet> memberDtos = new ArrayList<>();
         
-        members.forEach(isi ->{
-            MemberDtoGet dto = new MemberDtoGet();
-            dto.setMemberId(isi.getMemberId());
-            dto.setLength(isi.getLength());
-            dto.setPrice(isi.getPrice());
+    //     members.forEach(isi ->{
+    //         MemberDtoGet dto = new MemberDtoGet();
+    //         dto.setMemberId(isi.getMemberId());
+    //         dto.setPeriod(isi.getPeriod());
+    //         dto.setPrice(isi.getPrice());
 
-            memberDtos.add(dto);
-        });
-        return memberDtos;
-    }
+    //         memberDtos.add(dto);
+    //     });
+    //     return memberDtos;
+    // }
 
     @Override
     public MemberEntity getMemberById(Long memberId) {
@@ -83,7 +93,7 @@ public class MemberServiceImpl implements MemberService {
     public void updateMember(Long memberId, MemberDtoPost memberDtoPost) {
         if(memberRepository.findById(memberId) != null){
             MemberEntity member2 = memberRepository.findById(memberId).get();
-            member2.setLength(memberDtoPost.getLength());
+            member2.setPeriod(memberDtoPost.getPeriod());
             member2.setPrice(memberDtoPost.getPrice());
 
             memberRepository.save(member2);
@@ -96,7 +106,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void deleteMember(Long memberId) {
-        if(memberRepository.findById(memberId) != null){
+        if(memberRepository.findById(memberId).isPresent() == true){
             memberRepository.deleteById(memberId);
             log.info("Member with id {} successfully deleted", memberId);
         }else{
@@ -107,9 +117,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void createMemberDto(MemberDtoPost memberDtoPost) {
-        if(memberRepository.findByLength(memberDtoPost.getLength()) == null){
+        if(memberRepository.findByPeriod(memberDtoPost.getPeriod()) == null){
             MemberEntity memberEntity = new MemberEntity();
-            memberEntity.setLength(memberDtoPost.getLength());
+            memberEntity.setPeriod(memberDtoPost.getPeriod());
             memberEntity.setPrice(memberDtoPost.getPrice());
 
             memberRepository.save(memberEntity);

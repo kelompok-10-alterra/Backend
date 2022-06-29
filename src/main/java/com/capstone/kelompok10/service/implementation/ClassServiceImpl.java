@@ -48,11 +48,34 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<ClassEntity> findAll() {
-        log.info("Get all Class without DTO");
-        List<ClassEntity> classes = new ArrayList<>();
-        classRepository.findAll().forEach(classes::add);
-        return classes;
+    public List<ClassDtoGet> findAll() {
+        List<ClassEntity> classs = classRepository.findAll();
+        List<ClassDtoGet> classDtos = new ArrayList<>();
+        
+        classs.forEach(isi ->{
+            ClassDtoGet dto = new ClassDtoGet();
+            dto.setClassId(isi.getClassId());
+            dto.setName(isi.getName());
+            dto.setDescription(isi.getDescription());
+            dto.setStatus(isi.getStatus());
+            dto.setCapacity(isi.getCapacity());
+            dto.setSchedule(isi.getSchedule().toString());
+            dto.setPrice(isi.getPrice());
+            dto.setImageUrl(isi.getImageUrl());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setTypeId(isi.getType().getTypeId());
+            dto.setTypeName(isi.getType().getName());
+            dto.setInstructureId(isi.getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getInstructor().getName());
+            dto.setCategoryId(isi.getCategory().getCategoryId());
+            dto.setCategoryName(isi.getCategory().getName());
+            dto.setRoomId(isi.getRoom().getRoomId());
+            dto.setRoomName(isi.getRoom().getName());
+
+            classDtos.add(dto);
+        });
+        return classDtos;
     }
     
     @Override
@@ -69,28 +92,62 @@ public class ClassServiceImpl implements ClassService {
         return classes;
     }
 
-    @Override
-    public List<ClassDtoGet> findAllDto() {
-        log.info("Get all Class with DTO");
-        List<ClassEntity> classs = classRepository.findAll();
-        List<ClassDtoGet> classDtos = new ArrayList<>();
+    // @Override
+    // public List<ClassDtoGet> findAllDto() {
+    //     log.info("Get all Class with DTO");
+    //     List<ClassEntity> classs = classRepository.findAll();
+    //     List<ClassDtoGet> classDtos = new ArrayList<>();
         
-        classs.forEach(isi ->{
+    //     classs.forEach(isi ->{
+    //         ClassDtoGet dto = new ClassDtoGet();
+    //         dto.setClassId(isi.getClassId());
+    //         dto.setName(isi.getName());
+    //         dto.setDescription(isi.getDescription());
+    //         dto.setCapacity(isi.getCapacity());
+    //         dto.setSchedule(isi.getSchedule().toString());
+    //         dto.setPrice(isi.getPrice());
+    //         dto.setStatus(isi.getStatus());
+    //         dto.setImageUrl(isi.getImageUrl());
+    //         dto.setInstructor(isi.getInstructor().getName());
+    //         dto.setCategory(isi.getCategory().getName());
+    //         dto.setRoom(isi.getRoom().getName());
+    //         dto.setType(isi.getType().getName());
+
+    //         classDtos.add(dto);
+    //     });
+    //     return classDtos;
+    // }
+
+    @Override
+    public ClassDtoGet getClassByIdDto(Long classId) {
+        if(classRepository.findById(classId) == null){
+            log.info("Class with id {} can't be found", classId);
+            throw new IllegalStateException("Class not found");
+        }else{
+            log.info("Class with id {} found", classId);
+            ClassEntity isi = classRepository.findById(classId).get();
             ClassDtoGet dto = new ClassDtoGet();
             dto.setClassId(isi.getClassId());
+            dto.setName(isi.getName());
+            dto.setDescription(isi.getDescription());
+            dto.setStatus(isi.getStatus());
             dto.setCapacity(isi.getCapacity());
             dto.setSchedule(isi.getSchedule().toString());
             dto.setPrice(isi.getPrice());
-            dto.setStatus(isi.getStatus());
             dto.setImageUrl(isi.getImageUrl());
-            dto.setInstructor(isi.getInstructor().getName());
-            dto.setCategory(isi.getCategory().getName());
-            dto.setRoom(isi.getRoom().getName());
-            dto.setType(isi.getType().getName());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setTypeId(isi.getType().getTypeId());
+            dto.setTypeName(isi.getType().getName());
+            dto.setInstructureId(isi.getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getInstructor().getName());
+            dto.setCategoryId(isi.getCategory().getCategoryId());
+            dto.setCategoryName(isi.getCategory().getName());
+            dto.setRoomId(isi.getRoom().getRoomId());
+            dto.setRoomName(isi.getRoom().getName());
 
-            classDtos.add(dto);
-        });
-        return classDtos;
+            return dto;
+        }
     }
 
     @Override
@@ -127,6 +184,8 @@ public class ClassServiceImpl implements ClassService {
             if(instructorService.instructorExist(classesDtoPost.getInstructorId()) == true && categoryService.categoryExist(classesDtoPost.getCategoryId()) == true &&
                 roomService.roomExist(classesDtoPost.getRoomId()) == true && typeService.typeExist(classesDtoPost.getTypeId()) == true){
                     class2.setStatus(classesDtoPost.getStatus());
+                    class2.setName(classesDtoPost.getName());
+                    class2.setDescription(classesDtoPost.getDescription());
                     class2.setCapacity(classesDtoPost.getCapacity());
                     class2.setSchedule(classesDtoPost.getSchedule());
                     class2.setPrice(classesDtoPost.getPrice());
@@ -173,6 +232,8 @@ public class ClassServiceImpl implements ClassService {
         if(instructorService.instructorExist(classDtoPost.getInstructorId()) == true && categoryService.categoryExist(classDtoPost.getCategoryId()) == true &&
             roomService.roomExist(classDtoPost.getRoomId()) == true && typeService.typeExist(classDtoPost.getTypeId()) == true){
                 classEntity.setStatus(classDtoPost.getStatus());
+                classEntity.setName(classDtoPost.getName());
+                classEntity.setDescription(classDtoPost.getDescription());
                 classEntity.setCapacity(classDtoPost.getCapacity());
                 classEntity.setSchedule(classDtoPost.getSchedule());
                 classEntity.setPrice(classDtoPost.getPrice());
@@ -221,5 +282,14 @@ public class ClassServiceImpl implements ClassService {
         Long capacity = class2.getCapacity();
         class2.setCapacity(capacity + 1);
         classRepository.save(class2);
+    }
+
+    @Override
+    public Boolean classExist(Long classId) {
+        if(classRepository.findById(classId).isPresent() == true){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

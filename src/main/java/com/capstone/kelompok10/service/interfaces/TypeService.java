@@ -9,8 +9,8 @@ import com.capstone.kelompok10.model.dto.post.TypeDtoPost;
 import com.capstone.kelompok10.model.entity.TypeEntity;
 
 public interface TypeService {
-    List<TypeEntity> findAll();
-    List<TypeDtoGet> findAllDto();
+    List<TypeDtoGet> findAll();
+    // List<TypeDtoGet> findAllDto();
     Page<TypeEntity> findAllPagination(int offset, int pageSize);
     Page<TypeEntity> findAllPaginationSort(int offset, int pageSize, String field);
     TypeEntity getTypeById(Long typeId);

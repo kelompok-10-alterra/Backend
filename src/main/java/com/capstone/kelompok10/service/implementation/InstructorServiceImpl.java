@@ -28,11 +28,22 @@ public class InstructorServiceImpl implements InstructorService {
     }
     
     @Override
-    public List<InstructorEntity> findAll() {
-        log.info("Get all Instructor without DTO");
-        List<InstructorEntity> instructor = new ArrayList<>();
-        instructorRepository.findAll().forEach(instructor::add);
-        return instructor;
+    public List<InstructorDtoGet> findAll() {
+        List<InstructorEntity> instructors = instructorRepository.findAll();
+        List<InstructorDtoGet> instructorDtos = new ArrayList<>();
+
+        instructors.forEach(isi ->{
+            InstructorDtoGet dto = new InstructorDtoGet();
+            dto.setInstructorId(isi.getInstructorId());
+            dto.setName(isi.getName());
+            dto.setContact(isi.getContact());
+            dto.setImageUrl(isi.getImageUrl());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+
+            instructorDtos.add(dto);
+        });
+        return instructorDtos;
     }
     
     @Override
@@ -49,23 +60,23 @@ public class InstructorServiceImpl implements InstructorService {
         return instructor;
     }
 
-    @Override
-    public List<InstructorDtoGet> findAllDto() {
-        log.info("Get all Instructor with DTO");
-        List<InstructorEntity> instructors = instructorRepository.findAll();
-        List<InstructorDtoGet> instructorDtos = new ArrayList<>();
+    // @Override
+    // public List<InstructorDtoGet> findAllDto() {
+    //     log.info("Get all Instructor with DTO");
+    //     List<InstructorEntity> instructors = instructorRepository.findAll();
+    //     List<InstructorDtoGet> instructorDtos = new ArrayList<>();
 
-        instructors.forEach(isi ->{
-            InstructorDtoGet dto = new InstructorDtoGet();
-            dto.setInstructorId(isi.getInstructorId());
-            dto.setName(isi.getName());
-            dto.setContact(isi.getContact());
-            dto.setImageUrl(isi.getImageUrl());
+    //     instructors.forEach(isi ->{
+    //         InstructorDtoGet dto = new InstructorDtoGet();
+    //         dto.setInstructorId(isi.getInstructorId());
+    //         dto.setName(isi.getName());
+    //         dto.setContact(isi.getContact());
+    //         dto.setImageUrl(isi.getImageUrl());
 
-            instructorDtos.add(dto);
-        });
-        return instructorDtos;
-    }
+    //         instructorDtos.add(dto);
+    //     });
+    //     return instructorDtos;
+    // }
 
     @Override
     public InstructorEntity getInstructorById(Long instructorId) {
@@ -95,7 +106,7 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public void deleteInstructor(Long instructorId) {
-        if(instructorRepository.findById(instructorId) != null){
+        if(instructorRepository.findById(instructorId).isPresent() == true){
             log.info("Instructor with id {} successfully deleted", instructorId);
             instructorRepository.deleteById(instructorId);
         }else{
@@ -117,10 +128,10 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public Boolean instructorExist(Long instructorId) {
-        if(instructorRepository.findById(instructorId) == null){
-            return false;
-        }else{
+        if(instructorRepository.findById(instructorId).isPresent() == true){
             return true;
+        }else{
+            return false;
         }
     }
 }

@@ -32,8 +32,8 @@ public class MemberController {
     }
 
     @GetMapping("/userAccess/getAllMember")
-    public ResponseEntity<List<MemberEntity>> findAll(){
-        List<MemberEntity> members = memberService.findAll();
+    public ResponseEntity<List<MemberDtoGet>> findAll(){
+        List<MemberDtoGet> members = memberService.findAll();
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
@@ -49,11 +49,11 @@ public class MemberController {
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getAllMemberByWithDto")
-    public ResponseEntity<List<MemberDtoGet>> findAllDto(){
-        List<MemberDtoGet> memberDtos = memberService.findAllDto();
-        return new ResponseEntity<>(memberDtos, HttpStatus.OK);
-    }
+    // @GetMapping("/userAccess/getAllMemberByWithDto")
+    // public ResponseEntity<List<MemberDtoGet>> findAllDto(){
+    //     List<MemberDtoGet> memberDtos = memberService.findAllDto();
+    //     return new ResponseEntity<>(memberDtos, HttpStatus.OK);
+    // }
 
     @GetMapping("/userAccess/getMemberById")
     public ResponseEntity<MemberEntity> getMemberById(@RequestParam("memberId") Long memberId){

@@ -3,6 +3,7 @@ com/capstone/kelompok10/service/implementation/ContentServiceImpl.class
 com/capstone/kelompok10/model/payload/UsernamePassword.class
 com/capstone/kelompok10/repository/NewsletterRepository.class
 com/capstone/kelompok10/model/dto/get/NewsletterDtoGet.class
+com/capstone/kelompok10/model/dto/get/BookingDtoGetDetailed.class
 com/capstone/kelompok10/model/dto/post/NewsletterDtoPost.class
 com/capstone/kelompok10/model/dto/get/ContentDtoGet.class
 com/capstone/kelompok10/service/interfaces/NewsletterService.class

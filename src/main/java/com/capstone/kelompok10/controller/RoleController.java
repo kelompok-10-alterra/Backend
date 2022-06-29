@@ -11,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,15 +64,15 @@ public class RoleController {
         return new ResponseEntity<>(roleDtoPost, HttpStatus.OK);
     }
 
-    @PutMapping("/managerOnly/updateRole/{roleId}")
-    public ResponseEntity<RoleEntity> updateRole(@PathVariable("roleId") Long roleId, @RequestBody RoleDtoPost roleDtoPost){
-        roleService.updateRole(roleId, roleDtoPost);
-        return new ResponseEntity<>(roleService.getRoleById(roleId), HttpStatus.OK);
-    }
+    // @PutMapping("/managerOnly/updateRole/{roleId}")
+    // public ResponseEntity<RoleEntity> updateRole(@PathVariable("roleId") Long roleId, @RequestBody RoleDtoPost roleDtoPost){
+    //     roleService.updateRole(roleId, roleDtoPost);
+    //     return new ResponseEntity<>(roleService.getRoleById(roleId), HttpStatus.OK);
+    // }
 
-    @DeleteMapping("/managerOnly/deleteRole/{roleId}")
-    public ResponseEntity<RoleEntity> deleteRole(@PathVariable("roleId") Long roleId){
-        roleService.deleteRole(roleId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    // @DeleteMapping("/managerOnly/deleteRole/{roleId}")
+    // public ResponseEntity<RoleEntity> deleteRole(@PathVariable("roleId") Long roleId){
+    //     roleService.deleteRole(roleId);
+    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    // }
 }

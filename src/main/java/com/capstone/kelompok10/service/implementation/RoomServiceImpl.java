@@ -3,7 +3,6 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,24 +14,33 @@ import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.repository.RoomRepository;
 import com.capstone.kelompok10.service.interfaces.RoomService;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
+@AllArgsConstructor
 public class RoomServiceImpl implements RoomService {
-    RoomRepository roomRepository;
+    private RoomRepository roomRepository;
 
-    @Autowired
-    public RoomServiceImpl(RoomRepository roomRepository){
-        this.roomRepository = roomRepository;
-    }
+    
 
     @Override
-    public List<RoomEntity> findAll() {
+    public List<RoomDtoGet> findAll() {
         log.info("Get all Room without DTO");
-        List<RoomEntity> room = new ArrayList<>();
-        roomRepository.findAll().forEach(room::add);
-        return room;
+        List<RoomEntity> rooms = roomRepository.findAll();
+        List<RoomDtoGet> roomDtos = new ArrayList<>();
+        
+        rooms.forEach(isi ->{
+            RoomDtoGet dto = new RoomDtoGet();
+            dto.setRoomId(isi.getRoomId());
+            dto.setName(isi.getName());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+
+            roomDtos.add(dto);
+        });
+        return roomDtos;
     }
     
     @Override
@@ -49,21 +57,21 @@ public class RoomServiceImpl implements RoomService {
         return room;
     }
 
-    @Override
-    public List<RoomDtoGet> findAllDto() {
-        log.info("Get all Room with DTO");
-        List<RoomEntity> rooms = roomRepository.findAll();
-        List<RoomDtoGet> roomDtos = new ArrayList<>();
+    // @Override
+    // public List<RoomDtoGet> findAllDto() {
+    //     log.info("Get all Room with DTO");
+    //     List<RoomEntity> rooms = roomRepository.findAll();
+    //     List<RoomDtoGet> roomDtos = new ArrayList<>();
         
-        rooms.forEach(isi ->{
-            RoomDtoGet dto = new RoomDtoGet();
-            dto.setRoomId(isi.getRoomId());
-            dto.setName(isi.getName());
+    //     rooms.forEach(isi ->{
+    //         RoomDtoGet dto = new RoomDtoGet();
+    //         dto.setRoomId(isi.getRoomId());
+    //         dto.setName(isi.getName());
 
-            roomDtos.add(dto);
-        });
-        return roomDtos;
-    }
+    //         roomDtos.add(dto);
+    //     });
+    //     return roomDtos;
+    // }
 
     @Override
     public RoomEntity getRoomById(Long roomId) {
@@ -117,10 +125,10 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Boolean roomExist(Long roomId) {
-        if(roomRepository.findById(roomId) == null){
-            return false;
-        }else{
+        if(roomRepository.findById(roomId).isPresent() == true){
             return true;
+        }else{
+            return false;
         }
     }
 }

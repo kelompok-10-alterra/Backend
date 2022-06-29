@@ -32,8 +32,8 @@ public class TypeController {
     }
 
     @GetMapping("/userAccess/getAllType")
-    public ResponseEntity<List<TypeEntity>> findAll(){
-        List<TypeEntity> types = typeService.findAll();
+    public ResponseEntity<List<TypeDtoGet>> findAll(){
+        List<TypeDtoGet> types = typeService.findAll();
         return new ResponseEntity<>(types, HttpStatus.OK);
     }
 
@@ -49,11 +49,11 @@ public class TypeController {
         return new ResponseEntity<>(types, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getAllTypeWithDto")
-    public ResponseEntity<List<TypeDtoGet>> findAllDto(){
-        List<TypeDtoGet> typeDtos = typeService.findAllDto();
-        return new ResponseEntity<>(typeDtos, HttpStatus.OK);
-    }
+    // @GetMapping("/userAccess/getAllTypeWithDto")
+    // public ResponseEntity<List<TypeDtoGet>> findAllDto(){
+    //     List<TypeDtoGet> typeDtos = typeService.findAllDto();
+    //     return new ResponseEntity<>(typeDtos, HttpStatus.OK);
+    // }
 
     @GetMapping("/userAccess/getTypeById")
     public ResponseEntity<TypeEntity> getTypeById(@RequestParam("typeId") Long typeId){

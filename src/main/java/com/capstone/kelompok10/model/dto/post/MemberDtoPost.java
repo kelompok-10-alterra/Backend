@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MemberDtoPost {
-    private String length;
+    private String period;
     private Long price;
 }

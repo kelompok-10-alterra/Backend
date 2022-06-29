@@ -8,4 +8,6 @@ import lombok.NoArgsConstructor;
 public class TypeDtoGet {
     private Long typeId;
     private String name;
+    private String createdAt;
+    private String updatedAt;
 }

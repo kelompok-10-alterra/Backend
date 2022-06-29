@@ -30,11 +30,21 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<TypeEntity> findAll() {
-        log.info("Get all Type without DTO");
-        List<TypeEntity> type = new ArrayList<>();
-        typeRepository.findAll().forEach(type::add);
-        return type;
+    public List<TypeDtoGet> findAll() {
+        log.info("Get all Type with DTO");
+        List<TypeEntity> types = typeRepository.findAll();
+        List<TypeDtoGet> typeDtos = new ArrayList<>();
+        
+        types.forEach(isi ->{
+            TypeDtoGet dto = new TypeDtoGet();
+            dto.setTypeId(isi.getTypeId());
+            dto.setName(isi.getName());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+
+            typeDtos.add(dto);
+        });
+        return typeDtos;
     }
     
     @Override
@@ -51,21 +61,21 @@ public class TypeServiceImpl implements TypeService {
         return type;
     }
 
-    @Override
-    public List<TypeDtoGet> findAllDto() {
-        log.info("Get all Type with DTO");
-        List<TypeEntity> types = typeRepository.findAll();
-        List<TypeDtoGet> typeDtos = new ArrayList<>();
+    // @Override
+    // public List<TypeDtoGet> findAllDto() {
+    //     log.info("Get all Type with DTO");
+    //     List<TypeEntity> types = typeRepository.findAll();
+    //     List<TypeDtoGet> typeDtos = new ArrayList<>();
         
-        types.forEach(isi ->{
-            TypeDtoGet dto = new TypeDtoGet();
-            dto.setTypeId(isi.getTypeId());
-            dto.setName(isi.getName());
+    //     types.forEach(isi ->{
+    //         TypeDtoGet dto = new TypeDtoGet();
+    //         dto.setTypeId(isi.getTypeId());
+    //         dto.setName(isi.getName());
 
-            typeDtos.add(dto);
-        });
-        return typeDtos;
-    }
+    //         typeDtos.add(dto);
+    //     });
+    //     return typeDtos;
+    // }
 
     @Override
     public TypeEntity getTypeById(Long typeId) {
@@ -119,10 +129,10 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public Boolean typeExist(Long typeId) {
-        if(typeRepository.findById(typeId) == null){
-            return false;
-        }else{
+        if(typeRepository.findById(typeId).isPresent() == true){
             return true;
+        }else{
+            return false;
         }
     }
 }

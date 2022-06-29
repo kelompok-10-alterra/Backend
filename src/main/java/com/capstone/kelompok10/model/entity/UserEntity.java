@@ -9,9 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -36,6 +34,13 @@ public class UserEntity {
     private String address;
     private String imageUrl;
     private String roleName;
+    private String membership;
+
+    // @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    // private Set<MembershipEntity> memberships;
+
+    // @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    // private Set<BookingEntity> booking;
 
     @Column(nullable = true)
     private String token;
@@ -48,8 +53,4 @@ public class UserEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<RoleEntity> roles = new ArrayList<>();
-
-    @OneToOne
-    @JoinColumn(name = "membershipId", nullable = true)
-    private MembershipEntity membership;
 }

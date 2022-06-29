@@ -12,6 +12,7 @@ import com.capstone.kelompok10.model.entity.UserEntity;
 public interface UserService {
     //CRUD Method
     List<UserEntity> findAll();
+    List<UserEntity> findAll(String keyword);
     List<UserDtoGet> findAllDto();
     Page<UserEntity> findAllPagination(int offset, int pageSize);
     Page<UserEntity> findAllPaginationSort(int offset, int pageSize, String field);
@@ -27,6 +28,7 @@ public interface UserService {
     // Auth method
     UserEntity getUser(String username);
     void addRoleToUser(String username, String roleName);
+    void getMembership(Long userId, Long memberId, Long membershipId);
 
     // Verify method
     Boolean userHaveMembership(Long userId);

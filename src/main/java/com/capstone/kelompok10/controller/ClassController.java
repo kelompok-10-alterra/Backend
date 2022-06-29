@@ -32,8 +32,8 @@ public class ClassController {
     }
 
     @GetMapping("/userAccess/getAllClass")
-    public ResponseEntity<List<ClassEntity>> findAll(){
-        List<ClassEntity> classs = classService.findAll();
+    public ResponseEntity<List<ClassDtoGet>> findAll(){
+        List<ClassDtoGet> classs = classService.findAll();
         return new ResponseEntity<>(classs, HttpStatus.OK);
     }
 
@@ -49,15 +49,20 @@ public class ClassController {
         return new ResponseEntity<>(classs, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/getAllClassWithDto")
-    public ResponseEntity<List<ClassDtoGet>> findAllDto(){
-        List<ClassDtoGet> classDtos = classService.findAllDto();
-        return new ResponseEntity<>(classDtos, HttpStatus.OK);
-    }
+    // @GetMapping("/userAccess/getAllClassWithDto")
+    // public ResponseEntity<List<ClassDtoGet>> findAllDto(){
+    //     List<ClassDtoGet> classDtos = classService.findAllDto();
+    //     return new ResponseEntity<>(classDtos, HttpStatus.OK);
+    // }
 
     @GetMapping("/userAccess/getClassById")
     public ResponseEntity<ClassEntity> getClassById(@RequestParam("classId") Long classId){
         return new ResponseEntity<>(classService.getClassById(classId), HttpStatus.OK);
+    }
+
+    @GetMapping("/userAccess/getClassByIdDto")
+    public ResponseEntity<ClassDtoGet> getClassByIdDto(@RequestParam("classId") Long classId){
+        return new ResponseEntity<>(classService.getClassByIdDto(classId), HttpStatus.OK);
     }
 
     @PostMapping("/adminAccess/createNewClass")

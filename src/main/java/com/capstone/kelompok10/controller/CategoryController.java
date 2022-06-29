@@ -32,8 +32,8 @@ public class CategoryController {
     }
 
     @GetMapping("/userAccess/getAllCategory")
-    public ResponseEntity<List<CategoryEntity>> findAll(){
-        List<CategoryEntity> categorys = categoryService.findAll();
+    public ResponseEntity<List<CategoryDtoGet>> findAll(){
+        List<CategoryDtoGet> categorys = categoryService.findAll();
         return new ResponseEntity<>(categorys, HttpStatus.OK);
     }
 
@@ -49,11 +49,11 @@ public class CategoryController {
         return new ResponseEntity<>(categorys, HttpStatus.OK);
     }
 
-    @GetMapping("userAccess/getAllCategoryWithDto")
-    public ResponseEntity<List<CategoryDtoGet>> findAllDto(){
-        List<CategoryDtoGet> categoryDtos = categoryService.findAllDto();
-        return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
-    }
+    // @GetMapping("userAccess/getAllCategoryWithDto")
+    // public ResponseEntity<List<CategoryDtoGet>> findAllDto(){
+    //     List<CategoryDtoGet> categoryDtos = categoryService.findAllDto();
+    //     return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
+    // }
 
     @GetMapping("/userAccess/getCategoryById")
     public ResponseEntity<CategoryEntity> getCategoryById(@RequestParam("categoryId") Long categoryId){
