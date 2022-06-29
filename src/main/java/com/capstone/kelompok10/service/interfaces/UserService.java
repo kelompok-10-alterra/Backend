@@ -12,6 +12,7 @@ import com.capstone.kelompok10.model.entity.UserEntity;
 public interface UserService {
     //CRUD Method
     List<UserEntity> findAll();
+    List<UserEntity> findAll(String keyword);
     List<UserDtoGet> findAllDto();
     Page<UserEntity> findAllPagination(int offset, int pageSize);
     Page<UserEntity> findAllPaginationSort(int offset, int pageSize, String field);

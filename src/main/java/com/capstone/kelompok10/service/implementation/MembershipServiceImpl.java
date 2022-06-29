@@ -250,4 +250,32 @@ public class MembershipServiceImpl implements MembershipService {
             return true;
         }
 	}
+
+    @Override
+    public List<MembershipDtoGet> findAll(Boolean keyword) {
+        List<MembershipEntity> memberships = membershipRepository.findAll(keyword);
+        List<MembershipDtoGet> membershipDtos = new ArrayList<>();
+        
+        memberships.forEach(isi ->{
+            MembershipDtoGet dto = new MembershipDtoGet();
+            dto.setMembershipId(isi.getMembershipId());
+            dto.setStatus(isi.getStatus());
+            dto.setCreatedAt(isi.getCreatedAt().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setUserId(isi.getUser().getUserId());
+            dto.setUserName(isi.getUser().getName());
+            if(isi.getMember() == null){
+                dto.setMemberId(null);
+                dto.setMember("no membership");
+            }else{
+                dto.setMemberId(isi.getMember().getMemberId());
+                dto.setMember(isi.getMember().getPeriod());
+            }
+            dto.setContact(isi.getUser().getPhone());
+            dto.setExpiredAt(isi.getExpiredAt());
+
+            membershipDtos.add(dto);
+        });
+        return membershipDtos;
+    }
 }

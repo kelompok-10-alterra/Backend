@@ -292,4 +292,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userRepository.save(user);
         }
     }
+
+    @Override
+    public List<UserEntity> findAll(String keyword) {
+        List<UserEntity> user = userRepository.findAll(keyword);
+        return user;
+    }
 }

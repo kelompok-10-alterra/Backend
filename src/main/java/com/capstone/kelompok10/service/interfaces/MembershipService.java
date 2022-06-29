@@ -10,6 +10,7 @@ import com.capstone.kelompok10.model.entity.MembershipEntity;
 
 public interface MembershipService {
     List<MembershipDtoGet> findAll();
+    List<MembershipDtoGet> findAll(Boolean keyword);
     List<MembershipDtoGet> findAllDto();
     Page<MembershipEntity> findAllPagination(int offset, int pageSize);
     Page<MembershipEntity> findAllPaginationSort(int offset, int pageSize, String field);
