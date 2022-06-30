@@ -49,13 +49,8 @@ public class UserController {
 
     @GetMapping("/userAccess/findAllRoleUser")
     public ResponseEntity<List<UserEntity>> findAllRoleUser(@RequestParam(required = false) String keyword){
-        if(keyword == null){
-            List<UserEntity> users = userService.getAllRoleUser();
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        }else{
-            List<UserEntity> users = userService.findAll(keyword);
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        } 
+        List<UserEntity> users = userService.getAllRoleUser();
+        return new ResponseEntity<>(users, HttpStatus.OK); 
     }
 
     @GetMapping("/adminAccess/findAllRoleAdmin")
@@ -117,7 +112,7 @@ public class UserController {
     }
 
     @GetMapping("/userAccess/getUserByUsername")
-    public ResponseEntity<UserEntity> getUserUsingUsername(String username){
+    public ResponseEntity<UserDtoGet> getUserUsingUsername(String username){
         return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
     }
 }

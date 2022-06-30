@@ -56,6 +56,7 @@ com\capstone\kelompok10\model\dto\post\RoomDtoPost.class
 com\capstone\kelompok10\service\email\EmailSenderService.class
 com\capstone\kelompok10\model\payload\TokenResponse.class
 com\capstone\kelompok10\service\email\EmailValidatorService.class
+com\capstone\kelompok10\model\dto\get\BookingDtoGetDetailed.class
 com\capstone\kelompok10\controller\MembershipController.class
 com\capstone\kelompok10\service\email\PhonePasswordValidator.class
 com\capstone\kelompok10\model\dto\post\TypeDtoPost.class
@@ -75,6 +76,7 @@ com\capstone\kelompok10\controller\BookingController.class
 com\capstone\kelompok10\service\interfaces\BookingService.class
 com\capstone\kelompok10\service\interfaces\NewsletterService.class
 com\capstone\kelompok10\controller\MemberController.class
+com\capstone\kelompok10\model\payload\Favorite.class
 com\capstone\kelompok10\service\interfaces\MembershipService.class
 com\capstone\kelompok10\model\dto\get\TypeDtoGet.class
 com\capstone\kelompok10\model\dto\get\ContentDtoGet.class

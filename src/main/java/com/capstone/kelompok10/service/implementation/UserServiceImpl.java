@@ -209,12 +209,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Boolean userHaveMembership(Long userId) {
+    public int userHaveMembership(Long userId) {
         UserEntity user = userRepository.findById(userId).get();
         if(user.getMembership() == null){
-            return false;
+            return 1;
+        }if(user.getMembership() == "Silver"){
+            return 2;
+        }if(user.getMembership() == "Gold"){
+            return 3;
+        }if(user.getMembership() == "Platinum"){
+            return 4;
         }else{
-            return true;
+            return 99;
         }
     }
 
@@ -297,7 +303,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setMembership(null);
             userRepository.save(user);
         }else{
-            user.setMembership(member.getPeriod());
+            user.setMembership(member.getName());
             userRepository.save(user);
         }
     }
@@ -316,10 +322,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserEntity getUserByUsername(String username) {
+    public UserDtoGet getUserByUsername(String username) {
         UserEntity user = userRepository.findByUsername(username);
-        return user;
+        UserDtoGet dto = new UserDtoGet();
+        dto.setUserId(user.getUserId());
+        dto.setUsername(user.getUsername());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setPhone(user.getPhone());
+        dto.setAddress(user.getAddress());
+        dto.setImageUrl(user.getImageUrl());
+        dto.setMembership(user.getMembership());
+        dto.setPoint(user.getPoint());
+
+        return dto;
     }
+
+    // @Override
+    // public List<UserEntity> getAllRoleUser(String keyword) {
+    //     List<UserEntity> user = new ArrayList<>();
+    //     userRepository.findByRoleName("ROLE_USER", keyword).forEach(user::add);
+	// 	return user;
+    // }
 
     // @Override
     // public void addFavorite(String username, String name) {

@@ -189,9 +189,17 @@ public class BookingServiceImpl implements BookingService {
         if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null && classService.classFull(bookingDtoPost.getClassId()) == false){
             Long price = classService.classPrice(bookingDtoPost.getClassId());
             Long total;
-            if (userService.userHaveMembership(bookingDtoPost.getUserId()) == true){
+            if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 2){
                 log.info("User have membership and get discount price");
-                total = price - (price * 10 / 100);
+                total = price - (price * 20 / 100);
+                bookingEntity.setPrice(total);
+            }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 3){
+                log.info("User have membership and get discount price");
+                total = price - (price * 30 / 100);
+                bookingEntity.setPrice(total);
+            }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 4){
+                log.info("User have membership and get discount price");
+                total = price - (price * 50 / 100);
                 bookingEntity.setPrice(total);
             }else{
                 log.info("User don't have membership and didn't get discount price");
