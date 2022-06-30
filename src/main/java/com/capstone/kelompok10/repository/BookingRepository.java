@@ -2,6 +2,7 @@ package com.capstone.kelompok10.repository;
 
 import com.capstone.kelompok10.model.entity.BookingEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -14,4 +15,5 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
     Optional<BookingEntity> findById(Long bookingId);
     BookingEntity findByStatus(Boolean status);
     Page<BookingEntity> findAll(Pageable pageable);
+    List<BookingEntity> findByUserIdentity(Long userIdentity);
 }

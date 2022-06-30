@@ -147,6 +147,7 @@ public class BookingServiceImpl implements BookingService {
 
             booking2.setStatus(bookingDtoPost.getStatus());
             booking2.setUser(userEntity);
+            booking2.setUserIdentity(bookingDtoPost.getUserId());
             booking2.setClasses(classEntity);
 
             bookingRepository.save(booking2);
@@ -200,6 +201,7 @@ public class BookingServiceImpl implements BookingService {
             bookingEntity.setStatus(bookingDtoPost.getStatus());
             bookingEntity.setClasses(classEntity);
             bookingEntity.setUser(userEntity);
+            bookingEntity.setUserIdentity(bookingDtoPost.getUserId());
             bookingRepository.save(bookingEntity);
 
             classService.classBooked(bookingDtoPost.getClassId());
@@ -217,5 +219,15 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.findAll().forEach(booking::add);
         int sum = booking.size();
         return sum;
+    }
+
+    @Override
+    public void deleteBookingUsingUserIdentity(Long userIdentity) {
+        List<BookingEntity> booking = bookingRepository.findAll();
+        booking.forEach(isi ->{
+            if(isi.getUserIdentity() == userIdentity){
+                bookingRepository.delete(isi);
+            }
+        });
     }
 }

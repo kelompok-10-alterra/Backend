@@ -28,6 +28,8 @@ public class MembershipEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long membershipId;
     private Boolean status;
+    @JsonIgnore
+    private Long userIdentity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore

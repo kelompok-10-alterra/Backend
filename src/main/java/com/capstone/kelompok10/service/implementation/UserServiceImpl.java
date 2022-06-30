@@ -20,6 +20,7 @@ import com.capstone.kelompok10.repository.RoleRepository;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.email.EmailValidatorService;
 import com.capstone.kelompok10.service.email.PhonePasswordValidator;
+import com.capstone.kelompok10.service.interfaces.BookingService;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 import com.capstone.kelompok10.service.interfaces.UserService;
@@ -52,6 +53,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    BookingService bookingService;
 
     @Autowired
     MembershipService membershipService;
@@ -189,8 +193,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void deleteUser(Long userId) {
-        if(userRepository.findById(userId) != null){
+        if(userRepository.findById(userId).isPresent()){
             userRepository.deleteById(userId);
+            // bookingService.deleteBookingUsingUserIdentity(userId);
             log.info("User with id {} successfully deleted", userId);
         }else{
             log.info("User with id {} not found", userId);
