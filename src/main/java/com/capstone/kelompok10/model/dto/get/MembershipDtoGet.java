@@ -17,7 +17,9 @@ public class MembershipDtoGet {
     private String email;
     private String name;
     private Long contact;
+    private String address;
     private Long memberId;
-    private String member;
+    private String memberName;
+    private String memberPeriod;
     private LocalDateTime expiredAt;
 }
