@@ -16,7 +16,7 @@ public class MembershipDtoGet {
     private String username;
     private String email;
     private String name;
-    private Long contact;
+    private String contact;
     private String address;
     private Long memberId;
     private String memberName;

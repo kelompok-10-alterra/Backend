@@ -195,7 +195,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void deleteUser(Long userId) {
         if(userRepository.findById(userId).isPresent()){
             userRepository.deleteById(userId);
-            // bookingService.deleteBookingUsingUserIdentity(userId);
             log.info("User with id {} successfully deleted", userId);
         }else{
             log.info("User with id {} not found", userId);

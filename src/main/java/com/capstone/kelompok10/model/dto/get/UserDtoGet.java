@@ -10,7 +10,7 @@ public class UserDtoGet {
     private String name;
     private String username;
     private String email;
-    private Long phone;
+    private String phone;
     private String address;
     private String imageUrl;
     private String membership;

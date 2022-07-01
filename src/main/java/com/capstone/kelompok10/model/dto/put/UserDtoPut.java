@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDtoPut {
     private String name;
-    private Long phone;
+    private String phone;
     private String address;
     private String imageUrl;
 }

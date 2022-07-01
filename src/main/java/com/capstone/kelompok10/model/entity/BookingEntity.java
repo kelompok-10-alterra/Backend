@@ -29,6 +29,7 @@ public class BookingEntity {
     private Long bookingId;
     private Boolean status;
     private Long price;
+    
     @JsonIgnore
     private Long userIdentity;
 

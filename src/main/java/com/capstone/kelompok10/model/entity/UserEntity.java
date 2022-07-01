@@ -35,7 +35,7 @@ public class UserEntity {
     private String username;
     private String password;
     private String email;
-    private Long phone;
+    private String phone;
     private String address;
     private String imageUrl;
     private String roleName;
