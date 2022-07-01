@@ -10,13 +10,13 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class PhonePasswordValidator {
     
-    public Boolean phoneValidator(Long phone){
-        String validation = phone.toString();
-        if(validation.length() == 12 || validation.length() == 13){
+    public Boolean phoneValidator(String phone){
+        String numbers = "(.*[0-9].*)";
+        if(phone.length() >= 9 && phone.length() <= 13 && phone.matches(numbers)){
             log.info("Phone number is valid");
             return true;
         }else{
-            log.info("phone number less than 12");
+            log.info("Phone numbers not valid !!");
             return false;
         }
     }

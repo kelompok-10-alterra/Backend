@@ -238,4 +238,34 @@ public class BookingServiceImpl implements BookingService {
             }
         });
     }
+
+    @Override
+    public List<BookingDtoGetDetailed> findAll(Long keyword) {
+        List<BookingEntity> booking = bookingRepository.findAll(keyword);
+        List<BookingDtoGetDetailed> booking2 = new ArrayList<>();
+        booking.forEach(isi ->{
+            BookingDtoGetDetailed dto = new BookingDtoGetDetailed();
+            dto.setBookingId(isi.getBookingId());
+            dto.setStatus(isi.getStatus());
+            dto.setPrice(isi.getPrice());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setUserId(isi.getUser().getUserId());
+            dto.setUserName(isi.getUser().getName());
+            dto.setMembership(isi.getUser().getMembership());
+            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getClasses().getInstructor().getName());
+            dto.setClassId(isi.getClasses().getClassId());
+            dto.setClassName(isi.getClasses().getName());
+            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());
+            dto.setCategoryName(isi.getClasses().getCategory().getName());
+            dto.setSchedule(isi.getClasses().getSchedule());
+            dto.setRoom(isi.getClasses().getRoom().getName());
+            dto.setType(isi.getClasses().getType().getName());
+
+            booking2.add(dto);
+
+        });
+        return booking2;
+    }
 }

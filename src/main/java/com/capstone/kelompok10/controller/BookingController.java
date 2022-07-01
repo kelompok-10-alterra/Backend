@@ -32,9 +32,14 @@ public class BookingController {
     }
 
     @GetMapping("/adminAccess/getAllBooking")
-    public ResponseEntity<List<BookingDtoGetDetailed>> findAll(){
-        List<BookingDtoGetDetailed> booking = bookingService.findAll();
-        return new ResponseEntity<>(booking, HttpStatus.OK);
+    public ResponseEntity<List<BookingDtoGetDetailed>> findAll(@RequestParam(required = false) Long keyword){
+        if(keyword == null){
+            List<BookingDtoGetDetailed> booking = bookingService.findAll();
+            return new ResponseEntity<>(booking, HttpStatus.OK);
+        }else{
+            List<BookingDtoGetDetailed> booking = bookingService.findAll(keyword);
+            return new ResponseEntity<>(booking, HttpStatus.OK);
+        }
     }
 
     @GetMapping("/adminAccess/{offset}/{pageSize}")
