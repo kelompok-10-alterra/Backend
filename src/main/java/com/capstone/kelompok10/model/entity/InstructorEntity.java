@@ -28,6 +28,7 @@ public class InstructorEntity {
     private Long instructorId;
     private String name;
     private Long contact;
+    private String address;
     private String imageUrl;
     
     // @JsonIgnore

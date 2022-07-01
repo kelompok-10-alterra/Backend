@@ -1,7 +1,12 @@
 package com.capstone.kelompok10.model.dto.get;
 
 
-import java.util.Date;
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +28,9 @@ public class BookingDtoGetDetailed {
     private String className;
     private Long categoryId;
     private String categoryName;
-    private Date schedule;
+    @DateTimeFormat(iso = ISO.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate schedule;
     private String room;
     private String type;
 }

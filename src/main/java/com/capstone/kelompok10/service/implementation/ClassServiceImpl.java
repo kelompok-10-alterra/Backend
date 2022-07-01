@@ -59,7 +59,8 @@ public class ClassServiceImpl implements ClassService {
             dto.setDescription(isi.getDescription());
             dto.setStatus(isi.getStatus());
             dto.setCapacity(isi.getCapacity());
-            dto.setSchedule(isi.getSchedule().toString());
+            dto.setBooked(isi.getBooked());
+            dto.setSchedule(isi.getSchedule());
             dto.setPrice(isi.getPrice());
             dto.setImageUrl(isi.getImageUrl());
             dto.setCreatedAt(isi.getCreated_at().toString());
@@ -132,7 +133,8 @@ public class ClassServiceImpl implements ClassService {
             dto.setDescription(isi.getDescription());
             dto.setStatus(isi.getStatus());
             dto.setCapacity(isi.getCapacity());
-            dto.setSchedule(isi.getSchedule().toString());
+            dto.setBooked(isi.getBooked());
+            dto.setSchedule(isi.getSchedule());
             dto.setPrice(isi.getPrice());
             dto.setImageUrl(isi.getImageUrl());
             dto.setCreatedAt(isi.getCreated_at().toString());
@@ -235,6 +237,7 @@ public class ClassServiceImpl implements ClassService {
                 classEntity.setName(classDtoPost.getName());
                 classEntity.setDescription(classDtoPost.getDescription());
                 classEntity.setCapacity(classDtoPost.getCapacity());
+                classEntity.setBooked(0L);
                 classEntity.setSchedule(classDtoPost.getSchedule());
                 classEntity.setPrice(classDtoPost.getPrice());
                 classEntity.setImageUrl(classDtoPost.getImageUrl());
@@ -254,7 +257,9 @@ public class ClassServiceImpl implements ClassService {
     public void classBooked(Long classId) {
         ClassEntity class2 = classRepository.findById(classId).get();
         Long capacity = class2.getCapacity();
+        Long booked = class2.getBooked();
         class2.setCapacity(capacity - 1);
+        class2.setBooked(booked + 1);
         classRepository.save(class2);
     }
 
@@ -280,7 +285,9 @@ public class ClassServiceImpl implements ClassService {
     public void unBookClass(Long classId) {
         ClassEntity class2 = classRepository.findById(classId).get();
         Long capacity = class2.getCapacity();
+        Long booked = class2.getBooked();
         class2.setCapacity(capacity + 1);
+        class2.setBooked(booked - 1);
         classRepository.save(class2);
     }
 

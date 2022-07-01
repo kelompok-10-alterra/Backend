@@ -9,6 +9,7 @@ public class InstructorDtoGet {
     private Long instructorId;
     private String name;
     private Long contact;
+    private String address;
     private String imageUrl;
     private String createdAt;
     private String updatedAt;

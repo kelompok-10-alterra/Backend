@@ -2,6 +2,7 @@ package com.capstone.kelompok10.model.entity;
 
 import java.time.Instant;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -48,4 +50,8 @@ public class BookingEntity {
     @JsonIgnore
     @JoinColumn(name = "classId")
     private ClassEntity classes;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JsonBackReference
+    private CartEntity cart;
 }
