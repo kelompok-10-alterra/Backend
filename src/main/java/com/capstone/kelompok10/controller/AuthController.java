@@ -85,7 +85,7 @@ public class AuthController {
 
     @GetMapping("/confirmToken")
     public String verifyUser(@RequestParam("token") String token){
-        if (registerService.confirmToken(token)){
+        if (registerService.confirmToken(token) == true){
             return "Verify Success";
         }else{
             return "Verify Fail";

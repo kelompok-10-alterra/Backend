@@ -147,6 +147,7 @@ public class BookingServiceImpl implements BookingService {
 
             booking2.setStatus(bookingDtoPost.getStatus());
             booking2.setUser(userEntity);
+            booking2.setUserIdentity(bookingDtoPost.getUserId());
             booking2.setClasses(classEntity);
 
             bookingRepository.save(booking2);
@@ -188,9 +189,17 @@ public class BookingServiceImpl implements BookingService {
         if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null && classService.classFull(bookingDtoPost.getClassId()) == false){
             Long price = classService.classPrice(bookingDtoPost.getClassId());
             Long total;
-            if (userService.userHaveMembership(bookingDtoPost.getUserId()) == true){
+            if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 2){
                 log.info("User have membership and get discount price");
-                total = price - (price * 10 / 100);
+                total = price - (price * 20 / 100);
+                bookingEntity.setPrice(total);
+            }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 3){
+                log.info("User have membership and get discount price");
+                total = price - (price * 30 / 100);
+                bookingEntity.setPrice(total);
+            }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 4){
+                log.info("User have membership and get discount price");
+                total = price - (price * 50 / 100);
                 bookingEntity.setPrice(total);
             }else{
                 log.info("User don't have membership and didn't get discount price");
@@ -200,9 +209,11 @@ public class BookingServiceImpl implements BookingService {
             bookingEntity.setStatus(bookingDtoPost.getStatus());
             bookingEntity.setClasses(classEntity);
             bookingEntity.setUser(userEntity);
+            bookingEntity.setUserIdentity(bookingDtoPost.getUserId());
             bookingRepository.save(bookingEntity);
 
             classService.classBooked(bookingDtoPost.getClassId());
+            userService.getPoint(bookingDtoPost.getUserId());
             log.info("Booking created");
         }else{
             log.info("Failed to create Booking");
@@ -216,5 +227,15 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.findAll().forEach(booking::add);
         int sum = booking.size();
         return sum;
+    }
+
+    @Override
+    public void deleteBookingUsingUserIdentity(Long userIdentity) {
+        List<BookingEntity> booking = bookingRepository.findAll();
+        booking.forEach(isi ->{
+            if(isi.getUserIdentity() == userIdentity){
+                bookingRepository.delete(isi);
+            }
+        });
     }
 }

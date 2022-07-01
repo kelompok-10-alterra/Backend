@@ -17,5 +17,6 @@ public interface BookingService {
     void createBookingDto(BookingDtoPost bookingDtoPost);
     void updateBooking(Long bookingId, BookingDtoPost bookingDtoPost);
     void deleteBooking(Long bookingId);
+    void deleteBookingUsingUserIdentity(Long userIdentity);
     int totalBooking();
 }

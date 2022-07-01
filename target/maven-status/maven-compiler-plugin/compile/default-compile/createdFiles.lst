@@ -10,6 +10,7 @@ com/capstone/kelompok10/service/interfaces/NewsletterService.class
 com/capstone/kelompok10/model/payload/TokenResponse.class
 com/capstone/kelompok10/model/dto/post/ContentDtoPost.class
 com/capstone/kelompok10/model/dto/put/UserDtoPut.class
+com/capstone/kelompok10/model/payload/Favorite.class
 com/capstone/kelompok10/service/implementation/NewsletterServiceImpl.class
 com/capstone/kelompok10/Kelompok10Application$1.class
 com/capstone/kelompok10/service/email/PhonePasswordValidator.class

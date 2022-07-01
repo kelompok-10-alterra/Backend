@@ -14,11 +14,13 @@ import com.capstone.kelompok10.model.dto.put.UserDtoPut;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.repository.MemberRepository;
 import com.capstone.kelompok10.repository.RoleRepository;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.email.EmailValidatorService;
 import com.capstone.kelompok10.service.email.PhonePasswordValidator;
+import com.capstone.kelompok10.service.interfaces.BookingService;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 import com.capstone.kelompok10.service.interfaces.UserService;
@@ -53,6 +55,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     RoleService roleService;
 
     @Autowired
+    BookingService bookingService;
+
+    @Autowired
     MembershipService membershipService;
 
     @Autowired
@@ -60,6 +65,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    ClassRepository classRepository;
 
     @Autowired
     MemberRepository memberRepository;
@@ -185,8 +193,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void deleteUser(Long userId) {
-        if(userRepository.findById(userId) != null){
+        if(userRepository.findById(userId).isPresent()){
             userRepository.deleteById(userId);
+            // bookingService.deleteBookingUsingUserIdentity(userId);
             log.info("User with id {} successfully deleted", userId);
         }else{
             log.info("User with id {} not found", userId);
@@ -200,12 +209,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Boolean userHaveMembership(Long userId) {
+    public int userHaveMembership(Long userId) {
         UserEntity user = userRepository.findById(userId).get();
         if(user.getMembership() == null){
-            return false;
+            return 1;
+        }if(user.getMembership() == "Silver"){
+            return 2;
+        }if(user.getMembership() == "Gold"){
+            return 3;
+        }if(user.getMembership() == "Platinum"){
+            return 4;
         }else{
-            return true;
+            return 99;
         }
     }
 
@@ -288,7 +303,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setMembership(null);
             userRepository.save(user);
         }else{
-            user.setMembership(member.getPeriod());
+            user.setMembership(member.getName());
             userRepository.save(user);
         }
     }
@@ -298,4 +313,42 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         List<UserEntity> user = userRepository.findAll(keyword);
         return user;
     }
+
+    @Override
+    public void getPoint(Long userId){
+        UserEntity user = userRepository.findById(userId).get();
+        Long point = user.getPoint();
+        user.setPoint(point + 100L);
+    }
+
+    @Override
+    public UserDtoGet getUserByUsername(String username) {
+        UserEntity user = userRepository.findByUsername(username);
+        UserDtoGet dto = new UserDtoGet();
+        dto.setUserId(user.getUserId());
+        dto.setUsername(user.getUsername());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setPhone(user.getPhone());
+        dto.setAddress(user.getAddress());
+        dto.setImageUrl(user.getImageUrl());
+        dto.setMembership(user.getMembership());
+        dto.setPoint(user.getPoint());
+
+        return dto;
+    }
+
+    // @Override
+    // public List<UserEntity> getAllRoleUser(String keyword) {
+    //     List<UserEntity> user = new ArrayList<>();
+    //     userRepository.findByRoleName("ROLE_USER", keyword).forEach(user::add);
+	// 	return user;
+    // }
+
+    // @Override
+    // public void addFavorite(String username, String name) {
+    //     UserEntity user = userRepository.findByUsername(username);
+    //     ClassEntity isi = classRepository.findByName(name);
+    //     user.getClasses().add(isi);
+    // }
 }

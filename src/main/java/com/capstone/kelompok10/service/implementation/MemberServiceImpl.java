@@ -37,6 +37,7 @@ public class MemberServiceImpl implements MemberService {
         members.forEach(isi ->{
             MemberDtoGet dto = new MemberDtoGet();
             dto.setMemberId(isi.getMemberId());
+            dto.setName(isi.getName());
             dto.setPeriod(isi.getPeriod());
             dto.setPrice(isi.getPrice());
             dto.setCreatedAt(isi.getCreated_at().toString());
@@ -93,6 +94,7 @@ public class MemberServiceImpl implements MemberService {
     public void updateMember(Long memberId, MemberDtoPost memberDtoPost) {
         if(memberRepository.findById(memberId) != null){
             MemberEntity member2 = memberRepository.findById(memberId).get();
+            member2.setName(memberDtoPost.getName());
             member2.setPeriod(memberDtoPost.getPeriod());
             member2.setPrice(memberDtoPost.getPrice());
 
@@ -119,6 +121,7 @@ public class MemberServiceImpl implements MemberService {
 	public void createMemberDto(MemberDtoPost memberDtoPost) {
         if(memberRepository.findByPeriod(memberDtoPost.getPeriod()) == null){
             MemberEntity memberEntity = new MemberEntity();
+            memberEntity.setName(memberDtoPost.getName());
             memberEntity.setPeriod(memberDtoPost.getPeriod());
             memberEntity.setPrice(memberDtoPost.getPrice());
 

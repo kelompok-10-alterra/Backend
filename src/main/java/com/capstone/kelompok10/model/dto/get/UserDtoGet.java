@@ -14,4 +14,5 @@ public class UserDtoGet {
     private String address;
     private String imageUrl;
     private String membership;
+    private Long point;
 }

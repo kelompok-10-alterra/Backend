@@ -49,13 +49,8 @@ public class UserController {
 
     @GetMapping("/userAccess/findAllRoleUser")
     public ResponseEntity<List<UserEntity>> findAllRoleUser(@RequestParam(required = false) String keyword){
-        if(keyword == null){
-            List<UserEntity> users = userService.getAllRoleUser();
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        }else{
-            List<UserEntity> users = userService.findAll(keyword);
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        } 
+        List<UserEntity> users = userService.getAllRoleUser();
+        return new ResponseEntity<>(users, HttpStatus.OK); 
     }
 
     @GetMapping("/adminAccess/findAllRoleAdmin")
@@ -87,11 +82,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 
-    // @DeleteMapping("/adminAccess/deleteUser/{userId}")
-    // public ResponseEntity<UserEntity> deleteUser(@PathVariable("userId") Long userId){
-    //     userService.deleteUser(userId);
-    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    // }
+    @DeleteMapping("/adminAccess/deleteUser/{userId}")
+    public ResponseEntity<UserEntity> deleteUser(@PathVariable("userId") Long userId){
+        userService.deleteUser(userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
     @PostMapping("/adminAccess/createUser")
     public ResponseEntity<UserDtoPost> createUser(@RequestBody UserDtoPost userDtoPost){
@@ -105,8 +100,19 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    // @PostMapping("/userAccess/addFavorite")
+    // public ResponseEntity<?> AddFavorite(@RequestBody Favorite fav){
+    //     userService.addFavorite(fav.getUsername(), fav.getName());
+    //     return ResponseEntity.ok().build();
+    // }
+
     @GetMapping("/adminAccess/countTotalUser")
     public int totalUser(){
         return userService.totalUser();
+    }
+
+    @GetMapping("/userAccess/getUserByUsername")
+    public ResponseEntity<UserDtoGet> getUserUsingUsername(String username){
+        return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
     }
 }

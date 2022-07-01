@@ -57,12 +57,15 @@ public class MembershipServiceImpl implements MembershipService {
             dto.setName(isi.getUser().getName());
             if(isi.getMember() == null){
                 dto.setMemberId(null);
-                dto.setMember("no membership");
+                dto.setMemberName("No Membership");
+                dto.setMemberPeriod("No Membership");
             }else{
                 dto.setMemberId(isi.getMember().getMemberId());
-                dto.setMember(isi.getMember().getPeriod());
+                dto.setMemberName(isi.getMember().getName());
+                dto.setMemberPeriod(isi.getMember().getPeriod());
             }
             dto.setContact(isi.getUser().getPhone());
+            dto.setAddress(isi.getUser().getAddress());
             dto.setExpiredAt(isi.getExpiredAt());
 
             membershipDtos.add(dto);
@@ -102,12 +105,15 @@ public class MembershipServiceImpl implements MembershipService {
             dto.setName(isi.getUser().getName());
             if(isi.getMember() == null){
                 dto.setMemberId(null);
-                dto.setMember("no membership");
+                dto.setMemberName("No Membership");
+                dto.setMemberPeriod("No Membership");
             }else{
                 dto.setMemberId(isi.getMember().getMemberId());
-                dto.setMember(isi.getMember().getPeriod());
+                dto.setMemberName(isi.getMember().getName());
+                dto.setMemberPeriod(isi.getMember().getPeriod());
             }
             dto.setContact(isi.getUser().getPhone());
+            dto.setAddress(isi.getUser().getAddress());
             dto.setExpiredAt(isi.getExpiredAt());
 
             membershipDtos.add(dto);
@@ -131,10 +137,12 @@ public class MembershipServiceImpl implements MembershipService {
             dto.setName(isi.getUser().getName());
             if(isi.getMember() == null){
                 dto.setMemberId(null);
-                dto.setMember("no membership");
+                dto.setMemberName("No Membership");
+                dto.setMemberPeriod("No Membership");
             }else{
                 dto.setMemberId(isi.getMember().getMemberId());
-                dto.setMember(isi.getMember().getPeriod());
+                dto.setMemberName(isi.getMember().getName());
+                dto.setMemberPeriod(isi.getMember().getPeriod());
             }
             dto.setContact(isi.getUser().getPhone());
             dto.setExpiredAt(isi.getExpiredAt());
@@ -274,12 +282,15 @@ public class MembershipServiceImpl implements MembershipService {
             dto.setName(isi.getUser().getName());
             if(isi.getMember() == null){
                 dto.setMemberId(null);
-                dto.setMember("no membership");
+                dto.setMemberName("No Membership");
+                dto.setMemberPeriod("No Membership");
             }else{
                 dto.setMemberId(isi.getMember().getMemberId());
-                dto.setMember(isi.getMember().getPeriod());
+                dto.setMemberName(isi.getMember().getName());
+                dto.setMemberPeriod(isi.getMember().getPeriod());
             }
             dto.setContact(isi.getUser().getPhone());
+            dto.setAddress(isi.getUser().getAddress());
             dto.setExpiredAt(isi.getExpiredAt());
 
             membershipDtos.add(dto);
