@@ -9,9 +9,8 @@ public interface CartService {
     List<CartEntity> findAll();
     CartEntity getCartById(Long cartId);
     void createCartDto(CartDtoPost cartDtoPost);
-    void updateCart(Long cartId, CartDtoPost cartDtoPost);
-    void deleteCart(Long cartId);
     void addBookingToCart(Long bookingId, Long cartId);
     void updateBookingTotal(Long cartId, Long price);
     void unBook(Long cartId, Long oldPrice, Long newPrice);
+    void updateCart(Long cartId);
 }

@@ -2,7 +2,6 @@ package com.capstone.kelompok10.model.entity;
 
 import java.time.Instant;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,6 +30,7 @@ public class BookingEntity {
     private Long bookingId;
     private Boolean status;
     private Long price;
+    private Long cartIdentity;
     
     @JsonIgnore
     private Long userIdentity;
@@ -51,7 +51,8 @@ public class BookingEntity {
     @JoinColumn(name = "classId")
     private ClassEntity classes;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @JoinColumn(name = "cartId")
     private CartEntity cart;
 }

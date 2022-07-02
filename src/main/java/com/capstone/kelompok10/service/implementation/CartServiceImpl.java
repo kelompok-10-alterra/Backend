@@ -42,33 +42,6 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void updateCart(Long cartId, CartDtoPost cartDtoPost) {
-        if(cartRepository.findById(cartId) != null){
-            CartEntity cart2 = cartRepository.findById(cartId).get();
-            UserEntity user = new UserEntity();
-            user.setUserId(cartDtoPost.getUserId());
-            cart2.setUser(user);
-
-            cartRepository.save(cart2);
-            log.info("Cart updated");
-        }else{
-            log.info("Cart with id {} not found", cartId);
-            throw new IllegalStateException("Cart not Found");
-        }
-    }
-
-    @Override
-    public void deleteCart(Long cartId) {
-        if(cartRepository.findById(cartId) != null){
-            cartRepository.deleteById(cartId);
-            log.info("Cart with id {} successfully deleted", cartId);
-        }else{
-            log.info("Cart with id {} not found", cartId);
-            throw new IllegalStateException("Cart not Found");
-        }
-    }
-
-    @Override
     public void createCartDto(CartDtoPost cartDtoPost) {
         CartEntity cartEntity = new CartEntity();
         UserEntity user = new UserEntity();
@@ -107,4 +80,15 @@ public class CartServiceImpl implements CartService {
         cart.setTotal((currentPrice - oldPrice) + newPrice);
         cartRepository.save(cart);
     }
+
+	@Override
+	public void updateCart(Long cartId) {
+		CartEntity cart = cartRepository.findById(cartId).get();
+		List<BookingEntity> booking = bookingRepository.findByCartIdentity(cartId);
+        Long total = 0L;
+        for (int i = 0; i < booking.size(); i++) {
+            total = total + booking.get(i).getPrice();
+        }
+        cart.setTotal(total);
+	}
 }

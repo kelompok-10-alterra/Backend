@@ -191,12 +191,10 @@ public class BookingServiceImpl implements BookingService {
     public void deleteBooking(Long bookingId) {
         if(bookingRepository.findById(bookingId).isPresent() == true){
             BookingEntity booking = bookingRepository.findById(bookingId).get();
-            Long cartId = booking.getCart().getCartId();
-            Long oldPrice = booking.getPrice();
-            Long newPrice = 0L;
             if(classService.classExist(booking.getClasses().getClassId()) == true){
+                Long oldPrice = booking.getPrice();
                 classService.unBookClass(booking.getClasses().getClassId());
-                cartService.unBook(cartId, oldPrice, newPrice);
+                cartService.unBook(booking.getCartIdentity(), oldPrice, 0L);
                 bookingRepository.deleteById(bookingId);
                 log.info("Booking with id {} successfully deleted", bookingId);
             }else{
@@ -242,13 +240,16 @@ public class BookingServiceImpl implements BookingService {
             bookingEntity.setClasses(classEntity);
             bookingEntity.setUser(userEntity);
             bookingEntity.setUserIdentity(bookingDtoPost.getUserId());
+            UserEntity user3 = userRepository.findById(bookingDtoPost.getUserId()).get();
+            Long cartId = user3.getCart().getCartId();
+            bookingEntity.setCartIdentity(cartId);
+
             bookingRepository.save(bookingEntity);
 
             classService.classBooked(bookingDtoPost.getClassId());
             userService.getPoint(bookingDtoPost.getUserId());
 
-            UserEntity user3 = userRepository.findById(bookingDtoPost.getUserId()).get();
-            Long cartId = user3.getCart().getCartId();
+            
             cartService.addBookingToCart(bookingEntity.getBookingId(), cartId);
             cartService.updateBookingTotal(cartId, total);
             log.info("Booking created");

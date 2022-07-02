@@ -260,12 +260,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 userRepository.save(user);
                 log.info("user created succesfully");
                 addRoleToUser(userDtoPost.getUsername(), "ROLE_USER");
-                // UserEntity user2 = new UserEntity();
-                // user2.setUserId(user.getUserId());
-                // CartEntity cartEntity = new CartEntity();
-                // cartEntity.setUser(user2);
-                // cartEntity.setTotal(0L);
-                // cartRepository.save(cartEntity);
             }else{
                 log.info("Phone or Password invalid");
                 throw new IllegalStateException("Phone or Password invalid");
