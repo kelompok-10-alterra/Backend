@@ -64,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/capstone/content/adminAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/newsletter/adminAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/cart/adminAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/graph/adminAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
