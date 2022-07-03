@@ -38,5 +38,6 @@ public interface UserService {
     Boolean userExist(Long userId);
     int totalUser();
     void getPoint(Long userId);
+    Boolean nativeUser(Long userId);
 }
 

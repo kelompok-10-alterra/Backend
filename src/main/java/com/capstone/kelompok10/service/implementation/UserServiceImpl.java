@@ -11,9 +11,11 @@ import javax.transaction.Transactional;
 import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.dto.post.UserDtoPost;
 import com.capstone.kelompok10.model.dto.put.UserDtoPut;
+import com.capstone.kelompok10.model.entity.CartEntity;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.repository.CartRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.repository.MemberRepository;
 import com.capstone.kelompok10.repository.RoleRepository;
@@ -53,6 +55,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    CartRepository cartRepository;
 
     @Autowired
     BookingService bookingService;
@@ -177,7 +182,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void updateUser(Long userId, UserDtoPut userDtoPut) {
-        if(userRepository.findById(userId) != null){
+        if(userRepository.findById(userId) != null && nativeUser(userId) == false){
             UserEntity user2 = userRepository.findById(userId).get(); 
             user2.setName(userDtoPut.getName());
             user2.setPhone(userDtoPut.getPhone());
@@ -193,7 +198,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void deleteUser(Long userId) {
-        if(userRepository.findById(userId).isPresent()){
+        if(userRepository.findById(userId).isPresent() && nativeUser(userId) == false){
             userRepository.deleteById(userId);
             log.info("User with id {} successfully deleted", userId);
         }else{
@@ -212,11 +217,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserEntity user = userRepository.findById(userId).get();
         if(user.getMembership() == null){
             return 1;
-        }if(user.getMembership() == "Silver"){
+        }if(user.getMembership() == "Silver" && user.getStatus() == true){
             return 2;
-        }if(user.getMembership() == "Gold"){
+        }if(user.getMembership() == "Gold" && user.getStatus() == true){
             return 3;
-        }if(user.getMembership() == "Platinum"){
+        }if(user.getMembership() == "Platinum" && user.getStatus() == true){
             return 4;
         }else{
             return 99;
@@ -246,7 +251,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 user.setAddress(userDtoPost.getAddress());
                 user.setImageUrl(userDtoPost.getImageUrl());
                 user.setMembership(null);
+                user.setStatus(false);
                 user.setToken(null);
+                CartEntity cart = new CartEntity();
+                cart.setUser(user);
+                user.setCart(cart);
 
                 userRepository.save(user);
                 log.info("user created succesfully");
@@ -299,9 +308,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserEntity user = userRepository.findById(userId).get();
         MemberEntity member = memberRepository.findById(memberId).get();
         if(membershipService.membershipExpired(membershipId) == true){
+            user.setStatus(false);
             user.setMembership(null);
             userRepository.save(user);
         }else{
+            user.setStatus(true);
             user.setMembership(member.getName());
             userRepository.save(user);
         }
@@ -335,6 +346,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         dto.setPoint(user.getPoint());
 
         return dto;
+    }
+
+    @Override
+    public Boolean nativeUser(Long userId) {
+        if(userId == 1 || userId == 2 || userId == 3 || userId == 4){
+            log.info("You Can,t Use Native User");
+            return true;
+        }else{
+            return false;
+        }       
     }
 
     // @Override

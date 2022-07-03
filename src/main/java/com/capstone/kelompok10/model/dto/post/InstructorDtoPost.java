@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 public class InstructorDtoPost {
     private String name;
     private Long contact;
+    private String address;
     private String imageUrl;
 }

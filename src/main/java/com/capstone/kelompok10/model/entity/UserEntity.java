@@ -13,11 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,6 +43,7 @@ public class UserEntity {
     private String roleName;
     private String membership;
     private Long point = 0L;
+    private Boolean status;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -59,8 +62,13 @@ public class UserEntity {
     @UpdateTimestamp
     private Instant updated_at;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<RoleEntity> roles = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference
+    private CartEntity cart;
 
     // @ManyToMany(fetch = FetchType.EAGER)
     // @JsonIgnore

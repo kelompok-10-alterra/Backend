@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -29,9 +30,12 @@ public class BookingEntity {
     private Long bookingId;
     private Boolean status;
     private Long price;
-    
+    private Long cartIdentity;
+    private Long classIdentity;
+
     @JsonIgnore
     private Long userIdentity;
+
 
     @CreationTimestamp
     private Instant created_at;
@@ -40,12 +44,17 @@ public class BookingEntity {
     private Instant updated_at;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "userId")
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "classId")
     private ClassEntity classes;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "cartId")
+    private CartEntity cart;
 }

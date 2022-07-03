@@ -1,7 +1,7 @@
 package com.capstone.kelompok10.model.entity;
 
 import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,7 +16,10 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -35,7 +38,10 @@ public class ClassEntity {
     private String description;
     private Boolean status;
     private Long capacity;
-    private Date schedule;
+    private Long booked;
+    @DateTimeFormat(iso = ISO.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate schedule;
     private Long price;
     private String imageUrl;
 
@@ -59,6 +65,7 @@ public class ClassEntity {
     @JoinColumn(name = "typeId")
     private TypeEntity type;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<BookingEntity> booking;
 

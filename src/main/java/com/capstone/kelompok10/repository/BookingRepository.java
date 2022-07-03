@@ -13,10 +13,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
-    @Query("SELECT b FROM BookingEntity b WHERE b.userIdentity LIKE %?1%")
-    List<BookingEntity> findAll(Long keyword);
+    @Query("SELECT b FROM BookingEntity b WHERE b.bookingId LIKE ?1")
+    List<BookingEntity> findAll(Long bookingId);
     Optional<BookingEntity> findById(Long bookingId);
     BookingEntity findByStatus(Boolean status);
     Page<BookingEntity> findAll(Pageable pageable);
     List<BookingEntity> findByUserIdentity(Long userIdentity);
+    List<BookingEntity> findByCartIdentity(Long cartIdentity);
+    List<BookingEntity> findByClassIdentity(Long classIdentity);
 }

@@ -10,7 +10,7 @@ import com.capstone.kelompok10.model.entity.BookingEntity;
 
 public interface BookingService {
     List<BookingDtoGetDetailed> findAll();
-    List<BookingDtoGetDetailed> findAll(Long keyword);
+    List<BookingDtoGetDetailed> findAll(Long bookingId);
     Page<BookingEntity> findAllPagination(int offset, int pageSize);
     Page<BookingEntity> findAllPaginationSort(int offset, int pageSize, String field);
     BookingDtoGetDetailed getBookingByIdDto(Long bookingId);

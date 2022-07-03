@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
 import com.capstone.kelompok10.model.dto.post.ClassDtoPost;
 import com.capstone.kelompok10.model.entity.ClassEntity;
+import com.capstone.kelompok10.model.payload.GetUserByClass;
 import com.capstone.kelompok10.service.interfaces.ClassService;
 
 @RestController
@@ -81,5 +82,11 @@ public class ClassController {
     public ResponseEntity<ClassEntity> deleteClass(@PathVariable("classId") Long classId){
         classService.deleteClass(classId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/adminAccess/getUserByClassId")
+    public ResponseEntity <List<GetUserByClass>> getUserByClass(@RequestParam("classId") Long classId){
+        List<GetUserByClass> user = classService.getBookingByClassId(classId);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
