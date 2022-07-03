@@ -30,6 +30,7 @@ public class ClassDtoGet {
     private String typeName;
     private Long instructureId;
     private String instructureName;
+    private Long contact;
     private Long categoryId;
     private String categoryName;
     private Long roomId;

@@ -25,6 +25,7 @@ public class BookingDtoGetDetailed {
     private Long instructureId;
     private String instructureName;
     private Long classId;
+    private Long classIdentity;
     private String className;
     private Long categoryId;
     private String categoryName;

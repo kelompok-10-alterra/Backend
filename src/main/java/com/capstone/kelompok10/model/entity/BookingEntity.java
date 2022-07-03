@@ -31,9 +31,11 @@ public class BookingEntity {
     private Boolean status;
     private Long price;
     private Long cartIdentity;
-    
+    private Long classIdentity;
+
     @JsonIgnore
     private Long userIdentity;
+
 
     @CreationTimestamp
     private Instant created_at;
@@ -42,12 +44,12 @@ public class BookingEntity {
     private Instant updated_at;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "userId")
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "classId")
     private ClassEntity classes;
 

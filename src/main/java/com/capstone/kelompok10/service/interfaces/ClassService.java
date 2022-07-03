@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
 import com.capstone.kelompok10.model.dto.post.ClassDtoPost;
 import com.capstone.kelompok10.model.entity.ClassEntity;
+import com.capstone.kelompok10.model.payload.GetUserByClass;
 
 public interface ClassService {
     List<ClassDtoGet> findAll();
@@ -18,6 +19,7 @@ public interface ClassService {
     void createClassDto(ClassDtoPost classDtoPost);
     void updateClass(Long classId, ClassDtoPost classesDtoPost);
     void deleteClass(Long classId);
+    List<GetUserByClass> getBookingByClassId(Long classId);
 
     // Verify Method
     void classBooked(Long classId);

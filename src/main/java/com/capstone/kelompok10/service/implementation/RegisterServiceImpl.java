@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.capstone.kelompok10.model.entity.CartEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.ResendToken;
 import com.capstone.kelompok10.model.payload.ForgotPassword;
@@ -67,6 +68,9 @@ public class RegisterServiceImpl implements RegisterService {
                 user.setPhone(request.getPhone());
                 user.setAddress(request.getAddress());
                 user.setToken(token);
+                CartEntity cart = new CartEntity();
+                cart.setUser(user);
+                user.setCart(cart);
                 
                 userRepository.save(user);
                 String link = "https://www.api.rafdev.my.id/auth/confirmToken?token=" + token;

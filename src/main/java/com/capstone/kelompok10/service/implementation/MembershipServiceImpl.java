@@ -176,7 +176,7 @@ public class MembershipServiceImpl implements MembershipService {
             UserEntity userEntity = new UserEntity();
             userEntity.setUserId(membershipDtoPost.getUserId());
             
-            if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true){
+            if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true && userService.nativeUser(membershipDtoPost.getUserId()) == false){
                 membership2.setUser(userEntity);
                 membership2.setMember(memberEntity);
                 if(membershipDtoPost.getMemberId() == 1){
@@ -221,7 +221,7 @@ public class MembershipServiceImpl implements MembershipService {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberId(membershipDtoPost.getMemberId());
 
-        if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true){
+        if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true && userService.nativeUser(membershipDtoPost.getUserId()) == false){
             membershipEntity.setStatus(true);
             membershipEntity.setUser(userEntity);
             membershipEntity.setMember(memberEntity);

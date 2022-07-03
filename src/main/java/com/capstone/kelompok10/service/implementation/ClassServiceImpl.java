@@ -5,11 +5,14 @@ import java.util.List;
 
 import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
 import com.capstone.kelompok10.model.dto.post.ClassDtoPost;
+import com.capstone.kelompok10.model.entity.BookingEntity;
 import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.model.entity.ClassEntity;
 import com.capstone.kelompok10.model.entity.InstructorEntity;
 import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.model.entity.TypeEntity;
+import com.capstone.kelompok10.model.payload.GetUserByClass;
+import com.capstone.kelompok10.repository.BookingRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
 import com.capstone.kelompok10.service.interfaces.ClassService;
@@ -17,6 +20,7 @@ import com.capstone.kelompok10.service.interfaces.InstructorService;
 import com.capstone.kelompok10.service.interfaces.RoomService;
 import com.capstone.kelompok10.service.interfaces.TypeService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +31,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
+@RequiredArgsConstructor
 public class ClassServiceImpl implements ClassService {
     ClassRepository classRepository;
+    
+    @Autowired
+    public BookingRepository bookingRepository;
 
     @Autowired
     private RoomService roomService;
@@ -69,6 +77,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setTypeName(isi.getType().getName());
             dto.setInstructureId(isi.getInstructor().getInstructorId());
             dto.setInstructureName(isi.getInstructor().getName());
+            dto.setContact(isi.getInstructor().getContact());
             dto.setCategoryId(isi.getCategory().getCategoryId());
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
@@ -143,6 +152,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setTypeName(isi.getType().getName());
             dto.setInstructureId(isi.getInstructor().getInstructorId());
             dto.setInstructureName(isi.getInstructor().getName());
+            dto.setContact(isi.getInstructor().getContact());
             dto.setCategoryId(isi.getCategory().getCategoryId());
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
@@ -298,5 +308,21 @@ public class ClassServiceImpl implements ClassService {
         }else{
             return false;
         }
+    }
+
+    @Override
+    public List<GetUserByClass> getBookingByClassId(Long classId) {
+        List<BookingEntity> booking = bookingRepository.findByClassIdentity(classId);
+        List<GetUserByClass> user = new ArrayList<>();
+        booking.forEach(isi ->{
+            GetUserByClass dto = new GetUserByClass();
+            dto.setUserId(isi.getUser().getUserId());
+            dto.setUsername(isi.getUser().getName());
+            dto.setStatus(isi.getClasses().getStatus());
+            dto.setJoinedAt(isi.getCreated_at().toString());
+
+            user.add(dto);
+        });
+        return user;
     }
 }

@@ -20,4 +20,5 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
     Page<BookingEntity> findAll(Pageable pageable);
     List<BookingEntity> findByUserIdentity(Long userIdentity);
     List<BookingEntity> findByCartIdentity(Long cartIdentity);
+    List<BookingEntity> findByClassIdentity(Long classIdentity);
 }

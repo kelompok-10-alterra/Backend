@@ -68,6 +68,7 @@ public class BookingServiceImpl implements BookingService {
             dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());
             dto.setInstructureName(isi.getClasses().getInstructor().getName());
             dto.setClassId(isi.getClasses().getClassId());
+            dto.setClassIdentity(isi.getClassIdentity());
             dto.setClassName(isi.getClasses().getName());
             dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());
             dto.setCategoryName(isi.getClasses().getCategory().getName());
@@ -149,40 +150,45 @@ public class BookingServiceImpl implements BookingService {
             Long price = classService.classPrice(bookingDtoPost.getClassId());
             Long total;
             Long currentPrice = booking2.getPrice();
-
-            if(bookingDtoPost.getClassId() != booking2.getClasses().getClassId()){
-                classService.unBookClass(bookingDtoPost.getClassId());
-                if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 2){
-                    log.info("User have membership and get discount price");
-                    total = price - (price * 20 / 100);
+            if(userService.nativeUser(bookingDtoPost.getUserId()) == false){
+                if(bookingDtoPost.getClassId() != booking2.getClasses().getClassId()){
+                    classService.unBookClass(bookingDtoPost.getClassId());
+                    if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 2){
+                        log.info("User have membership and get discount price");
+                        total = price - (price * 20 / 100);
+                        booking2.setPrice(total);
+                    }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 3){
+                        log.info("User have membership and get discount price");
+                        total = price - (price * 30 / 100);
+                        booking2.setPrice(total);
+                    }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 4){
+                        log.info("User have membership and get discount price");
+                        total = price - (price * 50 / 100);
+                        booking2.setPrice(total);
+                    }else{
+                        log.info("User don't have membership and didn't get discount price");
+                        total = price;
+                        booking2.setPrice(total);
+                    }
                     booking2.setPrice(total);
-                }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 3){
-                    log.info("User have membership and get discount price");
-                    total = price - (price * 30 / 100);
-                    booking2.setPrice(total);
-                }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 4){
-                    log.info("User have membership and get discount price");
-                    total = price - (price * 50 / 100);
-                    booking2.setPrice(total);
+                    booking2.setStatus(bookingDtoPost.getStatus());
+                    booking2.setUser(userEntity);
+                    booking2.setUserIdentity(bookingDtoPost.getUserId());
+                    booking2.setClassIdentity(bookingDtoPost.getClassId());
+                    booking2.setClasses(classEntity);
+    
+                    bookingRepository.save(booking2);
+                    UserEntity user3 = userRepository.findById(bookingDtoPost.getUserId()).get();
+                    Long cartId = user3.getCart().getCartId();
+                    cartService.unBook(cartId, currentPrice, total);
+                    log.info("Booking updated");
                 }else{
-                    log.info("User don't have membership and didn't get discount price");
-                    total = price;
-                    booking2.setPrice(total);
+                    log.info("Booking with id {} not found", bookingId);
+                    throw new IllegalStateException("Booking you search not found");
                 }
-                booking2.setPrice(total);
-                booking2.setStatus(bookingDtoPost.getStatus());
-                booking2.setUser(userEntity);
-                booking2.setUserIdentity(bookingDtoPost.getUserId());
-                booking2.setClasses(classEntity);
-
-                bookingRepository.save(booking2);
-                UserEntity user3 = userRepository.findById(bookingDtoPost.getUserId()).get();
-                Long cartId = user3.getCart().getCartId();
-                cartService.unBook(cartId, currentPrice, total);
-                log.info("Booking updated");
-            }else{
-                log.info("Booking with id {} not found", bookingId);
-                throw new IllegalStateException("Booking you search not found");
+            }
+            else{
+                throw new IllegalStateException("Update Failed, you can't use native user");
             }
         }
     }
@@ -216,7 +222,8 @@ public class BookingServiceImpl implements BookingService {
         ClassEntity classEntity = new ClassEntity();
         classEntity.setClassId(bookingDtoPost.getClassId());
 
-        if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null && classService.classFull(bookingDtoPost.getClassId()) == false){
+        if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null && classService.classFull(bookingDtoPost.getClassId()) == false
+            && userService.nativeUser(bookingDtoPost.getUserId()) == false){
             Long price = classService.classPrice(bookingDtoPost.getClassId());
             Long total;
             if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 2){
@@ -243,6 +250,7 @@ public class BookingServiceImpl implements BookingService {
             UserEntity user3 = userRepository.findById(bookingDtoPost.getUserId()).get();
             Long cartId = user3.getCart().getCartId();
             bookingEntity.setCartIdentity(cartId);
+            bookingEntity.setClassIdentity(bookingDtoPost.getClassId());
 
             bookingRepository.save(bookingEntity);
 

@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void updateUser(Long userId, UserDtoPut userDtoPut) {
-        if(userRepository.findById(userId) != null){
+        if(userRepository.findById(userId) != null && nativeUser(userId) == false){
             UserEntity user2 = userRepository.findById(userId).get(); 
             user2.setName(userDtoPut.getName());
             user2.setPhone(userDtoPut.getPhone());
@@ -198,7 +198,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void deleteUser(Long userId) {
-        if(userRepository.findById(userId).isPresent()){
+        if(userRepository.findById(userId).isPresent() && nativeUser(userId) == false){
             userRepository.deleteById(userId);
             log.info("User with id {} successfully deleted", userId);
         }else{
@@ -346,6 +346,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         dto.setPoint(user.getPoint());
 
         return dto;
+    }
+
+    @Override
+    public Boolean nativeUser(Long userId) {
+        if(userId == 1 || userId == 2 || userId == 3 || userId == 4){
+            log.info("You Can,t Use Native User");
+            return true;
+        }else{
+            return false;
+        }       
     }
 
     // @Override
