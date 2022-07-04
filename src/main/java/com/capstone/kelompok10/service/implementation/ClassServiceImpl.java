@@ -73,6 +73,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setCapacity(isi.getCapacity());
             dto.setBooked(isi.getBooked());
             dto.setSchedule(isi.getSchedule());
+            dto.setHour(isi.getHour());
             dto.setPrice(isi.getPrice());
             dto.setImageUrl(isi.getImageUrl());
             dto.setCreatedAt(isi.getCreated_at().toString());
@@ -106,6 +107,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setCapacity(isi.getCapacity());
             dto.setBooked(isi.getBooked());
             dto.setSchedule(isi.getSchedule());
+            dto.setHour(isi.getHour());
             dto.setPrice(isi.getPrice());
             dto.setImageUrl(isi.getImageUrl());
             dto.setCreatedAt(isi.getCreated_at().toString());
@@ -181,6 +183,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setCapacity(isi.getCapacity());
             dto.setBooked(isi.getBooked());
             dto.setSchedule(isi.getSchedule());
+            dto.setHour(isi.getHour());
             dto.setPrice(isi.getPrice());
             dto.setImageUrl(isi.getImageUrl());
             dto.setCreatedAt(isi.getCreated_at().toString());
@@ -238,6 +241,7 @@ public class ClassServiceImpl implements ClassService {
                     class2.setDescription(classesDtoPost.getDescription());
                     class2.setCapacity(classesDtoPost.getCapacity());
                     class2.setSchedule(classesDtoPost.getSchedule());
+                    class2.setHour(classesDtoPost.getHour());
                     class2.setPrice(classesDtoPost.getPrice());
                     class2.setImageUrl(classesDtoPost.getImageUrl());
                     class2.setCategory(categoryEntity);
@@ -289,6 +293,7 @@ public class ClassServiceImpl implements ClassService {
                 classEntity.setCapacity(classDtoPost.getCapacity());
                 classEntity.setBooked(0L);
                 classEntity.setSchedule(classDtoPost.getSchedule());
+                classEntity.setHour(classDtoPost.getHour());
                 classEntity.setPrice(classDtoPost.getPrice());
                 classEntity.setImageUrl(classDtoPost.getImageUrl());
                 classEntity.setInstructor(instructorEntity);
@@ -381,6 +386,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setCapacity(isi.getCapacity());
             dto.setBooked(isi.getBooked());
             dto.setSchedule(isi.getSchedule());
+            dto.setHour(isi.getHour());
             dto.setPrice(isi.getPrice());
             dto.setImageUrl(isi.getImageUrl());
             dto.setCreatedAt(isi.getCreated_at().toString());
@@ -413,6 +419,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setCapacity(isi.getCapacity());
             dto.setBooked(isi.getBooked());
             dto.setSchedule(isi.getSchedule());
+            dto.setHour(isi.getHour());
             dto.setPrice(isi.getPrice());
             dto.setImageUrl(isi.getImageUrl());
             dto.setCreatedAt(isi.getCreated_at().toString());

@@ -20,6 +20,7 @@ public class ClassDtoPost {
     @DateTimeFormat(iso = ISO.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate schedule;
+    private Long hour;
     private Long price;
     private String imageUrl;
     private Long instructorId;

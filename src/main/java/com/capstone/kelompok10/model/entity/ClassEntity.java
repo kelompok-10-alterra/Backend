@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -42,6 +43,8 @@ public class ClassEntity {
     @DateTimeFormat(iso = ISO.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate schedule;
+    @Size(min = 2, max = 2)
+    private Long hour;
     private Long price;
     private String imageUrl;
 

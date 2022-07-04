@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class FavoriteClassDtoPost {
     private Long classId;
-    private Long favoriteId;
+    private Long userId;
 }

@@ -52,6 +52,10 @@ public class UserEntity {
     @JsonIgnore
     private List<BookingEntity> booking;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<FavoriteClassEntity> favClass;
+
     @Column(nullable = true)
     private String token;
 

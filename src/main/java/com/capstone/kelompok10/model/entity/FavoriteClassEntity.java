@@ -48,6 +48,11 @@ public class FavoriteClassEntity {
     @JoinColumn(name = "favoriteId")
     private FavoriteEntity favorite;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "userId")
+    private UserEntity user;
+
     @CreationTimestamp
     private Instant createdAt;
     @UpdateTimestamp

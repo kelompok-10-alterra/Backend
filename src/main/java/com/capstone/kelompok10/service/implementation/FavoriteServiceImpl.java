@@ -2,9 +2,12 @@ package com.capstone.kelompok10.service.implementation;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capstone.kelompok10.model.entity.FavoriteClassEntity;
 import com.capstone.kelompok10.model.entity.FavoriteEntity;
+import com.capstone.kelompok10.repository.FavoriteClassRepository;
 import com.capstone.kelompok10.repository.FavoriteRepository;
 import com.capstone.kelompok10.service.interfaces.FavoriteService;
 
@@ -16,6 +19,9 @@ import lombok.extern.log4j.Log4j2;
 @AllArgsConstructor
 public class FavoriteServiceImpl implements FavoriteService {
     private FavoriteRepository favoriteRepository;
+
+    @Autowired
+    private FavoriteClassRepository favoriteClassRepository;
     
     @Override
     public List<FavoriteEntity> findAll() {
@@ -34,5 +40,18 @@ public class FavoriteServiceImpl implements FavoriteService {
             throw new IllegalStateException("Favorite not Found");
         }
     }
+
+    @Override
+	public void addFavoriteClassToFavorite(Long favoriteClassId, Long favoriteId) {
+		FavoriteEntity favorite = favoriteRepository.findById(favoriteId).get();
+        if(favoriteClassRepository.findById(favoriteClassId).isPresent() == true){
+            FavoriteClassEntity favClass = favoriteClassRepository.findById(favoriteClassId).get();
+            favorite.getFavClass().add(favClass);
+            favoriteRepository.save(favorite);
+        }else{
+            log.info("Booking with id {} no exist !!", favoriteClassId);
+        }
+		
+	}
     
 }
