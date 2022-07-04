@@ -156,7 +156,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             dto.setEmail(isi.getEmail());
             dto.setPhone(isi.getPhone());
             dto.setAddress(isi.getAddress());
-            dto.setBirthDate(isi.getBirthDate());
             dto.setMembership(isi.getMembership());
             dto.setImageUrl(isi.getImageUrl());
 
@@ -189,7 +188,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user2.setName(userDtoPut.getName());
             user2.setPhone(userDtoPut.getPhone());
             user2.setAddress(userDtoPut.getAddress());
-            user2.setBirthDate(userDtoPut.getBirthDate());
             user2.setImageUrl(userDtoPut.getImageUrl());
             userRepository.save(user2);
             log.info("User updated");
@@ -252,7 +250,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 user.setEmail(userDtoPost.getEmail());
                 user.setName(userDtoPost.getName());
                 user.setAddress(userDtoPost.getAddress());
-                user.setBirthDate(userDtoPost.getBirthDate());
                 user.setImageUrl(userDtoPost.getImageUrl());
                 user.setMembership(null);
                 user.setStatus(false);
@@ -348,7 +345,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         dto.setEmail(user.getEmail());
         dto.setPhone(user.getPhone());
         dto.setAddress(user.getAddress());
-        dto.setBirthDate(user.getBirthDate());
         dto.setImageUrl(user.getImageUrl());
         dto.setMembership(user.getMembership());
         dto.setPoint(user.getPoint());
