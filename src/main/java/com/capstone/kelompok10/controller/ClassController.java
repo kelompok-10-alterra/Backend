@@ -33,9 +33,14 @@ public class ClassController {
     }
 
     @GetMapping("/userAccess/getAllClass")
-    public ResponseEntity<List<ClassDtoGet>> findAll(){
-        List<ClassDtoGet> classs = classService.findAll();
-        return new ResponseEntity<>(classs, HttpStatus.OK);
+    public ResponseEntity<List<ClassDtoGet>> findAll(@RequestParam(required = false) String keyword){
+        if(keyword == null){
+            List<ClassDtoGet> classs = classService.findAll();
+            return new ResponseEntity<>(classs, HttpStatus.OK);
+        }else{
+            List<ClassDtoGet> classs = classService.findAll(keyword);
+            return new ResponseEntity<>(classs, HttpStatus.OK);
+        }
     }
 
     @GetMapping("/userAccess/{offset}/{pageSize}")

@@ -11,7 +11,7 @@ import com.capstone.kelompok10.model.payload.GetUserByClass;
 
 public interface ClassService {
     List<ClassDtoGet> findAll();
-    // List<ClassDtoGet> findAllDto();
+    List<ClassDtoGet> findAll(String keyword);
     Page<ClassEntity> findAllPagination(int offset, int pageSize);
     Page<ClassEntity> findAllPaginationSort(int offset, int pageSize, String field);
     ClassDtoGet getClassByIdDto(Long classId);

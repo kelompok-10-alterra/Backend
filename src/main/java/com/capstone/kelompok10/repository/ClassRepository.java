@@ -10,10 +10,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClassRepository extends JpaRepository<ClassEntity, Long> {
-    @Query("SELECT c FROM ClassEntity c WHERE c.name LIKE %?1%"
-            + "OR c.price LIKE %?1%"
-            + "OR c.capacity LIKE %?1%")
-    List<ClassEntity> findAll(Boolean keyword);
+    @Query("SELECT c FROM ClassEntity c WHERE c.name LIKE %?1%")
+    List<ClassEntity> findAll(String keyword);
     ClassEntity findByStatus(Boolean status);
     ClassEntity findByName(String name);
     List<ClassEntity> findByTypeName(String typeName);

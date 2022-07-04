@@ -91,6 +91,39 @@ public class ClassServiceImpl implements ClassService {
         });
         return classDtos;
     }
+
+    @Override
+    public List<ClassDtoGet> findAll(String keyword) {
+        List<ClassEntity> classs = classRepository.findAll(keyword);
+        List<ClassDtoGet> classDtos = new ArrayList<>();
+        
+        classs.forEach(isi ->{
+            ClassDtoGet dto = new ClassDtoGet();
+            dto.setClassId(isi.getClassId());
+            dto.setName(isi.getName());
+            dto.setDescription(isi.getDescription());
+            dto.setStatus(isi.getStatus());
+            dto.setCapacity(isi.getCapacity());
+            dto.setBooked(isi.getBooked());
+            dto.setSchedule(isi.getSchedule());
+            dto.setPrice(isi.getPrice());
+            dto.setImageUrl(isi.getImageUrl());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setTypeId(isi.getType().getTypeId());
+            dto.setTypeName(isi.getType().getName());
+            dto.setInstructureId(isi.getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getInstructor().getName());
+            dto.setContact(isi.getInstructor().getContact());
+            dto.setCategoryId(isi.getCategory().getCategoryId());
+            dto.setCategoryName(isi.getCategory().getName());
+            dto.setRoomId(isi.getRoom().getRoomId());
+            dto.setRoomName(isi.getRoom().getName());
+
+            classDtos.add(dto);
+        });
+        return classDtos;
+    }
     
     @Override
     public Page<ClassEntity> findAllPagination(int offset, int pageSize) {
