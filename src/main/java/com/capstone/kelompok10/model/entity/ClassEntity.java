@@ -69,6 +69,10 @@ public class ClassEntity {
     @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<BookingEntity> booking;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<FavoriteClassEntity> favoriteClass;
+
     @CreationTimestamp
     private Instant created_at;
 

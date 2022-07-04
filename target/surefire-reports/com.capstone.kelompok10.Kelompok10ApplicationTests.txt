@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.capstone.kelompok10.Kelompok10ApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 70.463 s - in com.capstone.kelompok10.Kelompok10ApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.676 s - in com.capstone.kelompok10.Kelompok10ApplicationTests

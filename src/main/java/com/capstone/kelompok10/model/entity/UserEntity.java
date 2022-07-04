@@ -70,6 +70,10 @@ public class UserEntity {
     @JsonManagedReference
     private CartEntity cart;
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference
+    private FavoriteEntity favorite;
+
     // @ManyToMany(fetch = FetchType.EAGER)
     // @JsonIgnore
     // private Collection<ClassEntity> classes = new ArrayList<>();
