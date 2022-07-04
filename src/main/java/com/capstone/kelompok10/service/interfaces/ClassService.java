@@ -20,6 +20,8 @@ public interface ClassService {
     void updateClass(Long classId, ClassDtoPost classesDtoPost);
     void deleteClass(Long classId);
     List<GetUserByClass> getBookingByClassId(Long classId);
+    List<ClassDtoGet> getClassByType(String typeName);
+    List<ClassDtoGet> getClassByCategoryName(String categoryName);
 
     // Verify Method
     void classBooked(Long classId);

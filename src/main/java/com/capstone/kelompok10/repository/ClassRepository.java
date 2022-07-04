@@ -16,4 +16,6 @@ public interface ClassRepository extends JpaRepository<ClassEntity, Long> {
     List<ClassEntity> findAll(Boolean keyword);
     ClassEntity findByStatus(Boolean status);
     ClassEntity findByName(String name);
+    List<ClassEntity> findByTypeName(String typeName);
+    List<ClassEntity> findByCategoryName(String categoryName);
 }

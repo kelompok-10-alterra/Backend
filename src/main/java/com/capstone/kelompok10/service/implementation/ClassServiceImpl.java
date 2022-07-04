@@ -14,6 +14,7 @@ import com.capstone.kelompok10.model.entity.TypeEntity;
 import com.capstone.kelompok10.model.payload.GetUserByClass;
 import com.capstone.kelompok10.repository.BookingRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
+import com.capstone.kelompok10.repository.TypeRepository;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
 import com.capstone.kelompok10.service.interfaces.ClassService;
 import com.capstone.kelompok10.service.interfaces.InstructorService;
@@ -37,6 +38,9 @@ public class ClassServiceImpl implements ClassService {
     
     @Autowired
     public BookingRepository bookingRepository;
+
+    @Autowired
+    public TypeRepository typeRepository;
 
     @Autowired
     private RoomService roomService;
@@ -195,6 +199,7 @@ public class ClassServiceImpl implements ClassService {
 
             if(instructorService.instructorExist(classesDtoPost.getInstructorId()) == true && categoryService.categoryExist(classesDtoPost.getCategoryId()) == true &&
                 roomService.roomExist(classesDtoPost.getRoomId()) == true && typeService.typeExist(classesDtoPost.getTypeId()) == true){
+                    TypeEntity type2 = typeRepository.findById(classesDtoPost.getTypeId()).get();
                     class2.setStatus(classesDtoPost.getStatus());
                     class2.setName(classesDtoPost.getName());
                     class2.setDescription(classesDtoPost.getDescription());
@@ -206,6 +211,7 @@ public class ClassServiceImpl implements ClassService {
                     class2.setInstructor(instructorEntity);
                     class2.setRoom(roomEntity);
                     class2.setType(typeEntity);
+                    class2.setTypeName(type2.getName());
                     
                     classRepository.save(class2);
                     log.info("Class updated");
@@ -243,6 +249,7 @@ public class ClassServiceImpl implements ClassService {
         typeEntity.setTypeId(classDtoPost.getTypeId());
         if(instructorService.instructorExist(classDtoPost.getInstructorId()) == true && categoryService.categoryExist(classDtoPost.getCategoryId()) == true &&
             roomService.roomExist(classDtoPost.getRoomId()) == true && typeService.typeExist(classDtoPost.getTypeId()) == true){
+                TypeEntity type2 = typeRepository.findById(classDtoPost.getTypeId()).get();
                 classEntity.setStatus(classDtoPost.getStatus());
                 classEntity.setName(classDtoPost.getName());
                 classEntity.setDescription(classDtoPost.getDescription());
@@ -255,6 +262,8 @@ public class ClassServiceImpl implements ClassService {
                 classEntity.setCategory(categoryEntity);
                 classEntity.setRoom(roomEntity);
                 classEntity.setType(typeEntity);
+                classEntity.setTypeName(type2.getName());
+
                 classRepository.save(classEntity);
                 log.info("Class created");
             }else{
@@ -324,5 +333,69 @@ public class ClassServiceImpl implements ClassService {
             user.add(dto);
         });
         return user;
+    }
+
+    @Override
+    public List<ClassDtoGet> getClassByType(String typeName) {
+        List<ClassEntity> classes = classRepository.findByTypeName(typeName);
+        List<ClassDtoGet> classDtos = new ArrayList<>();
+        classes.forEach(isi ->{
+            ClassDtoGet dto = new ClassDtoGet();
+            dto.setClassId(isi.getClassId());
+            dto.setName(isi.getName());
+            dto.setDescription(isi.getDescription());
+            dto.setStatus(isi.getStatus());
+            dto.setCapacity(isi.getCapacity());
+            dto.setBooked(isi.getBooked());
+            dto.setSchedule(isi.getSchedule());
+            dto.setPrice(isi.getPrice());
+            dto.setImageUrl(isi.getImageUrl());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setTypeId(isi.getType().getTypeId());
+            dto.setTypeName(isi.getType().getName());
+            dto.setInstructureId(isi.getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getInstructor().getName());
+            dto.setContact(isi.getInstructor().getContact());
+            dto.setCategoryId(isi.getCategory().getCategoryId());
+            dto.setCategoryName(isi.getCategory().getName());
+            dto.setRoomId(isi.getRoom().getRoomId());
+            dto.setRoomName(isi.getRoom().getName());
+
+            classDtos.add(dto);
+        });
+        return classDtos;
+    }
+
+    @Override
+    public List<ClassDtoGet> getClassByCategoryName(String categoryName) {
+        List<ClassEntity> classes = classRepository.findByCategoryName(categoryName);
+        List<ClassDtoGet> classDtos = new ArrayList<>();
+        classes.forEach(isi ->{
+            ClassDtoGet dto = new ClassDtoGet();
+            dto.setClassId(isi.getClassId());
+            dto.setName(isi.getName());
+            dto.setDescription(isi.getDescription());
+            dto.setStatus(isi.getStatus());
+            dto.setCapacity(isi.getCapacity());
+            dto.setBooked(isi.getBooked());
+            dto.setSchedule(isi.getSchedule());
+            dto.setPrice(isi.getPrice());
+            dto.setImageUrl(isi.getImageUrl());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setTypeId(isi.getType().getTypeId());
+            dto.setTypeName(isi.getType().getName());
+            dto.setInstructureId(isi.getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getInstructor().getName());
+            dto.setContact(isi.getInstructor().getContact());
+            dto.setCategoryId(isi.getCategory().getCategoryId());
+            dto.setCategoryName(isi.getCategory().getName());
+            dto.setRoomId(isi.getRoom().getRoomId());
+            dto.setRoomName(isi.getRoom().getName());
+
+            classDtos.add(dto);
+        });
+        return classDtos;
     }
 }

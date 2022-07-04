@@ -89,4 +89,16 @@ public class ClassController {
         List<GetUserByClass> user = classService.getBookingByClassId(classId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    @GetMapping("/userAccess/getClassByType")
+    public ResponseEntity <List<ClassDtoGet>> getClassByType(@RequestParam("typeName") String typeName){
+        List<ClassDtoGet> classes = classService.getClassByType(typeName);
+        return new ResponseEntity<>(classes, HttpStatus.OK);
+    }
+
+    @GetMapping("/userAccess/getClassByCategory")
+    public ResponseEntity <List<ClassDtoGet>> getClassByCategory(@RequestParam("categoryName") String categoryName){
+        List<ClassDtoGet> classes = classService.getClassByCategoryName(categoryName);
+        return new ResponseEntity<>(classes, HttpStatus.OK);
+    }
 }

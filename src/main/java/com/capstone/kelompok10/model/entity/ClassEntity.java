@@ -45,6 +45,9 @@ public class ClassEntity {
     private Long price;
     private String imageUrl;
 
+    private String typeName;
+    private String categoryName;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instructorId")
