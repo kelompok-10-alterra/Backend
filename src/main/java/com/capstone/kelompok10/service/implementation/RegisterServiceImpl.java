@@ -68,6 +68,7 @@ public class RegisterServiceImpl implements RegisterService {
                 user.setEmail(request.getEmail());
                 user.setPhone(request.getPhone());
                 user.setAddress(request.getAddress());
+                user.setBirthDate(request.getBirthDate());
                 user.setToken(token);
                 CartEntity cart = new CartEntity();
                 cart.setUser(user);
