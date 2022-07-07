@@ -29,4 +29,5 @@ public interface ClassService {
     Boolean classFull(Long classId);
     Long classPrice(Long classId);
     Boolean classExist(Long classId);
+    Long classRating(Long classId);
 }

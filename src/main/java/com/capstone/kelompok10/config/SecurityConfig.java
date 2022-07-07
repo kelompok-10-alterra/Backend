@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/capstone/cart/userAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/favorite/userAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/favoriteClass/userAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/rating/userAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/category/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/member/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/room/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
@@ -69,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/capstone/graph/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/favorite/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/favoriteClass/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/rating/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);

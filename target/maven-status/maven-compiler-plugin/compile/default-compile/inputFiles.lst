@@ -1,10 +1,12 @@
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\BookingEntity.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\get\RatingDtoGet.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\MemberServiceImpl.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\RegisterServiceImpl.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\FavoriteController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\RegisterService.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\config\SecurityConfig.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\post\CategoryDtoPost.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\post\RatingDtoPost.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\repository\InstructorRepository.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\ClassEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\repository\GraphRepository.java
@@ -55,6 +57,7 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\se
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\post\InstructorDtoPost.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\FavoriteClassEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\ClassController.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\RatingService.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\ContentController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\RoleEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\get\NewsletterDtoGet.java
@@ -95,6 +98,7 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\mo
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\RoomController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\get\RoomDtoGet.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\ContentServiceImpl.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\RatingController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\payload\UsernamePassword.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\email\EmailSenderService.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\NewsletterService.java
@@ -105,6 +109,8 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\re
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\post\GraphDtoPost.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\TypeEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\payload\UserIdentity.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\repository\RatingRepository.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\RatingServiceImpl.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\FavoriteService.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\GraphController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\GraphEntity.java
@@ -119,6 +125,7 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\se
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\TypeController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\GraphService.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\post\UserDtoPost.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\RatingEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\repository\FavoriteRepository.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\get\MemberDtoGet.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\security\CustomAuthorizationFilter.java

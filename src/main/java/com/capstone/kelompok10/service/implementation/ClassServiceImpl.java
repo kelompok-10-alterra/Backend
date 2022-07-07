@@ -87,6 +87,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
+            dto.setRating(classRating(isi.getClassId()));
 
             classDtos.add(dto);
         });
@@ -121,6 +122,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
+            dto.setRating(classRating(isi.getClassId()));
 
             classDtos.add(dto);
         });
@@ -197,6 +199,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
+            dto.setRating(classRating(isi.getClassId()));
 
             return dto;
         }
@@ -400,6 +403,7 @@ public class ClassServiceImpl implements ClassService {
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
+            dto.setRating(classRating(isi.getClassId()));
 
             classDtos.add(dto);
         });
@@ -433,9 +437,21 @@ public class ClassServiceImpl implements ClassService {
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
+            dto.setRating(classRating(isi.getClassId()));
 
             classDtos.add(dto);
         });
         return classDtos;
+    }
+
+    @Override
+    public Long classRating(Long classId) {
+        ClassEntity classes = classRepository.findById(classId).get();
+        Long rating = 0L;
+        for (int i = 0; i < classes.getRating().size(); i++) {
+            rating = rating + classes.getRating().get(i).getRating();
+            rating = rating / classes.getRating().size();
+        }
+        return rating;
     }
 }

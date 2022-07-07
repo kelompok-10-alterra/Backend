@@ -47,6 +47,7 @@ public class ClassEntity {
     private Long hour;
     private Long price;
     private String imageUrl;
+    private Long ratings;
 
     private String typeName;
     private String categoryName;
@@ -78,6 +79,10 @@ public class ClassEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<FavoriteClassEntity> favoriteClass;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<RatingEntity> rating;
 
     @CreationTimestamp
     private Instant created_at;

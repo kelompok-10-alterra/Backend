@@ -36,4 +36,5 @@ public class ClassDtoGet {
     private String categoryName;
     private Long roomId;
     private String roomName;
+    private Long rating;
 }

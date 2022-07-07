@@ -12,8 +12,10 @@ com\capstone\kelompok10\service\email\EmailSenderServiceImpl.class
 com\capstone\kelompok10\service\interfaces\RoleService.class
 com\capstone\kelompok10\model\entity\RoomEntity.class
 com\capstone\kelompok10\service\interfaces\RoomService.class
+com\capstone\kelompok10\controller\RatingController.class
 com\capstone\kelompok10\model\entity\NewsletterEntity.class
 com\capstone\kelompok10\model\dto\post\CategoryDtoPost.class
+com\capstone\kelompok10\model\entity\RatingEntity.class
 com\capstone\kelompok10\controller\GraphController.class
 com\capstone\kelompok10\Kelompok10Application.class
 com\capstone\kelompok10\model\payload\RoleToUser.class
@@ -42,6 +44,7 @@ com\capstone\kelompok10\service\implementation\CategoryServiceImpl.class
 com\capstone\kelompok10\service\implementation\BookingServiceImpl.class
 com\capstone\kelompok10\model\dto\get\MembershipDtoGet.class
 com\capstone\kelompok10\service\interfaces\ContentService.class
+com\capstone\kelompok10\model\dto\get\RatingDtoGet.class
 com\capstone\kelompok10\repository\RoomRepository.class
 com\capstone\kelompok10\model\payload\ForgotPassword.class
 com\capstone\kelompok10\service\interfaces\FavoriteService.class
@@ -49,10 +52,12 @@ com\capstone\kelompok10\Kelompok10Application$1.class
 com\capstone\kelompok10\model\dto\post\ContentDtoPost.class
 com\capstone\kelompok10\service\implementation\UserServiceImpl.class
 com\capstone\kelompok10\model\entity\ClassEntity.class
+com\capstone\kelompok10\repository\RatingRepository.class
 com\capstone\kelompok10\controller\CartController.class
 com\capstone\kelompok10\repository\CartRepository.class
 com\capstone\kelompok10\service\implementation\FavoriteServiceImpl.class
 com\capstone\kelompok10\service\implementation\RegisterServiceImpl.class
+com\capstone\kelompok10\model\dto\post\RatingDtoPost.class
 com\capstone\kelompok10\model\dto\get\InstructorDtoGet.class
 com\capstone\kelompok10\model\dto\post\MembershipDtoPost.class
 com\capstone\kelompok10\repository\InstructorRepository.class
@@ -73,6 +78,7 @@ com\capstone\kelompok10\controller\MembershipController.class
 com\capstone\kelompok10\service\email\PhonePasswordValidator.class
 com\capstone\kelompok10\model\dto\post\TypeDtoPost.class
 com\capstone\kelompok10\controller\ContentController.class
+com\capstone\kelompok10\service\implementation\RatingServiceImpl.class
 com\capstone\kelompok10\model\entity\GraphEntity.class
 com\capstone\kelompok10\service\interfaces\GraphService.class
 com\capstone\kelompok10\model\dto\get\NewsletterDtoGet.class
@@ -105,6 +111,7 @@ com\capstone\kelompok10\model\entity\CartEntity.class
 com\capstone\kelompok10\model\dto\get\ContentDtoGet.class
 com\capstone\kelompok10\repository\CategoryRepository.class
 com\capstone\kelompok10\repository\ClassRepository.class
+com\capstone\kelompok10\service\interfaces\RatingService.class
 com\capstone\kelompok10\service\interfaces\CategoryService.class
 com\capstone\kelompok10\model\payload\ResendToken.class
 com\capstone\kelompok10\service\implementation\RoomServiceImpl.class
