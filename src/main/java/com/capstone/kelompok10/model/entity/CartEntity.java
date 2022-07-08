@@ -44,4 +44,8 @@ public class CartEntity {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private UserEntity user;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cart", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<PaymentEntity> payment;
 }

@@ -69,6 +69,10 @@ public class UserEntity {
     @JsonIgnore
     private List<RatingEntity> rating;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<PaymentEntity> payment;
+
     @Column(nullable = true)
     private String token;
 

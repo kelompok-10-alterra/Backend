@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.get.BookingDtoGetDetailed;
+import com.capstone.kelompok10.model.dto.get.BookingDtoGet;
 import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
 import com.capstone.kelompok10.service.interfaces.BookingService;
@@ -32,12 +32,12 @@ public class BookingController {
     }
 
     @GetMapping("/adminAccess/getAllBooking")
-    public ResponseEntity<List<BookingDtoGetDetailed>> findAll(@RequestParam(required = false) Long bookingId){
+    public ResponseEntity<List<BookingDtoGet>> findAll(@RequestParam(required = false) Long bookingId){
         if(bookingId == null){
-            List<BookingDtoGetDetailed> booking = bookingService.findAll();
+            List<BookingDtoGet> booking = bookingService.findAll();
             return new ResponseEntity<>(booking, HttpStatus.OK);
         }else{
-            List<BookingDtoGetDetailed> booking = bookingService.findAll(bookingId);
+            List<BookingDtoGet> booking = bookingService.findAll(bookingId);
             return new ResponseEntity<>(booking, HttpStatus.OK);
         }
     }
@@ -60,7 +60,7 @@ public class BookingController {
     }
 
     @GetMapping("/userAcess/getBookingByIdDto")
-    public ResponseEntity<BookingDtoGetDetailed> getBookingByIdDto(@RequestParam("bookingId") Long bookingId){
+    public ResponseEntity<BookingDtoGet> getBookingByIdDto(@RequestParam("bookingId") Long bookingId){
         return new ResponseEntity<>(bookingService.getBookingByIdDto(bookingId), HttpStatus.OK);
     }
 

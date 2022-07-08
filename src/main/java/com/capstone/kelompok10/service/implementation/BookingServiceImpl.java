@@ -3,7 +3,7 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.kelompok10.model.dto.get.BookingDtoGetDetailed;
+import com.capstone.kelompok10.model.dto.get.BookingDtoGet;
 import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
 import com.capstone.kelompok10.model.entity.ClassEntity;
@@ -52,11 +52,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDtoGetDetailed> findAll() {
+    public List<BookingDtoGet> findAll() {
         List<BookingEntity> booking = bookingRepository.findAll();
-        List<BookingDtoGetDetailed> booking2 = new ArrayList<>();
+        List<BookingDtoGet> booking2 = new ArrayList<>();
         booking.forEach(isi ->{
-            BookingDtoGetDetailed dto = new BookingDtoGetDetailed();
+            BookingDtoGet dto = new BookingDtoGet();
             dto.setBookingId(isi.getBookingId());
             dto.setStatus(isi.getStatus());
             dto.setPrice(isi.getPrice());
@@ -97,14 +97,14 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDtoGetDetailed getBookingByIdDto(Long bookingId) {
+    public BookingDtoGet getBookingByIdDto(Long bookingId) {
         if(bookingRepository.findById(bookingId) == null){
             log.info("Booking with id {} not found", bookingId);
             return null;
         }
         log.info("Booking with id {} found", bookingId);
         BookingEntity isi = bookingRepository.findById(bookingId).get();
-        BookingDtoGetDetailed dto = new BookingDtoGetDetailed();
+        BookingDtoGet dto = new BookingDtoGet();
         dto.setBookingId(isi.getBookingId());
             dto.setStatus(isi.getStatus());
             dto.setPrice(isi.getPrice());
@@ -286,11 +286,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDtoGetDetailed> findAll(Long bookingId) {
+    public List<BookingDtoGet> findAll(Long bookingId) {
         List<BookingEntity> booking = bookingRepository.findAll(bookingId);
-        List<BookingDtoGetDetailed> booking2 = new ArrayList<>();
+        List<BookingDtoGet> booking2 = new ArrayList<>();
         booking.forEach(isi ->{
-            BookingDtoGetDetailed dto = new BookingDtoGetDetailed();
+            BookingDtoGet dto = new BookingDtoGet();
             dto.setBookingId(isi.getBookingId());
             dto.setStatus(isi.getStatus());
             dto.setPrice(isi.getPrice());
