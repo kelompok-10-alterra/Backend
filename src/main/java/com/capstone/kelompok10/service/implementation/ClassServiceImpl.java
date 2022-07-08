@@ -255,9 +255,10 @@ public class ClassServiceImpl implements ClassService {
                     
                     classRepository.save(class2);
                     log.info("Class updated");
-                }
-            log.info("Failed to Update Class");
-            throw new IllegalStateException("Instructor, Category, Room or Type didn't exist");  
+            }else{
+                log.info("Failed to Update Class");
+                throw new IllegalStateException("Instructor, Category, Room or Type didn't exist");  
+            }
         }
     }
 

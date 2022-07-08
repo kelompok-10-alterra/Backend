@@ -94,6 +94,10 @@ public class UserEntity {
     @JsonManagedReference
     private FavoriteEntity favorite;
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference
+    private HistoryEntity history;
+
     // @ManyToMany(fetch = FetchType.EAGER)
     // @JsonIgnore
     // private Collection<ClassEntity> classes = new ArrayList<>();

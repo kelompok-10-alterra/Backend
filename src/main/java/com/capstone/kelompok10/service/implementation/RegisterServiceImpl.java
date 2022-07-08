@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.kelompok10.model.entity.CartEntity;
 import com.capstone.kelompok10.model.entity.FavoriteEntity;
+import com.capstone.kelompok10.model.entity.HistoryEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.ResendToken;
 import com.capstone.kelompok10.model.payload.ForgotPassword;
@@ -75,6 +76,9 @@ public class RegisterServiceImpl implements RegisterService {
                 FavoriteEntity favorite = new FavoriteEntity();
                 favorite.setUser(user);
                 user.setFavorite(favorite);
+                HistoryEntity history = new HistoryEntity();
+                history.setUser(user);
+                user.setHistory(history);
                 
                 userRepository.save(user);
                 String link = "https://www.api.rafdev.my.id/auth/confirmToken?token=" + token;

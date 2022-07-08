@@ -28,6 +28,7 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\mo
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\GraphServiceImpl.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\FavoriteClassController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\repository\RoomRepository.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\repository\HistoryRepository.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\post\CartDtoPost.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\RoleController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\NewsletterServiceImpl.java
@@ -56,6 +57,7 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\se
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\CategoryController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\get\TypeDtoGet.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\MembershipService.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\HistoryController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\post\InstructorDtoPost.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\FavoriteClassEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\ClassController.java
@@ -100,6 +102,7 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\mo
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\repository\ContentRepository.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\NewsletterEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\RoleService.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\HistoryEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\MembershipEntity.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\RoomController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\get\RoomDtoGet.java
@@ -108,6 +111,7 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\co
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\payload\UsernamePassword.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\email\EmailSenderService.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\NewsletterService.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\HistoryServiceImpl.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\InstructorController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\RoomServiceImpl.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\CategoryEntity.java
@@ -123,6 +127,7 @@ F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\mo
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\FavoriteClassService.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\dto\get\CategoryDtoGet.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\repository\UserRepository.java
+F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\interfaces\HistoryService.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\service\implementation\CategoryServiceImpl.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\controller\MembershipController.java
 F:\Studi Independen\capstone\kelompok10\src\main\java\com\capstone\kelompok10\model\entity\InstructorEntity.java
