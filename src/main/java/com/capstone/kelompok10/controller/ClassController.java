@@ -33,9 +33,14 @@ public class ClassController {
     }
 
     @GetMapping("/userAccess/getAllClass")
-    public ResponseEntity<List<ClassDtoGet>> findAll(){
-        List<ClassDtoGet> classs = classService.findAll();
-        return new ResponseEntity<>(classs, HttpStatus.OK);
+    public ResponseEntity<List<ClassDtoGet>> findAll(@RequestParam(required = false) String keyword){
+        if(keyword == null){
+            List<ClassDtoGet> classs = classService.findAll();
+            return new ResponseEntity<>(classs, HttpStatus.OK);
+        }else{
+            List<ClassDtoGet> classs = classService.findAll(keyword);
+            return new ResponseEntity<>(classs, HttpStatus.OK);
+        }
     }
 
     @GetMapping("/userAccess/{offset}/{pageSize}")
@@ -88,5 +93,17 @@ public class ClassController {
     public ResponseEntity <List<GetUserByClass>> getUserByClass(@RequestParam("classId") Long classId){
         List<GetUserByClass> user = classService.getBookingByClassId(classId);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/userAccess/getClassByType")
+    public ResponseEntity <List<ClassDtoGet>> getClassByType(@RequestParam("typeName") String typeName){
+        List<ClassDtoGet> classes = classService.getClassByType(typeName);
+        return new ResponseEntity<>(classes, HttpStatus.OK);
+    }
+
+    @GetMapping("/userAccess/getClassByCategory")
+    public ResponseEntity <List<ClassDtoGet>> getClassByCategory(@RequestParam("categoryName") String categoryName){
+        List<ClassDtoGet> classes = classService.getClassByCategoryName(categoryName);
+        return new ResponseEntity<>(classes, HttpStatus.OK);
     }
 }

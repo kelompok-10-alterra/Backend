@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class BookingDtoGetDetailed {
+public class BookingDtoGet {
     private Long bookingId;
     private Boolean status;
     private Long price;

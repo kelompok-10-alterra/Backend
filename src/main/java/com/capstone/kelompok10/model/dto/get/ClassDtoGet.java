@@ -22,6 +22,7 @@ public class ClassDtoGet {
     @DateTimeFormat(iso = ISO.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate schedule;
+    private Long hour;
     private Long price;
     private String imageUrl;
     private String createdAt;
@@ -35,4 +36,5 @@ public class ClassDtoGet {
     private String categoryName;
     private Long roomId;
     private String roomName;
+    private Long rating;
 }

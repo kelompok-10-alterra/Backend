@@ -1,5 +1,6 @@
 package com.capstone.kelompok10.model.entity;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +18,10 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -39,6 +43,10 @@ public class UserEntity {
     private String email;
     private String phone;
     private String address;
+    @DateTimeFormat(iso = ISO.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(nullable = true)
+    private LocalDate birthDate;
     private String imageUrl;
     private String roleName;
     private String membership;
@@ -52,6 +60,18 @@ public class UserEntity {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<BookingEntity> booking;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<FavoriteClassEntity> favClass;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<RatingEntity> rating;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<PaymentEntity> payment;
 
     @Column(nullable = true)
     private String token;
@@ -69,6 +89,10 @@ public class UserEntity {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonManagedReference
     private CartEntity cart;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference
+    private FavoriteEntity favorite;
 
     // @ManyToMany(fetch = FetchType.EAGER)
     // @JsonIgnore

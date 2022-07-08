@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.kelompok10.model.entity.CartEntity;
+import com.capstone.kelompok10.model.entity.FavoriteEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.ResendToken;
 import com.capstone.kelompok10.model.payload.ForgotPassword;
@@ -71,6 +72,9 @@ public class RegisterServiceImpl implements RegisterService {
                 CartEntity cart = new CartEntity();
                 cart.setUser(user);
                 user.setCart(cart);
+                FavoriteEntity favorite = new FavoriteEntity();
+                favorite.setUser(user);
+                user.setFavorite(favorite);
                 
                 userRepository.save(user);
                 String link = "https://www.api.rafdev.my.id/auth/confirmToken?token=" + token;

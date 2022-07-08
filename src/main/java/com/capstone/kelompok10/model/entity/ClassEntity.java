@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -42,8 +43,14 @@ public class ClassEntity {
     @DateTimeFormat(iso = ISO.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate schedule;
+    @Size(min = 2, max = 2)
+    private Long hour;
     private Long price;
     private String imageUrl;
+    private Long ratings;
+
+    private String typeName;
+    private String categoryName;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -68,6 +75,14 @@ public class ClassEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<BookingEntity> booking;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<FavoriteClassEntity> favoriteClass;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "classes", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<RatingEntity> rating;
 
     @CreationTimestamp
     private Instant created_at;

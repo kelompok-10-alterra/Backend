@@ -11,7 +11,7 @@ import com.capstone.kelompok10.model.payload.GetUserByClass;
 
 public interface ClassService {
     List<ClassDtoGet> findAll();
-    // List<ClassDtoGet> findAllDto();
+    List<ClassDtoGet> findAll(String keyword);
     Page<ClassEntity> findAllPagination(int offset, int pageSize);
     Page<ClassEntity> findAllPaginationSort(int offset, int pageSize, String field);
     ClassDtoGet getClassByIdDto(Long classId);
@@ -20,6 +20,8 @@ public interface ClassService {
     void updateClass(Long classId, ClassDtoPost classesDtoPost);
     void deleteClass(Long classId);
     List<GetUserByClass> getBookingByClassId(Long classId);
+    List<ClassDtoGet> getClassByType(String typeName);
+    List<ClassDtoGet> getClassByCategoryName(String categoryName);
 
     // Verify Method
     void classBooked(Long classId);
@@ -27,4 +29,5 @@ public interface ClassService {
     Boolean classFull(Long classId);
     Long classPrice(Long classId);
     Boolean classExist(Long classId);
+    Long classRating(Long classId);
 }

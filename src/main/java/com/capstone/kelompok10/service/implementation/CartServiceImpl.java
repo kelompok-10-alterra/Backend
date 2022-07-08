@@ -25,7 +25,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartEntity> findAll() {
-        log.info("Get all Cart with DTO");
+        log.info("Get all Cart");
         List<CartEntity> carts = cartRepository.findAll();
         return carts;
     }

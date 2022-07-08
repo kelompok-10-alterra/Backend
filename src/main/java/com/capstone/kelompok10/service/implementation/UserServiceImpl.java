@@ -12,6 +12,7 @@ import com.capstone.kelompok10.model.dto.get.UserDtoGet;
 import com.capstone.kelompok10.model.dto.post.UserDtoPost;
 import com.capstone.kelompok10.model.dto.put.UserDtoPut;
 import com.capstone.kelompok10.model.entity.CartEntity;
+import com.capstone.kelompok10.model.entity.FavoriteEntity;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
@@ -256,6 +257,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 CartEntity cart = new CartEntity();
                 cart.setUser(user);
                 user.setCart(cart);
+                FavoriteEntity favorite = new FavoriteEntity();
+                favorite.setUser(user);
+                user.setFavorite(favorite);
 
                 userRepository.save(user);
                 log.info("user created succesfully");
