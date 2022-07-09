@@ -68,6 +68,7 @@ com\capstone\kelompok10\controller\PaymentController.class
 com\capstone\kelompok10\repository\InstructorRepository.class
 com\capstone\kelompok10\model\entity\MembershipEntity.class
 com\capstone\kelompok10\model\dto\get\MemberDtoGet.class
+com\capstone\kelompok10\service\interfaces\HistoryService.class
 com\capstone\kelompok10\repository\MemberRepository.class
 com\capstone\kelompok10\service\implementation\CartServiceImpl.class
 com\capstone\kelompok10\controller\ClassController.class
@@ -82,6 +83,7 @@ com\capstone\kelompok10\controller\MembershipController.class
 com\capstone\kelompok10\service\email\PhonePasswordValidator.class
 com\capstone\kelompok10\model\dto\post\TypeDtoPost.class
 com\capstone\kelompok10\controller\ContentController.class
+com\capstone\kelompok10\model\entity\HistoryEntity.class
 com\capstone\kelompok10\service\implementation\RatingServiceImpl.class
 com\capstone\kelompok10\model\entity\GraphEntity.class
 com\capstone\kelompok10\service\interfaces\GraphService.class
@@ -93,6 +95,7 @@ com\capstone\kelompok10\controller\UserController.class
 com\capstone\kelompok10\model\payload\GetUserByClass.class
 com\capstone\kelompok10\repository\TypeRepository.class
 com\capstone\kelompok10\controller\CategoryController.class
+com\capstone\kelompok10\service\implementation\HistoryServiceImpl.class
 com\capstone\kelompok10\controller\AuthController.class
 com\capstone\kelompok10\controller\FavoriteClassController.class
 com\capstone\kelompok10\model\payload\RegistrationRequest.class
@@ -100,6 +103,7 @@ com\capstone\kelompok10\repository\MembershipRepository.class
 com\capstone\kelompok10\service\interfaces\FavoriteClassService.class
 com\capstone\kelompok10\model\dto\post\FavoriteClassDtoPost.class
 com\capstone\kelompok10\model\entity\FavoriteEntity.class
+com\capstone\kelompok10\controller\HistoryController.class
 com\capstone\kelompok10\model\dto\get\RoomDtoGet.class
 com\capstone\kelompok10\service\implementation\ContentServiceImpl.class
 com\capstone\kelompok10\controller\BookingController.class
@@ -124,6 +128,7 @@ com\capstone\kelompok10\model\payload\ResendToken.class
 com\capstone\kelompok10\service\implementation\RoomServiceImpl.class
 com\capstone\kelompok10\repository\FavoriteClassRepository.class
 com\capstone\kelompok10\model\payload\UsernamePassword.class
+com\capstone\kelompok10\repository\HistoryRepository.class
 com\capstone\kelompok10\model\dto\get\ClassDtoGet.class
 com\capstone\kelompok10\model\dto\get\RoleDtoGet.class
 com\capstone\kelompok10\model\dto\put\UserDtoPut.class
