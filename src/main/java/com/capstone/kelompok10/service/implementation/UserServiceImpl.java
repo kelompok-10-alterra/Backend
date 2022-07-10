@@ -13,6 +13,7 @@ import com.capstone.kelompok10.model.dto.post.UserDtoPost;
 import com.capstone.kelompok10.model.dto.put.UserDtoPut;
 import com.capstone.kelompok10.model.entity.CartEntity;
 import com.capstone.kelompok10.model.entity.FavoriteEntity;
+import com.capstone.kelompok10.model.entity.HistoryEntity;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
@@ -260,6 +261,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 FavoriteEntity favorite = new FavoriteEntity();
                 favorite.setUser(user);
                 user.setFavorite(favorite);
+                HistoryEntity history = new HistoryEntity();
+                history.setUser(user);
+                user.setHistory(history);
 
                 userRepository.save(user);
                 log.info("user created succesfully");

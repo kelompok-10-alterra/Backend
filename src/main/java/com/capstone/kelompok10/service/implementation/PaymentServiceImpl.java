@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 import com.capstone.kelompok10.model.dto.get.PaymentDtoGet;
 import com.capstone.kelompok10.model.dto.post.PaymentDtoPost;
 import com.capstone.kelompok10.model.entity.CartEntity;
+import com.capstone.kelompok10.model.entity.HistoryEntity;
 import com.capstone.kelompok10.model.entity.PaymentEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.repository.CartRepository;
+import com.capstone.kelompok10.repository.HistoryRepository;
 import com.capstone.kelompok10.repository.PaymentRepository;
 import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.email.EmailSenderService;
@@ -36,6 +38,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     CartRepository cartRepository;
+
+    @Autowired
+    HistoryRepository historyRepository;
 
     @Autowired
     EmailSenderService emailSenderService;
@@ -144,7 +149,7 @@ public class PaymentServiceImpl implements PaymentService {
         "                  \n" +
         "                    </td>\n" +
         "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-        "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Confirm your email</span>\n" +
+        "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Payment Confirmation</span>\n" +
         "                    </td>\n" +
         "                  </tr>\n" +
         "                </tbody></table>\n" +
@@ -200,6 +205,9 @@ public class PaymentServiceImpl implements PaymentService {
 		if(paymentRepository.findByToken(token) != null){
             PaymentEntity payment = paymentRepository.findByToken(token);
             CartEntity cart = cartRepository.findById(payment.getCart().getCartId()).get();
+            HistoryEntity history = historyRepository.findById(payment.getCart().getUser().getHistory().getHistoryId()).get();
+            history.getBooking().addAll(cart.getBooking());
+            historyRepository.save(history);
             cart.setTotal(0L);
             cart.getBooking().removeAll(cart.getBooking());
             cartRepository.save(cart);

@@ -57,4 +57,9 @@ public class BookingEntity {
     @JsonBackReference
     @JoinColumn(name = "cartId")
     private CartEntity cart;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "historyId")
+    private HistoryEntity history;
 }

@@ -3,6 +3,7 @@ com/capstone/kelompok10/model/entity/ContentEntity.class
 com/capstone/kelompok10/service/implementation/PaymentServiceImpl.class
 com/capstone/kelompok10/controller/GraphController.class
 com/capstone/kelompok10/service/implementation/ContentServiceImpl.class
+com/capstone/kelompok10/repository/HistoryRepository.class
 com/capstone/kelompok10/service/interfaces/CartService.class
 com/capstone/kelompok10/repository/PaymentRepository.class
 com/capstone/kelompok10/controller/RatingController.class
@@ -29,7 +30,9 @@ com/capstone/kelompok10/model/dto/post/PaymentDtoPost.class
 com/capstone/kelompok10/service/implementation/GraphServiceImpl.class
 com/capstone/kelompok10/model/entity/RatingEntity.class
 com/capstone/kelompok10/model/dto/post/CartDtoPost.class
+com/capstone/kelompok10/service/interfaces/HistoryService.class
 com/capstone/kelompok10/model/payload/TokenResponse.class
+com/capstone/kelompok10/model/entity/HistoryEntity.class
 com/capstone/kelompok10/model/dto/post/ContentDtoPost.class
 com/capstone/kelompok10/model/dto/post/GraphDtoPost.class
 com/capstone/kelompok10/repository/FavoriteClassRepository.class
@@ -46,8 +49,10 @@ com/capstone/kelompok10/Kelompok10Application$1.class
 com/capstone/kelompok10/service/email/PhonePasswordValidator.class
 com/capstone/kelompok10/service/interfaces/ContentService.class
 com/capstone/kelompok10/controller/ContentController.class
+com/capstone/kelompok10/controller/HistoryController.class
 com/capstone/kelompok10/controller/NewsletterController.class
 com/capstone/kelompok10/controller/CartController.class
+com/capstone/kelompok10/service/implementation/HistoryServiceImpl.class
 com/capstone/kelompok10/repository/CartRepository.class
 com/capstone/kelompok10/model/entity/NewsletterEntity.class
 com/capstone/kelompok10/repository/ContentRepository.class
