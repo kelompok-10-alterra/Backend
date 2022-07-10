@@ -1,3 +1,5 @@
 com\capstone\kelompok10\Kelompok10ApplicationTests.class
 com\capstone\kelompok10\service\CartServiceTest.class
+com\capstone\kelompok10\service\ClassServiceTest.class
 com\capstone\kelompok10\service\BookingServiceTest.class
+com\capstone\kelompok10\service\CategoryService.class
