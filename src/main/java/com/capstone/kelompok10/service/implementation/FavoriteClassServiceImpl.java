@@ -85,7 +85,7 @@ public class FavoriteClassServiceImpl implements FavoriteClassService {
             favoriteService.addFavoriteClassToFavorite(favoriteClass.getFavoriteClassId(), favoriteId);
         }else{
             log.info("Class with id {}, or Favorite with id {} not found", favoriteClassDtoPost.getClassId(), favoriteClassDtoPost.getUserId());
-            throw new IllegalStateException("Failed to create favorite class");
+            // throw new IllegalStateException("Failed to create favorite class");
         }
 
 

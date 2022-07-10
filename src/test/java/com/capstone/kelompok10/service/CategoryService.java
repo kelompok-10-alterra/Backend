@@ -82,4 +82,14 @@ public class CategoryService {
         service.categoryExist(category.getCategoryId());
         assertEquals(true, service.categoryExist(category.getCategoryId()));
     }
+
+    @Test
+    public void deleteCategory(){
+        CategoryEntity categoryEntity = EASY_RANDOM.nextObject(CategoryEntity.class);
+
+        when(repository.findById(categoryEntity.getCategoryId())).thenReturn(Optional.of(categoryEntity));
+        service.deleteCategory(categoryEntity.getCategoryId());
+        verify(repository, times(1)).deleteById(categoryEntity.getCategoryId());
+        verify(repository, times(1)).findById(categoryEntity.getCategoryId());
+    }
 }

@@ -4,7 +4,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.jeasy.random.EasyRandom;
 
@@ -17,13 +20,18 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
 import com.capstone.kelompok10.model.entity.ClassEntity;
 import com.capstone.kelompok10.repository.CategoryRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.repository.InstructorRepository;
 import com.capstone.kelompok10.repository.RoomRepository;
 import com.capstone.kelompok10.repository.TypeRepository;
+import com.capstone.kelompok10.service.implementation.CategoryServiceImpl;
 import com.capstone.kelompok10.service.implementation.ClassServiceImpl;
+import com.capstone.kelompok10.service.implementation.InstructorServiceImpl;
+import com.capstone.kelompok10.service.implementation.RoomServiceImpl;
+import com.capstone.kelompok10.service.implementation.TypeServiceImpl;
 import com.capstone.kelompok10.service.interfaces.InstructorService;
 import com.capstone.kelompok10.service.interfaces.RoomService;
 import com.capstone.kelompok10.service.interfaces.TypeService;
@@ -51,6 +59,17 @@ public class ClassServiceTest {
     @Mock
     private RoomRepository roomRepository;
 
+    @Mock
+    InstructorServiceImpl instructorServiceImpl;
+
+    @Mock
+    RoomServiceImpl roomServiceImpl;
+
+    @Mock
+    TypeServiceImpl typeServiceImpl;
+
+    @Mock
+    CategoryServiceImpl categoryServiceImpl;
 
     @Mock
     private InstructorService instructorService;
@@ -64,52 +83,73 @@ public class ClassServiceTest {
     @Mock
     private CategoryService categoryService;
 
-//     @Test
-//     void findAllClass(){
-//         List<ClassEntity> classs = EASY_RANDOM.objects(ClassEntity.class, 2)
-//         .collect(Collectors.toList());
-//         List<ClassDtoGet> class2 = new ArrayList<>();
-//         classs.forEach(isi ->{
-//             ClassDtoGet dto = new ClassDtoGet();
-//             dto.setClassId(isi.getClassId());
-//             dto.setName(isi.getName());
-//             dto.setDescription(isi.getDescription());
-//             dto.setStatus(isi.getStatus());
-//             dto.setCapacity(isi.getCapacity());
-//             dto.setBooked(isi.getBooked());
-//             dto.setSchedule(isi.getSchedule());
-//             dto.setHour(isi.getHour());
-//             dto.setPrice(isi.getPrice());
-//             dto.setImageUrl(isi.getImageUrl());
-//             dto.setCreatedAt(isi.getCreated_at().toString());
-//             dto.setUpdatedAt(isi.getUpdated_at().toString());
-//             dto.setTypeId(isi.getType().getTypeId());
-//             dto.setTypeName(isi.getType().getName());
-//             dto.setInstructureId(isi.getInstructor().getInstructorId());
-//             dto.setInstructureName(isi.getInstructor().getName());
-//             dto.setContact(isi.getInstructor().getContact());
-//             dto.setCategoryId(isi.getCategory().getCategoryId());
-//             dto.setCategoryName(isi.getCategory().getName());
-//             dto.setRoomId(isi.getRoom().getRoomId());
-//             dto.setRoomName(isi.getRoom().getName());
+    @Test
+    void findAllClass(){
+        List<ClassEntity> classs = EASY_RANDOM.objects(ClassEntity.class, 2).collect(Collectors.toList());
+        List<ClassDtoGet> class2 = new ArrayList<>();
+        classs.forEach(isi ->{
+            ClassDtoGet dto = new ClassDtoGet();
+            dto.setClassId(isi.getClassId());
+            dto.setName(isi.getName());
+            dto.setDescription(isi.getDescription());
+            dto.setStatus(isi.getStatus());
+            dto.setCapacity(isi.getCapacity());
+            dto.setBooked(isi.getBooked());
+            dto.setSchedule(isi.getSchedule());
+            dto.setHour(isi.getHour());
+            dto.setPrice(isi.getPrice());
+            dto.setImageUrl(isi.getImageUrl());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setTypeId(isi.getType().getTypeId());
+            dto.setTypeName(isi.getType().getName());
+            dto.setInstructureId(isi.getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getInstructor().getName());
+            dto.setContact(isi.getInstructor().getContact());
+            dto.setCategoryId(isi.getCategory().getCategoryId());
+            dto.setCategoryName(isi.getCategory().getName());
+            dto.setRoomId(isi.getRoom().getRoomId());
+            dto.setRoomName(isi.getRoom().getName());
 
-//             class2.add(dto);
-//         });
+            class2.add(dto);
+        });
 
-//         when(repository.findAll()).thenReturn(classs);
-//         service.findAll();
-//         verify(repository, times(1)).findAll();
-//     }
+        // when(repository.findAll()).thenReturn(classs);
+        service.findAll();
+        verify(repository, times(1)).findAll();
+    }
 
-//     @Test
-//     void getClassById(){
-//         ClassEntity classs = EASY_RANDOM.nextObject(ClassEntity.class);
-//         System.out.println(classs);
+    @Test
+    void getClassById(){
+        ClassEntity isi = EASY_RANDOM.nextObject(ClassEntity.class);
+        ClassDtoGet dto = new ClassDtoGet();
+        dto.setClassId(isi.getClassId());
+            dto.setName(isi.getName());
+            dto.setDescription(isi.getDescription());
+            dto.setStatus(isi.getStatus());
+            dto.setCapacity(isi.getCapacity());
+            dto.setBooked(isi.getBooked());
+            dto.setSchedule(isi.getSchedule());
+            dto.setHour(isi.getHour());
+            dto.setPrice(isi.getPrice());
+            dto.setImageUrl(isi.getImageUrl());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setTypeId(isi.getType().getTypeId());
+            dto.setTypeName(isi.getType().getName());
+            dto.setInstructureId(isi.getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getInstructor().getName());
+            dto.setContact(isi.getInstructor().getContact());
+            dto.setCategoryId(isi.getCategory().getCategoryId());
+            dto.setCategoryName(isi.getCategory().getName());
+            dto.setRoomId(isi.getRoom().getRoomId());
+            dto.setRoomName(isi.getRoom().getName());
+            // dto.setRating(classRating(isi.getClassId()));
 
-//         when(repository.findById(classs.getClassId())).thenReturn(Optional.of(classs));
-//         service.getClassById(classs.getClassId());
-//         verify(repository, times(1)).findById(classs.getClassId());
-//     }
+        when(repository.findById(isi.getClassId())).thenReturn(Optional.of(isi));
+        service.getClassById(isi.getClassId());
+        verify(repository, times(2)).findById(isi.getClassId());
+    }
 
     @Test
     public void deleteClass(){
@@ -123,14 +163,14 @@ public class ClassServiceTest {
     // @Test
     // public void createClassDto(){
     //     ClassDtoPost dto = EASY_RANDOM.nextObject(ClassDtoPost.class);
-    //     InstructorEntity instructor = new InstructorEntity();
-    //     instructor.setInstructorId(dto.getInstructorId());
-    //     RoomEntity room = new RoomEntity();
-    //     room.setRoomId(dto.getRoomId());
-    //     CategoryEntity category = new CategoryEntity();
-    //     category.setCategoryId(dto.getCategoryId());
-    //     TypeEntity type = new TypeEntity();
-    //     type.setTypeId(dto.getTypeId());
+    //     InstructorEntity instructorEntity = new InstructorEntity();
+    //     instructorEntity.setInstructorId(dto.getInstructorId());
+    //     RoomEntity roomEntity = new RoomEntity();
+    //     roomEntity.setRoomId(dto.getRoomId());
+    //     TypeEntity typeEntity = new TypeEntity();
+    //     typeEntity.setTypeId(dto.getTypeId());
+    //     CategoryEntity categoryEntity = new CategoryEntity();
+    //     categoryEntity.setCategoryId(dto.getCategoryId());
     //     ClassEntity class2 = new ClassEntity();
 
     //     class2.setStatus(dto.getStatus());
@@ -141,10 +181,10 @@ public class ClassServiceTest {
     //     class2.setHour(dto.getHour());
     //     class2.setPrice(dto.getPrice());
     //     class2.setImageUrl(dto.getImageUrl());
-    //     class2.setInstructor(instructor);
-    //     class2.setRoom(room);
-    //     class2.setCategory(category);
-    //     class2.setType(type);
+    //     class2.setInstructor(instructorEntity);
+    //     class2.setRoom(roomEntity);
+    //     class2.setCategory(categoryEntity);
+    //     class2.setType(typeEntity);
 
     //     service.createClassDto(dto);
     //     verify(repository, times(1)).save(class2);
