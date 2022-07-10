@@ -8,7 +8,6 @@ import com.capstone.kelompok10.service.interfaces.InstructorService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,17 +36,17 @@ public class InstructorController {
         return new ResponseEntity<>(instructors, HttpStatus.OK);
     }
 
-    @GetMapping("/userAcess/{offset}/{pageSize}")
-    public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
-        Page<InstructorEntity> instructors = instructorService.findAllPagination(offset, pageSize);
-        return new ResponseEntity<>(instructors, HttpStatus.OK);
-    }
+    // @GetMapping("/userAcess/{offset}/{pageSize}")
+    // public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+    //     Page<InstructorEntity> instructors = instructorService.findAllPagination(offset, pageSize);
+    //     return new ResponseEntity<>(instructors, HttpStatus.OK);
+    // }
 
-    @GetMapping("/userAcess/{offset}/{pageSize}/{field}")
-    public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
-        Page<InstructorEntity> instructors = instructorService.findAllPaginationSort(offset, pageSize, field);
-        return new ResponseEntity<>(instructors, HttpStatus.OK);
-    }
+    // @GetMapping("/userAcess/{offset}/{pageSize}/{field}")
+    // public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+    //     Page<InstructorEntity> instructors = instructorService.findAllPaginationSort(offset, pageSize, field);
+    //     return new ResponseEntity<>(instructors, HttpStatus.OK);
+    // }
 
     // @GetMapping("/userAcess/getAllInstructureWithDto")
     // public ResponseEntity<List<InstructorDtoGet>> findAllDto(){

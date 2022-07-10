@@ -20,9 +20,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -82,19 +79,19 @@ public class BookingServiceImpl implements BookingService {
         return booking2;
     }
     
-    @Override
-    public Page<BookingEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Booking with Pagination");
-        Page<BookingEntity> booking = bookingRepository.findAll(PageRequest.of(offset, pageSize));
-        return booking;
-    }
+    // @Override
+    // public Page<BookingEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Booking with Pagination");
+    //     Page<BookingEntity> booking = bookingRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return booking;
+    // }
 
-    @Override
-    public Page<BookingEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Booking with Pagination and Sorting");
-        Page<BookingEntity> booking = bookingRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return booking;
-    }
+    // @Override
+    // public Page<BookingEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Booking with Pagination and Sorting");
+    //     Page<BookingEntity> booking = bookingRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return booking;
+    // }
 
     @Override
     public BookingDtoGet getBookingByIdDto(Long bookingId) {

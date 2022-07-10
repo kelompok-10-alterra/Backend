@@ -12,9 +12,6 @@ import com.capstone.kelompok10.service.interfaces.InstructorService;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -47,19 +44,19 @@ public class InstructorServiceImpl implements InstructorService {
         return instructorDtos;
     }
     
-    @Override
-    public Page<InstructorEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Instructor with Pagination");
-        Page<InstructorEntity> instructor = instructorRepository.findAll(PageRequest.of(offset, pageSize));
-        return instructor;
-    }
+    // @Override
+    // public Page<InstructorEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Instructor with Pagination");
+    //     Page<InstructorEntity> instructor = instructorRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return instructor;
+    // }
 
-    @Override
-    public Page<InstructorEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Instructor with Pagination and Sorting");
-        Page<InstructorEntity> instructor = instructorRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return instructor;
-    }
+    // @Override
+    // public Page<InstructorEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Instructor with Pagination and Sorting");
+    //     Page<InstructorEntity> instructor = instructorRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return instructor;
+    // }
 
     // @Override
     // public List<InstructorDtoGet> findAllDto() {

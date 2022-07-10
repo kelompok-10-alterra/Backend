@@ -3,9 +3,6 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.RoomDtoGet;
@@ -43,19 +40,19 @@ public class RoomServiceImpl implements RoomService {
         return roomDtos;
     }
     
-    @Override
-    public Page<RoomEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Room with Pagination");
-        Page<RoomEntity> room = roomRepository.findAll(PageRequest.of(offset, pageSize));
-        return room;
-    }
+    // @Override
+    // public Page<RoomEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Room with Pagination");
+    //     Page<RoomEntity> room = roomRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return room;
+    // }
 
-    @Override
-    public Page<RoomEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Room with Pagination and Sorting");
-        Page<RoomEntity> room = roomRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return room;
-    }
+    // @Override
+    // public Page<RoomEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Room with Pagination and Sorting");
+    //     Page<RoomEntity> room = roomRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return room;
+    // }
 
     // @Override
     // public List<RoomDtoGet> findAllDto() {

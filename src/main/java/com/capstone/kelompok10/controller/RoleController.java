@@ -8,11 +8,9 @@ import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,17 +33,17 @@ public class RoleController {
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
-    @GetMapping("/managerOnly/{offset}/{pageSize}")
-    public ResponseEntity<Page<RoleEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
-        Page<RoleEntity> roles = roleService.findAllPagination(offset, pageSize);
-        return new ResponseEntity<>(roles, HttpStatus.OK);
-    }
+    // @GetMapping("/managerOnly/{offset}/{pageSize}")
+    // public ResponseEntity<Page<RoleEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+    //     Page<RoleEntity> roles = roleService.findAllPagination(offset, pageSize);
+    //     return new ResponseEntity<>(roles, HttpStatus.OK);
+    // }
 
-    @GetMapping("/managerOnly/{offset}/{pageSize}/{field}")
-    public ResponseEntity<Page<RoleEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
-        Page<RoleEntity> roles = roleService.findAllPaginationSort(offset, pageSize, field);
-        return new ResponseEntity<>(roles, HttpStatus.OK);
-    }
+    // @GetMapping("/managerOnly/{offset}/{pageSize}/{field}")
+    // public ResponseEntity<Page<RoleEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+    //     Page<RoleEntity> roles = roleService.findAllPaginationSort(offset, pageSize, field);
+    //     return new ResponseEntity<>(roles, HttpStatus.OK);
+    // }
 
     @GetMapping("/managerOnly/getAllRoleWithDto")
     public ResponseEntity<List<RoleDtoGet>> findAllDto(){

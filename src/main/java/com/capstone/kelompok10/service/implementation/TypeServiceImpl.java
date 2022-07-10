@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.TypeDtoGet;
@@ -47,19 +44,19 @@ public class TypeServiceImpl implements TypeService {
         return typeDtos;
     }
     
-    @Override
-    public Page<TypeEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Type with Pagination");
-        Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize));
-        return type;
-    }
+    // @Override
+    // public Page<TypeEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Type with Pagination");
+    //     Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return type;
+    // }
 
-    @Override
-    public Page<TypeEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Type with Pagination and Sorting");
-        Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return type;
-    }
+    // @Override
+    // public Page<TypeEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Type with Pagination and Sorting");
+    //     Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return type;
+    // }
 
     // @Override
     // public List<TypeDtoGet> findAllDto() {

@@ -11,9 +11,6 @@ import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -41,19 +38,19 @@ public class RoleServiceImpl implements RoleService {
         return role;
     }
     
-    @Override
-    public Page<RoleEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Role with Pagination");
-        Page<RoleEntity> role = roleRepository.findAll(PageRequest.of(offset, pageSize));
-        return role;
-    }
+    // @Override
+    // public Page<RoleEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Role with Pagination");
+    //     Page<RoleEntity> role = roleRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return role;
+    // }
 
-    @Override
-    public Page<RoleEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Role with Pagination and Sorting");
-        Page<RoleEntity> role = roleRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return role;
-    }
+    // @Override
+    // public Page<RoleEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Role with Pagination and Sorting");
+    //     Page<RoleEntity> role = roleRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return role;
+    // }
 
     @Override
     public List<RoleDtoGet> findAllDto() {

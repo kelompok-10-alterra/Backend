@@ -3,7 +3,6 @@ package com.capstone.kelompok10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,17 +41,17 @@ public class BookingController {
         }
     }
 
-    @GetMapping("/adminAccess/{offset}/{pageSize}")
-    public ResponseEntity<Page<BookingEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
-        Page<BookingEntity> booking = bookingService.findAllPagination(offset, pageSize);
-        return new ResponseEntity<>(booking, HttpStatus.OK);
-    }
+    // @GetMapping("/adminAccess/{offset}/{pageSize}")
+    // public ResponseEntity<Page<BookingEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+    //     Page<BookingEntity> booking = bookingService.findAllPagination(offset, pageSize);
+    //     return new ResponseEntity<>(booking, HttpStatus.OK);
+    // }
 
-    @GetMapping("/adminAccess/{offset}/{pageSize}/{field}")
-    public ResponseEntity<Page<BookingEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
-        Page<BookingEntity> booking = bookingService.findAllPaginationSort(offset, pageSize, field);
-        return new ResponseEntity<>(booking, HttpStatus.OK);
-    }
+    // @GetMapping("/adminAccess/{offset}/{pageSize}/{field}")
+    // public ResponseEntity<Page<BookingEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+    //     Page<BookingEntity> booking = bookingService.findAllPaginationSort(offset, pageSize, field);
+    //     return new ResponseEntity<>(booking, HttpStatus.OK);
+    // }
 
     @GetMapping("/userAcess/getBookingById")
     public ResponseEntity<BookingEntity> getBookingById(@RequestParam("bookingId") Long bookingId){

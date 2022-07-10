@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
@@ -48,19 +45,19 @@ public class MemberServiceImpl implements MemberService {
         return memberDtos;
     }
     
-    @Override
-    public Page<MemberEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Member with Pagination");
-        Page<MemberEntity> member = memberRepository.findAll(PageRequest.of(offset, pageSize));
-        return member;
-    }
+    // @Override
+    // public Page<MemberEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Member with Pagination");
+    //     Page<MemberEntity> member = memberRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return member;
+    // }
 
-    @Override
-    public Page<MemberEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Member with Pagination and Sorting");
-        Page<MemberEntity> member = memberRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return member;
-    }
+    // @Override
+    // public Page<MemberEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Member with Pagination and Sorting");
+    //     Page<MemberEntity> member = memberRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return member;
+    // }
 
     // @Override
     // public List<MemberDtoGet> findAllDto() {

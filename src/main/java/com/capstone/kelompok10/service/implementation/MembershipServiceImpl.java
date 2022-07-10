@@ -18,9 +18,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -73,19 +70,19 @@ public class MembershipServiceImpl implements MembershipService {
         return membershipDtos;
     }
     
-    @Override
-    public Page<MembershipEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Membership with Pagination");
-        Page<MembershipEntity> membership = membershipRepository.findAll(PageRequest.of(offset, pageSize));
-        return membership;
-    }
+    // @Override
+    // public Page<MembershipEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Membership with Pagination");
+    //     Page<MembershipEntity> membership = membershipRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return membership;
+    // }
 
-    @Override
-    public Page<MembershipEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Membership with Pagination and Sorting");
-        Page<MembershipEntity> membership = membershipRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return membership;
-    }
+    // @Override
+    // public Page<MembershipEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Membership with Pagination and Sorting");
+    //     Page<MembershipEntity> membership = membershipRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return membership;
+    // }
 
     @Override
     public List<MembershipDtoGet> findAllDto() {
