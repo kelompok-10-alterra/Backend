@@ -81,7 +81,7 @@ public class ClassServiceTest {
     private TypeService typeService;
 
     @Mock
-    private CategoryService categoryService;
+    private CategoryServiceTest categoryService;
 
     @Test
     void findAllClass(){
@@ -149,6 +149,38 @@ public class ClassServiceTest {
         when(repository.findById(isi.getClassId())).thenReturn(Optional.of(isi));
         service.getClassById(isi.getClassId());
         verify(repository, times(2)).findById(isi.getClassId());
+    }
+
+    @Test
+    void getClassByIdDto(){
+        ClassEntity isi = EASY_RANDOM.nextObject(ClassEntity.class);
+        ClassDtoGet dto = new ClassDtoGet();
+        dto.setClassId(isi.getClassId());
+            dto.setName(isi.getName());
+            dto.setDescription(isi.getDescription());
+            dto.setStatus(isi.getStatus());
+            dto.setCapacity(isi.getCapacity());
+            dto.setBooked(isi.getBooked());
+            dto.setSchedule(isi.getSchedule());
+            dto.setHour(isi.getHour());
+            dto.setPrice(isi.getPrice());
+            dto.setImageUrl(isi.getImageUrl());
+            dto.setCreatedAt(isi.getCreated_at().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setTypeId(isi.getType().getTypeId());
+            dto.setTypeName(isi.getType().getName());
+            dto.setInstructureId(isi.getInstructor().getInstructorId());
+            dto.setInstructureName(isi.getInstructor().getName());
+            dto.setContact(isi.getInstructor().getContact());
+            dto.setCategoryId(isi.getCategory().getCategoryId());
+            dto.setCategoryName(isi.getCategory().getName());
+            dto.setRoomId(isi.getRoom().getRoomId());
+            dto.setRoomName(isi.getRoom().getName());
+            // dto.setRating(classRating(isi.getClassId()));
+
+        when(repository.findById(isi.getClassId())).thenReturn(Optional.of(isi));
+        service.getClassByIdDto(isi.getClassId());
+        verify(repository, times(3)).findById(isi.getClassId());
     }
 
     @Test
