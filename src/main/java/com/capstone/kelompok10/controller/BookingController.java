@@ -53,17 +53,17 @@ public class BookingController {
     //     return new ResponseEntity<>(booking, HttpStatus.OK);
     // }
 
-    @GetMapping("/userAcess/getBookingById")
+    @GetMapping("/userAccess/getBookingById")
     public ResponseEntity<BookingEntity> getBookingById(@RequestParam("bookingId") Long bookingId){
         return new ResponseEntity<>(bookingService.getBookingById(bookingId), HttpStatus.OK);
     }
 
-    @GetMapping("/userAcess/getBookingByIdDto")
+    @GetMapping("/userAccess/getBookingByIdDto")
     public ResponseEntity<BookingDtoGet> getBookingByIdDto(@RequestParam("bookingId") Long bookingId){
         return new ResponseEntity<>(bookingService.getBookingByIdDto(bookingId), HttpStatus.OK);
     }
 
-    @PostMapping("/userAcess/createNewBooking")
+    @PostMapping("/userAccess/createNewBooking")
     public ResponseEntity<BookingDtoPost> createBookingDto(@RequestBody BookingDtoPost bookingDtoPost){
         bookingService.createBookingDto(bookingDtoPost);
         return new ResponseEntity<>(bookingDtoPost, HttpStatus.OK);

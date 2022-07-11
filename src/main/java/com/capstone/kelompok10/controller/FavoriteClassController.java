@@ -34,12 +34,12 @@ public class FavoriteClassController {
         return new ResponseEntity<>(favoriteClass, HttpStatus.OK);
     }
 
-    @GetMapping("/userAcess/getFavoriteClassById")
+    @GetMapping("/userAccess/getFavoriteClassById")
     public ResponseEntity<FavoriteClassEntity> getFavoriteClassById(@RequestParam("favoriteClassId") Long favoriteClassId){
         return new ResponseEntity<>(favoriteClassService.getFavoriteClassById(favoriteClassId), HttpStatus.OK);
     }
 
-    @PostMapping("/userAcess/createNewFavoriteClass")
+    @PostMapping("/userAccess/createNewFavoriteClass")
     public ResponseEntity<FavoriteClassDtoPost> createFavoriteClassDto(@RequestBody FavoriteClassDtoPost favoriteClassDtoPost){
         favoriteClassService.createFavoriteClassDto(favoriteClassDtoPost);
         return new ResponseEntity<>(favoriteClassDtoPost, HttpStatus.OK);

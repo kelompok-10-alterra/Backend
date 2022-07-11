@@ -34,7 +34,7 @@
 //     ObjectMapper objectMapper;
 
 //     @Test
-//     @DisplayName("Get All Booking without Login")
+//     @DisplayName("Get All Booking")
 //     public void getAllBooking() throws Exception{
 //         RequestBuilder requestBuilder = MockMvcRequestBuilders
 //         .get("/capstone/booking/adminAccess/getAllBooking")
@@ -44,6 +44,36 @@
 //         MvcResult response = mockMvc
 //         .perform(requestBuilder)
 //         .andReturn();
-//         assertEquals(403, response.getResponse().getStatus());
+//         assertEquals(200, response.getResponse().getStatus());
 //     } 
+
+//     @Test
+//     @DisplayName("Get Booking With id")
+//     public void getBookingWithId() throws Exception{
+
+//         RequestBuilder requestBuilder = MockMvcRequestBuilders
+//         .get("/capstone/booking/userAccess/getBookingById?bookingId=1")
+//         .contentType(MediaType.APPLICATION_JSON)
+//         .accept(MediaType.APPLICATION_JSON);
+
+//         MvcResult response = mockMvc
+//         .perform(requestBuilder)
+//         .andReturn();
+//         assertEquals(200, response.getResponse().getStatus());
+//     }
+
+// //     // @Test
+// //     // @DisplayName("Post Booking Without Data")
+// //     // public void postBookingNoData() throws Exception{
+// //     //     RequestBuilder requestBuilder = MockMvcRequestBuilders
+// //     //     .post("/miniproject/Booking")
+// //     //     .contentType(MediaType.APPLICATION_JSON)
+// //     //     .accept(MediaType.APPLICATION_JSON);
+
+// //     //     MvcResult response = mockMvc        assertEquals(200, response.getResponse().getStatus());
+
+// //     //     .perform(requestBuilder)
+// //     //     .andReturn();
+// //     //     assertEquals(400, response.getResponse().getStatus());
+// //     // }
 // }

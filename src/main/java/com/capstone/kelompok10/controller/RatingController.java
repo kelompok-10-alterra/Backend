@@ -47,12 +47,12 @@ public class RatingController {
         return new ResponseEntity<>(rating, HttpStatus.OK);
     }
 
-    @GetMapping("/userAcess/getRatingById")
+    @GetMapping("/userAccess/getRatingById")
     public ResponseEntity<RatingEntity> getRatingById(@RequestParam("ratingId") Long ratingId){
         return new ResponseEntity<>(ratingService.getRatingById(ratingId), HttpStatus.OK);
     }
 
-    @PostMapping("/userAcess/createNewRating")
+    @PostMapping("/userAccess/createNewRating")
     public ResponseEntity<RatingDtoPost> createRatingDto(@RequestBody RatingDtoPost ratingDtoPost){
         ratingService.createRatingDto(ratingDtoPost);
         return new ResponseEntity<>(ratingDtoPost, HttpStatus.OK);

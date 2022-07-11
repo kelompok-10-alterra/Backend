@@ -30,31 +30,31 @@ public class InstructorController {
         this.instructorService = instructorService;
     }
 
-    @GetMapping("/userAcess/getAllInstructure")
+    @GetMapping("/userAccess/getAllInstructure")
     public ResponseEntity<List<InstructorDtoGet>> findAll(){
         List<InstructorDtoGet> instructors = instructorService.findAll();
         return new ResponseEntity<>(instructors, HttpStatus.OK);
     }
 
-    // @GetMapping("/userAcess/{offset}/{pageSize}")
+    // @GetMapping("/userAccess/{offset}/{pageSize}")
     // public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
     //     Page<InstructorEntity> instructors = instructorService.findAllPagination(offset, pageSize);
     //     return new ResponseEntity<>(instructors, HttpStatus.OK);
     // }
 
-    // @GetMapping("/userAcess/{offset}/{pageSize}/{field}")
+    // @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
     // public ResponseEntity<Page<InstructorEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
     //     Page<InstructorEntity> instructors = instructorService.findAllPaginationSort(offset, pageSize, field);
     //     return new ResponseEntity<>(instructors, HttpStatus.OK);
     // }
 
-    // @GetMapping("/userAcess/getAllInstructureWithDto")
+    // @GetMapping("/userAccess/getAllInstructureWithDto")
     // public ResponseEntity<List<InstructorDtoGet>> findAllDto(){
     //     List<InstructorDtoGet> instructorDtos = instructorService.findAllDto();
     //     return new ResponseEntity<>(instructorDtos, HttpStatus.OK);
     // }
 
-    @GetMapping("/userAcess/getInstructureWithId")
+    @GetMapping("/userAccess/getInstructureWithId")
     public ResponseEntity<InstructorEntity> getInstructorById(@RequestParam("instructorId") Long instructorId){
         return new ResponseEntity<>(instructorService.getInstructorById(instructorId), HttpStatus.OK);
     }
