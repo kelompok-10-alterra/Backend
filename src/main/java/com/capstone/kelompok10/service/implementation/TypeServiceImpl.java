@@ -3,7 +3,6 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.TypeDtoGet;
@@ -12,19 +11,14 @@ import com.capstone.kelompok10.model.entity.TypeEntity;
 import com.capstone.kelompok10.repository.TypeRepository;
 import com.capstone.kelompok10.service.interfaces.TypeService;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TypeServiceImpl implements TypeService {
     TypeRepository typeRepository;
-
-    @Autowired
-    public TypeServiceImpl(TypeRepository typeRepository){
-        this.typeRepository = typeRepository;
-    }
 
     @Override
     public List<TypeDtoGet> findAll() {

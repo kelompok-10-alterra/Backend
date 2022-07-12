@@ -20,8 +20,6 @@ import lombok.extern.log4j.Log4j2;
 public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;
 
-    
-
     @Override
     public List<RoomDtoGet> findAll() {
         log.info("Get all Room without DTO");

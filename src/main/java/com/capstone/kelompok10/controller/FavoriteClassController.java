@@ -45,7 +45,7 @@ public class FavoriteClassController {
         return new ResponseEntity<>(favoriteClassDtoPost, HttpStatus.OK);
     }
 
-    @DeleteMapping("/adminAccess/deleteFavoriteClass/{favoriteClassId}")
+    @DeleteMapping("/userAccess/deleteFavoriteClass/{favoriteClassId}")
     public ResponseEntity<FavoriteClassEntity> deleteFavoriteClass(@PathVariable("favoriteClassId") Long favoriteClassId){
         favoriteClassService.deleteFavoriteClass(favoriteClassId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

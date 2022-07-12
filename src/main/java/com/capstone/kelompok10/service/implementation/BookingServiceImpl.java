@@ -16,7 +16,7 @@ import com.capstone.kelompok10.service.interfaces.CartService;
 import com.capstone.kelompok10.service.interfaces.ClassService;
 import com.capstone.kelompok10.service.interfaces.UserService;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BookingServiceImpl implements BookingService {
     BookingRepository bookingRepository;
 

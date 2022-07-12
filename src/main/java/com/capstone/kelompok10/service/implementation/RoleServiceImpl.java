@@ -13,12 +13,12 @@ import com.capstone.kelompok10.service.interfaces.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class RoleServiceImpl implements RoleService {
     RoleRepository roleRepository;
 
