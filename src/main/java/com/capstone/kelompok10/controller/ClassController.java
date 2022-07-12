@@ -3,6 +3,7 @@ package com.capstone.kelompok10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,17 +43,17 @@ public class ClassController {
         }
     }
 
-    // @GetMapping("/userAccess/{offset}/{pageSize}")
-    // public ResponseEntity<Page<ClassEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
-    //     Page<ClassEntity> classs = classService.findAllPagination(offset, pageSize);
-    //     return new ResponseEntity<>(classs, HttpStatus.OK);
-    // }
+    @GetMapping("/userAccess/getAllClass/{offset}/{pageSize}")
+    public ResponseEntity<Page<ClassEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+        Page<ClassEntity> classs = classService.findAllPagination(offset, pageSize);
+        return new ResponseEntity<>(classs, HttpStatus.OK);
+    }
 
-    // @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
-    // public ResponseEntity<Page<ClassEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
-    //     Page<ClassEntity> classs = classService.findAllPaginationSort(offset, pageSize, field);
-    //     return new ResponseEntity<>(classs, HttpStatus.OK);
-    // }
+    @GetMapping("/userAccess/getAllClass/{offset}/{pageSize}/{field}")
+    public ResponseEntity<Page<ClassEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+        Page<ClassEntity> classs = classService.findAllPaginationSort(offset, pageSize, field);
+        return new ResponseEntity<>(classs, HttpStatus.OK);
+    }
 
     // @GetMapping("/userAccess/getAllClassWithDto")
     // public ResponseEntity<List<ClassDtoGet>> findAllDto(){

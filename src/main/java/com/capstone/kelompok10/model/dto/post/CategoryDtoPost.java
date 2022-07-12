@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategoryDtoPost {
     private String name;
+    private String imageUrl;
 }

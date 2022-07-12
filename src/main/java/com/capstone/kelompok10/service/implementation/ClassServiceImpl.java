@@ -25,6 +25,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -126,19 +129,19 @@ public class ClassServiceImpl implements ClassService {
         return classDtos;
     }
     
-    // @Override
-    // public Page<ClassEntity> findAllPagination(int offset, int pageSize) {
-    //     log.info("Get all Class with Pagination");
-    //     Page<ClassEntity> classes = classRepository.findAll(PageRequest.of(offset, pageSize));
-    //     return classes;
-    // }
+    @Override
+    public Page<ClassEntity> findAllPagination(int offset, int pageSize) {
+        log.info("Get all Class with Pagination");
+        Page<ClassEntity> classes = classRepository.findAll(PageRequest.of(offset, pageSize));
+        return classes;
+    }
 
-    // @Override
-    // public Page<ClassEntity> findAllPaginationSort(int offset, int pageSize, String field){
-    //     log.info("Get all Class with Pagination and Sorting");
-    //     Page<ClassEntity> classes = classRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-    //     return classes;
-    // }
+    @Override
+    public Page<ClassEntity> findAllPaginationSort(int offset, int pageSize, String field){
+        log.info("Get all Class with Pagination and Sorting");
+        Page<ClassEntity> classes = classRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return classes;
+    }
 
     // @Override
     // public List<ClassDtoGet> findAllDto() {
