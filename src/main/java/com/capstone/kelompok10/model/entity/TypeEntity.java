@@ -27,6 +27,7 @@ public class TypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long typeId;
     private String name;
+    private String imageUrl;
     
     // @JsonIgnore
     @OneToMany(mappedBy = "type", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
