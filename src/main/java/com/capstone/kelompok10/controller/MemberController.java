@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
+// import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
 // import com.capstone.kelompok10.model.dto.post.MemberDtoPost;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.service.interfaces.MemberService;
@@ -31,8 +31,8 @@ public class MemberController {
     }
 
     @GetMapping("/userAccess/getAllMember")
-    public ResponseEntity<List<MemberDtoGet>> findAll(){
-        List<MemberDtoGet> members = memberService.findAll();
+    public ResponseEntity<List<MemberEntity>> findAll(){
+        List<MemberEntity> members = memberService.findAll();
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 

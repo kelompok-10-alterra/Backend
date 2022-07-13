@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
+// import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
 // import com.capstone.kelompok10.model.dto.post.CategoryDtoPost;
 import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
@@ -31,8 +31,8 @@ public class CategoryController {
     }
 
     @GetMapping("/userAccess/getAllCategory")
-    public ResponseEntity<List<CategoryDtoGet>> findAll(){
-        List<CategoryDtoGet> categorys = categoryService.findAll();
+    public ResponseEntity<List<CategoryEntity>> findAll(){
+        List<CategoryEntity> categorys = categoryService.findAll();
         return new ResponseEntity<>(categorys, HttpStatus.OK);
     }
 

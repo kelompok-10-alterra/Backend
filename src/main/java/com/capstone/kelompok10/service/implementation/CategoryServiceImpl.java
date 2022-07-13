@@ -1,12 +1,12 @@
 package com.capstone.kelompok10.service.implementation;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
+// import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
 import com.capstone.kelompok10.model.dto.post.CategoryDtoPost;
 import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.repository.CategoryRepository;
@@ -26,20 +26,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDtoGet> findAll() {
+    public List<CategoryEntity> findAll() {
         List<CategoryEntity> categorys = categoryRepository.findAll();
-        List<CategoryDtoGet> CategoryDtos = new ArrayList<>();
-        
-        categorys.forEach(isi ->{
-            CategoryDtoGet dto = new CategoryDtoGet();
-            dto.setCategoryId(isi.getCategoryId());
-            dto.setName(isi.getName());
-            dto.setCreatedAt(isi.getCreated_at().toString());
-            dto.setUpdatedAt(isi.getUpdated_at().toString());
-
-            CategoryDtos.add(dto);
-        });
-        return CategoryDtos;
+        return categorys;
     }
     
     // @Override

@@ -63,8 +63,8 @@ public class Kelompok10Application {
 			categoryService.createCategory(new CategoryEntity(2L, "Offline", new ArrayList<>(), null, null));
 
 			memberService.createMember(new MemberEntity(1L, "Silver", "1 Month", 100000L, new ArrayList<>(), null, null));
-			memberService.createMember(new MemberEntity(1L, "Gold", "3 Month", 250000L, new ArrayList<>(), null, null));
-			memberService.createMember(new MemberEntity(1L, "Platinum", "6 Month", 500000L, new ArrayList<>(), null, null));
+			memberService.createMember(new MemberEntity(2L, "Gold", "3 Month", 250000L, new ArrayList<>(), null, null));
+			memberService.createMember(new MemberEntity(3L, "Platinum", "6 Month", 500000L, new ArrayList<>(), null, null));
 		};
 	}
 
