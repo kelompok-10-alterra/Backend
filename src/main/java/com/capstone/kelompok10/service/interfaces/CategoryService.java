@@ -16,6 +16,7 @@ public interface CategoryService {
     void createCategoryDto(CategoryDtoPost categoryDtoPost);
     void updateCategory(Long categoryId, CategoryDtoPost categoryDtoPost);
     void deleteCategory(Long categoryId);
+    void createCategory(CategoryEntity categoryEntity);
 
     //Verify Method
     Boolean categoryExist(Long categoryId);

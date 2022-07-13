@@ -2,8 +2,12 @@ package com.capstone.kelompok10;
 
 import java.util.ArrayList;
 
+import com.capstone.kelompok10.model.entity.CategoryEntity;
+import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.model.entity.RoleEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.service.interfaces.CategoryService;
+import com.capstone.kelompok10.service.interfaces.MemberService;
 import com.capstone.kelompok10.service.interfaces.RoleService;
 import com.capstone.kelompok10.service.interfaces.UserService;
 
@@ -39,7 +43,7 @@ public class Kelompok10Application {
     }
 
 	@Bean
-	CommandLineRunner runner(UserService userService, RoleService roleService){
+	CommandLineRunner runner(UserService userService, RoleService roleService, CategoryService categoryService, MemberService memberService){
 		return args -> {
 			roleService.createRole(new RoleEntity(1L, "ROLE_USER", null, null));
 			roleService.createRole(new RoleEntity(2L, "ROLE_ADMIN", null, null));
@@ -54,6 +58,13 @@ public class Kelompok10Application {
 			userService.addRoleToUser("admin", "ROLE_ADMIN");
 			userService.addRoleToUser("user", "ROLE_USER");
 			userService.addRoleToUser("backend", "ROLE_SUPER_ADMIN");
+
+			categoryService.createCategory(new CategoryEntity(1L, "Online", new ArrayList<>(), null, null));
+			categoryService.createCategory(new CategoryEntity(2L, "Offline", new ArrayList<>(), null, null));
+
+			memberService.createMember(new MemberEntity(1L, "Silver", "1 Month", 100000L, new ArrayList<>(), null, null));
+			memberService.createMember(new MemberEntity(1L, "Gold", "3 Month", 250000L, new ArrayList<>(), null, null));
+			memberService.createMember(new MemberEntity(1L, "Platinum", "6 Month", 500000L, new ArrayList<>(), null, null));
 		};
 	}
 

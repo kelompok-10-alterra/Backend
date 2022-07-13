@@ -28,7 +28,6 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
     private String name;
-    private String imageUrl;
 
     // @JsonIgnore
     @OneToMany(mappedBy = "category", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

@@ -91,7 +91,6 @@ public class CategoryServiceImpl implements CategoryService {
         }else{
             CategoryEntity category2 = categoryRepository.findById(categoryId).get();
             category2.setName(categoryDtoPost.getName());
-            category2.setImageUrl(categoryDtoPost.getImageUrl());
 
             categoryRepository.save(category2);
             log.info("Category updated");
@@ -114,7 +113,6 @@ public class CategoryServiceImpl implements CategoryService {
         if(categoryRepository.findByName(categoryDtoPost.getName()) == null){
             CategoryEntity categoryEntity = new CategoryEntity();
             categoryEntity.setName(categoryDtoPost.getName());
-            categoryEntity.setImageUrl(categoryDtoPost.getImageUrl());
 		
             categoryRepository.save(categoryEntity);
             log.info("Category created");
@@ -131,5 +129,10 @@ public class CategoryServiceImpl implements CategoryService {
         }else{
             return false;
         }
+    }
+
+    @Override
+    public void createCategory(CategoryEntity categoryEntity) {
+        categoryRepository.save(categoryEntity);
     }
 }
