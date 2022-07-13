@@ -263,7 +263,7 @@ public class ClassServiceImpl implements ClassService {
                     class2.setRoom(roomEntity);
                     class2.setType(typeEntity);
                     class2.setTypeName(type2.getName());
-                    classEntity.setCategoryName(category2.getName());
+                    class2.setCategoryName(category2.getName());
                     class2.setVideoUrl(classesDtoPost.getVideoUrl());
                     class2.setMeetUrl(classesDtoPost.getMeetUrl());
                     
