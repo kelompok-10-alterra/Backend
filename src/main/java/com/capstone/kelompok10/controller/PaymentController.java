@@ -34,7 +34,7 @@ public class PaymentController {
         return new ResponseEntity<>(paymentService.getPaymentById(paymentId), HttpStatus.OK);
     }
 
-    @PostMapping("/adminAccess/createNewPayment")
+    @PostMapping("/userAccess/createNewPayment")
     public String createPaymentDto(@RequestBody PaymentDtoPost paymentDtoPost){
         return paymentService.createPaymentDto(paymentDtoPost);
     }

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BookingServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kelompok10</a> &gt; <a href="index.source.html" class="el_package">com.capstone.kelompok10.service.implementation</a> &gt; <span class="el_source">BookingServiceImpl.java</span></div><h1>BookingServiceImpl.java</h1><pre class="source lang-java linenums">package com.capstone.kelompok10.service.implementation;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.capstone.kelompok10.model.dto.get.BookingDtoGet;
+import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
+import com.capstone.kelompok10.model.entity.BookingEntity;
+import com.capstone.kelompok10.model.entity.ClassEntity;
+import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.repository.BookingRepository;
+import com.capstone.kelompok10.repository.ClassRepository;
+import com.capstone.kelompok10.repository.UserRepository;
+import com.capstone.kelompok10.service.interfaces.BookingService;
+import com.capstone.kelompok10.service.interfaces.CartService;
+import com.capstone.kelompok10.service.interfaces.ClassService;
+import com.capstone.kelompok10.service.interfaces.UserService;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+<span class="fc" id="L26">@Log4j2</span>
+<span class="fc" id="L27">@AllArgsConstructor</span>
+public class BookingServiceImpl implements BookingService {
+    BookingRepository bookingRepository;
+
+    @Autowired
+    private ClassService classService;
+
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    public UserRepository userRepository;
+
+    @Autowired
+    public ClassRepository classRepository;
+
+    @Autowired
+<span class="fc" id="L47">    public BookingServiceImpl(BookingRepository bookingRepository){</span>
+<span class="fc" id="L48">        this.bookingRepository = bookingRepository;</span>
+<span class="fc" id="L49">    }</span>
+
+    @Override
+    public List&lt;BookingDtoGet&gt; findAll() {
+<span class="fc" id="L53">        List&lt;BookingEntity&gt; booking = bookingRepository.findAll();</span>
+<span class="fc" id="L54">        List&lt;BookingDtoGet&gt; booking2 = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L55">        booking.forEach(isi -&gt;{</span>
+<span class="fc" id="L56">            BookingDtoGet dto = new BookingDtoGet();</span>
+<span class="fc" id="L57">            dto.setBookingId(isi.getBookingId());</span>
+<span class="fc" id="L58">            dto.setStatus(isi.getStatus());</span>
+<span class="fc" id="L59">            dto.setPrice(isi.getPrice());</span>
+<span class="fc" id="L60">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="fc" id="L61">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="fc" id="L62">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="fc" id="L63">            dto.setUserName(isi.getUser().getName());</span>
+<span class="fc" id="L64">            dto.setMembership(isi.getUser().getMembership());</span>
+<span class="fc" id="L65">            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());</span>
+<span class="fc" id="L66">            dto.setInstructureName(isi.getClasses().getInstructor().getName());</span>
+<span class="fc" id="L67">            dto.setClassId(isi.getClasses().getClassId());</span>
+<span class="fc" id="L68">            dto.setClassIdentity(isi.getClassIdentity());</span>
+<span class="fc" id="L69">            dto.setClassName(isi.getClasses().getName());</span>
+<span class="fc" id="L70">            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());</span>
+<span class="fc" id="L71">            dto.setCategoryName(isi.getClasses().getCategory().getName());</span>
+<span class="fc" id="L72">            dto.setSchedule(isi.getClasses().getSchedule());</span>
+<span class="fc" id="L73">            dto.setRoom(isi.getClasses().getRoom().getName());</span>
+<span class="fc" id="L74">            dto.setType(isi.getClasses().getType().getName());</span>
+
+<span class="fc" id="L76">            booking2.add(dto);</span>
+
+<span class="fc" id="L78">        });</span>
+<span class="fc" id="L79">        return booking2;</span>
+    }
+    
+    // @Override
+    // public Page&lt;BookingEntity&gt; findAllPagination(int offset, int pageSize) {
+    //     log.info(&quot;Get all Booking with Pagination&quot;);
+    //     Page&lt;BookingEntity&gt; booking = bookingRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return booking;
+    // }
+
+    // @Override
+    // public Page&lt;BookingEntity&gt; findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info(&quot;Get all Booking with Pagination and Sorting&quot;);
+    //     Page&lt;BookingEntity&gt; booking = bookingRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return booking;
+    // }
+
+    @Override
+    public BookingDtoGet getBookingByIdDto(Long bookingId) {
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if(bookingRepository.findById(bookingId) == null){</span>
+<span class="nc" id="L99">            log.info(&quot;Booking with id {} not found&quot;, bookingId);</span>
+<span class="nc" id="L100">            return null;</span>
+        }
+<span class="fc" id="L102">        log.info(&quot;Booking with id {} found&quot;, bookingId);</span>
+<span class="fc" id="L103">        BookingEntity isi = bookingRepository.findById(bookingId).get();</span>
+<span class="fc" id="L104">        BookingDtoGet dto = new BookingDtoGet();</span>
+<span class="fc" id="L105">        dto.setBookingId(isi.getBookingId());</span>
+<span class="fc" id="L106">            dto.setStatus(isi.getStatus());</span>
+<span class="fc" id="L107">            dto.setPrice(isi.getPrice());</span>
+<span class="fc" id="L108">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="fc" id="L109">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="fc" id="L110">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="fc" id="L111">            dto.setUserName(isi.getUser().getName());</span>
+<span class="fc" id="L112">            dto.setMembership(isi.getUser().getMembership());</span>
+<span class="fc" id="L113">            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());</span>
+<span class="fc" id="L114">            dto.setInstructureName(isi.getClasses().getInstructor().getName());</span>
+<span class="fc" id="L115">            dto.setClassId(isi.getClasses().getClassId());</span>
+<span class="fc" id="L116">            dto.setClassName(isi.getClasses().getName());</span>
+<span class="fc" id="L117">            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());</span>
+<span class="fc" id="L118">            dto.setCategoryName(isi.getClasses().getCategory().getName());</span>
+<span class="fc" id="L119">            dto.setSchedule(isi.getClasses().getSchedule());</span>
+<span class="fc" id="L120">            dto.setRoom(isi.getClasses().getRoom().getName());</span>
+<span class="fc" id="L121">            dto.setType(isi.getClasses().getType().getName());</span>
+
+<span class="fc" id="L123">        return dto;            </span>
+    }
+
+    @Override
+    public BookingEntity getBookingById(Long bookingId) {
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if(bookingRepository.findById(bookingId) == null){</span>
+<span class="nc" id="L129">            log.info(&quot;Booking with id {} not found&quot;, bookingId);</span>
+<span class="nc" id="L130">            return null;</span>
+        }
+<span class="fc" id="L132">        log.info(&quot;Booking with id {} found&quot;, bookingId);</span>
+<span class="fc" id="L133">        return bookingRepository.findById(bookingId).get();</span>
+    }
+
+    @Override
+    public void updateBooking(Long bookingId, BookingDtoPost bookingDtoPost) {
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        if(bookingRepository.findById(bookingId) != null){</span>
+<span class="nc" id="L139">            BookingEntity booking2 = bookingRepository.findById(bookingId).get();</span>
+        
+<span class="nc" id="L141">            UserEntity userEntity = new UserEntity();</span>
+<span class="nc" id="L142">            userEntity.setUserId(bookingDtoPost.getUserId());</span>
+
+<span class="nc" id="L144">            ClassEntity classEntity = new ClassEntity();</span>
+<span class="nc" id="L145">            classEntity.setClassId(bookingDtoPost.getClassId());</span>
+
+<span class="nc" id="L147">            Long price = classService.classPrice(bookingDtoPost.getClassId());</span>
+            Long total;
+<span class="nc" id="L149">            Long currentPrice = booking2.getPrice();</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">            if(userService.nativeUser(bookingDtoPost.getUserId()) == false){</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                if(bookingDtoPost.getClassId() != booking2.getClasses().getClassId()){</span>
+<span class="nc" id="L152">                    classService.unBookClass(bookingDtoPost.getClassId());</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">                    if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 2){</span>
+<span class="nc" id="L154">                        log.info(&quot;User have membership and get discount price&quot;);</span>
+<span class="nc" id="L155">                        total = price - (price * 20 / 100);</span>
+<span class="nc" id="L156">                        booking2.setPrice(total);</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">                    }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 3){</span>
+<span class="nc" id="L158">                        log.info(&quot;User have membership and get discount price&quot;);</span>
+<span class="nc" id="L159">                        total = price - (price * 30 / 100);</span>
+<span class="nc" id="L160">                        booking2.setPrice(total);</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">                    }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 4){</span>
+<span class="nc" id="L162">                        log.info(&quot;User have membership and get discount price&quot;);</span>
+<span class="nc" id="L163">                        total = price - (price * 50 / 100);</span>
+<span class="nc" id="L164">                        booking2.setPrice(total);</span>
+                    }else{
+<span class="nc" id="L166">                        log.info(&quot;User don't have membership and didn't get discount price&quot;);</span>
+<span class="nc" id="L167">                        total = price;</span>
+<span class="nc" id="L168">                        booking2.setPrice(total);</span>
+                    }
+<span class="nc" id="L170">                    booking2.setPrice(total);</span>
+<span class="nc" id="L171">                    booking2.setStatus(bookingDtoPost.getStatus());</span>
+<span class="nc" id="L172">                    booking2.setUser(userEntity);</span>
+<span class="nc" id="L173">                    booking2.setUserIdentity(bookingDtoPost.getUserId());</span>
+<span class="nc" id="L174">                    booking2.setClassIdentity(bookingDtoPost.getClassId());</span>
+<span class="nc" id="L175">                    booking2.setClasses(classEntity);</span>
+    
+<span class="nc" id="L177">                    bookingRepository.save(booking2);</span>
+<span class="nc" id="L178">                    UserEntity user3 = userRepository.findById(bookingDtoPost.getUserId()).get();</span>
+<span class="nc" id="L179">                    Long cartId = user3.getCart().getCartId();</span>
+<span class="nc" id="L180">                    cartService.unBook(cartId, currentPrice, total);</span>
+<span class="nc" id="L181">                    log.info(&quot;Booking updated&quot;);</span>
+<span class="nc" id="L182">                }else{</span>
+<span class="nc" id="L183">                    log.info(&quot;Booking with id {} not found&quot;, bookingId);</span>
+<span class="nc" id="L184">                    throw new IllegalStateException(&quot;Booking you search not found&quot;);</span>
+                }
+            }
+            else{
+<span class="nc" id="L188">                throw new IllegalStateException(&quot;Update Failed, you can't use native user&quot;);</span>
+            }
+        }
+<span class="nc" id="L191">    }</span>
+
+    @Override
+    public void deleteBooking(Long bookingId) {
+<span class="pc bpc" id="L195" title="1 of 2 branches missed.">        if(bookingRepository.findById(bookingId).isPresent() == true){</span>
+<span class="fc" id="L196">            BookingEntity booking = bookingRepository.findById(bookingId).get();</span>
+<span class="pc bpc" id="L197" title="1 of 2 branches missed.">            if(classService.classExist(booking.getClasses().getClassId()) == true){</span>
+<span class="nc" id="L198">                Long oldPrice = booking.getPrice();</span>
+<span class="nc" id="L199">                classService.unBookClass(booking.getClasses().getClassId());</span>
+<span class="nc" id="L200">                cartService.unBook(booking.getCartIdentity(), oldPrice, 0L);</span>
+<span class="nc" id="L201">                bookingRepository.deleteById(bookingId);</span>
+<span class="nc" id="L202">                log.info(&quot;Booking with id {} successfully deleted&quot;, bookingId);</span>
+<span class="nc" id="L203">            }else{</span>
+<span class="fc" id="L204">                bookingRepository.deleteById(bookingId);</span>
+<span class="fc" id="L205">                log.info(&quot;Booking with id {} successfully deleted&quot;, bookingId);</span>
+            }
+<span class="fc" id="L207">        }else{</span>
+<span class="nc" id="L208">            log.info(&quot;Booking with id {} not found&quot;, bookingId);</span>
+<span class="nc" id="L209">            throw new IllegalStateException(&quot;Booking you search not found&quot;);</span>
+        }
+        
+<span class="fc" id="L212">    }</span>
+
+    @Override
+    public void createBookingDto(BookingDtoPost bookingDtoPost) {
+<span class="nc" id="L216">        BookingEntity bookingEntity = new BookingEntity();</span>
+<span class="nc" id="L217">        UserEntity userEntity = new UserEntity();</span>
+<span class="nc" id="L218">        userEntity.setUserId(bookingDtoPost.getUserId());</span>
+<span class="nc" id="L219">        ClassEntity classEntity = new ClassEntity();</span>
+<span class="nc" id="L220">        classEntity.setClassId(bookingDtoPost.getClassId());</span>
+
+<span class="nc bnc" id="L222" title="All 6 branches missed.">        if(classRepository.findById(bookingDtoPost.getClassId()) != null &amp;&amp; userRepository.findById(bookingDtoPost.getUserId()) != null &amp;&amp; classService.classFull(bookingDtoPost.getClassId()) == false</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">            &amp;&amp; userService.nativeUser(bookingDtoPost.getUserId()) == false){</span>
+<span class="nc" id="L224">            Long price = classService.classPrice(bookingDtoPost.getClassId());</span>
+            Long total;
+<span class="nc bnc" id="L226" title="All 2 branches missed.">            if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 2){</span>
+<span class="nc" id="L227">                log.info(&quot;User have membership and get discount price&quot;);</span>
+<span class="nc" id="L228">                total = price - (price * 20 / 100);</span>
+<span class="nc" id="L229">                bookingEntity.setPrice(total);</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">            }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 3){</span>
+<span class="nc" id="L231">                log.info(&quot;User have membership and get discount price&quot;);</span>
+<span class="nc" id="L232">                total = price - (price * 30 / 100);</span>
+<span class="nc" id="L233">                bookingEntity.setPrice(total);</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">            }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 4){</span>
+<span class="nc" id="L235">                log.info(&quot;User have membership and get discount price&quot;);</span>
+<span class="nc" id="L236">                total = price - (price * 50 / 100);</span>
+<span class="nc" id="L237">                bookingEntity.setPrice(total);</span>
+            }else{
+<span class="nc" id="L239">                log.info(&quot;User don't have membership and didn't get discount price&quot;);</span>
+<span class="nc" id="L240">                total = price;</span>
+<span class="nc" id="L241">                bookingEntity.setPrice(total);</span>
+            }
+<span class="nc" id="L243">            bookingEntity.setStatus(bookingDtoPost.getStatus());</span>
+<span class="nc" id="L244">            bookingEntity.setClasses(classEntity);</span>
+<span class="nc" id="L245">            bookingEntity.setUser(userEntity);</span>
+<span class="nc" id="L246">            bookingEntity.setUserIdentity(bookingDtoPost.getUserId());</span>
+<span class="nc" id="L247">            UserEntity user3 = userRepository.findById(bookingDtoPost.getUserId()).get();</span>
+<span class="nc" id="L248">            Long cartId = user3.getCart().getCartId();</span>
+<span class="nc" id="L249">            bookingEntity.setCartIdentity(cartId);</span>
+<span class="nc" id="L250">            bookingEntity.setClassIdentity(bookingDtoPost.getClassId());</span>
+
+<span class="nc" id="L252">            bookingRepository.save(bookingEntity);</span>
+
+<span class="nc" id="L254">            classService.classBooked(bookingDtoPost.getClassId());</span>
+<span class="nc" id="L255">            userService.getPoint(bookingDtoPost.getUserId());</span>
+
+            
+<span class="nc" id="L258">            cartService.addBookingToCart(bookingEntity.getBookingId(), cartId);</span>
+<span class="nc" id="L259">            cartService.updateBookingTotal(cartId, total);</span>
+<span class="nc" id="L260">            log.info(&quot;Booking created&quot;);</span>
+<span class="nc" id="L261">        }else{</span>
+<span class="nc" id="L262">            log.info(&quot;Failed to create Booking&quot;);</span>
+<span class="nc" id="L263">            throw new IllegalStateException(&quot;Class / User not found or Class Full&quot;);</span>
+        }
+<span class="nc" id="L265">    }</span>
+
+    @Override
+    public int totalBooking() {
+<span class="fc" id="L269">        List&lt;BookingEntity&gt; booking = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L270">        bookingRepository.findAll().forEach(booking::add);</span>
+<span class="fc" id="L271">        int sum = booking.size();</span>
+<span class="fc" id="L272">        return sum;</span>
+    }
+
+    @Override
+    public void deleteBookingUsingUserIdentity(Long userIdentity) {
+<span class="nc" id="L277">        List&lt;BookingEntity&gt; booking = bookingRepository.findAll();</span>
+<span class="nc" id="L278">        booking.forEach(isi -&gt;{</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">            if(isi.getUserIdentity() == userIdentity){</span>
+<span class="nc" id="L280">                bookingRepository.delete(isi);</span>
+            }
+<span class="nc" id="L282">        });</span>
+<span class="nc" id="L283">    }</span>
+
+    @Override
+    public List&lt;BookingDtoGet&gt; findAll(Long bookingId) {
+<span class="nc" id="L287">        List&lt;BookingEntity&gt; booking = bookingRepository.findAll(bookingId);</span>
+<span class="nc" id="L288">        List&lt;BookingDtoGet&gt; booking2 = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L289">        booking.forEach(isi -&gt;{</span>
+<span class="nc" id="L290">            BookingDtoGet dto = new BookingDtoGet();</span>
+<span class="nc" id="L291">            dto.setBookingId(isi.getBookingId());</span>
+<span class="nc" id="L292">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L293">            dto.setPrice(isi.getPrice());</span>
+<span class="nc" id="L294">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L295">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L296">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="nc" id="L297">            dto.setUserName(isi.getUser().getName());</span>
+<span class="nc" id="L298">            dto.setMembership(isi.getUser().getMembership());</span>
+<span class="nc" id="L299">            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());</span>
+<span class="nc" id="L300">            dto.setInstructureName(isi.getClasses().getInstructor().getName());</span>
+<span class="nc" id="L301">            dto.setClassId(isi.getClasses().getClassId());</span>
+<span class="nc" id="L302">            dto.setClassName(isi.getClasses().getName());</span>
+<span class="nc" id="L303">            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());</span>
+<span class="nc" id="L304">            dto.setCategoryName(isi.getClasses().getCategory().getName());</span>
+<span class="nc" id="L305">            dto.setSchedule(isi.getClasses().getSchedule());</span>
+<span class="nc" id="L306">            dto.setRoom(isi.getClasses().getRoom().getName());</span>
+<span class="nc" id="L307">            dto.setType(isi.getClasses().getType().getName());</span>
+
+<span class="nc" id="L309">            booking2.add(dto);</span>
+
+<span class="nc" id="L311">        });</span>
+<span class="nc" id="L312">        return booking2;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

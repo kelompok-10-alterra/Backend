@@ -3,10 +3,6 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.TypeDtoGet;
@@ -15,19 +11,14 @@ import com.capstone.kelompok10.model.entity.TypeEntity;
 import com.capstone.kelompok10.repository.TypeRepository;
 import com.capstone.kelompok10.service.interfaces.TypeService;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TypeServiceImpl implements TypeService {
     TypeRepository typeRepository;
-
-    @Autowired
-    public TypeServiceImpl(TypeRepository typeRepository){
-        this.typeRepository = typeRepository;
-    }
 
     @Override
     public List<TypeDtoGet> findAll() {
@@ -47,19 +38,19 @@ public class TypeServiceImpl implements TypeService {
         return typeDtos;
     }
     
-    @Override
-    public Page<TypeEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Type with Pagination");
-        Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize));
-        return type;
-    }
+    // @Override
+    // public Page<TypeEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Type with Pagination");
+    //     Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return type;
+    // }
 
-    @Override
-    public Page<TypeEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Type with Pagination and Sorting");
-        Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return type;
-    }
+    // @Override
+    // public Page<TypeEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Type with Pagination and Sorting");
+    //     Page<TypeEntity> type = typeRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return type;
+    // }
 
     // @Override
     // public List<TypeDtoGet> findAllDto() {

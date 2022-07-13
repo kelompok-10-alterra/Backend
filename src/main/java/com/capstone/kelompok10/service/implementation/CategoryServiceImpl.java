@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
@@ -45,19 +42,19 @@ public class CategoryServiceImpl implements CategoryService {
         return CategoryDtos;
     }
     
-    @Override
-    public Page<CategoryEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Category with Pagination");
-        Page<CategoryEntity> category = categoryRepository.findAll(PageRequest.of(offset, pageSize));
-        return category;
-    }
+    // @Override
+    // public Page<CategoryEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Category with Pagination");
+    //     Page<CategoryEntity> category = categoryRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return category;
+    // }
 
-    @Override
-    public Page<CategoryEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Category with Pagination and Sorting");
-        Page<CategoryEntity> category = categoryRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return category;
-    }
+    // @Override
+    // public Page<CategoryEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Category with Pagination and Sorting");
+    //     Page<CategoryEntity> category = categoryRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return category;
+    // }
 
     // @Override
     // public List<CategoryDtoGet> findAllDto() {
@@ -94,6 +91,7 @@ public class CategoryServiceImpl implements CategoryService {
         }else{
             CategoryEntity category2 = categoryRepository.findById(categoryId).get();
             category2.setName(categoryDtoPost.getName());
+            category2.setImageUrl(categoryDtoPost.getImageUrl());
 
             categoryRepository.save(category2);
             log.info("Category updated");
@@ -116,6 +114,7 @@ public class CategoryServiceImpl implements CategoryService {
         if(categoryRepository.findByName(categoryDtoPost.getName()) == null){
             CategoryEntity categoryEntity = new CategoryEntity();
             categoryEntity.setName(categoryDtoPost.getName());
+            categoryEntity.setImageUrl(categoryDtoPost.getImageUrl());
 		
             categoryRepository.save(categoryEntity);
             log.info("Category created");

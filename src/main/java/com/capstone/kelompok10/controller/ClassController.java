@@ -43,13 +43,13 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/userAccess/{offset}/{pageSize}")
+    @GetMapping("/userAccess/getAllClass/{offset}/{pageSize}")
     public ResponseEntity<Page<ClassEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
         Page<ClassEntity> classs = classService.findAllPagination(offset, pageSize);
         return new ResponseEntity<>(classs, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
+    @GetMapping("/userAccess/getAllClass/{offset}/{pageSize}/{field}")
     public ResponseEntity<Page<ClassEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
         Page<ClassEntity> classs = classService.findAllPaginationSort(offset, pageSize, field);
         return new ResponseEntity<>(classs, HttpStatus.OK);

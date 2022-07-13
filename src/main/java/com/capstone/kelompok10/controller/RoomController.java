@@ -3,7 +3,6 @@ package com.capstone.kelompok10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,17 +36,17 @@ public class RoomController {
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/{offset}/{pageSize}")
-    public ResponseEntity<Page<RoomEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
-        Page<RoomEntity> rooms = roomService.findAllPagination(offset, pageSize);
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
-    }
+    // @GetMapping("/userAccess/{offset}/{pageSize}")
+    // public ResponseEntity<Page<RoomEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+    //     Page<RoomEntity> rooms = roomService.findAllPagination(offset, pageSize);
+    //     return new ResponseEntity<>(rooms, HttpStatus.OK);
+    // }
 
-    @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
-    public ResponseEntity<Page<RoomEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
-        Page<RoomEntity> rooms = roomService.findAllPaginationSort(offset, pageSize, field);
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
-    }
+    // @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
+    // public ResponseEntity<Page<RoomEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+    //     Page<RoomEntity> rooms = roomService.findAllPaginationSort(offset, pageSize, field);
+    //     return new ResponseEntity<>(rooms, HttpStatus.OK);
+    // }
 
     // @GetMapping("/userAccess/getAllRoomWithDto")
     // public ResponseEntity<List<RoomDtoGet>> findAllDto(){

@@ -3,7 +3,6 @@ package com.capstone.kelompok10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,17 +36,17 @@ public class MemberController {
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
-    @GetMapping("/userAccess/{offset}/{pageSize}")
-    public ResponseEntity<Page<MemberEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
-        Page<MemberEntity> members = memberService.findAllPagination(offset, pageSize);
-        return new ResponseEntity<>(members, HttpStatus.OK);
-    }
+    // @GetMapping("/userAccess/{offset}/{pageSize}")
+    // public ResponseEntity<Page<MemberEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+    //     Page<MemberEntity> members = memberService.findAllPagination(offset, pageSize);
+    //     return new ResponseEntity<>(members, HttpStatus.OK);
+    // }
 
-    @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
-    public ResponseEntity<Page<MemberEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
-        Page<MemberEntity> members = memberService.findAllPaginationSort(offset, pageSize, field);
-        return new ResponseEntity<>(members, HttpStatus.OK);
-    }
+    // @GetMapping("/userAccess/{offset}/{pageSize}/{field}")
+    // public ResponseEntity<Page<MemberEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+    //     Page<MemberEntity> members = memberService.findAllPaginationSort(offset, pageSize, field);
+    //     return new ResponseEntity<>(members, HttpStatus.OK);
+    // }
 
     // @GetMapping("/userAccess/getAllMemberByWithDto")
     // public ResponseEntity<List<MemberDtoGet>> findAllDto(){

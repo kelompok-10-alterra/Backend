@@ -30,9 +30,6 @@ import com.capstone.kelompok10.service.interfaces.RoleService;
 import com.capstone.kelompok10.service.interfaces.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -108,19 +105,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return user;
     }
     
-    @Override
-    public Page<UserEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all User with Pagination");
-        Page<UserEntity> user = userRepository.findAll(PageRequest.of(offset, pageSize));
-        return user;
-    }
+    // @Override
+    // public Page<UserEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all User with Pagination");
+    //     Page<UserEntity> user = userRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return user;
+    // }
 
-    @Override
-    public Page<UserEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all User with Pagination and Sorting");
-        Page<UserEntity> user = userRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return user;
-    }
+    // @Override
+    // public Page<UserEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all User with Pagination and Sorting");
+    //     Page<UserEntity> user = userRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return user;
+    // }
 
     @Override
 	public List<UserEntity> getAllRoleUser(){

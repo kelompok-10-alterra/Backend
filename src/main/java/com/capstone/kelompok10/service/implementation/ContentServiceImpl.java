@@ -4,9 +4,6 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.ContentDtoGet;
@@ -32,19 +29,19 @@ public class ContentServiceImpl implements ContentService {
         return content;
     }
     
-    @Override
-    public Page<ContentEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Content with Pagination");
-        Page<ContentEntity> content = contentRepository.findAll(PageRequest.of(offset, pageSize));
-        return content;
-    }
+    // @Override
+    // public Page<ContentEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Content with Pagination");
+    //     Page<ContentEntity> content = contentRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return content;
+    // }
 
-    @Override
-    public Page<ContentEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Content with Pagination and Sorting");
-        Page<ContentEntity> content = contentRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return content;
-    }
+    // @Override
+    // public Page<ContentEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Content with Pagination and Sorting");
+    //     Page<ContentEntity> content = contentRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return content;
+    // }
 
     @Override
     public List<ContentDtoGet> findAllDto() {

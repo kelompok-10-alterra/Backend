@@ -28,7 +28,7 @@ public class Kelompok10Application {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry){
-				registry.addMapping("/**").allowedOrigins("http://localhost:3000", "https://sportly.surge.sh", "https://sportly.vercel.app", "https://sportly.rafdev.my.id").allowCredentials(true).allowedMethods("GET", "PUT", "POST", "DELETE");
+				registry.addMapping("/**").allowedOrigins("http://localhost:3000", "https://sportly.surge.sh", "https://sportly.vercel.app").allowCredentials(true).allowedMethods("GET", "PUT", "POST", "DELETE");
 			}
 		};
 	}

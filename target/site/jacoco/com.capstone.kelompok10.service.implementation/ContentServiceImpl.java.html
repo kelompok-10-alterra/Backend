@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContentServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kelompok10</a> &gt; <a href="index.source.html" class="el_package">com.capstone.kelompok10.service.implementation</a> &gt; <span class="el_source">ContentServiceImpl.java</span></div><h1>ContentServiceImpl.java</h1><pre class="source lang-java linenums">package com.capstone.kelompok10.service.implementation;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.capstone.kelompok10.model.dto.get.ContentDtoGet;
+import com.capstone.kelompok10.model.dto.post.ContentDtoPost;
+import com.capstone.kelompok10.model.entity.ContentEntity;
+import com.capstone.kelompok10.repository.ContentRepository;
+import com.capstone.kelompok10.service.interfaces.ContentService;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+<span class="fc" id="L18">@Log4j2</span>
+@Service
+<span class="fc" id="L20">@AllArgsConstructor</span>
+public class ContentServiceImpl implements ContentService {
+    ContentRepository contentRepository;
+
+    @Override
+    public List&lt;ContentEntity&gt; findAll() {
+<span class="fc" id="L26">        log.info(&quot;Get all Content without DTO&quot;);</span>
+<span class="fc" id="L27">        List&lt;ContentEntity&gt; content = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L28">        contentRepository.findAll().forEach(content::add);</span>
+<span class="fc" id="L29">        return content;</span>
+    }
+    
+    // @Override
+    // public Page&lt;ContentEntity&gt; findAllPagination(int offset, int pageSize) {
+    //     log.info(&quot;Get all Content with Pagination&quot;);
+    //     Page&lt;ContentEntity&gt; content = contentRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return content;
+    // }
+
+    // @Override
+    // public Page&lt;ContentEntity&gt; findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info(&quot;Get all Content with Pagination and Sorting&quot;);
+    //     Page&lt;ContentEntity&gt; content = contentRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return content;
+    // }
+
+    @Override
+    public List&lt;ContentDtoGet&gt; findAllDto() {
+<span class="fc" id="L48">        log.info(&quot;Get all Content with DTO&quot;);</span>
+<span class="fc" id="L49">        List&lt;ContentEntity&gt; contents = contentRepository.findAll();</span>
+<span class="fc" id="L50">        List&lt;ContentDtoGet&gt; contentDtos = new ArrayList&lt;&gt;();</span>
+        
+<span class="fc" id="L52">        contents.forEach(isi -&gt;{</span>
+<span class="fc" id="L53">            ContentDtoGet dto = new ContentDtoGet();</span>
+<span class="fc" id="L54">            dto.setContentId(isi.getContentId());</span>
+<span class="fc" id="L55">            dto.setTitle(isi.getTitle());</span>
+<span class="fc" id="L56">            dto.setDescription(isi.getDescription());</span>
+
+<span class="fc" id="L58">            contentDtos.add(dto);</span>
+<span class="fc" id="L59">        });</span>
+<span class="fc" id="L60">        return contentDtos;</span>
+    }
+
+    @Override
+    public ContentEntity getContentById(Long contentId) {
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if(contentRepository.findById(contentId) != null){</span>
+<span class="fc" id="L66">            log.info(&quot;Content with id {} found&quot;, contentId);</span>
+<span class="fc" id="L67">            return contentRepository.findById(contentId).get();</span>
+        }else{
+<span class="nc" id="L69">            log.info(&quot;Content with id {} not found&quot;, contentId);</span>
+<span class="nc" id="L70">            throw new IllegalStateException(&quot;Content not Found&quot;);</span>
+        }
+    }
+
+    @Override
+    public void updateContent(Long contentId, ContentDtoPost contentDtoPost) {
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if(contentRepository.findById(contentId) != null){</span>
+<span class="fc" id="L77">            ContentEntity content2 = contentRepository.findById(contentId).get();</span>
+<span class="fc" id="L78">            content2.setTitle(contentDtoPost.getTitle());</span>
+<span class="fc" id="L79">            content2.setDescription(contentDtoPost.getDescription());</span>
+<span class="fc" id="L80">            content2.setImageUrl(contentDtoPost.getImageUrl());</span>
+<span class="fc" id="L81">            content2.setVideoUrl(contentDtoPost.getVideoUrl());</span>
+
+<span class="fc" id="L83">            contentRepository.save(content2);</span>
+<span class="fc" id="L84">            log.info(&quot;Content updated&quot;);</span>
+<span class="fc" id="L85">        }else{</span>
+<span class="nc" id="L86">            log.info(&quot;Content with id {} not found&quot;, contentId);</span>
+<span class="nc" id="L87">            throw new IllegalStateException(&quot;Content not Found&quot;);</span>
+        }
+<span class="fc" id="L89">    }</span>
+
+    @Override
+    public void deleteContent(Long contentId) {
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if(contentRepository.findById(contentId) != null){</span>
+<span class="fc" id="L94">            contentRepository.deleteById(contentId);</span>
+<span class="fc" id="L95">            log.info(&quot;Content with id {} successfully deleted&quot;, contentId);</span>
+        }else{
+<span class="nc" id="L97">            log.info(&quot;Content with id {} not found&quot;, contentId);</span>
+<span class="nc" id="L98">            throw new IllegalStateException(&quot;Content not Found&quot;);</span>
+        }
+<span class="fc" id="L100">    }</span>
+
+    @Override
+    public void createContentDto(ContentDtoPost contentDtoPost) {
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if(contentRepository.findByTitle(contentDtoPost.getTitle()) == null){</span>
+<span class="fc" id="L105">            ContentEntity contentEntity = new ContentEntity();</span>
+<span class="fc" id="L106">            contentEntity.setTitle(contentDtoPost.getTitle());</span>
+<span class="fc" id="L107">            contentEntity.setDescription(contentDtoPost.getDescription());</span>
+<span class="fc" id="L108">            contentEntity.setImageUrl(contentDtoPost.getImageUrl());</span>
+<span class="fc" id="L109">            contentEntity.setVideoUrl(contentDtoPost.getVideoUrl());</span>
+
+<span class="fc" id="L111">            contentRepository.save(contentEntity);</span>
+<span class="fc" id="L112">            log.info(&quot;Content created&quot;);</span>
+<span class="fc" id="L113">        }else{</span>
+<span class="nc" id="L114">            log.info(&quot;Content with Title {} already exist&quot;, contentDtoPost.getTitle());</span>
+<span class="nc" id="L115">            throw new IllegalStateException(&quot;Content already Exist&quot;);</span>
+        }
+<span class="fc" id="L117">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -7,7 +7,6 @@ import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.RoleToUser;
 import com.capstone.kelompok10.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,17 +34,17 @@ public class UserController {
         }  
     }
 
-    @GetMapping("/adminAccess/getAllUser/{offset}/{pageSize}")
-    public ResponseEntity<Page<UserEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
-        Page<UserEntity> users = userService.findAllPagination(offset, pageSize);
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
+    // @GetMapping("/adminAccess/getAllUser/{offset}/{pageSize}")
+    // public ResponseEntity<Page<UserEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+    //     Page<UserEntity> users = userService.findAllPagination(offset, pageSize);
+    //     return new ResponseEntity<>(users, HttpStatus.OK);
+    // }
 
-    @GetMapping("/adminAccess/getAllUser/{offset}/{pageSize}/{field}")
-    public ResponseEntity<Page<UserEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
-        Page<UserEntity> users = userService.findAllPaginationSort(offset, pageSize, field);
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
+    // @GetMapping("/adminAccess/getAllUser/{offset}/{pageSize}/{field}")
+    // public ResponseEntity<Page<UserEntity>> findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+    //     Page<UserEntity> users = userService.findAllPaginationSort(offset, pageSize, field);
+    //     return new ResponseEntity<>(users, HttpStatus.OK);
+    // }
 
     @GetMapping("/userAccess/findAllRoleUser")
     public ResponseEntity<List<UserEntity>> findAllRoleUser(@RequestParam(required = false) String keyword){

@@ -3,9 +3,6 @@ package com.capstone.kelompok10.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.NewsletterDtoGet;
@@ -31,19 +28,19 @@ public class NewsletterServiceImpl implements NewsletterService {
         return newsletter;
     }
     
-    @Override
-    public Page<NewsletterEntity> findAllPagination(int offset, int pageSize) {
-        log.info("Get all Newsletter with Pagination");
-        Page<NewsletterEntity> newsletter = newsletterRepository.findAll(PageRequest.of(offset, pageSize));
-        return newsletter;
-    }
+    // @Override
+    // public Page<NewsletterEntity> findAllPagination(int offset, int pageSize) {
+    //     log.info("Get all Newsletter with Pagination");
+    //     Page<NewsletterEntity> newsletter = newsletterRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return newsletter;
+    // }
 
-    @Override
-    public Page<NewsletterEntity> findAllPaginationSort(int offset, int pageSize, String field){
-        log.info("Get all Newsletter with Pagination and Sorting");
-        Page<NewsletterEntity> newsletter = newsletterRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return newsletter;
-    }
+    // @Override
+    // public Page<NewsletterEntity> findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info("Get all Newsletter with Pagination and Sorting");
+    //     Page<NewsletterEntity> newsletter = newsletterRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return newsletter;
+    // }
 
     @Override
     public List<NewsletterDtoGet> findAllDto() {

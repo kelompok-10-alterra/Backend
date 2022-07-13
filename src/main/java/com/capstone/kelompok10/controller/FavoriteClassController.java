@@ -34,18 +34,18 @@ public class FavoriteClassController {
         return new ResponseEntity<>(favoriteClass, HttpStatus.OK);
     }
 
-    @GetMapping("/userAcess/getFavoriteClassById")
+    @GetMapping("/userAccess/getFavoriteClassById")
     public ResponseEntity<FavoriteClassEntity> getFavoriteClassById(@RequestParam("favoriteClassId") Long favoriteClassId){
         return new ResponseEntity<>(favoriteClassService.getFavoriteClassById(favoriteClassId), HttpStatus.OK);
     }
 
-    @PostMapping("/userAcess/createNewFavoriteClass")
+    @PostMapping("/userAccess/createNewFavoriteClass")
     public ResponseEntity<FavoriteClassDtoPost> createFavoriteClassDto(@RequestBody FavoriteClassDtoPost favoriteClassDtoPost){
         favoriteClassService.createFavoriteClassDto(favoriteClassDtoPost);
         return new ResponseEntity<>(favoriteClassDtoPost, HttpStatus.OK);
     }
 
-    @DeleteMapping("/adminAccess/deleteFavoriteClass/{favoriteClassId}")
+    @DeleteMapping("/userAccess/deleteFavoriteClass/{favoriteClassId}")
     public ResponseEntity<FavoriteClassEntity> deleteFavoriteClass(@PathVariable("favoriteClassId") Long favoriteClassId){
         favoriteClassService.deleteFavoriteClass(favoriteClassId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
