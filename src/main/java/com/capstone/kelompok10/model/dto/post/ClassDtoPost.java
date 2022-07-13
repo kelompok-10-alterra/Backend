@@ -27,4 +27,6 @@ public class ClassDtoPost {
     private Long categoryId;
     private Long roomId;
     private Long typeId;
+    private String videoUrl;
+    private String meetUrl;
 }

@@ -88,6 +88,8 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
+            dto.setVideoUrl(isi.getVideoUrl());
+            dto.setMeetUrl(isi.getMeetUrl());
 
             classDtos.add(dto);
         });
@@ -123,6 +125,8 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
+            dto.setVideoUrl(isi.getVideoUrl());
+            dto.setMeetUrl(isi.getMeetUrl());
 
             classDtos.add(dto);
         });
@@ -200,6 +204,8 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
+            dto.setVideoUrl(isi.getVideoUrl());
+            dto.setMeetUrl(isi.getMeetUrl());
 
             return dto;
         }
@@ -252,6 +258,8 @@ public class ClassServiceImpl implements ClassService {
                     class2.setRoom(roomEntity);
                     class2.setType(typeEntity);
                     class2.setTypeName(type2.getName());
+                    class2.setVideoUrl(classesDtoPost.getVideoUrl());
+                    class2.setMeetUrl(classesDtoPost.getMeetUrl());
                     
                     classRepository.save(class2);
                     log.info("Class updated");
@@ -305,6 +313,9 @@ public class ClassServiceImpl implements ClassService {
                 classEntity.setRoom(roomEntity);
                 classEntity.setType(typeEntity);
                 classEntity.setTypeName(type2.getName());
+                classEntity.setVideoUrl(classDtoPost.getVideoUrl());
+                classEntity.setMeetUrl(classDtoPost.getMeetUrl());
+                
 
                 classRepository.save(classEntity);
                 log.info("Class created");
@@ -405,6 +416,8 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
+            dto.setVideoUrl(isi.getVideoUrl());
+            dto.setMeetUrl(isi.getMeetUrl());
 
             classDtos.add(dto);
         });
@@ -439,6 +452,8 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
+            dto.setVideoUrl(isi.getVideoUrl());
+            dto.setMeetUrl(isi.getMeetUrl());
 
             classDtos.add(dto);
         });
