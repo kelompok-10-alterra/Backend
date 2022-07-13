@@ -1,12 +1,12 @@
 package com.capstone.kelompok10.service.implementation;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
+// import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
 import com.capstone.kelompok10.model.dto.post.MemberDtoPost;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.repository.MemberRepository;
@@ -27,22 +27,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberDtoGet> findAll() {
+    public List<MemberEntity> findAll() {
         List<MemberEntity> members = memberRepository.findAll();
-        List<MemberDtoGet> memberDtos = new ArrayList<>();
-        
-        members.forEach(isi ->{
-            MemberDtoGet dto = new MemberDtoGet();
-            dto.setMemberId(isi.getMemberId());
-            dto.setName(isi.getName());
-            dto.setPeriod(isi.getPeriod());
-            dto.setPrice(isi.getPrice());
-            dto.setCreatedAt(isi.getCreated_at().toString());
-            dto.setUpdatedAt(isi.getUpdated_at().toString());
-
-            memberDtos.add(dto);
-        });
-        return memberDtos;
+        return members;
     }
     
     // @Override
@@ -137,5 +124,11 @@ public class MemberServiceImpl implements MemberService {
         }else{
             return true;
         }
+    }
+
+    @Override
+    public void createMember(MemberEntity memberEntity) {
+        memberRepository.save(memberEntity);
+        
     }
 }

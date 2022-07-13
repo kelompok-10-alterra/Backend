@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+// import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.PathVariable;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.PutMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
-import com.capstone.kelompok10.model.dto.post.CategoryDtoPost;
+// import com.capstone.kelompok10.model.dto.get.CategoryDtoGet;
+// import com.capstone.kelompok10.model.dto.post.CategoryDtoPost;
 import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
 
@@ -31,8 +31,8 @@ public class CategoryController {
     }
 
     @GetMapping("/userAccess/getAllCategory")
-    public ResponseEntity<List<CategoryDtoGet>> findAll(){
-        List<CategoryDtoGet> categorys = categoryService.findAll();
+    public ResponseEntity<List<CategoryEntity>> findAll(){
+        List<CategoryEntity> categorys = categoryService.findAll();
         return new ResponseEntity<>(categorys, HttpStatus.OK);
     }
 
@@ -59,21 +59,21 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getCategoryById(categoryId), HttpStatus.OK);
     }
 
-    @PostMapping("/adminAccess/createNewCategory")
-    public ResponseEntity<CategoryDtoPost> createCategoryDto(@RequestBody CategoryDtoPost categoryDtoPost){
-        categoryService.createCategoryDto(categoryDtoPost);
-        return new ResponseEntity<>(categoryDtoPost, HttpStatus.OK);
-    }
+    // @PostMapping("/adminAccess/createNewCategory")
+    // public ResponseEntity<CategoryDtoPost> createCategoryDto(@RequestBody CategoryDtoPost categoryDtoPost){
+    //     categoryService.createCategoryDto(categoryDtoPost);
+    //     return new ResponseEntity<>(categoryDtoPost, HttpStatus.OK);
+    // }
 
-    @PutMapping("/adminAccess/updateCategory/{categoryId}")
-    public ResponseEntity<CategoryEntity> updateCategory(@PathVariable("categoryId") Long categoryId, @RequestBody CategoryDtoPost categoryDtoPost){
-        categoryService.updateCategory(categoryId, categoryDtoPost);
-        return new ResponseEntity<>(categoryService.getCategoryById(categoryId), HttpStatus.OK);
-    }
+    // @PutMapping("/adminAccess/updateCategory/{categoryId}")
+    // public ResponseEntity<CategoryEntity> updateCategory(@PathVariable("categoryId") Long categoryId, @RequestBody CategoryDtoPost categoryDtoPost){
+    //     categoryService.updateCategory(categoryId, categoryDtoPost);
+    //     return new ResponseEntity<>(categoryService.getCategoryById(categoryId), HttpStatus.OK);
+    // }
 
-    @DeleteMapping("/adminAccess/deleteCategory/{categoryId}")
-    public ResponseEntity<CategoryEntity> deleteCategory(@PathVariable("categoryId") Long categoryId){
-        categoryService.deleteCategory(categoryId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    // @DeleteMapping("/adminAccess/deleteCategory/{categoryId}")
+    // public ResponseEntity<CategoryEntity> deleteCategory(@PathVariable("categoryId") Long categoryId){
+    //     categoryService.deleteCategory(categoryId);
+    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    // }
 }

@@ -14,31 +14,32 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="pc bpc" id="L22" title="39 of 54 branches missed.">@Data</span>
+<span class="pc bpc" id="L23" title="33 of 46 branches missed.">@Data</span>
 @Entity
-<span class="fc" id="L24">@NoArgsConstructor</span>
-<span class="nc" id="L25">@AllArgsConstructor</span>
+<span class="fc" id="L25">@NoArgsConstructor</span>
+<span class="fc" id="L26">@AllArgsConstructor</span>
 public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L29">    private Long categoryId;</span>
-<span class="fc" id="L30">    private String name;</span>
-<span class="fc" id="L31">    private String imageUrl;</span>
+<span class="fc" id="L30">    private Long categoryId;</span>
+<span class="fc" id="L31">    private String name;</span>
 
     // @JsonIgnore
     @OneToMany(mappedBy = &quot;category&quot;, orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-<span class="fc" id="L35">    private List&lt;ClassEntity&gt; classes;</span>
+    @JsonManagedReference
+<span class="fc" id="L36">    private List&lt;ClassEntity&gt; classes;</span>
 
     @CreationTimestamp
-<span class="fc" id="L38">    private Instant created_at;</span>
+<span class="fc" id="L39">    private Instant created_at;</span>
 
     @UpdateTimestamp
-<span class="fc" id="L41">    private Instant updated_at;</span>
+<span class="fc" id="L42">    private Instant updated_at;</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

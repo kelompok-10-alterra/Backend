@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="pc bpc" id="L21" title="33 of 46 branches missed.">@Data</span>
+<span class="pc bpc" id="L21" title="45 of 54 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L23">@NoArgsConstructor</span>
 <span class="nc" id="L24">@AllArgsConstructor</span>
@@ -27,15 +27,16 @@ public class TypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 <span class="fc" id="L28">    private Long typeId;</span>
 <span class="fc" id="L29">    private String name;</span>
+<span class="fc" id="L30">    private String imageUrl;</span>
     
     // @JsonIgnore
     @OneToMany(mappedBy = &quot;type&quot;, orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-<span class="fc" id="L33">    private List&lt;ClassEntity&gt; classes;</span>
+<span class="fc" id="L34">    private List&lt;ClassEntity&gt; classes;</span>
 
     @CreationTimestamp
-<span class="fc" id="L36">    private Instant created_at;</span>
+<span class="fc" id="L37">    private Instant created_at;</span>
 
     @UpdateTimestamp
-<span class="fc" id="L39">    private Instant updated_at;</span>
+<span class="fc" id="L40">    private Instant updated_at;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -30,6 +30,7 @@ public class TypeServiceImpl implements TypeService {
             TypeDtoGet dto = new TypeDtoGet();
             dto.setTypeId(isi.getTypeId());
             dto.setName(isi.getName());
+            dto.setImageUrl(isi.getImageUrl());
             dto.setCreatedAt(isi.getCreated_at().toString());
             dto.setUpdatedAt(isi.getUpdated_at().toString());
 
@@ -84,6 +85,7 @@ public class TypeServiceImpl implements TypeService {
         if(typeRepository.findById(typeId) != null){
             TypeEntity type2 = typeRepository.findById(typeId).get();
             type2.setName(typeDtoPost.getName());
+            type2.setImageUrl(typeDtoPost.getImageUrl());
 
             typeRepository.save(type2);
             log.info("Type updated");
@@ -109,6 +111,7 @@ public class TypeServiceImpl implements TypeService {
         if(typeRepository.findByName(typeDtoPost.getName()) == null){
             TypeEntity typeEntity = new TypeEntity();
             typeEntity.setName(typeDtoPost.getName());
+            typeEntity.setImageUrl(typeDtoPost.getImageUrl());
 
             typeRepository.save(typeEntity);
             log.info("Type created");

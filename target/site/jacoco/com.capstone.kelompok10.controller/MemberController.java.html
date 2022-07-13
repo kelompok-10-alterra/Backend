@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+// import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.PathVariable;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.PutMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
-import com.capstone.kelompok10.model.dto.post.MemberDtoPost;
+// import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
+// import com.capstone.kelompok10.model.dto.post.MemberDtoPost;
 import com.capstone.kelompok10.model.entity.MemberEntity;
 import com.capstone.kelompok10.service.interfaces.MemberService;
 
@@ -31,8 +31,8 @@ public class MemberController {
 <span class="fc" id="L31">    }</span>
 
     @GetMapping(&quot;/userAccess/getAllMember&quot;)
-    public ResponseEntity&lt;List&lt;MemberDtoGet&gt;&gt; findAll(){
-<span class="nc" id="L35">        List&lt;MemberDtoGet&gt; members = memberService.findAll();</span>
+    public ResponseEntity&lt;List&lt;MemberEntity&gt;&gt; findAll(){
+<span class="nc" id="L35">        List&lt;MemberEntity&gt; members = memberService.findAll();</span>
 <span class="nc" id="L36">        return new ResponseEntity&lt;&gt;(members, HttpStatus.OK);</span>
     }
 
@@ -59,22 +59,22 @@ public class MemberController {
 <span class="nc" id="L59">        return new ResponseEntity&lt;&gt;(memberService.getMemberById(memberId), HttpStatus.OK);</span>
     }
 
-    @PostMapping(&quot;/adminAccess/createNewMember&quot;)
-    public ResponseEntity&lt;MemberDtoPost&gt; createMemberDto(@RequestBody MemberDtoPost memberDtoPost){
-<span class="nc" id="L64">        memberService.createMemberDto(memberDtoPost);</span>
-<span class="nc" id="L65">        return new ResponseEntity&lt;&gt;(memberDtoPost, HttpStatus.OK);</span>
-    }
+    // @PostMapping(&quot;/adminAccess/createNewMember&quot;)
+    // public ResponseEntity&lt;MemberDtoPost&gt; createMemberDto(@RequestBody MemberDtoPost memberDtoPost){
+    //     memberService.createMemberDto(memberDtoPost);
+    //     return new ResponseEntity&lt;&gt;(memberDtoPost, HttpStatus.OK);
+    // }
 
-    @PutMapping(&quot;/adminAccess/updateMember/{memberId}&quot;)
-    public ResponseEntity&lt;MemberEntity&gt; updateMember(@PathVariable(&quot;memberId&quot;) Long memberId, @RequestBody MemberDtoPost memberDtoPost){
-<span class="nc" id="L70">        memberService.updateMember(memberId, memberDtoPost);</span>
-<span class="nc" id="L71">        return new ResponseEntity&lt;&gt;(memberService.getMemberById(memberId), HttpStatus.OK);</span>
-    }
+    // @PutMapping(&quot;/adminAccess/updateMember/{memberId}&quot;)
+    // public ResponseEntity&lt;MemberEntity&gt; updateMember(@PathVariable(&quot;memberId&quot;) Long memberId, @RequestBody MemberDtoPost memberDtoPost){
+    //     memberService.updateMember(memberId, memberDtoPost);
+    //     return new ResponseEntity&lt;&gt;(memberService.getMemberById(memberId), HttpStatus.OK);
+    // }
 
-    @DeleteMapping(&quot;/adminAccess/deleteMember/{memberId}&quot;)
-    public ResponseEntity&lt;MemberEntity&gt; deleteMember(@PathVariable(&quot;memberId&quot;) Long memberId){
-<span class="nc" id="L76">        memberService.deleteMember(memberId);</span>
-<span class="nc" id="L77">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
-    }
+    // @DeleteMapping(&quot;/adminAccess/deleteMember/{memberId}&quot;)
+    // public ResponseEntity&lt;MemberEntity&gt; deleteMember(@PathVariable(&quot;memberId&quot;) Long memberId){
+    //     memberService.deleteMember(memberId);
+    //     return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);
+    // }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,4 +1,24 @@
 -------------------------------------------------------------------------------
 Test set: com.capstone.kelompok10.service.TypeServiceTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.368 s - in com.capstone.kelompok10.service.TypeServiceTest
+Tests run: 6, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.471 s <<< FAILURE! - in com.capstone.kelompok10.service.TypeServiceTest
+createTypeDto  Time elapsed: 0.034 s  <<< FAILURE!
+org.mockito.exceptions.verification.opentest4j.ArgumentsAreDifferent: 
+
+Argument(s) are different! Wanted:
+repository.save(
+    TypeEntity(typeId=null, name=eOMtThyhVNLWUZNRcBaQKxI, imageUrl=null, classes=null, created_at=null, updated_at=null)
+);
+-> at com.capstone.kelompok10.service.TypeServiceTest.createTypeDto(TypeServiceTest.java:74)
+Actual invocations have different arguments:
+repository.findByName(
+    "eOMtThyhVNLWUZNRcBaQKxI"
+);
+-> at com.capstone.kelompok10.service.implementation.TypeServiceImpl.createTypeDto(TypeServiceImpl.java:111)
+repository.save(
+    TypeEntity(typeId=null, name=eOMtThyhVNLWUZNRcBaQKxI, imageUrl=yedUsFwdkelQbxeTeQOvaScfqIOOmaa, classes=null, created_at=null, updated_at=null)
+);
+-> at com.capstone.kelompok10.service.implementation.TypeServiceImpl.createTypeDto(TypeServiceImpl.java:116)
+
+	at com.capstone.kelompok10.service.TypeServiceTest.createTypeDto(TypeServiceTest.java:74)
+
