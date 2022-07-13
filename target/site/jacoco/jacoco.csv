@@ -44,7 +44,7 @@ kelompok10,com.capstone.kelompok10.service.implementation,UserServiceImpl,319,47
 kelompok10,com.capstone.kelompok10.service.implementation,RoleServiceImpl,68,126,4,4,18,32,6,9,2,9
 kelompok10,com.capstone.kelompok10.service.implementation,HistoryServiceImpl,9,35,1,1,2,8,1,4,0,4
 kelompok10,com.capstone.kelompok10.service.implementation,BookingServiceImpl,582,323,32,4,125,66,24,9,6,9
-kelompok10,com.capstone.kelompok10,Kelompok10Application.new WebMvcConfigurer() {...},0,44,0,0,0,3,0,2,0,2
+kelompok10,com.capstone.kelompok10,Kelompok10Application.new WebMvcConfigurer() {...},0,48,0,0,0,3,0,2,0,2
 kelompok10,com.capstone.kelompok10,Kelompok10Application,5,243,0,0,2,16,1,5,1,5
 kelompok10,com.capstone.kelompok10.model.payload,ForgotPassword,75,0,14,0,2,0,14,0,7,0
 kelompok10,com.capstone.kelompok10.model.payload,UserIdentity,275,0,54,0,7,0,44,0,17,0
