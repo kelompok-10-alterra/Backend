@@ -37,4 +37,6 @@ public class ClassDtoGet {
     private Long roomId;
     private String roomName;
     private Long rating;
+    private String videoUrl;
+    private String meetUrl;
 }

@@ -110,6 +110,8 @@ public class ClassServiceTest {
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
+            dto.setVideoUrl(isi.getVideoUrl());
+            dto.setMeetUrl(isi.getMeetUrl());
 
             class2.add(dto);
         });
@@ -144,6 +146,8 @@ public class ClassServiceTest {
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
+            dto.setVideoUrl(isi.getVideoUrl());
+            dto.setMeetUrl(isi.getMeetUrl());
             // dto.setRating(classRating(isi.getClassId()));
 
         when(repository.findById(isi.getClassId())).thenReturn(Optional.of(isi));
@@ -176,6 +180,8 @@ public class ClassServiceTest {
             dto.setCategoryName(isi.getCategory().getName());
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
+            dto.setVideoUrl(isi.getVideoUrl());
+            dto.setMeetUrl(isi.getMeetUrl());
             // dto.setRating(classRating(isi.getClassId()));
 
         when(repository.findById(isi.getClassId())).thenReturn(Optional.of(isi));
