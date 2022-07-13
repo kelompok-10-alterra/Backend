@@ -69,6 +69,7 @@ public class CategoryServiceTest {
         CategoryEntity categoryEntity = new CategoryEntity();
         CategoryDtoPost categoryDtoPost = EASY_RANDOM.nextObject(CategoryDtoPost.class);
         categoryEntity.setName(categoryDtoPost.getName());
+        categoryEntity.setImageUrl(categoryDtoPost.getImageUrl());
 
         service.createCategoryDto(categoryDtoPost);
         verify(repository).save(categoryEntity);
