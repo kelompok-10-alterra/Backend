@@ -1,29 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-<<<<<<< HEAD
-  name: gymapi-deployment
-  labels:
-    app: gymapi
-=======
   name: gymapi-be
   labels:
     app: gymapi-be
->>>>>>> 22812d7a3b70dc4fb25e0f4998e18529111b806f
 spec:
   replicas: 1
   selector:
     matchLabels:
-<<<<<<< HEAD
-      app: gymapi
-  template:
-    metadata:
-      labels:
-        app: gymapi 
-    spec:
-      containers:
-      - name: gymapi
-=======
       app: gymapi-be
   template:
     metadata:
@@ -32,7 +16,6 @@ spec:
     spec:
       containers:
       - name: gymapi-be
->>>>>>> 22812d7a3b70dc4fb25e0f4998e18529111b806f
         image: rafdev0904/gym:latest
         ports:
         - containerPort: 8081
@@ -51,18 +34,10 @@ metadata:
   name: gymapi-svc
 spec:
   selector:
-<<<<<<< HEAD
-    app: gymapi
-=======
     app: gymapi-be
->>>>>>> 22812d7a3b70dc4fb25e0f4998e18529111b806f
   type: LoadBalancer
   ports:
   - protocol: TCP
     port: 80
     targetPort: 8081
-<<<<<<< HEAD
     nodePort: 31112
-=======
-    nodePort: 31112
->>>>>>> 22812d7a3b70dc4fb25e0f4998e18529111b806f
