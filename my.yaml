@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gymapi
+  name: gymapi-be
   labels:
-    app: gymapi
+    app: gymapi-be
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gymapi
+      app: gymapi-be
   template:
     metadata:
       labels:
-        app: gymapi 
+        app: gymapi-be 
     spec:
       containers:
-      - name: gymapi
+      - name: gymapi-be
         image: rafdev0904/gym:latest
         ports:
         - containerPort: 8081
@@ -34,7 +34,7 @@ metadata:
   name: gymapi-svc
 spec:
   selector:
-    app: gymapi
+    app: gymapi-be
   type: LoadBalancer
   ports:
   - protocol: TCP
