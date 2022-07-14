@@ -7,7 +7,6 @@ com\capstone\kelompok10\service\ClassServiceTest.class
 com\capstone\kelompok10\controller\NewsletterControllerTest.class
 com\capstone\kelompok10\service\MembershipServiceTest.class
 com\capstone\kelompok10\controller\MembershipControllerTest.class
-com\capstone\kelompok10\controller\RoleControllerTest.class
 com\capstone\kelompok10\service\TypeServiceTest.class
 com\capstone\kelompok10\controller\PaymentControllerTest.class
 com\capstone\kelompok10\controller\InstructorControllerTest.class

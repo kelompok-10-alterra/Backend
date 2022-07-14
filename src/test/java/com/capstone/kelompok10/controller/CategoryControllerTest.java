@@ -68,19 +68,19 @@
 //         assertEquals(200, response.getResponse().getStatus());
 //     }
 
-//     @Test
-//     @DisplayName("Post Category Without Data")
-//     public void postCategoryNoData() throws Exception{
-//         RequestBuilder requestBuilder = MockMvcRequestBuilders
-//         .post("/capstone/category/adminAccess/createNewCategory")
-//         .contentType(MediaType.APPLICATION_JSON)
-//         .accept(MediaType.APPLICATION_JSON);
+//     // @Test
+//     // @DisplayName("Post Category Without Data")
+//     // public void postCategoryNoData() throws Exception{
+//     //     RequestBuilder requestBuilder = MockMvcRequestBuilders
+//     //     .post("/capstone/category/adminAccess/createNewCategory")
+//     //     .contentType(MediaType.APPLICATION_JSON)
+//     //     .accept(MediaType.APPLICATION_JSON);
 
-//         MvcResult response = mockMvc
-//         .perform(requestBuilder)
-//         .andReturn();
-//         assertEquals(400, response.getResponse().getStatus());
-//     }
+//     //     MvcResult response = mockMvc
+//     //     .perform(requestBuilder)
+//     //     .andReturn();
+//     //     assertEquals(400, response.getResponse().getStatus());
+//     // }
 
 //     // @Test
 //     // @DisplayName("Post Category With Data")
