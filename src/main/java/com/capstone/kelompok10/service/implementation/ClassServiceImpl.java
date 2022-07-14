@@ -249,7 +249,6 @@ public class ClassServiceImpl implements ClassService {
             if(instructorService.instructorExist(classesDtoPost.getInstructorId()) == true && categoryService.categoryExist(classesDtoPost.getCategoryId()) == true &&
                 roomService.roomExist(classesDtoPost.getRoomId()) == true && typeService.typeExist(classesDtoPost.getTypeId()) == true){
                     TypeEntity type2 = typeRepository.findById(classesDtoPost.getTypeId()).get();
-                    CategoryEntity category2 = categoryRepository.findById(classesDtoPost.getCategoryId()).get();
                     class2.setStatus(classesDtoPost.getStatus());
                     class2.setName(classesDtoPost.getName());
                     class2.setDescription(classesDtoPost.getDescription());
@@ -263,7 +262,6 @@ public class ClassServiceImpl implements ClassService {
                     class2.setRoom(roomEntity);
                     class2.setType(typeEntity);
                     class2.setTypeName(type2.getName());
-                    class2.setCategoryName(category2.getName());
                     class2.setVideoUrl(classesDtoPost.getVideoUrl());
                     class2.setMeetUrl(classesDtoPost.getMeetUrl());
                     
@@ -305,7 +303,6 @@ public class ClassServiceImpl implements ClassService {
         if(instructorService.instructorExist(classDtoPost.getInstructorId()) == true && categoryService.categoryExist(classDtoPost.getCategoryId()) == true &&
             roomService.roomExist(classDtoPost.getRoomId()) == true && typeService.typeExist(classDtoPost.getTypeId()) == true){
                 TypeEntity type2 = typeRepository.findById(classDtoPost.getTypeId()).get();
-                CategoryEntity category2 = categoryRepository.findById(classDtoPost.getCategoryId()).get();
                 classEntity.setStatus(classDtoPost.getStatus());
                 classEntity.setName(classDtoPost.getName());
                 classEntity.setDescription(classDtoPost.getDescription());
@@ -320,7 +317,6 @@ public class ClassServiceImpl implements ClassService {
                 classEntity.setRoom(roomEntity);
                 classEntity.setType(typeEntity);
                 classEntity.setTypeName(type2.getName());
-                classEntity.setCategoryName(category2.getName());
                 classEntity.setVideoUrl(classDtoPost.getVideoUrl());
                 classEntity.setMeetUrl(classDtoPost.getMeetUrl());
                 
