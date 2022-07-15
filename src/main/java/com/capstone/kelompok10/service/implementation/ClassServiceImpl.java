@@ -13,6 +13,7 @@ import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.model.entity.TypeEntity;
 import com.capstone.kelompok10.model.payload.GetUserByClass;
 import com.capstone.kelompok10.repository.BookingRepository;
+import com.capstone.kelompok10.repository.CategoryRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.repository.TypeRepository;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
@@ -35,6 +36,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ClassServiceImpl implements ClassService {
     ClassRepository classRepository;
+
+    @Autowired
+    public CategoryRepository categoryRepository;
     
     @Autowired
     public BookingRepository bookingRepository;
