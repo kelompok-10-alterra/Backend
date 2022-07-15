@@ -332,10 +332,8 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public void classBooked(Long classId) {
         ClassEntity class2 = classRepository.findById(classId).get();
-        Long capacity = class2.getCapacity();
-        Long booked = class2.getBooked();
-        class2.setCapacity(capacity - 1);
-        class2.setBooked(booked + 1);
+        class2.setCapacity(class2.getCapacity() - 1);
+        class2.setBooked(class2.getBooked() + 1);
         classRepository.save(class2);
     }
 
@@ -362,9 +360,14 @@ public class ClassServiceImpl implements ClassService {
         ClassEntity class2 = classRepository.findById(classId).get();
         Long capacity = class2.getCapacity();
         Long booked = class2.getBooked();
-        class2.setCapacity(capacity + 1);
-        class2.setBooked(booked - 1);
-        classRepository.save(class2);
+        if(class2.getBooked() > 0 ){
+            class2.setCapacity(capacity + 1);
+            class2.setBooked(booked - 1);
+            classRepository.save(class2);
+        }else{
+            throw new IllegalStateException("Booked Can't Be below zero");
+        }
+
     }
 
     @Override
