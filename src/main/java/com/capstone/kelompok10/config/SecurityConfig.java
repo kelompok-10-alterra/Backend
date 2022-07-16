@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/capstone/category/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/member/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/room/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
-        http.authorizeRequests().antMatchers("/capstone/booking/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
+        http.authorizeRequests().antMatchers("/capstone/booking/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN", "ROLE_USER");
         http.authorizeRequests().antMatchers("/capstone/class/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/instructor/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/membership/adminAccess/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN");
