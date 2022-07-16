@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RegisterServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kelompok10</a> &gt; <a href="index.source.html" class="el_package">com.capstone.kelompok10.service.implementation</a> &gt; <span class="el_source">RegisterServiceImpl.java</span></div><h1>RegisterServiceImpl.java</h1><pre class="source lang-java linenums">package com.capstone.kelompok10.service.implementation;
+
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.capstone.kelompok10.model.entity.CartEntity;
+import com.capstone.kelompok10.model.entity.FavoriteEntity;
+import com.capstone.kelompok10.model.entity.HistoryEntity;
+import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.model.payload.ResendToken;
+import com.capstone.kelompok10.model.payload.ForgotPassword;
+import com.capstone.kelompok10.model.payload.RegistrationRequest;
+import com.capstone.kelompok10.repository.UserRepository;
+import com.capstone.kelompok10.service.email.EmailSenderService;
+import com.capstone.kelompok10.service.email.EmailValidatorService;
+import com.capstone.kelompok10.service.email.PhonePasswordValidator;
+import com.capstone.kelompok10.service.interfaces.RegisterService;
+import com.capstone.kelompok10.service.interfaces.RoleService;
+import com.capstone.kelompok10.service.interfaces.UserService;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+<span class="fc" id="L29">@Log4j2</span>
+@Service
+<span class="fc" id="L31">@AllArgsConstructor</span>
+@Transactional
+public class RegisterServiceImpl implements RegisterService {
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    EmailValidatorService emailValidatorService;
+
+    @Autowired
+    PhonePasswordValidator phonePasswordValidator;
+
+    @Autowired
+    RoleService roleService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    EmailSenderService emailSenderService;
+
+    @Autowired
+    PasswordEncoder crypt;
+
+    @Autowired
+    JavaMailSender javaMailSender;
+
+    @Override
+    public String register(RegistrationRequest request) {
+<span class="nc" id="L61">        UserEntity user = new UserEntity();</span>
+<span class="nc" id="L62">        boolean isValidEmail = emailValidatorService.test(request.getEmail());</span>
+<span class="nc bnc" id="L63" title="All 6 branches missed.">        if (isValidEmail &amp;&amp; userRepository.findByUsername(request.getUsername()) == null &amp;&amp; userRepository.findByEmail(request.getEmail()) == null){</span>
+<span class="nc bnc" id="L64" title="All 4 branches missed.">            if(phonePasswordValidator.phoneValidator(request.getPhone()) == true &amp;&amp; phonePasswordValidator.passwordValidator(request.getPassword()) == true){</span>
+<span class="nc" id="L65">                String token = UUID.randomUUID().toString();</span>
+<span class="nc" id="L66">                user.setUsername(request.getUsername());</span>
+<span class="nc" id="L67">                user.setPassword(crypt.encode(request.getPassword()));</span>
+<span class="nc" id="L68">                user.setName(request.getName());</span>
+<span class="nc" id="L69">                user.setEmail(request.getEmail());</span>
+<span class="nc" id="L70">                user.setPhone(request.getPhone());</span>
+<span class="nc" id="L71">                user.setAddress(request.getAddress());</span>
+<span class="nc" id="L72">                user.setToken(token);</span>
+<span class="nc" id="L73">                CartEntity cart = new CartEntity();</span>
+<span class="nc" id="L74">                cart.setUser(user);</span>
+<span class="nc" id="L75">                user.setCart(cart);</span>
+<span class="nc" id="L76">                FavoriteEntity favorite = new FavoriteEntity();</span>
+<span class="nc" id="L77">                favorite.setUser(user);</span>
+<span class="nc" id="L78">                user.setFavorite(favorite);</span>
+<span class="nc" id="L79">                HistoryEntity history = new HistoryEntity();</span>
+<span class="nc" id="L80">                history.setUser(user);</span>
+<span class="nc" id="L81">                user.setHistory(history);</span>
+                
+<span class="nc" id="L83">                userRepository.save(user);</span>
+<span class="nc" id="L84">                String link = &quot;https://www.api.rafdev.my.id/auth/confirmToken?token=&quot; + token;</span>
+<span class="nc" id="L85">                emailSenderService.sendEmail(request.getEmail(), buildEmail(request.getUsername(), link));</span>
+<span class="nc" id="L86">                return token;</span>
+            }else{
+<span class="nc" id="L88">                log.info(&quot;Phone or Password invalid&quot;);</span>
+<span class="nc" id="L89">                throw new IllegalStateException(&quot;Phone or Password invalid&quot;);</span>
+            }
+        } else {
+<span class="nc" id="L92">            throw new IllegalStateException(&quot;Email not valid or Email or Username already used&quot;);</span>
+        }
+    }
+
+
+    @Override
+    public String resendToken(ResendToken resendToken) {
+<span class="nc" id="L99">        UserEntity user = userRepository.findByEmail(resendToken.getEmail());</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (userRepository.findByEmail(resendToken.getEmail()) != null){</span>
+<span class="nc" id="L101">            user.setToken(null);</span>
+<span class="nc" id="L102">            userRepository.save(user);</span>
+
+<span class="nc" id="L104">            String token = UUID.randomUUID().toString();</span>
+<span class="nc" id="L105">            String username = user.getUsername().toString();</span>
+<span class="nc" id="L106">            String email = user.getEmail().toString();</span>
+<span class="nc" id="L107">            user.setEmail(email);</span>
+<span class="nc" id="L108">            user.setToken(token);</span>
+<span class="nc" id="L109">            userRepository.save(user);</span>
+<span class="nc" id="L110">            String link = &quot;https://www.api.rafdev.my.id/auth/confirmToken?token=&quot; + token;</span>
+<span class="nc" id="L111">            emailSenderService.sendEmail(resendToken.getEmail(), buildEmail(username, link));</span>
+<span class="nc" id="L112">            return token;</span>
+        } else {
+<span class="nc" id="L114">            throw new IllegalStateException(&quot;Email not found&quot;);</span>
+        }
+    }
+
+    @Override
+    public String resetPassword(ResendToken reset) {
+<span class="nc" id="L120">        UserEntity user = userRepository.findByEmail(reset.getEmail());</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (userRepository.findByEmail(reset.getEmail()) != null){</span>
+<span class="nc" id="L122">            user.setToken(null);</span>
+<span class="nc" id="L123">            userRepository.save(user);</span>
+
+<span class="nc" id="L125">            String token = UUID.randomUUID().toString();</span>
+<span class="nc" id="L126">            String username = user.getUsername().toString();</span>
+<span class="nc" id="L127">            String email = user.getEmail().toString();</span>
+<span class="nc" id="L128">            user.setEmail(email);</span>
+<span class="nc" id="L129">            user.setToken(token);</span>
+<span class="nc" id="L130">            userRepository.save(user);</span>
+<span class="nc" id="L131">            String link = &quot;https://www.api.rafdev.my.id/auth/resetPassword?token=&quot; + token;</span>
+<span class="nc" id="L132">            emailSenderService.sendEmail(reset.getEmail(), buildEmailReset(username, link));</span>
+<span class="nc" id="L133">            return token;</span>
+        } else {
+<span class="nc" id="L135">            throw new IllegalStateException(&quot;Email not found&quot;);</span>
+        }
+    }
+
+    @Override
+    public boolean confirmToken(String token) {
+<span class="nc" id="L141">        UserEntity user = userRepository.findByToken(token);</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if(user == null){</span>
+<span class="nc" id="L143">            return false;</span>
+        }else{
+<span class="nc" id="L145">            user.setToken(null);</span>
+<span class="nc" id="L146">            userRepository.save(user);</span>
+<span class="nc" id="L147">            userService.addRoleToUser(user.getUsername(), &quot;ROLE_USER&quot;);</span>
+        }
+<span class="nc" id="L149">        return true;</span>
+    }
+
+    @Override
+    public boolean forgotPassword(String token, ForgotPassword forgotPassword) {
+<span class="nc" id="L154">        UserEntity user = userRepository.findByToken(token);</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        if(user == null){</span>
+<span class="nc" id="L156">            return false;</span>
+        }else{
+<span class="nc" id="L158">            user.setToken(null);</span>
+<span class="nc" id="L159">            user.setPassword(crypt.encode(forgotPassword.getPassword()));</span>
+<span class="nc" id="L160">            userRepository.save(user);</span>
+        }
+<span class="nc" id="L162">        return true;</span>
+    }
+
+    @Override
+    public String buildEmailReset(String name, String link) {
+<span class="nc" id="L167">        return &quot;&lt;div style=\&quot;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\&quot;&gt;\n&quot; +</span>
+        &quot;\n&quot; +
+        &quot;&lt;span style=\&quot;display:none;font-size:1px;color:#fff;max-height:0\&quot;&gt;&lt;/span&gt;\n&quot; +
+        &quot;\n&quot; +
+        &quot;  &lt;table role=\&quot;presentation\&quot; width=\&quot;100%\&quot; style=\&quot;border-collapse:collapse;min-width:100%;width:100%!important\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot;&gt;\n&quot; +
+        &quot;    &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;100%\&quot; height=\&quot;53\&quot; bgcolor=\&quot;#0b0c0c\&quot;&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;        &lt;table role=\&quot;presentation\&quot; width=\&quot;100%\&quot; style=\&quot;border-collapse:collapse;max-width:580px\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; align=\&quot;center\&quot;&gt;\n&quot; +
+        &quot;          &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;            &lt;td width=\&quot;70\&quot; bgcolor=\&quot;#0b0c0c\&quot; valign=\&quot;middle\&quot;&gt;\n&quot; +
+        &quot;                &lt;table role=\&quot;presentation\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; style=\&quot;border-collapse:collapse\&quot;&gt;\n&quot; +
+        &quot;                  &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;                    &lt;td style=\&quot;padding-left:10px\&quot;&gt;\n&quot; +
+        &quot;                  \n&quot; +
+        &quot;                    &lt;/td&gt;\n&quot; +
+        &quot;                    &lt;td style=\&quot;font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\&quot;&gt;\n&quot; +
+        &quot;                      &lt;span style=\&quot;font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\&quot;&gt;Confirm your email&lt;/span&gt;\n&quot; +
+        &quot;                    &lt;/td&gt;\n&quot; +
+        &quot;                  &lt;/tr&gt;\n&quot; +
+        &quot;                &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;              &lt;/a&gt;\n&quot; +
+        &quot;            &lt;/td&gt;\n&quot; +
+        &quot;          &lt;/tr&gt;\n&quot; +
+        &quot;        &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;      &lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;  &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;  &lt;table role=\&quot;presentation\&quot; class=\&quot;m_-6186904992287805515content\&quot; align=\&quot;center\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; style=\&quot;border-collapse:collapse;max-width:580px;width:100%!important\&quot; width=\&quot;100%\&quot;&gt;\n&quot; +
+        &quot;    &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;10\&quot; height=\&quot;10\&quot; valign=\&quot;middle\&quot;&gt;&lt;/td&gt;\n&quot; +
+        &quot;      &lt;td&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;                &lt;table role=\&quot;presentation\&quot; width=\&quot;100%\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; style=\&quot;border-collapse:collapse\&quot;&gt;\n&quot; +
+        &quot;                  &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;                    &lt;td bgcolor=\&quot;#1D70B8\&quot; width=\&quot;100%\&quot; height=\&quot;10\&quot;&gt;&lt;/td&gt;\n&quot; +
+        &quot;                  &lt;/tr&gt;\n&quot; +
+        &quot;                &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;      &lt;/td&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;10\&quot; valign=\&quot;middle\&quot; height=\&quot;10\&quot;&gt;&lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;  &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;\n&quot; +
+        &quot;\n&quot; +
+        &quot;\n&quot; +
+        &quot;  &lt;table role=\&quot;presentation\&quot; class=\&quot;m_-6186904992287805515content\&quot; align=\&quot;center\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; style=\&quot;border-collapse:collapse;max-width:580px;width:100%!important\&quot; width=\&quot;100%\&quot;&gt;\n&quot; +
+        &quot;    &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;      &lt;td height=\&quot;30\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;    &lt;tr&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;10\&quot; valign=\&quot;middle\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
+        &quot;      &lt;td style=\&quot;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\&quot;&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;            &lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt;Hi &quot; + name + &quot;,&lt;/p&gt;&lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt; This is Email for Reset Password, if its not you just ignore this email, click the link below to reset your password : &lt;/p&gt;&lt;blockquote style=\&quot;Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\&quot;&gt;&lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt; &lt;a href=\&quot;&quot; + link + &quot;\&quot;&gt;Reset Password&lt;/a&gt; &lt;/p&gt;&lt;/blockquote&gt;\n CC : Capstone Kelompok 10 &lt;p&gt;Thank you&lt;/p&gt;&quot; +
+        &quot;        \n&quot; +
+        &quot;      &lt;/td&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;10\&quot; valign=\&quot;middle\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;    &lt;tr&gt;\n&quot; +
+        &quot;      &lt;td height=\&quot;30\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;  &lt;/tbody&gt;&lt;/table&gt;&lt;div class=\&quot;yj6qo\&quot;&gt;&lt;/div&gt;&lt;div class=\&quot;adL\&quot;&gt;\n&quot; +
+        &quot;\n&quot; +
+        &quot;&lt;/div&gt;&lt;/div&gt;&quot;;
+    }
+
+    @Override
+    public String buildEmail(String name, String link) {
+<span class="nc" id="L237">        return &quot;&lt;div style=\&quot;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\&quot;&gt;\n&quot; +</span>
+        &quot;\n&quot; +
+        &quot;&lt;span style=\&quot;display:none;font-size:1px;color:#fff;max-height:0\&quot;&gt;&lt;/span&gt;\n&quot; +
+        &quot;\n&quot; +
+        &quot;  &lt;table role=\&quot;presentation\&quot; width=\&quot;100%\&quot; style=\&quot;border-collapse:collapse;min-width:100%;width:100%!important\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot;&gt;\n&quot; +
+        &quot;    &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;100%\&quot; height=\&quot;53\&quot; bgcolor=\&quot;#0b0c0c\&quot;&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;        &lt;table role=\&quot;presentation\&quot; width=\&quot;100%\&quot; style=\&quot;border-collapse:collapse;max-width:580px\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; align=\&quot;center\&quot;&gt;\n&quot; +
+        &quot;          &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;            &lt;td width=\&quot;70\&quot; bgcolor=\&quot;#0b0c0c\&quot; valign=\&quot;middle\&quot;&gt;\n&quot; +
+        &quot;                &lt;table role=\&quot;presentation\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; style=\&quot;border-collapse:collapse\&quot;&gt;\n&quot; +
+        &quot;                  &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;                    &lt;td style=\&quot;padding-left:10px\&quot;&gt;\n&quot; +
+        &quot;                  \n&quot; +
+        &quot;                    &lt;/td&gt;\n&quot; +
+        &quot;                    &lt;td style=\&quot;font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\&quot;&gt;\n&quot; +
+        &quot;                      &lt;span style=\&quot;font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\&quot;&gt;Confirm your email&lt;/span&gt;\n&quot; +
+        &quot;                    &lt;/td&gt;\n&quot; +
+        &quot;                  &lt;/tr&gt;\n&quot; +
+        &quot;                &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;              &lt;/a&gt;\n&quot; +
+        &quot;            &lt;/td&gt;\n&quot; +
+        &quot;          &lt;/tr&gt;\n&quot; +
+        &quot;        &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;      &lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;  &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;  &lt;table role=\&quot;presentation\&quot; class=\&quot;m_-6186904992287805515content\&quot; align=\&quot;center\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; style=\&quot;border-collapse:collapse;max-width:580px;width:100%!important\&quot; width=\&quot;100%\&quot;&gt;\n&quot; +
+        &quot;    &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;10\&quot; height=\&quot;10\&quot; valign=\&quot;middle\&quot;&gt;&lt;/td&gt;\n&quot; +
+        &quot;      &lt;td&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;                &lt;table role=\&quot;presentation\&quot; width=\&quot;100%\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; style=\&quot;border-collapse:collapse\&quot;&gt;\n&quot; +
+        &quot;                  &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;                    &lt;td bgcolor=\&quot;#1D70B8\&quot; width=\&quot;100%\&quot; height=\&quot;10\&quot;&gt;&lt;/td&gt;\n&quot; +
+        &quot;                  &lt;/tr&gt;\n&quot; +
+        &quot;                &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;      &lt;/td&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;10\&quot; valign=\&quot;middle\&quot; height=\&quot;10\&quot;&gt;&lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;  &lt;/tbody&gt;&lt;/table&gt;\n&quot; +
+        &quot;\n&quot; +
+        &quot;\n&quot; +
+        &quot;\n&quot; +
+        &quot;  &lt;table role=\&quot;presentation\&quot; class=\&quot;m_-6186904992287805515content\&quot; align=\&quot;center\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; border=\&quot;0\&quot; style=\&quot;border-collapse:collapse;max-width:580px;width:100%!important\&quot; width=\&quot;100%\&quot;&gt;\n&quot; +
+        &quot;    &lt;tbody&gt;&lt;tr&gt;\n&quot; +
+        &quot;      &lt;td height=\&quot;30\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;    &lt;tr&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;10\&quot; valign=\&quot;middle\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
+        &quot;      &lt;td style=\&quot;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\&quot;&gt;\n&quot; +
+        &quot;        \n&quot; +
+        &quot;            &lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt;Hi &quot; + name + &quot;,&lt;/p&gt;&lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt; Thank you for registering. Please click on the below link to activate your account: &lt;/p&gt;&lt;blockquote style=\&quot;Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\&quot;&gt;&lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt; &lt;a href=\&quot;&quot; + link + &quot;\&quot;&gt;Activate Now&lt;/a&gt; &lt;/p&gt;&lt;/blockquote&gt;\n CC : Capstone Kelompok 10 &lt;p&gt;See you soon&lt;/p&gt;&quot; +
+        &quot;        \n&quot; +
+        &quot;      &lt;/td&gt;\n&quot; +
+        &quot;      &lt;td width=\&quot;10\&quot; valign=\&quot;middle\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;    &lt;tr&gt;\n&quot; +
+        &quot;      &lt;td height=\&quot;30\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
+        &quot;    &lt;/tr&gt;\n&quot; +
+        &quot;  &lt;/tbody&gt;&lt;/table&gt;&lt;div class=\&quot;yj6qo\&quot;&gt;&lt;/div&gt;&lt;div class=\&quot;adL\&quot;&gt;\n&quot; +
+        &quot;\n&quot; +
+        &quot;&lt;/div&gt;&lt;/div&gt;&quot;;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

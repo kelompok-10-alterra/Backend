@@ -69,6 +69,7 @@ public class TypeServiceTest {
         TypeEntity typeEntity = new TypeEntity();
         TypeDtoPost typeDtoPost = EASY_RANDOM.nextObject(TypeDtoPost.class);
         typeEntity.setName(typeDtoPost.getName());
+        typeEntity.setImageUrl(typeDtoPost.getImageUrl());
 
         service.createTypeDto(typeDtoPost);
         verify(repository).save(typeEntity);

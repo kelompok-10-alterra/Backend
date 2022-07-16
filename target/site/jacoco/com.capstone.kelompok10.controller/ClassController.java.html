@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClassController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kelompok10</a> &gt; <a href="index.source.html" class="el_package">com.capstone.kelompok10.controller</a> &gt; <span class="el_source">ClassController.java</span></div><h1>ClassController.java</h1><pre class="source lang-java linenums">package com.capstone.kelompok10.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
+import com.capstone.kelompok10.model.dto.post.ClassDtoPost;
+import com.capstone.kelompok10.model.entity.ClassEntity;
+import com.capstone.kelompok10.model.payload.GetUserByClass;
+import com.capstone.kelompok10.service.interfaces.ClassService;
+
+@RestController
+@RequestMapping(&quot;/capstone/class&quot;)
+public class ClassController {
+    ClassService classService;
+
+    @Autowired
+<span class="fc" id="L31">    public ClassController(ClassService classService){</span>
+<span class="fc" id="L32">        this.classService = classService;</span>
+<span class="fc" id="L33">    }</span>
+
+    @GetMapping(&quot;/userAccess/getAllClass&quot;)
+    public ResponseEntity&lt;List&lt;ClassDtoGet&gt;&gt; findAll(@RequestParam(required = false) String keyword){
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if(keyword == null){</span>
+<span class="nc" id="L38">            List&lt;ClassDtoGet&gt; classs = classService.findAll();</span>
+<span class="nc" id="L39">            return new ResponseEntity&lt;&gt;(classs, HttpStatus.OK);</span>
+        }else{
+<span class="nc" id="L41">            List&lt;ClassDtoGet&gt; classs = classService.findAll(keyword);</span>
+<span class="nc" id="L42">            return new ResponseEntity&lt;&gt;(classs, HttpStatus.OK);</span>
+        }
+    }
+
+    @GetMapping(&quot;/userAccess/getAllClass/{offset}/{pageSize}&quot;)
+    public ResponseEntity&lt;Page&lt;ClassEntity&gt;&gt; findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+<span class="nc" id="L48">        Page&lt;ClassEntity&gt; classs = classService.findAllPagination(offset, pageSize);</span>
+<span class="nc" id="L49">        return new ResponseEntity&lt;&gt;(classs, HttpStatus.OK);</span>
+    }
+
+    @GetMapping(&quot;/userAccess/getAllClass/{offset}/{pageSize}/{field}&quot;)
+    public ResponseEntity&lt;Page&lt;ClassEntity&gt;&gt; findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+<span class="nc" id="L54">        Page&lt;ClassEntity&gt; classs = classService.findAllPaginationSort(offset, pageSize, field);</span>
+<span class="nc" id="L55">        return new ResponseEntity&lt;&gt;(classs, HttpStatus.OK);</span>
+    }
+
+    // @GetMapping(&quot;/userAccess/getAllClassWithDto&quot;)
+    // public ResponseEntity&lt;List&lt;ClassDtoGet&gt;&gt; findAllDto(){
+    //     List&lt;ClassDtoGet&gt; classDtos = classService.findAllDto();
+    //     return new ResponseEntity&lt;&gt;(classDtos, HttpStatus.OK);
+    // }
+
+    @GetMapping(&quot;/userAccess/getClassById&quot;)
+    public ResponseEntity&lt;ClassEntity&gt; getClassById(@RequestParam(&quot;classId&quot;) Long classId){
+<span class="nc" id="L66">        return new ResponseEntity&lt;&gt;(classService.getClassById(classId), HttpStatus.OK);</span>
+    }
+
+    @GetMapping(&quot;/userAccess/getClassByIdDto&quot;)
+    public ResponseEntity&lt;ClassDtoGet&gt; getClassByIdDto(@RequestParam(&quot;classId&quot;) Long classId){
+<span class="nc" id="L71">        return new ResponseEntity&lt;&gt;(classService.getClassByIdDto(classId), HttpStatus.OK);</span>
+    }
+
+    @PostMapping(&quot;/adminAccess/createNewClass&quot;)
+    public ResponseEntity&lt;ClassDtoPost&gt; createClassDto(@RequestBody ClassDtoPost classDtoPost){
+<span class="nc" id="L76">        classService.createClassDto(classDtoPost);</span>
+<span class="nc" id="L77">        return new ResponseEntity&lt;&gt;(classDtoPost, HttpStatus.OK);</span>
+    }
+
+    @PutMapping(&quot;/adminAccess/updateClass/{classId}&quot;)
+    public ResponseEntity&lt;ClassEntity&gt; updateClass(@PathVariable(&quot;classId&quot;) Long classId, @RequestBody ClassDtoPost classesDtoPost){
+<span class="nc" id="L82">        classService.updateClass(classId, classesDtoPost);</span>
+<span class="nc" id="L83">        return new ResponseEntity&lt;&gt;(classService.getClassById(classId), HttpStatus.OK);</span>
+    }
+
+    @DeleteMapping(&quot;/adminAccess/deleteClass/{classId}&quot;)
+    public ResponseEntity&lt;ClassEntity&gt; deleteClass(@PathVariable(&quot;classId&quot;) Long classId){
+<span class="nc" id="L88">        classService.deleteClass(classId);</span>
+<span class="nc" id="L89">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+    }
+
+    @GetMapping(&quot;/adminAccess/getUserByClassId&quot;)
+    public ResponseEntity &lt;List&lt;GetUserByClass&gt;&gt; getUserByClass(@RequestParam(&quot;classId&quot;) Long classId){
+<span class="nc" id="L94">        List&lt;GetUserByClass&gt; user = classService.getBookingByClassId(classId);</span>
+<span class="nc" id="L95">        return new ResponseEntity&lt;&gt;(user, HttpStatus.OK);</span>
+    }
+
+    @GetMapping(&quot;/userAccess/getClassByType&quot;)
+    public ResponseEntity &lt;List&lt;ClassDtoGet&gt;&gt; getClassByType(@RequestParam(&quot;typeName&quot;) String typeName){
+<span class="nc" id="L100">        List&lt;ClassDtoGet&gt; classes = classService.getClassByType(typeName);</span>
+<span class="nc" id="L101">        return new ResponseEntity&lt;&gt;(classes, HttpStatus.OK);</span>
+    }
+
+    @GetMapping(&quot;/userAccess/getClassByCategory&quot;)
+    public ResponseEntity &lt;List&lt;ClassDtoGet&gt;&gt; getClassByCategory(@RequestParam(&quot;categoryName&quot;) String categoryName){
+<span class="nc" id="L106">        List&lt;ClassDtoGet&gt; classes = classService.getClassByCategoryName(categoryName);</span>
+<span class="nc" id="L107">        return new ResponseEntity&lt;&gt;(classes, HttpStatus.OK);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

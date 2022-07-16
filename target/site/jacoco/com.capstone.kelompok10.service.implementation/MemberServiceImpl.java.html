@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MemberServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kelompok10</a> &gt; <a href="index.source.html" class="el_package">com.capstone.kelompok10.service.implementation</a> &gt; <span class="el_source">MemberServiceImpl.java</span></div><h1>MemberServiceImpl.java</h1><pre class="source lang-java linenums">package com.capstone.kelompok10.service.implementation;
+
+// import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+// import com.capstone.kelompok10.model.dto.get.MemberDtoGet;
+import com.capstone.kelompok10.model.dto.post.MemberDtoPost;
+import com.capstone.kelompok10.model.entity.MemberEntity;
+import com.capstone.kelompok10.repository.MemberRepository;
+import com.capstone.kelompok10.service.interfaces.MemberService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+<span class="fc" id="L18">@Log4j2</span>
+@Service
+<span class="nc" id="L20">@RequiredArgsConstructor</span>
+public class MemberServiceImpl implements MemberService {
+    MemberRepository memberRepository;
+
+    @Autowired
+<span class="fc" id="L25">    public MemberServiceImpl(MemberRepository memberRepository){</span>
+<span class="fc" id="L26">        this.memberRepository = memberRepository;</span>
+<span class="fc" id="L27">    }</span>
+
+    @Override
+    public List&lt;MemberEntity&gt; findAll() {
+<span class="fc" id="L31">        List&lt;MemberEntity&gt; members = memberRepository.findAll();</span>
+<span class="fc" id="L32">        return members;</span>
+    }
+    
+    // @Override
+    // public Page&lt;MemberEntity&gt; findAllPagination(int offset, int pageSize) {
+    //     log.info(&quot;Get all Member with Pagination&quot;);
+    //     Page&lt;MemberEntity&gt; member = memberRepository.findAll(PageRequest.of(offset, pageSize));
+    //     return member;
+    // }
+
+    // @Override
+    // public Page&lt;MemberEntity&gt; findAllPaginationSort(int offset, int pageSize, String field){
+    //     log.info(&quot;Get all Member with Pagination and Sorting&quot;);
+    //     Page&lt;MemberEntity&gt; member = memberRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    //     return member;
+    // }
+
+    // @Override
+    // public List&lt;MemberDtoGet&gt; findAllDto() {
+    //     log.info(&quot;Get all Member with DTO&quot;);
+    //     List&lt;MemberEntity&gt; members = memberRepository.findAll();
+    //     List&lt;MemberDtoGet&gt; memberDtos = new ArrayList&lt;&gt;();
+        
+    //     members.forEach(isi -&gt;{
+    //         MemberDtoGet dto = new MemberDtoGet();
+    //         dto.setMemberId(isi.getMemberId());
+    //         dto.setPeriod(isi.getPeriod());
+    //         dto.setPrice(isi.getPrice());
+
+    //         memberDtos.add(dto);
+    //     });
+    //     return memberDtos;
+    // }
+
+    @Override
+    public MemberEntity getMemberById(Long memberId) {
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if(memberRepository.findById(memberId) != null){</span>
+<span class="fc" id="L69">            log.info(&quot;Member with id {} found&quot;, memberId);</span>
+<span class="fc" id="L70">            return memberRepository.findById(memberId).get();</span>
+        }else{
+<span class="nc" id="L72">            log.info(&quot;Member with id {} not found&quot;, memberId);</span>
+<span class="nc" id="L73">            throw new IllegalStateException(&quot;Member not found&quot;);</span>
+        }
+    }
+
+    @Override
+    public void updateMember(Long memberId, MemberDtoPost memberDtoPost) {
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if(memberRepository.findById(memberId) != null){</span>
+<span class="fc" id="L80">            MemberEntity member2 = memberRepository.findById(memberId).get();</span>
+<span class="fc" id="L81">            member2.setName(memberDtoPost.getName());</span>
+<span class="fc" id="L82">            member2.setPeriod(memberDtoPost.getPeriod());</span>
+<span class="fc" id="L83">            member2.setPrice(memberDtoPost.getPrice());</span>
+
+<span class="fc" id="L85">            memberRepository.save(member2);</span>
+<span class="fc" id="L86">            log.info(&quot;Member updated&quot;);</span>
+<span class="fc" id="L87">        }else{</span>
+<span class="nc" id="L88">            log.info(&quot;Member with id {} not found&quot;, memberId);</span>
+<span class="nc" id="L89">            throw new IllegalStateException(&quot;Member not found&quot;);</span>
+        }
+<span class="fc" id="L91">    }</span>
+
+    @Override
+    public void deleteMember(Long memberId) {
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if(memberRepository.findById(memberId).isPresent() == true){</span>
+<span class="fc" id="L96">            memberRepository.deleteById(memberId);</span>
+<span class="fc" id="L97">            log.info(&quot;Member with id {} successfully deleted&quot;, memberId);</span>
+        }else{
+<span class="nc" id="L99">            log.info(&quot;Member with id {} not found&quot;, memberId);</span>
+<span class="nc" id="L100">            throw new IllegalStateException(&quot;Member not found&quot;);</span>
+        }
+<span class="fc" id="L102">    }</span>
+
+	@Override
+	public void createMemberDto(MemberDtoPost memberDtoPost) {
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if(memberRepository.findByPeriod(memberDtoPost.getPeriod()) == null){</span>
+<span class="fc" id="L107">            MemberEntity memberEntity = new MemberEntity();</span>
+<span class="fc" id="L108">            memberEntity.setName(memberDtoPost.getName());</span>
+<span class="fc" id="L109">            memberEntity.setPeriod(memberDtoPost.getPeriod());</span>
+<span class="fc" id="L110">            memberEntity.setPrice(memberDtoPost.getPrice());</span>
+
+<span class="fc" id="L112">            memberRepository.save(memberEntity);</span>
+<span class="fc" id="L113">            log.info(&quot;Member created&quot;);</span>
+<span class="fc" id="L114">        }else{</span>
+<span class="nc" id="L115">            log.info(&quot;Member with length {} already exist&quot;);</span>
+<span class="nc" id="L116">            throw new IllegalStateException(&quot;Member already exist&quot;);</span>
+        }
+<span class="fc" id="L118">	}</span>
+
+    @Override
+    public Boolean memberExist(Long memberId) {
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if(memberRepository.findById(memberId) == null){</span>
+<span class="nc" id="L123">            return false;</span>
+        }else{
+<span class="fc" id="L125">            return true;</span>
+        }
+    }
+
+    @Override
+    public void createMember(MemberEntity memberEntity) {
+<span class="fc" id="L131">        memberRepository.save(memberEntity);</span>
+        
+<span class="fc" id="L133">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

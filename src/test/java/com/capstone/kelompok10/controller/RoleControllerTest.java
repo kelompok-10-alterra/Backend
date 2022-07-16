@@ -16,7 +16,6 @@
 // import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 // import com.capstone.kelompok10.model.dto.post.RoleDtoPost;
-// import com.capstone.kelompok10.model.entity.RoleEntity;
 // import com.capstone.kelompok10.repository.RoleRepository;
 // import com.capstone.kelompok10.service.interfaces.RoleService;
 // import com.fasterxml.jackson.databind.ObjectMapper;
@@ -99,7 +98,6 @@
 //     @DisplayName("Post Role With Data")
 //     public void postRoleWithData() throws Exception{
 //         RoleDtoPost role = EASY_RANDOM.nextObject(RoleDtoPost.class);
-//         RoleEntity role2 = EASY_RANDOM.nextObject(RoleEntity.class);
 
 //         JSONObject payload = new JSONObject();
 //         payload.put("name", role.getName());
