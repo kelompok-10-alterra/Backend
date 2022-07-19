@@ -15,6 +15,7 @@ import com.capstone.kelompok10.model.payload.GetUserByClass;
 import com.capstone.kelompok10.repository.BookingRepository;
 import com.capstone.kelompok10.repository.CategoryRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
+import com.capstone.kelompok10.repository.RoomRepository;
 import com.capstone.kelompok10.repository.TypeRepository;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
 import com.capstone.kelompok10.service.interfaces.ClassService;
@@ -47,6 +48,9 @@ public class ClassServiceImpl implements ClassService {
     public TypeRepository typeRepository;
 
     @Autowired
+    public RoomRepository roomRepository;
+
+    @Autowired
     private RoomService roomService;
 
     @Autowired
@@ -71,7 +75,7 @@ public class ClassServiceImpl implements ClassService {
         classs.forEach(isi ->{
             ClassDtoGet dto = new ClassDtoGet();
             dto.setClassId(isi.getClassId());
-            dto.setName(isi.getType().getName());
+            dto.setName(isi.getName());
             dto.setDescription(isi.getDescription());
             dto.setStatus(isi.getStatus());
             dto.setCapacity(isi.getCapacity());
@@ -92,7 +96,6 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
-            dto.setVideoUrl(isi.getVideoUrl());
             dto.setMeetUrl(isi.getMeetUrl());
 
             classDtos.add(dto);
@@ -108,7 +111,7 @@ public class ClassServiceImpl implements ClassService {
         classs.forEach(isi ->{
             ClassDtoGet dto = new ClassDtoGet();
             dto.setClassId(isi.getClassId());
-            dto.setName(isi.getType().getName());
+            dto.setName(isi.getName());
             dto.setDescription(isi.getDescription());
             dto.setStatus(isi.getStatus());
             dto.setCapacity(isi.getCapacity());
@@ -129,7 +132,6 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
-            dto.setVideoUrl(isi.getVideoUrl());
             dto.setMeetUrl(isi.getMeetUrl());
 
             classDtos.add(dto);
@@ -218,7 +220,7 @@ public class ClassServiceImpl implements ClassService {
             ClassEntity isi = classRepository.findById(classId).get();
             ClassDtoGet dto = new ClassDtoGet();
             dto.setClassId(isi.getClassId());
-            dto.setName(isi.getType().getName());
+            dto.setName(isi.getName());
             dto.setDescription(isi.getDescription());
             dto.setStatus(isi.getStatus());
             dto.setCapacity(isi.getCapacity());
@@ -239,7 +241,6 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
-            dto.setVideoUrl(isi.getVideoUrl());
             dto.setMeetUrl(isi.getMeetUrl());
 
             return dto;
@@ -280,8 +281,10 @@ public class ClassServiceImpl implements ClassService {
             if(instructorService.instructorExist(classesDtoPost.getInstructorId()) == true && categoryService.categoryExist(classesDtoPost.getCategoryId()) == true &&
                 roomService.roomExist(classesDtoPost.getRoomId()) == true && typeService.typeExist(classesDtoPost.getTypeId()) == true){
                     TypeEntity type2 = typeRepository.findById(classesDtoPost.getTypeId()).get();
+                    CategoryEntity category2 = categoryRepository.findById(classesDtoPost.getCategoryId()).get();
+                    RoomEntity room2 = roomRepository.findById(classesDtoPost.getRoomId()).get();
                     class2.setStatus(classesDtoPost.getStatus());
-                    class2.setName(classesDtoPost.getName());
+                    class2.setName(type2.getName() + " " + room2.getName() + " - " + category2.getName());
                     class2.setDescription(classesDtoPost.getDescription());
                     class2.setCapacity(classesDtoPost.getCapacity());
                     class2.setSchedule(classesDtoPost.getSchedule());
@@ -293,7 +296,6 @@ public class ClassServiceImpl implements ClassService {
                     class2.setRoom(roomEntity);
                     class2.setType(typeEntity);
                     class2.setTypeName(type2.getName());
-                    class2.setVideoUrl(classesDtoPost.getVideoUrl());
                     class2.setMeetUrl(classesDtoPost.getMeetUrl());
                     
                     classRepository.save(class2);
@@ -334,8 +336,10 @@ public class ClassServiceImpl implements ClassService {
         if(instructorService.instructorExist(classDtoPost.getInstructorId()) == true && categoryService.categoryExist(classDtoPost.getCategoryId()) == true &&
             roomService.roomExist(classDtoPost.getRoomId()) == true && typeService.typeExist(classDtoPost.getTypeId()) == true){
                 TypeEntity type2 = typeRepository.findById(classDtoPost.getTypeId()).get();
+                CategoryEntity category2 = categoryRepository.findById(classDtoPost.getCategoryId()).get();
+                RoomEntity room2 = roomRepository.findById(classDtoPost.getRoomId()).get();
                 classEntity.setStatus(classDtoPost.getStatus());
-                classEntity.setName(classDtoPost.getName());
+                classEntity.setName(type2.getName() + " " + room2.getName() + " - " + category2.getName());
                 classEntity.setDescription(classDtoPost.getDescription());
                 classEntity.setCapacity(classDtoPost.getCapacity());
                 classEntity.setBooked(0L);
@@ -348,7 +352,6 @@ public class ClassServiceImpl implements ClassService {
                 classEntity.setRoom(roomEntity);
                 classEntity.setType(typeEntity);
                 classEntity.setTypeName(type2.getName());
-                classEntity.setVideoUrl(classDtoPost.getVideoUrl());
                 classEntity.setMeetUrl(classDtoPost.getMeetUrl());
                 
 
@@ -433,7 +436,7 @@ public class ClassServiceImpl implements ClassService {
         classes.forEach(isi ->{
             ClassDtoGet dto = new ClassDtoGet();
             dto.setClassId(isi.getClassId());
-            dto.setName(isi.getType().getName());
+            dto.setName(isi.getName());
             dto.setDescription(isi.getDescription());
             dto.setStatus(isi.getStatus());
             dto.setCapacity(isi.getCapacity());
@@ -454,7 +457,6 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
-            dto.setVideoUrl(isi.getVideoUrl());
             dto.setMeetUrl(isi.getMeetUrl());
 
             classDtos.add(dto);
@@ -469,7 +471,7 @@ public class ClassServiceImpl implements ClassService {
         classes.forEach(isi ->{
             ClassDtoGet dto = new ClassDtoGet();
             dto.setClassId(isi.getClassId());
-            dto.setName(isi.getType().getName());
+            dto.setName(isi.getName());
             dto.setDescription(isi.getDescription());
             dto.setStatus(isi.getStatus());
             dto.setCapacity(isi.getCapacity());
@@ -490,7 +492,6 @@ public class ClassServiceImpl implements ClassService {
             dto.setRoomId(isi.getRoom().getRoomId());
             dto.setRoomName(isi.getRoom().getName());
             dto.setRating(classRating(isi.getClassId()));
-            dto.setVideoUrl(isi.getVideoUrl());
             dto.setMeetUrl(isi.getMeetUrl());
 
             classDtos.add(dto);

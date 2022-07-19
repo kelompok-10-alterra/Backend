@@ -57,21 +57,6 @@
 //     } 
 
 //     @Test
-//     @DisplayName("Get Class With id")
-//     public void getClassWithId() throws Exception{
-
-//         RequestBuilder requestBuilder = MockMvcRequestBuilders
-//         .get("/capstone/class/userAccess/getClassById?classId=1")
-//         .contentType(MediaType.APPLICATION_JSON)
-//         .accept(MediaType.APPLICATION_JSON);
-
-//         MvcResult response = mockMvc
-//         .perform(requestBuilder)
-//         .andReturn();
-//         assertEquals(200, response.getResponse().getStatus());
-//     }
-
-//     @Test
 //     @DisplayName("Get Class With id Dto")
 //     public void getClassWithIdDto() throws Exception{
 
@@ -107,7 +92,6 @@
 
 //         JSONObject payload = new JSONObject();
 //         payload.put("status", classes.getStatus());
-//         payload.put("name", classes.getName());
 //         payload.put("description", classes.getDescription());
 //         payload.put("capacity", classes.getCapacity());
 //         payload.put("schedule", "22/07/2022");
@@ -155,7 +139,6 @@
 
 //         JSONObject payload = new JSONObject();
 //         payload.put("status", classes.getStatus());
-//         payload.put("name", classes.getName());
 //         payload.put("description", classes.getDescription());
 //         payload.put("capacity", classes.getCapacity());
 //         payload.put("schedule", "22/07/2022");
