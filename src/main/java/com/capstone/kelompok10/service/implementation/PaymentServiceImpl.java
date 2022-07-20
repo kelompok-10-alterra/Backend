@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.capstone.kelompok10.model.dto.get.PaymentDtoGet;
 import com.capstone.kelompok10.model.dto.post.PaymentDtoPost;
+import com.capstone.kelompok10.model.entity.BookingEntity;
 import com.capstone.kelompok10.model.entity.CartEntity;
 import com.capstone.kelompok10.model.entity.HistoryEntity;
 import com.capstone.kelompok10.model.entity.PaymentEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
+import com.capstone.kelompok10.repository.BookingRepository;
 import com.capstone.kelompok10.repository.CartRepository;
 import com.capstone.kelompok10.repository.HistoryRepository;
 import com.capstone.kelompok10.repository.PaymentRepository;
@@ -38,6 +40,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     CartRepository cartRepository;
+
+    @Autowired
+    BookingRepository bookingRepository;
 
     @Autowired
     HistoryRepository historyRepository;
@@ -206,6 +211,11 @@ public class PaymentServiceImpl implements PaymentService {
             PaymentEntity payment = paymentRepository.findByToken(token);
             CartEntity cart = cartRepository.findById(payment.getCart().getCartId()).get();
             HistoryEntity history = historyRepository.findById(payment.getCart().getUser().getHistory().getHistoryId()).get();
+            for (int i = 0; i < cart.getBooking().size(); i++) {
+                BookingEntity booking = bookingRepository.findById(cart.getBooking().get(i).getBookingId()).get();
+                booking.setStatus(true);
+                bookingRepository.save(booking);
+            }
             history.getBooking().addAll(cart.getBooking());
             historyRepository.save(history);
             cart.setTotal(0L);

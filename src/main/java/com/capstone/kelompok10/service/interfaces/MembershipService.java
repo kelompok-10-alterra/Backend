@@ -5,6 +5,7 @@ import java.util.List;
 import com.capstone.kelompok10.model.dto.get.MembershipDtoGet;
 import com.capstone.kelompok10.model.dto.post.MembershipDtoPost;
 import com.capstone.kelompok10.model.entity.MembershipEntity;
+import com.capstone.kelompok10.model.payload.BuyMembership;
 
 public interface MembershipService {
     List<MembershipDtoGet> findAll();
@@ -18,6 +19,7 @@ public interface MembershipService {
     void updateMembership(Long membershipId, MembershipDtoPost membershipDtoPost);
     void deleteMembership(Long membershipId);
     Boolean membershipExpired(Long membershipId);
+    String buyMembership(BuyMembership buyMembership);
     int totalMembership();
 }
 
