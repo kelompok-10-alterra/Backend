@@ -25,16 +25,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List&lt;CartEntity&gt; findAll() {
-<span class="fc" id="L28">        log.info(&quot;Get all Cart&quot;);</span>
-<span class="fc" id="L29">        List&lt;CartEntity&gt; carts = cartRepository.findAll();</span>
-<span class="fc" id="L30">        return carts;</span>
+<span class="nc" id="L28">        log.info(&quot;Get all Cart&quot;);</span>
+<span class="nc" id="L29">        List&lt;CartEntity&gt; carts = cartRepository.findAll();</span>
+<span class="nc" id="L30">        return carts;</span>
     }
 
     @Override
     public CartEntity getCartById(Long cartId) {
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if(cartRepository.findById(cartId) != null){</span>
-<span class="fc" id="L36">            log.info(&quot;Cart with id {} found&quot;, cartId);</span>
-<span class="fc" id="L37">            return cartRepository.findById(cartId).get();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(cartRepository.findById(cartId) != null){</span>
+<span class="nc" id="L36">            log.info(&quot;Cart with id {} found&quot;, cartId);</span>
+<span class="nc" id="L37">            return cartRepository.findById(cartId).get();</span>
         }else{
 <span class="nc" id="L39">            log.info(&quot;Cart with id {} not found&quot;, cartId);</span>
 <span class="nc" id="L40">            throw new IllegalStateException(&quot;Cart not Found&quot;);</span>
@@ -67,19 +67,19 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void updateBookingTotal(Long cartId, Long price) {
-<span class="fc" id="L70">        CartEntity cart = cartRepository.findById(cartId).get();</span>
-<span class="fc" id="L71">        Long currentPrice = cart.getTotal();</span>
-<span class="fc" id="L72">        cart.setTotal(currentPrice + price);</span>
-<span class="fc" id="L73">        cartRepository.save(cart);   </span>
-<span class="fc" id="L74">    }</span>
+<span class="nc" id="L70">        CartEntity cart = cartRepository.findById(cartId).get();</span>
+<span class="nc" id="L71">        Long currentPrice = cart.getTotal();</span>
+<span class="nc" id="L72">        cart.setTotal(currentPrice + price);</span>
+<span class="nc" id="L73">        cartRepository.save(cart);   </span>
+<span class="nc" id="L74">    }</span>
 
     @Override
     public void unBook(Long cartId, Long oldPrice, Long newPrice) {
-<span class="fc" id="L78">        CartEntity cart = cartRepository.findById(cartId).get();</span>
-<span class="fc" id="L79">        Long currentPrice = cart.getTotal();</span>
-<span class="fc" id="L80">        cart.setTotal((currentPrice - oldPrice) + newPrice);</span>
-<span class="fc" id="L81">        cartRepository.save(cart);</span>
-<span class="fc" id="L82">    }</span>
+<span class="nc" id="L78">        CartEntity cart = cartRepository.findById(cartId).get();</span>
+<span class="nc" id="L79">        Long currentPrice = cart.getTotal();</span>
+<span class="nc" id="L80">        cart.setTotal((currentPrice - oldPrice) + newPrice);</span>
+<span class="nc" id="L81">        cartRepository.save(cart);</span>
+<span class="nc" id="L82">    }</span>
 
 	@Override
 	public void updateCart(Long cartId) {

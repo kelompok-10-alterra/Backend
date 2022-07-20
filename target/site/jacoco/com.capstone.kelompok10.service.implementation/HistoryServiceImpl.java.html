@@ -19,16 +19,16 @@ public class HistoryServiceImpl implements HistoryService {
     
     @Override
     public List&lt;HistoryEntity&gt; findAll() {
-<span class="fc" id="L22">        log.info(&quot;Get all History&quot;);</span>
-<span class="fc" id="L23">        List&lt;HistoryEntity&gt; History = historyRepository.findAll();</span>
-<span class="fc" id="L24">        return History;</span>
+<span class="nc" id="L22">        log.info(&quot;Get all History&quot;);</span>
+<span class="nc" id="L23">        List&lt;HistoryEntity&gt; History = historyRepository.findAll();</span>
+<span class="nc" id="L24">        return History;</span>
     }
 
     @Override
     public HistoryEntity getHistoryById(Long historyId) {
-<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if(historyRepository.findById(historyId) != null){</span>
-<span class="fc" id="L30">            log.info(&quot;History with id {} found&quot;, historyId);</span>
-<span class="fc" id="L31">            return historyRepository.findById(historyId).get();</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if(historyRepository.findById(historyId) != null){</span>
+<span class="nc" id="L30">            log.info(&quot;History with id {} found&quot;, historyId);</span>
+<span class="nc" id="L31">            return historyRepository.findById(historyId).get();</span>
         }else{
 <span class="nc" id="L33">            log.info(&quot;History with id {} not found&quot;, historyId);</span>
 <span class="nc" id="L34">            throw new IllegalStateException(&quot;History not Found&quot;);</span>

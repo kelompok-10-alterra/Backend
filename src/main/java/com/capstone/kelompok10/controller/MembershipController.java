@@ -5,6 +5,7 @@ import java.util.List;
 import com.capstone.kelompok10.model.dto.get.MembershipDtoGet;
 import com.capstone.kelompok10.model.dto.post.MembershipDtoPost;
 import com.capstone.kelompok10.model.entity.MembershipEntity;
+import com.capstone.kelompok10.model.payload.BuyMembership;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +86,10 @@ public class MembershipController {
     @GetMapping("/adminAccess/countTotalMembership")
     public int totalUser(){
         return membershipService.totalMembership();
+    }
+
+    @PostMapping("/userAccess/buyMembership")
+    public String buyMembership(@RequestBody BuyMembership buyMembership){
+        return membershipService.buyMembership(buyMembership);
     }
 }

@@ -40,7 +40,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Service
-<span class="fc" id="L43">@AllArgsConstructor</span>
+<span class="nc" id="L43">@AllArgsConstructor</span>
 @Transactional
 <span class="fc" id="L45">@Log4j2</span>
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -83,26 +83,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-<span class="fc" id="L86">        UserEntity user = userRepository.findByUsername(username);</span>
-<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        if (user == null){</span>
+<span class="nc" id="L86">        UserEntity user = userRepository.findByUsername(username);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (user == null){</span>
 <span class="nc" id="L88">            log.error(&quot;User Not Found&quot;);</span>
 <span class="nc" id="L89">            throw new UsernameNotFoundException(&quot;User Not Found&quot;);</span>
         } else {
-<span class="fc" id="L91">            log.info(&quot;User found : {}&quot;, username);</span>
+<span class="nc" id="L91">            log.info(&quot;User found : {}&quot;, username);</span>
         }
-<span class="fc" id="L93">        Collection&lt;SimpleGrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L94">        user.getRoles().forEach(role -&gt; {</span>
+<span class="nc" id="L93">        Collection&lt;SimpleGrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L94">        user.getRoles().forEach(role -&gt; {</span>
 <span class="nc" id="L95">            authorities.add(new SimpleGrantedAuthority(role.getName()));</span>
 <span class="nc" id="L96">        });</span>
-<span class="fc" id="L97">        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);</span>
+<span class="nc" id="L97">        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);</span>
     }
 
     @Override
     public List&lt;UserEntity&gt; findAll() {
-<span class="fc" id="L102">        log.info(&quot;Get all User without DTO&quot;);</span>
-<span class="fc" id="L103">        List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L104">        userRepository.findAll().forEach(user::add);</span>
-<span class="fc" id="L105">        return user;</span>
+<span class="nc" id="L102">        log.info(&quot;Get all User without DTO&quot;);</span>
+<span class="nc" id="L103">        List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L104">        userRepository.findAll().forEach(user::add);</span>
+<span class="nc" id="L105">        return user;</span>
     }
     
     // @Override
@@ -121,55 +121,55 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
 	public List&lt;UserEntity&gt; getAllRoleUser(){
-<span class="fc" id="L124">		List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L125">        userRepository.findByRoleName(&quot;ROLE_USER&quot;).forEach(user::add);</span>
-<span class="fc" id="L126">		return user;</span>
+<span class="nc" id="L124">		List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L125">        userRepository.findByRoleName(&quot;ROLE_USER&quot;).forEach(user::add);</span>
+<span class="nc" id="L126">		return user;</span>
 	}
 
     @Override
 	public List&lt;UserEntity&gt; getAllRoleAdmin(){
-<span class="fc" id="L131">		List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L132">        userRepository.findByRoleName(&quot;ROLE_ADMIN&quot;).forEach(user::add);</span>
-<span class="fc" id="L133">		return user;</span>
+<span class="nc" id="L131">		List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L132">        userRepository.findByRoleName(&quot;ROLE_ADMIN&quot;).forEach(user::add);</span>
+<span class="nc" id="L133">		return user;</span>
 	}
 
     @Override
 	public List&lt;UserEntity&gt; getAllRoleSuperAdmin(){
-<span class="fc" id="L138">		List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L139">        userRepository.findByRoleName(&quot;ROLE_SUPER_ADMIN&quot;).forEach(user::add);</span>
-<span class="fc" id="L140">		return user;</span>
+<span class="nc" id="L138">		List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L139">        userRepository.findByRoleName(&quot;ROLE_SUPER_ADMIN&quot;).forEach(user::add);</span>
+<span class="nc" id="L140">		return user;</span>
 	}
 
     @Override
     public List&lt;UserDtoGet&gt; findAllDto() {
-<span class="fc" id="L145">        log.info(&quot;Get all User with DTO&quot;);</span>
-<span class="fc" id="L146">        List&lt;UserEntity&gt; users = userRepository.findAll();</span>
-<span class="fc" id="L147">        List&lt;UserDtoGet&gt; userDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L145">        log.info(&quot;Get all User with DTO&quot;);</span>
+<span class="nc" id="L146">        List&lt;UserEntity&gt; users = userRepository.findAll();</span>
+<span class="nc" id="L147">        List&lt;UserDtoGet&gt; userDtos = new ArrayList&lt;&gt;();</span>
         
-<span class="fc" id="L149">        users.forEach(isi -&gt;{</span>
-<span class="fc" id="L150">            UserDtoGet dto = new UserDtoGet();</span>
-<span class="fc" id="L151">            dto.setUserId(isi.getUserId());</span>
-<span class="fc" id="L152">            dto.setName(isi.getName());</span>
-<span class="fc" id="L153">            dto.setUsername(isi.getUsername());</span>
-<span class="fc" id="L154">            dto.setEmail(isi.getEmail());</span>
-<span class="fc" id="L155">            dto.setPhone(isi.getPhone());</span>
-<span class="fc" id="L156">            dto.setAddress(isi.getAddress());</span>
-<span class="fc" id="L157">            dto.setMembership(isi.getMembership());</span>
-<span class="fc" id="L158">            dto.setImageUrl(isi.getImageUrl());</span>
+<span class="nc" id="L149">        users.forEach(isi -&gt;{</span>
+<span class="nc" id="L150">            UserDtoGet dto = new UserDtoGet();</span>
+<span class="nc" id="L151">            dto.setUserId(isi.getUserId());</span>
+<span class="nc" id="L152">            dto.setName(isi.getName());</span>
+<span class="nc" id="L153">            dto.setUsername(isi.getUsername());</span>
+<span class="nc" id="L154">            dto.setEmail(isi.getEmail());</span>
+<span class="nc" id="L155">            dto.setPhone(isi.getPhone());</span>
+<span class="nc" id="L156">            dto.setAddress(isi.getAddress());</span>
+<span class="nc" id="L157">            dto.setMembership(isi.getMembership());</span>
+<span class="nc" id="L158">            dto.setImageUrl(isi.getImageUrl());</span>
 
-<span class="fc" id="L160">            userDtos.add(dto);</span>
-<span class="fc" id="L161">        });</span>
-<span class="fc" id="L162">        return userDtos;</span>
+<span class="nc" id="L160">            userDtos.add(dto);</span>
+<span class="nc" id="L161">        });</span>
+<span class="nc" id="L162">        return userDtos;</span>
     }
 
     @Override
     public UserEntity getUserById(Long userId) {
-<span class="pc bpc" id="L167" title="1 of 2 branches missed.">        if(userRepository.findById(userId) == null){</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        if(userRepository.findById(userId) == null){</span>
 <span class="nc" id="L168">            log.info(&quot;User with id {} not found&quot;, userId);</span>
 <span class="nc" id="L169">            throw new IllegalStateException(&quot;User not Found&quot;);</span>
         }
-<span class="fc" id="L171">            log.info(&quot;User with id {} found&quot;, userId);</span>
-<span class="fc" id="L172">            return userRepository.findById(userId).get();</span>
+<span class="nc" id="L171">            log.info(&quot;User with id {} found&quot;, userId);</span>
+<span class="nc" id="L172">            return userRepository.findById(userId).get();</span>
     }
 
     @Override
@@ -181,56 +181,56 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void updateUser(Long userId, UserDtoPut userDtoPut) {
-<span class="pc bpc" id="L184" title="2 of 4 branches missed.">        if(userRepository.findById(userId) != null &amp;&amp; nativeUser(userId) == false){</span>
-<span class="fc" id="L185">            UserEntity user2 = userRepository.findById(userId).get(); </span>
-<span class="fc" id="L186">            user2.setName(userDtoPut.getName());</span>
-<span class="fc" id="L187">            user2.setPhone(userDtoPut.getPhone());</span>
-<span class="fc" id="L188">            user2.setAddress(userDtoPut.getAddress());</span>
-<span class="fc" id="L189">            user2.setImageUrl(userDtoPut.getImageUrl());</span>
-<span class="fc" id="L190">            userRepository.save(user2);</span>
-<span class="fc" id="L191">            log.info(&quot;User updated&quot;);</span>
-<span class="fc" id="L192">        }else{</span>
+<span class="nc bnc" id="L184" title="All 4 branches missed.">        if(userRepository.findById(userId) != null &amp;&amp; nativeUser(userId) == false){</span>
+<span class="nc" id="L185">            UserEntity user2 = userRepository.findById(userId).get(); </span>
+<span class="nc" id="L186">            user2.setName(userDtoPut.getName());</span>
+<span class="nc" id="L187">            user2.setPhone(userDtoPut.getPhone());</span>
+<span class="nc" id="L188">            user2.setAddress(userDtoPut.getAddress());</span>
+<span class="nc" id="L189">            user2.setImageUrl(userDtoPut.getImageUrl());</span>
+<span class="nc" id="L190">            userRepository.save(user2);</span>
+<span class="nc" id="L191">            log.info(&quot;User updated&quot;);</span>
+<span class="nc" id="L192">        }else{</span>
 <span class="nc" id="L193">            log.info(&quot;User with id {} not found&quot;, userId);</span>
 <span class="nc" id="L194">            throw new IllegalStateException(&quot;User Not Found&quot;);</span>
         }
-<span class="fc" id="L196">    }</span>
+<span class="nc" id="L196">    }</span>
 
     @Override
     public void deleteUser(Long userId) {
-<span class="pc bpc" id="L200" title="2 of 4 branches missed.">        if(userRepository.findById(userId).isPresent() &amp;&amp; nativeUser(userId) == false){</span>
-<span class="fc" id="L201">            userRepository.deleteById(userId);</span>
-<span class="fc" id="L202">            log.info(&quot;User with id {} successfully deleted&quot;, userId);</span>
+<span class="nc bnc" id="L200" title="All 4 branches missed.">        if(userRepository.findById(userId).isPresent() &amp;&amp; nativeUser(userId) == false){</span>
+<span class="nc" id="L201">            userRepository.deleteById(userId);</span>
+<span class="nc" id="L202">            log.info(&quot;User with id {} successfully deleted&quot;, userId);</span>
         }else{
 <span class="nc" id="L204">            log.info(&quot;User with id {} not found&quot;, userId);</span>
 <span class="nc" id="L205">            throw new IllegalStateException(&quot;User Not Found&quot;);</span>
         }
-<span class="fc" id="L207">    }</span>
+<span class="nc" id="L207">    }</span>
 
     @Override
     public UserEntity getUser(String username){
-<span class="fc" id="L211">        return userRepository.findByUsername(username);</span>
+<span class="nc" id="L211">        return userRepository.findByUsername(username);</span>
     }
 
     @Override
     public int userHaveMembership(Long userId) {
-<span class="fc" id="L216">        UserEntity user = userRepository.findById(userId).get();</span>
-<span class="fc bfc" id="L217" title="All 2 branches covered.">        if(user.getMembership() == null){</span>
-<span class="fc" id="L218">            return 1;</span>
-<span class="fc bfc" id="L219" title="All 4 branches covered.">        }if(user.getMembership() == &quot;Silver&quot; &amp;&amp; user.getStatus() == true){</span>
-<span class="fc" id="L220">            return 2;</span>
-<span class="pc bpc" id="L221" title="1 of 4 branches missed.">        }if(user.getMembership() == &quot;Gold&quot; &amp;&amp; user.getStatus() == true){</span>
-<span class="fc" id="L222">            return 3;</span>
-<span class="pc bpc" id="L223" title="1 of 4 branches missed.">        }if(user.getMembership() == &quot;Platinum&quot; &amp;&amp; user.getStatus() == true){</span>
-<span class="fc" id="L224">            return 4;</span>
+<span class="nc" id="L216">        UserEntity user = userRepository.findById(userId).get();</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        if(user.getMembership() == null){</span>
+<span class="nc" id="L218">            return 1;</span>
+<span class="nc bnc" id="L219" title="All 4 branches missed.">        }if(user.getMembership() == &quot;Silver&quot; &amp;&amp; user.getStatus() == true){</span>
+<span class="nc" id="L220">            return 2;</span>
+<span class="nc bnc" id="L221" title="All 4 branches missed.">        }if(user.getMembership() == &quot;Gold&quot; &amp;&amp; user.getStatus() == true){</span>
+<span class="nc" id="L222">            return 3;</span>
+<span class="nc bnc" id="L223" title="All 4 branches missed.">        }if(user.getMembership() == &quot;Platinum&quot; &amp;&amp; user.getStatus() == true){</span>
+<span class="nc" id="L224">            return 4;</span>
         }else{
-<span class="fc" id="L226">            return 99;</span>
+<span class="nc" id="L226">            return 99;</span>
         }
     }
 
     @Override
     public Boolean userExist(Long userId) {
-<span class="pc bpc" id="L232" title="1 of 2 branches missed.">        if(userRepository.findById(userId).isPresent() == true){</span>
-<span class="fc" id="L233">            return true;</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">        if(userRepository.findById(userId).isPresent() == true){</span>
+<span class="nc" id="L233">            return true;</span>
         }else{
 <span class="nc" id="L235">            return false;</span>
         }
@@ -302,10 +302,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     
     @Override
     public int totalUser() {
-<span class="fc" id="L305">        List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L306">        userRepository.findAll().forEach(user::add);</span>
-<span class="fc" id="L307">        int sum = user.size();</span>
-<span class="fc" id="L308">        return sum;</span>
+<span class="nc" id="L305">        List&lt;UserEntity&gt; user = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L306">        userRepository.findAll().forEach(user::add);</span>
+<span class="nc" id="L307">        int sum = user.size();</span>
+<span class="nc" id="L308">        return sum;</span>
     }
 
     @Override
@@ -325,16 +325,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public List&lt;UserEntity&gt; findAll(String keyword) {
-<span class="fc" id="L328">        List&lt;UserEntity&gt; user = userRepository.findAll(keyword);</span>
-<span class="fc" id="L329">        return user;</span>
+<span class="nc" id="L328">        List&lt;UserEntity&gt; user = userRepository.findAll(keyword);</span>
+<span class="nc" id="L329">        return user;</span>
     }
 
     @Override
     public void getPoint(Long userId){
-<span class="fc" id="L334">        UserEntity user = userRepository.findById(userId).get();</span>
-<span class="fc" id="L335">        Long point = user.getPoint();</span>
-<span class="fc" id="L336">        user.setPoint(point + 100L);</span>
-<span class="fc" id="L337">    }</span>
+<span class="nc" id="L334">        UserEntity user = userRepository.findById(userId).get();</span>
+<span class="nc" id="L335">        Long point = user.getPoint();</span>
+<span class="nc" id="L336">        user.setPoint(point + 100L);</span>
+<span class="nc" id="L337">    }</span>
 
     @Override
     public UserDtoGet getUserByUsername(String username) {
@@ -355,11 +355,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Boolean nativeUser(Long userId) {
-<span class="pc bpc" id="L358" title="3 of 8 branches missed.">        if(userId == 1 || userId == 2 || userId == 3 || userId == 4){</span>
-<span class="fc" id="L359">            log.info(&quot;You Can,t Use Native User&quot;);</span>
-<span class="fc" id="L360">            return true;</span>
+<span class="nc bnc" id="L358" title="All 8 branches missed.">        if(userId == 1 || userId == 2 || userId == 3 || userId == 4){</span>
+<span class="nc" id="L359">            log.info(&quot;You Can,t Use Native User&quot;);</span>
+<span class="nc" id="L360">            return true;</span>
         }else{
-<span class="fc" id="L362">            return false;</span>
+<span class="nc" id="L362">            return false;</span>
         }       
     }
 

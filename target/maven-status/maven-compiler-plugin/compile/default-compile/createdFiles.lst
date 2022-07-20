@@ -72,6 +72,7 @@ com/capstone/kelompok10/model/dto/post/MembershipDtoPost.class
 com/capstone/kelompok10/model/payload/TokenResponse.class
 com/capstone/kelompok10/model/dto/get/UserDtoGet.class
 com/capstone/kelompok10/model/entity/HistoryEntity.class
+com/capstone/kelompok10/model/payload/BuyMembership.class
 com/capstone/kelompok10/model/dto/post/ContentDtoPost.class
 com/capstone/kelompok10/model/dto/get/RoomDtoGet.class
 com/capstone/kelompok10/model/entity/UserEntity.class

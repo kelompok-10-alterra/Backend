@@ -5,6 +5,7 @@ import java.util.List;
 import com.capstone.kelompok10.model.dto.get.MembershipDtoGet;
 import com.capstone.kelompok10.model.dto.post.MembershipDtoPost;
 import com.capstone.kelompok10.model.entity.MembershipEntity;
+import com.capstone.kelompok10.model.payload.BuyMembership;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +27,18 @@ public class MembershipController {
     MembershipService membershipService;
 
     @Autowired
-<span class="fc" id="L29">    public MembershipController(MembershipService membershipService){</span>
-<span class="fc" id="L30">        this.membershipService = membershipService;</span>
-<span class="fc" id="L31">    }</span>
+<span class="fc" id="L30">    public MembershipController(MembershipService membershipService){</span>
+<span class="fc" id="L31">        this.membershipService = membershipService;</span>
+<span class="fc" id="L32">    }</span>
 
     @GetMapping(&quot;/adminAccess/getAllMembership&quot;)
     public ResponseEntity&lt;List&lt;MembershipDtoGet&gt;&gt; findAll(@RequestParam(required = false) Boolean keyword){
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(keyword == null){</span>
-<span class="nc" id="L36">            List&lt;MembershipDtoGet&gt; memberships = membershipService.findAll();</span>
-<span class="nc" id="L37">            return new ResponseEntity&lt;&gt;(memberships, HttpStatus.OK);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if(keyword == null){</span>
+<span class="nc" id="L37">            List&lt;MembershipDtoGet&gt; memberships = membershipService.findAll();</span>
+<span class="nc" id="L38">            return new ResponseEntity&lt;&gt;(memberships, HttpStatus.OK);</span>
         }else{
-<span class="nc" id="L39">            List&lt;MembershipDtoGet&gt; memberships = membershipService.findAll(keyword);</span>
-<span class="nc" id="L40">            return new ResponseEntity&lt;&gt;(memberships, HttpStatus.OK);</span>
+<span class="nc" id="L40">            List&lt;MembershipDtoGet&gt; memberships = membershipService.findAll(keyword);</span>
+<span class="nc" id="L41">            return new ResponseEntity&lt;&gt;(memberships, HttpStatus.OK);</span>
         }
     }
 
@@ -55,36 +56,41 @@ public class MembershipController {
 
     @GetMapping(&quot;/adminAccess/getAllMembershipWithDto&quot;)
     public ResponseEntity&lt;List&lt;MembershipDtoGet&gt;&gt; findAllDto(){
-<span class="nc" id="L58">        List&lt;MembershipDtoGet&gt; membershipDtos = membershipService.findAllDto();</span>
-<span class="nc" id="L59">        return new ResponseEntity&lt;&gt;(membershipDtos, HttpStatus.OK);</span>
+<span class="nc" id="L59">        List&lt;MembershipDtoGet&gt; membershipDtos = membershipService.findAllDto();</span>
+<span class="nc" id="L60">        return new ResponseEntity&lt;&gt;(membershipDtos, HttpStatus.OK);</span>
     }
 
     @GetMapping(&quot;/userAccess/getMembershipById&quot;)
     public ResponseEntity&lt;MembershipDtoGet&gt; getMembershipByIdDto(@RequestParam(&quot;membershipId&quot;) Long membershipId){
-<span class="nc" id="L64">        return new ResponseEntity&lt;&gt;(membershipService.getMembershipByIdDto(membershipId), HttpStatus.OK);</span>
+<span class="nc" id="L65">        return new ResponseEntity&lt;&gt;(membershipService.getMembershipByIdDto(membershipId), HttpStatus.OK);</span>
     }
 
     @PostMapping(&quot;/adminAccess/createNewMembership&quot;)
     public ResponseEntity&lt;MembershipDtoPost&gt; createMemberDto(@RequestBody MembershipDtoPost membershipDtoPost){
-<span class="nc" id="L69">        membershipService.createMembershipDto(membershipDtoPost);</span>
-<span class="nc" id="L70">        return new ResponseEntity&lt;&gt;(membershipDtoPost, HttpStatus.OK);</span>
+<span class="nc" id="L70">        membershipService.createMembershipDto(membershipDtoPost);</span>
+<span class="nc" id="L71">        return new ResponseEntity&lt;&gt;(membershipDtoPost, HttpStatus.OK);</span>
     }
 
     @PutMapping(&quot;/adminAccess/updateMembership/{membershipId}&quot;)
     public ResponseEntity&lt;MembershipEntity&gt; updateMembership(@PathVariable(&quot;membershipId&quot;) Long membershipId, @RequestBody MembershipDtoPost membershipDtoPost){
-<span class="nc" id="L75">        membershipService.updateMembership(membershipId, membershipDtoPost);</span>
-<span class="nc" id="L76">        return new ResponseEntity&lt;&gt;(membershipService.getMembershipById(membershipId), HttpStatus.OK);</span>
+<span class="nc" id="L76">        membershipService.updateMembership(membershipId, membershipDtoPost);</span>
+<span class="nc" id="L77">        return new ResponseEntity&lt;&gt;(membershipService.getMembershipById(membershipId), HttpStatus.OK);</span>
     }
 
     @DeleteMapping(&quot;/adminAccess/deleteMembership/{membershipId}&quot;)
     public ResponseEntity&lt;MembershipEntity&gt; deleteMembership(@PathVariable(&quot;membershipId&quot;) Long membershipId){
-<span class="nc" id="L81">        membershipService.deleteMembership(membershipId);</span>
-<span class="nc" id="L82">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+<span class="nc" id="L82">        membershipService.deleteMembership(membershipId);</span>
+<span class="nc" id="L83">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
     }
 
     @GetMapping(&quot;/adminAccess/countTotalMembership&quot;)
     public int totalUser(){
-<span class="nc" id="L87">        return membershipService.totalMembership();</span>
+<span class="nc" id="L88">        return membershipService.totalMembership();</span>
+    }
+
+    @PostMapping(&quot;/userAccess/buyMembership&quot;)
+    public String buyMembership(@RequestBody BuyMembership buyMembership){
+<span class="nc" id="L93">        return membershipService.buyMembership(buyMembership);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

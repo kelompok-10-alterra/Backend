@@ -26,22 +26,22 @@ public class InstructorServiceImpl implements InstructorService {
     
     @Override
     public List&lt;InstructorDtoGet&gt; findAll() {
-<span class="fc" id="L29">        List&lt;InstructorEntity&gt; instructors = instructorRepository.findAll();</span>
-<span class="fc" id="L30">        List&lt;InstructorDtoGet&gt; instructorDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L29">        List&lt;InstructorEntity&gt; instructors = instructorRepository.findAll();</span>
+<span class="nc" id="L30">        List&lt;InstructorDtoGet&gt; instructorDtos = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L32">        instructors.forEach(isi -&gt;{</span>
-<span class="fc" id="L33">            InstructorDtoGet dto = new InstructorDtoGet();</span>
-<span class="fc" id="L34">            dto.setInstructorId(isi.getInstructorId());</span>
-<span class="fc" id="L35">            dto.setName(isi.getName());</span>
-<span class="fc" id="L36">            dto.setContact(isi.getContact());</span>
-<span class="fc" id="L37">            dto.setAddress(isi.getAddress());</span>
-<span class="fc" id="L38">            dto.setImageUrl(isi.getImageUrl());</span>
-<span class="fc" id="L39">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
-<span class="fc" id="L40">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L32">        instructors.forEach(isi -&gt;{</span>
+<span class="nc" id="L33">            InstructorDtoGet dto = new InstructorDtoGet();</span>
+<span class="nc" id="L34">            dto.setInstructorId(isi.getInstructorId());</span>
+<span class="nc" id="L35">            dto.setName(isi.getName());</span>
+<span class="nc" id="L36">            dto.setContact(isi.getContact());</span>
+<span class="nc" id="L37">            dto.setAddress(isi.getAddress());</span>
+<span class="nc" id="L38">            dto.setImageUrl(isi.getImageUrl());</span>
+<span class="nc" id="L39">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L40">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
 
-<span class="fc" id="L42">            instructorDtos.add(dto);</span>
-<span class="fc" id="L43">        });</span>
-<span class="fc" id="L44">        return instructorDtos;</span>
+<span class="nc" id="L42">            instructorDtos.add(dto);</span>
+<span class="nc" id="L43">        });</span>
+<span class="nc" id="L44">        return instructorDtos;</span>
     }
     
     // @Override
@@ -78,9 +78,9 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public InstructorEntity getInstructorById(Long instructorId) {
-<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        if(instructorRepository.findById(instructorId) != null){</span>
-<span class="fc" id="L82">            log.info(&quot;Instructor with id {} found&quot;, instructorId);</span>
-<span class="fc" id="L83">            return instructorRepository.findById(instructorId).get();</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if(instructorRepository.findById(instructorId) != null){</span>
+<span class="nc" id="L82">            log.info(&quot;Instructor with id {} found&quot;, instructorId);</span>
+<span class="nc" id="L83">            return instructorRepository.findById(instructorId).get();</span>
         }else{
 <span class="nc" id="L85">            log.info(&quot;Instructor with id {} not found&quot;, instructorId);</span>
 <span class="nc" id="L86">            throw new IllegalStateException(&quot;Instructor not found&quot;);</span>
@@ -89,47 +89,47 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public void updateInstructor(Long instructorId, InstructorDtoPost instructorDtoPost) {
-<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if(instructorRepository.findById(instructorId) != null){</span>
-<span class="fc" id="L93">            InstructorEntity instructor2 = instructorRepository.findById(instructorId).get();</span>
-<span class="fc" id="L94">            instructor2.setName(instructorDtoPost.getName());</span>
-<span class="fc" id="L95">            instructor2.setContact(instructorDtoPost.getContact());</span>
-<span class="fc" id="L96">            instructor2.setAddress(instructorDtoPost.getAddress());</span>
-<span class="fc" id="L97">            instructor2.setImageUrl(instructorDtoPost.getImageUrl());</span>
-<span class="fc" id="L98">            instructorRepository.save(instructor2);</span>
-<span class="fc" id="L99">            log.info(&quot;Instructor updated&quot;);</span>
-<span class="fc" id="L100">        }else{</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if(instructorRepository.findById(instructorId) != null){</span>
+<span class="nc" id="L93">            InstructorEntity instructor2 = instructorRepository.findById(instructorId).get();</span>
+<span class="nc" id="L94">            instructor2.setName(instructorDtoPost.getName());</span>
+<span class="nc" id="L95">            instructor2.setContact(instructorDtoPost.getContact());</span>
+<span class="nc" id="L96">            instructor2.setAddress(instructorDtoPost.getAddress());</span>
+<span class="nc" id="L97">            instructor2.setImageUrl(instructorDtoPost.getImageUrl());</span>
+<span class="nc" id="L98">            instructorRepository.save(instructor2);</span>
+<span class="nc" id="L99">            log.info(&quot;Instructor updated&quot;);</span>
+<span class="nc" id="L100">        }else{</span>
 <span class="nc" id="L101">            log.info(&quot;Instructor with id {} not found&quot;, instructorId);</span>
 <span class="nc" id="L102">            throw new IllegalStateException(&quot;Instructor not found&quot;);</span>
         }
-<span class="fc" id="L104">    }</span>
+<span class="nc" id="L104">    }</span>
 
     @Override
     public void deleteInstructor(Long instructorId) {
-<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if(instructorRepository.findById(instructorId).isPresent() == true){</span>
-<span class="fc" id="L109">            log.info(&quot;Instructor with id {} successfully deleted&quot;, instructorId);</span>
-<span class="fc" id="L110">            instructorRepository.deleteById(instructorId);</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        if(instructorRepository.findById(instructorId).isPresent() == true){</span>
+<span class="nc" id="L109">            log.info(&quot;Instructor with id {} successfully deleted&quot;, instructorId);</span>
+<span class="nc" id="L110">            instructorRepository.deleteById(instructorId);</span>
         }else{
 <span class="nc" id="L112">            log.info(&quot;Instructor with id {} not found&quot;, instructorId);</span>
 <span class="nc" id="L113">            throw new IllegalStateException(&quot;Instructor not found&quot;);</span>
         }
-<span class="fc" id="L115">    }</span>
+<span class="nc" id="L115">    }</span>
 
 	@Override
 	public void createInstructorDto(InstructorDtoPost instructorDtoPost) {
-<span class="fc" id="L119">        InstructorEntity instructorEntity = new InstructorEntity();</span>
-<span class="fc" id="L120">        instructorEntity.setName(instructorDtoPost.getName());</span>
-<span class="fc" id="L121">        instructorEntity.setContact(instructorDtoPost.getContact());</span>
-<span class="fc" id="L122">        instructorEntity.setAddress(instructorDtoPost.getAddress());</span>
-<span class="fc" id="L123">        instructorEntity.setImageUrl(instructorDtoPost.getImageUrl());</span>
+<span class="nc" id="L119">        InstructorEntity instructorEntity = new InstructorEntity();</span>
+<span class="nc" id="L120">        instructorEntity.setName(instructorDtoPost.getName());</span>
+<span class="nc" id="L121">        instructorEntity.setContact(instructorDtoPost.getContact());</span>
+<span class="nc" id="L122">        instructorEntity.setAddress(instructorDtoPost.getAddress());</span>
+<span class="nc" id="L123">        instructorEntity.setImageUrl(instructorDtoPost.getImageUrl());</span>
             
-<span class="fc" id="L125">        instructorRepository.save(instructorEntity);</span>
-<span class="fc" id="L126">        log.info(&quot;Instructor created&quot;);</span>
-<span class="fc" id="L127">    }</span>
+<span class="nc" id="L125">        instructorRepository.save(instructorEntity);</span>
+<span class="nc" id="L126">        log.info(&quot;Instructor created&quot;);</span>
+<span class="nc" id="L127">    }</span>
 
     @Override
     public Boolean instructorExist(Long instructorId) {
-<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if(instructorRepository.findById(instructorId).isPresent() == true){</span>
-<span class="fc" id="L132">            return true;</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if(instructorRepository.findById(instructorId).isPresent() == true){</span>
+<span class="nc" id="L132">            return true;</span>
         }else{
 <span class="nc" id="L134">            return false;</span>
         }

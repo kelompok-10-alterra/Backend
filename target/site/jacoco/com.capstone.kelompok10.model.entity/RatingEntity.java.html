@@ -20,19 +20,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="pc bnc" id="L23" title="All 78 branches missed.">@Data</span>
+<span class="nc bnc" id="L23" title="All 78 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L25">@NoArgsConstructor</span>
 <span class="nc" id="L26">@AllArgsConstructor</span>
 public class RatingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L30">    private Long ratingId;</span>
+<span class="nc" id="L30">    private Long ratingId;</span>
     @Size(min = 1, max = 1)
-<span class="fc" id="L32">    private Long rating;</span>
+<span class="nc" id="L32">    private Long rating;</span>
 <span class="nc" id="L33">    private String username;</span>
-<span class="fc" id="L34">    private Long userIdentity;</span>
-<span class="fc" id="L35">    private Long classIdentity;</span>
+<span class="nc" id="L34">    private Long userIdentity;</span>
+<span class="nc" id="L35">    private Long classIdentity;</span>
 
     @CreationTimestamp
 <span class="nc" id="L38">    private Instant createdAt;</span>

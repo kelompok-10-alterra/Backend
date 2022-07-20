@@ -21,17 +21,17 @@ public class GraphServiceImpl implements GraphService {
 
     @Override
     public List&lt;GraphEntity&gt; findAll() {
-<span class="fc" id="L24">        log.info(&quot;Get all Graph without DTO&quot;);</span>
-<span class="fc" id="L25">        List&lt;GraphEntity&gt; graph = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L26">        graphRepository.findAll().forEach(graph::add);</span>
-<span class="fc" id="L27">        return graph;</span>
+<span class="nc" id="L24">        log.info(&quot;Get all Graph without DTO&quot;);</span>
+<span class="nc" id="L25">        List&lt;GraphEntity&gt; graph = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L26">        graphRepository.findAll().forEach(graph::add);</span>
+<span class="nc" id="L27">        return graph;</span>
     }
 
     @Override
     public GraphEntity getGraphById(Long graphId) {
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if(graphRepository.findById(graphId) != null){</span>
-<span class="fc" id="L33">            log.info(&quot;Graph with id {} found&quot;, graphId);</span>
-<span class="fc" id="L34">            return graphRepository.findById(graphId).get();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if(graphRepository.findById(graphId) != null){</span>
+<span class="nc" id="L33">            log.info(&quot;Graph with id {} found&quot;, graphId);</span>
+<span class="nc" id="L34">            return graphRepository.findById(graphId).get();</span>
         }else{
 <span class="nc" id="L36">            log.info(&quot;Graph with id {} not found&quot;, graphId);</span>
 <span class="nc" id="L37">            throw new IllegalStateException(&quot;Graph not Found&quot;);</span>
@@ -40,42 +40,42 @@ public class GraphServiceImpl implements GraphService {
 
     @Override
     public void updateGraph(Long graphId, GraphDtoPost graphDtoPost) {
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if(graphRepository.findById(graphId) != null){</span>
-<span class="fc" id="L44">            GraphEntity graph2 = graphRepository.findById(graphId).get();</span>
-<span class="fc" id="L45">            graph2.setMonth(graphDtoPost.getMonth());</span>
-<span class="fc" id="L46">            graph2.setYear(graphDtoPost.getYear());</span>
-<span class="fc" id="L47">            graph2.setTotalUser(graphDtoPost.getTotalUser());</span>
-<span class="fc" id="L48">            graph2.setTotalMember(graphDtoPost.getTotalMember());</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if(graphRepository.findById(graphId) != null){</span>
+<span class="nc" id="L44">            GraphEntity graph2 = graphRepository.findById(graphId).get();</span>
+<span class="nc" id="L45">            graph2.setMonth(graphDtoPost.getMonth());</span>
+<span class="nc" id="L46">            graph2.setYear(graphDtoPost.getYear());</span>
+<span class="nc" id="L47">            graph2.setTotalUser(graphDtoPost.getTotalUser());</span>
+<span class="nc" id="L48">            graph2.setTotalMember(graphDtoPost.getTotalMember());</span>
 
-<span class="fc" id="L50">            graphRepository.save(graph2);</span>
-<span class="fc" id="L51">            log.info(&quot;Graph updated&quot;);</span>
-<span class="fc" id="L52">        }else{</span>
+<span class="nc" id="L50">            graphRepository.save(graph2);</span>
+<span class="nc" id="L51">            log.info(&quot;Graph updated&quot;);</span>
+<span class="nc" id="L52">        }else{</span>
 <span class="nc" id="L53">            log.info(&quot;Graph with id {} not found&quot;, graphId);</span>
 <span class="nc" id="L54">            throw new IllegalStateException(&quot;Graph not Found&quot;);</span>
         }
-<span class="fc" id="L56">    }</span>
+<span class="nc" id="L56">    }</span>
 
     @Override
     public void deleteGraph(Long graphId) {
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if(graphRepository.findById(graphId) != null){</span>
-<span class="fc" id="L61">            graphRepository.deleteById(graphId);</span>
-<span class="fc" id="L62">            log.info(&quot;Graph with id {} successfully deleted&quot;, graphId);</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if(graphRepository.findById(graphId) != null){</span>
+<span class="nc" id="L61">            graphRepository.deleteById(graphId);</span>
+<span class="nc" id="L62">            log.info(&quot;Graph with id {} successfully deleted&quot;, graphId);</span>
         }else{
 <span class="nc" id="L64">            log.info(&quot;Graph with id {} not found&quot;, graphId);</span>
 <span class="nc" id="L65">            throw new IllegalStateException(&quot;Graph not Found&quot;);</span>
         }
-<span class="fc" id="L67">    }</span>
+<span class="nc" id="L67">    }</span>
 
     @Override
     public void createGraphDto(GraphDtoPost graphDtoPost) {
-<span class="fc" id="L71">        GraphEntity graphEntity = new GraphEntity();</span>
-<span class="fc" id="L72">        graphEntity.setMonth(graphDtoPost.getMonth());</span>
-<span class="fc" id="L73">        graphEntity.setYear(graphDtoPost.getYear());</span>
-<span class="fc" id="L74">        graphEntity.setTotalUser(graphDtoPost.getTotalUser());</span>
-<span class="fc" id="L75">        graphEntity.setTotalMember(graphDtoPost.getTotalMember());</span>
+<span class="nc" id="L71">        GraphEntity graphEntity = new GraphEntity();</span>
+<span class="nc" id="L72">        graphEntity.setMonth(graphDtoPost.getMonth());</span>
+<span class="nc" id="L73">        graphEntity.setYear(graphDtoPost.getYear());</span>
+<span class="nc" id="L74">        graphEntity.setTotalUser(graphDtoPost.getTotalUser());</span>
+<span class="nc" id="L75">        graphEntity.setTotalMember(graphDtoPost.getTotalMember());</span>
 
-<span class="fc" id="L77">        graphRepository.save(graphEntity);</span>
-<span class="fc" id="L78">        log.info(&quot;Graph created&quot;);</span>
-<span class="fc" id="L79">    }</span>
+<span class="nc" id="L77">        graphRepository.save(graphEntity);</span>
+<span class="nc" id="L78">        log.info(&quot;Graph created&quot;);</span>
+<span class="nc" id="L79">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -27,69 +27,68 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="pc bnc" id="L30" title="All 198 branches missed.">@Data</span>
+<span class="nc bnc" id="L30" title="All 190 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L32">@NoArgsConstructor</span>
 <span class="nc" id="L33">@AllArgsConstructor</span>
 public class ClassEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L37">    private Long classId;</span>
-<span class="fc" id="L38">    private String name;</span>
-<span class="fc" id="L39">    private String description;</span>
-<span class="fc" id="L40">    private Boolean status;</span>
-<span class="fc" id="L41">    private Long capacity;</span>
-<span class="fc" id="L42">    private Long booked;</span>
+<span class="nc" id="L37">    private Long classId;</span>
+<span class="nc" id="L38">    private String name;</span>
+<span class="nc" id="L39">    private String description;</span>
+<span class="nc" id="L40">    private Boolean status;</span>
+<span class="nc" id="L41">    private Long capacity;</span>
+<span class="nc" id="L42">    private Long booked;</span>
     @DateTimeFormat(iso = ISO.DATE)
     @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
-<span class="fc" id="L45">    private LocalDate schedule;</span>
+<span class="nc" id="L45">    private LocalDate schedule;</span>
     @Size(min = 2, max = 2)
-<span class="fc" id="L47">    private Long hour;</span>
-<span class="fc" id="L48">    private Long price;</span>
-<span class="fc" id="L49">    private String imageUrl;</span>
-<span class="fc" id="L50">    private String videoUrl;</span>
-<span class="fc" id="L51">    private String meetUrl;</span>
-<span class="nc" id="L52">    private Long ratings;</span>
+<span class="nc" id="L47">    private Long hour;</span>
+<span class="nc" id="L48">    private Long price;</span>
+<span class="nc" id="L49">    private String imageUrl;</span>
+<span class="nc" id="L50">    private String meetUrl;</span>
+<span class="nc" id="L51">    private Long ratings;</span>
 
-<span class="nc" id="L54">    private String typeName;</span>
-<span class="nc" id="L55">    private String categoryName;</span>
+<span class="nc" id="L53">    private String typeName;</span>
+<span class="nc" id="L54">    private String categoryName;</span>
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = &quot;instructorId&quot;)
-<span class="fc" id="L60">    private InstructorEntity instructor;</span>
+<span class="nc" id="L59">    private InstructorEntity instructor;</span>
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = &quot;categoryId&quot;)
-<span class="fc" id="L65">    private CategoryEntity category;</span>
+<span class="nc" id="L64">    private CategoryEntity category;</span>
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = &quot;roomId&quot;)
-<span class="fc" id="L70">    private RoomEntity room;</span>
+<span class="nc" id="L69">    private RoomEntity room;</span>
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = &quot;typeId&quot;)
-<span class="fc" id="L75">    private TypeEntity type;</span>
+<span class="nc" id="L74">    private TypeEntity type;</span>
 
     @JsonIgnore
     @OneToMany(mappedBy = &quot;classes&quot;, orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-<span class="nc" id="L79">    private List&lt;BookingEntity&gt; booking;</span>
+<span class="nc" id="L78">    private List&lt;BookingEntity&gt; booking;</span>
 
     @JsonIgnore
     @OneToMany(mappedBy = &quot;classes&quot;, orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-<span class="nc" id="L83">    private List&lt;FavoriteClassEntity&gt; favoriteClass;</span>
+<span class="nc" id="L82">    private List&lt;FavoriteClassEntity&gt; favoriteClass;</span>
 
     @JsonIgnore
     @OneToMany(mappedBy = &quot;classes&quot;, orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-<span class="fc" id="L87">    private List&lt;RatingEntity&gt; rating;</span>
+<span class="nc" id="L86">    private List&lt;RatingEntity&gt; rating;</span>
 
     @CreationTimestamp
-<span class="fc" id="L90">    private Instant created_at;</span>
+<span class="nc" id="L89">    private Instant created_at;</span>
 
     @UpdateTimestamp
-<span class="fc" id="L93">    private Instant updated_at;</span>
+<span class="nc" id="L92">    private Instant updated_at;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

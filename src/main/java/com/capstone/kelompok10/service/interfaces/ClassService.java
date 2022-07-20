@@ -2,7 +2,7 @@ package com.capstone.kelompok10.service.interfaces;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
+// import org.springframework.data.domain.Page;
 
 import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
 import com.capstone.kelompok10.model.dto.post.ClassDtoPost;
@@ -12,8 +12,8 @@ import com.capstone.kelompok10.model.payload.GetUserByClass;
 public interface ClassService {
     List<ClassDtoGet> findAll();
     List<ClassDtoGet> findAll(String keyword);
-    Page<ClassEntity> findAllPagination(int offset, int pageSize);
-    Page<ClassEntity> findAllPaginationSort(int offset, int pageSize, String field);
+    // Page<ClassEntity> findAllPagination(int offset, int pageSize);
+    // Page<ClassEntity> findAllPaginationSort(int offset, int pageSize, String field);
     ClassDtoGet getClassByIdDto(Long classId);
     ClassEntity getClassById(Long classId);
     void createClassDto(ClassDtoPost classDtoPost);

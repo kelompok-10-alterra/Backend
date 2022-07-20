@@ -18,34 +18,34 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="pc bnc" id="L21" title="All 86 branches missed.">@Data</span>
+<span class="nc bnc" id="L21" title="All 86 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L23">@NoArgsConstructor</span>
 <span class="nc" id="L24">@AllArgsConstructor</span>
 public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L28">    private Long paymentId;</span>
-<span class="fc" id="L29">    private Long totalPayment;</span>
-<span class="fc" id="L30">    private String username;</span>
-<span class="fc" id="L31">    private String token;</span>
-<span class="fc" id="L32">    private String method;</span>
-<span class="fc" id="L33">    private Long totalDebt;</span>
+<span class="nc" id="L28">    private Long paymentId;</span>
+<span class="nc" id="L29">    private Long totalPayment;</span>
+<span class="nc" id="L30">    private String username;</span>
+<span class="nc" id="L31">    private String token;</span>
+<span class="nc" id="L32">    private String method;</span>
+<span class="nc" id="L33">    private Long totalDebt;</span>
 
     @CreationTimestamp
-<span class="fc" id="L36">    private Instant createdAt;</span>
+<span class="nc" id="L36">    private Instant createdAt;</span>
     @UpdateTimestamp
-<span class="fc" id="L38">    private Instant updatedAt;</span>
+<span class="nc" id="L38">    private Instant updatedAt;</span>
 
     @ManyToOne
     @JsonManagedReference
     @JoinColumn(name = &quot;userId&quot;)
-<span class="fc" id="L43">    private UserEntity user;</span>
+<span class="nc" id="L43">    private UserEntity user;</span>
 
     @ManyToOne
     @JsonManagedReference
     @JoinColumn(name = &quot;cartId&quot;)
-<span class="fc" id="L48">    private CartEntity cart;</span>
+<span class="nc" id="L48">    private CartEntity cart;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

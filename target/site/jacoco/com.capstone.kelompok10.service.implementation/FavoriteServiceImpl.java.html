@@ -25,16 +25,16 @@ public class FavoriteServiceImpl implements FavoriteService {
     
     @Override
     public List&lt;FavoriteEntity&gt; findAll() {
-<span class="fc" id="L28">        log.info(&quot;Get all Favorite&quot;);</span>
-<span class="fc" id="L29">        List&lt;FavoriteEntity&gt; favorite = favoriteRepository.findAll();</span>
-<span class="fc" id="L30">        return favorite;</span>
+<span class="nc" id="L28">        log.info(&quot;Get all Favorite&quot;);</span>
+<span class="nc" id="L29">        List&lt;FavoriteEntity&gt; favorite = favoriteRepository.findAll();</span>
+<span class="nc" id="L30">        return favorite;</span>
     }
 
     @Override
     public FavoriteEntity getFavoriteById(Long favoriteId) {
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if(favoriteRepository.findById(favoriteId) != null){</span>
-<span class="fc" id="L36">            log.info(&quot;Favorite with id {} found&quot;, favoriteId);</span>
-<span class="fc" id="L37">            return favoriteRepository.findById(favoriteId).get();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(favoriteRepository.findById(favoriteId) != null){</span>
+<span class="nc" id="L36">            log.info(&quot;Favorite with id {} found&quot;, favoriteId);</span>
+<span class="nc" id="L37">            return favoriteRepository.findById(favoriteId).get();</span>
         }else{
 <span class="nc" id="L39">            log.info(&quot;Favorite with id {} not found&quot;, favoriteId);</span>
 <span class="nc" id="L40">            throw new IllegalStateException(&quot;Favorite not Found&quot;);</span>
@@ -43,16 +43,16 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
 	public void addFavoriteClassToFavorite(Long favoriteClassId, Long favoriteId) {
-<span class="fc" id="L46">		FavoriteEntity favorite = favoriteRepository.findById(favoriteId).get();</span>
-<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if(favoriteClassRepository.findById(favoriteClassId).isPresent() == true){</span>
+<span class="nc" id="L46">		FavoriteEntity favorite = favoriteRepository.findById(favoriteId).get();</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if(favoriteClassRepository.findById(favoriteClassId).isPresent() == true){</span>
 <span class="nc" id="L48">            FavoriteClassEntity favClass = favoriteClassRepository.findById(favoriteClassId).get();</span>
 <span class="nc" id="L49">            favorite.getFavClass().add(favClass);</span>
 <span class="nc" id="L50">            favoriteRepository.save(favorite);</span>
 <span class="nc" id="L51">        }else{</span>
-<span class="fc" id="L52">            log.info(&quot;Booking with id {} no exist !!&quot;, favoriteClassId);</span>
+<span class="nc" id="L52">            log.info(&quot;Booking with id {} no exist !!&quot;, favoriteClassId);</span>
         }
 		
-<span class="fc" id="L55">	}</span>
+<span class="nc" id="L55">	}</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

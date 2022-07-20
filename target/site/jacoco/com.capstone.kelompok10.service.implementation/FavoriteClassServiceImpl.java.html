@@ -35,9 +35,9 @@ public class FavoriteClassServiceImpl implements FavoriteClassService {
 
     @Override
     public List&lt;FavoriteClassEntity&gt; findAll() {
-<span class="fc" id="L38">        log.info(&quot;Get all FavoriteClass&quot;);</span>
-<span class="fc" id="L39">        List&lt;FavoriteClassEntity&gt; favoriteClasss = favoriteClassRepository.findAll();</span>
-<span class="fc" id="L40">        return favoriteClasss;</span>
+<span class="nc" id="L38">        log.info(&quot;Get all FavoriteClass&quot;);</span>
+<span class="nc" id="L39">        List&lt;FavoriteClassEntity&gt; favoriteClasss = favoriteClassRepository.findAll();</span>
+<span class="nc" id="L40">        return favoriteClasss;</span>
     }
 
     // @Override
@@ -53,9 +53,9 @@ public class FavoriteClassServiceImpl implements FavoriteClassService {
 
     @Override
     public FavoriteClassEntity getFavoriteClassById(Long favoriteClassId) {
-<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if(favoriteClassRepository.findById(favoriteClassId) != null){</span>
-<span class="fc" id="L57">            log.info(&quot;FavoriteClass with id {} found&quot;, favoriteClassId);</span>
-<span class="fc" id="L58">            return favoriteClassRepository.findById(favoriteClassId).get();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if(favoriteClassRepository.findById(favoriteClassId) != null){</span>
+<span class="nc" id="L57">            log.info(&quot;FavoriteClass with id {} found&quot;, favoriteClassId);</span>
+<span class="nc" id="L58">            return favoriteClassRepository.findById(favoriteClassId).get();</span>
         }else{
 <span class="nc" id="L60">            log.info(&quot;FavoriteClass with id {} not found&quot;, favoriteClassId);</span>
 <span class="nc" id="L61">            throw new IllegalStateException(&quot;FavoriteClass not Found&quot;);</span>
@@ -94,14 +94,14 @@ public class FavoriteClassServiceImpl implements FavoriteClassService {
 
     @Override
     public void deleteFavoriteClass(Long favoriteClassId) {
-<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if(favoriteClassRepository.findById(favoriteClassId).isPresent()){</span>
-<span class="fc" id="L98">            log.info(&quot;Successfuly deleted favorite class&quot;);</span>
-<span class="fc" id="L99">            favoriteClassRepository.deleteById(favoriteClassId);</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if(favoriteClassRepository.findById(favoriteClassId).isPresent()){</span>
+<span class="nc" id="L98">            log.info(&quot;Successfuly deleted favorite class&quot;);</span>
+<span class="nc" id="L99">            favoriteClassRepository.deleteById(favoriteClassId);</span>
         }else{
 <span class="nc" id="L101">            log.info(&quot;Favorite Class with id {} not found&quot;, favoriteClassId);</span>
 <span class="nc" id="L102">            throw new IllegalStateException(&quot;Favorite Class you search not found&quot;);</span>
         }
         
-<span class="fc" id="L105">    }</span>
+<span class="nc" id="L105">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

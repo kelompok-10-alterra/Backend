@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 
 <span class="fc" id="L19">@Log4j2</span>
 @Service
-<span class="fc" id="L21">@AllArgsConstructor</span>
+<span class="nc" id="L21">@AllArgsConstructor</span>
 public class RoleServiceImpl implements RoleService {
     RoleRepository roleRepository;
 
@@ -32,10 +32,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List&lt;RoleEntity&gt; findAll() {
-<span class="fc" id="L35">        log.info(&quot;Get all Role without DTO&quot;);</span>
-<span class="fc" id="L36">        List&lt;RoleEntity&gt; role = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L37">        roleRepository.findAll().forEach(role::add);</span>
-<span class="fc" id="L38">        return role;</span>
+<span class="nc" id="L35">        log.info(&quot;Get all Role without DTO&quot;);</span>
+<span class="nc" id="L36">        List&lt;RoleEntity&gt; role = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L37">        roleRepository.findAll().forEach(role::add);</span>
+<span class="nc" id="L38">        return role;</span>
     }
     
     // @Override
@@ -70,9 +70,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleEntity getRoleById(Long roleId) {
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if(roleRepository.findById(roleId) != null){</span>
-<span class="fc" id="L74">            log.info(&quot;Role with id {} found&quot;, roleId);</span>
-<span class="fc" id="L75">            return roleRepository.findById(roleId).get();</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if(roleRepository.findById(roleId) != null){</span>
+<span class="nc" id="L74">            log.info(&quot;Role with id {} found&quot;, roleId);</span>
+<span class="nc" id="L75">            return roleRepository.findById(roleId).get();</span>
         }else{
 <span class="nc" id="L77">            log.info(&quot;Role with id {} not Found&quot;);</span>
 <span class="nc" id="L78">            throw new IllegalStateException(&quot;Role not Found&quot;);</span>
@@ -87,41 +87,41 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void updateRole(Long roleId, RoleDtoPost roleDtoPost) {
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if(roleRepository.findById(roleId) != null){</span>
-<span class="fc" id="L91">            RoleEntity role2 = roleRepository.findById(roleId).get();</span>
-<span class="fc" id="L92">            role2.setName(roleDtoPost.getName());</span>
-<span class="fc" id="L93">            roleRepository.save(role2);</span>
-<span class="fc" id="L94">            log.info(&quot;Role updated&quot;);</span>
-<span class="fc" id="L95">        }else{</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if(roleRepository.findById(roleId) != null){</span>
+<span class="nc" id="L91">            RoleEntity role2 = roleRepository.findById(roleId).get();</span>
+<span class="nc" id="L92">            role2.setName(roleDtoPost.getName());</span>
+<span class="nc" id="L93">            roleRepository.save(role2);</span>
+<span class="nc" id="L94">            log.info(&quot;Role updated&quot;);</span>
+<span class="nc" id="L95">        }else{</span>
 <span class="nc" id="L96">            log.info(&quot;Role with id {} not Found&quot;);</span>
 <span class="nc" id="L97">            throw new IllegalStateException(&quot;Role not Found&quot;);</span>
         }
-<span class="fc" id="L99">    }</span>
+<span class="nc" id="L99">    }</span>
 
     @Override
     public void deleteRole(Long roleId) {
-<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        if(roleRepository.findById(roleId) != null){</span>
-<span class="fc" id="L104">            log.info(&quot;Role with id {} successfully deleted&quot;, roleId);</span>
-<span class="fc" id="L105">            roleRepository.deleteById(roleId);  </span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if(roleRepository.findById(roleId) != null){</span>
+<span class="nc" id="L104">            log.info(&quot;Role with id {} successfully deleted&quot;, roleId);</span>
+<span class="nc" id="L105">            roleRepository.deleteById(roleId);  </span>
         }else{
 <span class="nc" id="L107">            log.info(&quot;Role with id {} not Found&quot;);</span>
 <span class="nc" id="L108">            throw new IllegalStateException(&quot;Role not Found&quot;);</span>
         }
-<span class="fc" id="L110">    }</span>
+<span class="nc" id="L110">    }</span>
 
 	@Override
 	public void createRoleDto(RoleDtoPost roleDtoPost) {
-<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        if(roleRepository.findByName(roleDtoPost.getName()) != null){</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        if(roleRepository.findByName(roleDtoPost.getName()) != null){</span>
 <span class="nc" id="L115">            log.info(&quot;Role with name {} already exist&quot;, roleDtoPost.getName());</span>
 <span class="nc" id="L116">            throw new IllegalStateException(&quot;Role already exist&quot;);</span>
         }else{
-<span class="fc" id="L118">            RoleEntity roleEntity = new RoleEntity();</span>
-<span class="fc" id="L119">            roleEntity.setName(roleDtoPost.getName());</span>
+<span class="nc" id="L118">            RoleEntity roleEntity = new RoleEntity();</span>
+<span class="nc" id="L119">            roleEntity.setName(roleDtoPost.getName());</span>
 
-<span class="fc" id="L121">            roleRepository.save(roleEntity);</span>
-<span class="fc" id="L122">            log.info(&quot;Role created&quot;);</span>
+<span class="nc" id="L121">            roleRepository.save(roleEntity);</span>
+<span class="nc" id="L122">            log.info(&quot;Role created&quot;);</span>
         }
-<span class="fc" id="L124">	}</span>
+<span class="nc" id="L124">	}</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

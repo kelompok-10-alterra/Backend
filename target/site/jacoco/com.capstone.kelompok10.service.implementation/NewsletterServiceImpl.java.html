@@ -22,10 +22,10 @@ public class NewsletterServiceImpl implements NewsletterService {
 
     @Override
     public List&lt;NewsletterEntity&gt; findAll() {
-<span class="fc" id="L25">        log.info(&quot;Get all Newsletter without DTO&quot;);</span>
-<span class="fc" id="L26">        List&lt;NewsletterEntity&gt; newsletter = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L27">        newsletterRepository.findAll().forEach(newsletter::add);</span>
-<span class="fc" id="L28">        return newsletter;</span>
+<span class="nc" id="L25">        log.info(&quot;Get all Newsletter without DTO&quot;);</span>
+<span class="nc" id="L26">        List&lt;NewsletterEntity&gt; newsletter = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L27">        newsletterRepository.findAll().forEach(newsletter::add);</span>
+<span class="nc" id="L28">        return newsletter;</span>
     }
     
     // @Override
@@ -61,9 +61,9 @@ public class NewsletterServiceImpl implements NewsletterService {
 
     @Override
     public NewsletterEntity getNewsletterById(Long newsletterId) {
-<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if(newsletterRepository.findById(newsletterId) != null){</span>
-<span class="fc" id="L65">            log.info(&quot;Newsletter with id {} found&quot;, newsletterId);</span>
-<span class="fc" id="L66">            return newsletterRepository.findById(newsletterId).get();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if(newsletterRepository.findById(newsletterId) != null){</span>
+<span class="nc" id="L65">            log.info(&quot;Newsletter with id {} found&quot;, newsletterId);</span>
+<span class="nc" id="L66">            return newsletterRepository.findById(newsletterId).get();</span>
         }else{
 <span class="nc" id="L68">            log.info(&quot;Newsletter with id {} not found&quot;, newsletterId);</span>
 <span class="nc" id="L69">            throw new IllegalStateException(&quot;Newsletter not Found&quot;);</span>
@@ -72,47 +72,47 @@ public class NewsletterServiceImpl implements NewsletterService {
 
     @Override
     public void updateNewsletter(Long newsletterId, NewsletterDtoPost newsletterDtoPost) {
-<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if(newsletterRepository.findById(newsletterId) != null){</span>
-<span class="fc" id="L76">            NewsletterEntity newsletter2 = newsletterRepository.findById(newsletterId).get();</span>
-<span class="fc" id="L77">            newsletter2.setTitle(newsletterDtoPost.getTitle());</span>
-<span class="fc" id="L78">            newsletter2.setDescription(newsletterDtoPost.getDescription());</span>
-<span class="fc" id="L79">            newsletter2.setImageUrl(newsletterDtoPost.getImageUrl());</span>
-<span class="fc" id="L80">            newsletter2.setVideoUrl(newsletterDtoPost.getVideoUrl());</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if(newsletterRepository.findById(newsletterId) != null){</span>
+<span class="nc" id="L76">            NewsletterEntity newsletter2 = newsletterRepository.findById(newsletterId).get();</span>
+<span class="nc" id="L77">            newsletter2.setTitle(newsletterDtoPost.getTitle());</span>
+<span class="nc" id="L78">            newsletter2.setDescription(newsletterDtoPost.getDescription());</span>
+<span class="nc" id="L79">            newsletter2.setImageUrl(newsletterDtoPost.getImageUrl());</span>
+<span class="nc" id="L80">            newsletter2.setVideoUrl(newsletterDtoPost.getVideoUrl());</span>
 
-<span class="fc" id="L82">            newsletterRepository.save(newsletter2);</span>
-<span class="fc" id="L83">            log.info(&quot;Newsletter updated&quot;);</span>
-<span class="fc" id="L84">        }else{</span>
+<span class="nc" id="L82">            newsletterRepository.save(newsletter2);</span>
+<span class="nc" id="L83">            log.info(&quot;Newsletter updated&quot;);</span>
+<span class="nc" id="L84">        }else{</span>
 <span class="nc" id="L85">            log.info(&quot;Newsletter with id {} not found&quot;, newsletterId);</span>
 <span class="nc" id="L86">            throw new IllegalStateException(&quot;Newsletter not Found&quot;);</span>
         }
-<span class="fc" id="L88">    }</span>
+<span class="nc" id="L88">    }</span>
 
     @Override
     public void deleteNewsletter(Long newsletterId) {
-<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if(newsletterRepository.findById(newsletterId) != null){</span>
-<span class="fc" id="L93">            newsletterRepository.deleteById(newsletterId);</span>
-<span class="fc" id="L94">            log.info(&quot;Newsletter with id {} successfully deleted&quot;, newsletterId);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if(newsletterRepository.findById(newsletterId) != null){</span>
+<span class="nc" id="L93">            newsletterRepository.deleteById(newsletterId);</span>
+<span class="nc" id="L94">            log.info(&quot;Newsletter with id {} successfully deleted&quot;, newsletterId);</span>
         }else{
 <span class="nc" id="L96">            log.info(&quot;Newsletter with id {} not found&quot;, newsletterId);</span>
 <span class="nc" id="L97">            throw new IllegalStateException(&quot;Newsletter not Found&quot;);</span>
         }
-<span class="fc" id="L99">    }</span>
+<span class="nc" id="L99">    }</span>
 
     @Override
     public void createNewsletterDto(NewsletterDtoPost newsletterDtoPost) {
-<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        if(newsletterRepository.findByTitle(newsletterDtoPost.getTitle()) == null){</span>
-<span class="fc" id="L104">            NewsletterEntity newsletterEntity = new NewsletterEntity();</span>
-<span class="fc" id="L105">            newsletterEntity.setTitle(newsletterDtoPost.getTitle());</span>
-<span class="fc" id="L106">            newsletterEntity.setDescription(newsletterDtoPost.getDescription());</span>
-<span class="fc" id="L107">            newsletterEntity.setImageUrl(newsletterDtoPost.getImageUrl());</span>
-<span class="fc" id="L108">            newsletterEntity.setVideoUrl(newsletterDtoPost.getVideoUrl());</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if(newsletterRepository.findByTitle(newsletterDtoPost.getTitle()) == null){</span>
+<span class="nc" id="L104">            NewsletterEntity newsletterEntity = new NewsletterEntity();</span>
+<span class="nc" id="L105">            newsletterEntity.setTitle(newsletterDtoPost.getTitle());</span>
+<span class="nc" id="L106">            newsletterEntity.setDescription(newsletterDtoPost.getDescription());</span>
+<span class="nc" id="L107">            newsletterEntity.setImageUrl(newsletterDtoPost.getImageUrl());</span>
+<span class="nc" id="L108">            newsletterEntity.setVideoUrl(newsletterDtoPost.getVideoUrl());</span>
 
-<span class="fc" id="L110">            newsletterRepository.save(newsletterEntity);</span>
-<span class="fc" id="L111">            log.info(&quot;Newsletter created&quot;);</span>
-<span class="fc" id="L112">        }else{</span>
+<span class="nc" id="L110">            newsletterRepository.save(newsletterEntity);</span>
+<span class="nc" id="L111">            log.info(&quot;Newsletter created&quot;);</span>
+<span class="nc" id="L112">        }else{</span>
 <span class="nc" id="L113">            log.info(&quot;Newsletter with Title {} already exist&quot;, newsletterDtoPost.getTitle());</span>
 <span class="nc" id="L114">            throw new IllegalStateException(&quot;Newsletter already Exist&quot;);</span>
         }
-<span class="fc" id="L116">    }</span>
+<span class="nc" id="L116">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

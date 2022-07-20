@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 <span class="fc" id="L26">@Log4j2</span>
-<span class="fc" id="L27">@AllArgsConstructor</span>
+<span class="nc" id="L27">@AllArgsConstructor</span>
 public class BookingServiceImpl implements BookingService {
     BookingRepository bookingRepository;
 
@@ -50,33 +50,33 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List&lt;BookingDtoGet&gt; findAll() {
-<span class="fc" id="L53">        List&lt;BookingEntity&gt; booking = bookingRepository.findAll();</span>
-<span class="fc" id="L54">        List&lt;BookingDtoGet&gt; booking2 = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L55">        booking.forEach(isi -&gt;{</span>
-<span class="fc" id="L56">            BookingDtoGet dto = new BookingDtoGet();</span>
-<span class="fc" id="L57">            dto.setBookingId(isi.getBookingId());</span>
-<span class="fc" id="L58">            dto.setStatus(isi.getStatus());</span>
-<span class="fc" id="L59">            dto.setPrice(isi.getPrice());</span>
-<span class="fc" id="L60">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
-<span class="fc" id="L61">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="fc" id="L62">            dto.setUserId(isi.getUser().getUserId());</span>
-<span class="fc" id="L63">            dto.setUserName(isi.getUser().getName());</span>
-<span class="fc" id="L64">            dto.setMembership(isi.getUser().getMembership());</span>
-<span class="fc" id="L65">            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());</span>
-<span class="fc" id="L66">            dto.setInstructureName(isi.getClasses().getInstructor().getName());</span>
-<span class="fc" id="L67">            dto.setClassId(isi.getClasses().getClassId());</span>
-<span class="fc" id="L68">            dto.setClassIdentity(isi.getClassIdentity());</span>
-<span class="fc" id="L69">            dto.setClassName(isi.getClasses().getName());</span>
-<span class="fc" id="L70">            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());</span>
-<span class="fc" id="L71">            dto.setCategoryName(isi.getClasses().getCategory().getName());</span>
-<span class="fc" id="L72">            dto.setSchedule(isi.getClasses().getSchedule());</span>
-<span class="fc" id="L73">            dto.setRoom(isi.getClasses().getRoom().getName());</span>
-<span class="fc" id="L74">            dto.setType(isi.getClasses().getType().getName());</span>
+<span class="nc" id="L53">        List&lt;BookingEntity&gt; booking = bookingRepository.findAll();</span>
+<span class="nc" id="L54">        List&lt;BookingDtoGet&gt; booking2 = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L55">        booking.forEach(isi -&gt;{</span>
+<span class="nc" id="L56">            BookingDtoGet dto = new BookingDtoGet();</span>
+<span class="nc" id="L57">            dto.setBookingId(isi.getBookingId());</span>
+<span class="nc" id="L58">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L59">            dto.setPrice(isi.getPrice());</span>
+<span class="nc" id="L60">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L61">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L62">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="nc" id="L63">            dto.setUserName(isi.getUser().getName());</span>
+<span class="nc" id="L64">            dto.setMembership(isi.getUser().getMembership());</span>
+<span class="nc" id="L65">            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());</span>
+<span class="nc" id="L66">            dto.setInstructureName(isi.getClasses().getInstructor().getName());</span>
+<span class="nc" id="L67">            dto.setClassId(isi.getClasses().getClassId());</span>
+<span class="nc" id="L68">            dto.setClassIdentity(isi.getClassIdentity());</span>
+<span class="nc" id="L69">            dto.setClassName(isi.getClasses().getName());</span>
+<span class="nc" id="L70">            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());</span>
+<span class="nc" id="L71">            dto.setCategoryName(isi.getClasses().getCategory().getName());</span>
+<span class="nc" id="L72">            dto.setSchedule(isi.getClasses().getSchedule());</span>
+<span class="nc" id="L73">            dto.setRoom(isi.getClasses().getRoom().getName());</span>
+<span class="nc" id="L74">            dto.setType(isi.getClasses().getType().getName());</span>
 
-<span class="fc" id="L76">            booking2.add(dto);</span>
+<span class="nc" id="L76">            booking2.add(dto);</span>
 
-<span class="fc" id="L78">        });</span>
-<span class="fc" id="L79">        return booking2;</span>
+<span class="nc" id="L78">        });</span>
+<span class="nc" id="L79">        return booking2;</span>
     }
     
     // @Override
@@ -95,42 +95,42 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDtoGet getBookingByIdDto(Long bookingId) {
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if(bookingRepository.findById(bookingId) == null){</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if(bookingRepository.findById(bookingId) == null){</span>
 <span class="nc" id="L99">            log.info(&quot;Booking with id {} not found&quot;, bookingId);</span>
 <span class="nc" id="L100">            return null;</span>
         }
-<span class="fc" id="L102">        log.info(&quot;Booking with id {} found&quot;, bookingId);</span>
-<span class="fc" id="L103">        BookingEntity isi = bookingRepository.findById(bookingId).get();</span>
-<span class="fc" id="L104">        BookingDtoGet dto = new BookingDtoGet();</span>
-<span class="fc" id="L105">        dto.setBookingId(isi.getBookingId());</span>
-<span class="fc" id="L106">            dto.setStatus(isi.getStatus());</span>
-<span class="fc" id="L107">            dto.setPrice(isi.getPrice());</span>
-<span class="fc" id="L108">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
-<span class="fc" id="L109">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="fc" id="L110">            dto.setUserId(isi.getUser().getUserId());</span>
-<span class="fc" id="L111">            dto.setUserName(isi.getUser().getName());</span>
-<span class="fc" id="L112">            dto.setMembership(isi.getUser().getMembership());</span>
-<span class="fc" id="L113">            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());</span>
-<span class="fc" id="L114">            dto.setInstructureName(isi.getClasses().getInstructor().getName());</span>
-<span class="fc" id="L115">            dto.setClassId(isi.getClasses().getClassId());</span>
-<span class="fc" id="L116">            dto.setClassName(isi.getClasses().getName());</span>
-<span class="fc" id="L117">            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());</span>
-<span class="fc" id="L118">            dto.setCategoryName(isi.getClasses().getCategory().getName());</span>
-<span class="fc" id="L119">            dto.setSchedule(isi.getClasses().getSchedule());</span>
-<span class="fc" id="L120">            dto.setRoom(isi.getClasses().getRoom().getName());</span>
-<span class="fc" id="L121">            dto.setType(isi.getClasses().getType().getName());</span>
+<span class="nc" id="L102">        log.info(&quot;Booking with id {} found&quot;, bookingId);</span>
+<span class="nc" id="L103">        BookingEntity isi = bookingRepository.findById(bookingId).get();</span>
+<span class="nc" id="L104">        BookingDtoGet dto = new BookingDtoGet();</span>
+<span class="nc" id="L105">        dto.setBookingId(isi.getBookingId());</span>
+<span class="nc" id="L106">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L107">            dto.setPrice(isi.getPrice());</span>
+<span class="nc" id="L108">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L109">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L110">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="nc" id="L111">            dto.setUserName(isi.getUser().getName());</span>
+<span class="nc" id="L112">            dto.setMembership(isi.getUser().getMembership());</span>
+<span class="nc" id="L113">            dto.setInstructureId(isi.getClasses().getInstructor().getInstructorId());</span>
+<span class="nc" id="L114">            dto.setInstructureName(isi.getClasses().getInstructor().getName());</span>
+<span class="nc" id="L115">            dto.setClassId(isi.getClasses().getClassId());</span>
+<span class="nc" id="L116">            dto.setClassName(isi.getClasses().getName());</span>
+<span class="nc" id="L117">            dto.setCategoryId(isi.getClasses().getCategory().getCategoryId());</span>
+<span class="nc" id="L118">            dto.setCategoryName(isi.getClasses().getCategory().getName());</span>
+<span class="nc" id="L119">            dto.setSchedule(isi.getClasses().getSchedule());</span>
+<span class="nc" id="L120">            dto.setRoom(isi.getClasses().getRoom().getName());</span>
+<span class="nc" id="L121">            dto.setType(isi.getClasses().getType().getName());</span>
 
-<span class="fc" id="L123">        return dto;            </span>
+<span class="nc" id="L123">        return dto;            </span>
     }
 
     @Override
     public BookingEntity getBookingById(Long bookingId) {
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if(bookingRepository.findById(bookingId) == null){</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        if(bookingRepository.findById(bookingId) == null){</span>
 <span class="nc" id="L129">            log.info(&quot;Booking with id {} not found&quot;, bookingId);</span>
 <span class="nc" id="L130">            return null;</span>
         }
-<span class="fc" id="L132">        log.info(&quot;Booking with id {} found&quot;, bookingId);</span>
-<span class="fc" id="L133">        return bookingRepository.findById(bookingId).get();</span>
+<span class="nc" id="L132">        log.info(&quot;Booking with id {} found&quot;, bookingId);</span>
+<span class="nc" id="L133">        return bookingRepository.findById(bookingId).get();</span>
     }
 
     @Override
@@ -221,24 +221,24 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void deleteBooking(Long bookingId) {
-<span class="pc bpc" id="L224" title="1 of 2 branches missed.">        if(bookingRepository.findById(bookingId).isPresent() == true){</span>
-<span class="fc" id="L225">            BookingEntity booking = bookingRepository.findById(bookingId).get();</span>
-<span class="pc bpc" id="L226" title="1 of 2 branches missed.">            if(classService.classExist(booking.getClasses().getClassId()) == true){</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">        if(bookingRepository.findById(bookingId).isPresent() == true){</span>
+<span class="nc" id="L225">            BookingEntity booking = bookingRepository.findById(bookingId).get();</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">            if(classService.classExist(booking.getClasses().getClassId()) == true){</span>
 <span class="nc" id="L227">                Long oldPrice = booking.getPrice();</span>
 <span class="nc" id="L228">                classService.unBookClass(booking.getClasses().getClassId());</span>
 <span class="nc" id="L229">                cartService.unBook(booking.getCartIdentity(), oldPrice, 0L);</span>
 <span class="nc" id="L230">                bookingRepository.deleteById(bookingId);</span>
 <span class="nc" id="L231">                log.info(&quot;Booking with id {} successfully deleted&quot;, bookingId);</span>
 <span class="nc" id="L232">            }else{</span>
-<span class="fc" id="L233">                bookingRepository.deleteById(bookingId);</span>
-<span class="fc" id="L234">                log.info(&quot;Booking with id {} successfully deleted&quot;, bookingId);</span>
+<span class="nc" id="L233">                bookingRepository.deleteById(bookingId);</span>
+<span class="nc" id="L234">                log.info(&quot;Booking with id {} successfully deleted&quot;, bookingId);</span>
             }
-<span class="fc" id="L236">        }else{</span>
+<span class="nc" id="L236">        }else{</span>
 <span class="nc" id="L237">            log.info(&quot;Booking with id {} not found&quot;, bookingId);</span>
 <span class="nc" id="L238">            throw new IllegalStateException(&quot;Booking you search not found&quot;);</span>
         }
         
-<span class="fc" id="L241">    }</span>
+<span class="nc" id="L241">    }</span>
 
     @Override
     public void createBookingDto(BookingDtoPost bookingDtoPost) {
@@ -295,10 +295,10 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public int totalBooking() {
-<span class="fc" id="L298">        List&lt;BookingEntity&gt; booking = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L299">        bookingRepository.findAll().forEach(booking::add);</span>
-<span class="fc" id="L300">        int sum = booking.size();</span>
-<span class="fc" id="L301">        return sum;</span>
+<span class="nc" id="L298">        List&lt;BookingEntity&gt; booking = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L299">        bookingRepository.findAll().forEach(booking::add);</span>
+<span class="nc" id="L300">        int sum = booking.size();</span>
+<span class="nc" id="L301">        return sum;</span>
     }
 
     @Override

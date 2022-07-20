@@ -3,7 +3,7 @@
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+// import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,17 +43,17 @@ public class ClassController {
         }
     }
 
-    @GetMapping(&quot;/userAccess/getAllClass/{offset}/{pageSize}&quot;)
-    public ResponseEntity&lt;Page&lt;ClassEntity&gt;&gt; findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
-<span class="nc" id="L48">        Page&lt;ClassEntity&gt; classs = classService.findAllPagination(offset, pageSize);</span>
-<span class="nc" id="L49">        return new ResponseEntity&lt;&gt;(classs, HttpStatus.OK);</span>
-    }
+    // @GetMapping(&quot;/userAccess/getAllClass/{offset}/{pageSize}&quot;)
+    // public ResponseEntity&lt;Page&lt;ClassEntity&gt;&gt; findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize){
+    //     Page&lt;ClassEntity&gt; classs = classService.findAllPagination(offset, pageSize);
+    //     return new ResponseEntity&lt;&gt;(classs, HttpStatus.OK);
+    // }
 
-    @GetMapping(&quot;/userAccess/getAllClass/{offset}/{pageSize}/{field}&quot;)
-    public ResponseEntity&lt;Page&lt;ClassEntity&gt;&gt; findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
-<span class="nc" id="L54">        Page&lt;ClassEntity&gt; classs = classService.findAllPaginationSort(offset, pageSize, field);</span>
-<span class="nc" id="L55">        return new ResponseEntity&lt;&gt;(classs, HttpStatus.OK);</span>
-    }
+    // @GetMapping(&quot;/userAccess/getAllClass/{offset}/{pageSize}/{field}&quot;)
+    // public ResponseEntity&lt;Page&lt;ClassEntity&gt;&gt; findAllPaginationSorting(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+    //     Page&lt;ClassEntity&gt; classs = classService.findAllPaginationSort(offset, pageSize, field);
+    //     return new ResponseEntity&lt;&gt;(classs, HttpStatus.OK);
+    // }
 
     // @GetMapping(&quot;/userAccess/getAllClassWithDto&quot;)
     // public ResponseEntity&lt;List&lt;ClassDtoGet&gt;&gt; findAllDto(){
@@ -61,10 +61,10 @@ public class ClassController {
     //     return new ResponseEntity&lt;&gt;(classDtos, HttpStatus.OK);
     // }
 
-    @GetMapping(&quot;/userAccess/getClassById&quot;)
-    public ResponseEntity&lt;ClassEntity&gt; getClassById(@RequestParam(&quot;classId&quot;) Long classId){
-<span class="nc" id="L66">        return new ResponseEntity&lt;&gt;(classService.getClassById(classId), HttpStatus.OK);</span>
-    }
+    // @GetMapping(&quot;/userAccess/getClassById&quot;)
+    // public ResponseEntity&lt;ClassEntity&gt; getClassById(@RequestParam(&quot;classId&quot;) Long classId){
+    //     return new ResponseEntity&lt;&gt;(classService.getClassById(classId), HttpStatus.OK);
+    // }
 
     @GetMapping(&quot;/userAccess/getClassByIdDto&quot;)
     public ResponseEntity&lt;ClassDtoGet&gt; getClassByIdDto(@RequestParam(&quot;classId&quot;) Long classId){

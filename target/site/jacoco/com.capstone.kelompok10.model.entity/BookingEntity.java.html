@@ -20,38 +20,38 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="pc bnc" id="L23" title="All 102 branches missed.">@Data</span>
+<span class="nc bnc" id="L23" title="All 102 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L25">@NoArgsConstructor</span>
 <span class="nc" id="L26">@AllArgsConstructor</span>
 public class BookingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L30">    private Long bookingId;</span>
-<span class="fc" id="L31">    private Boolean status;</span>
-<span class="fc" id="L32">    private Long price;</span>
+<span class="nc" id="L30">    private Long bookingId;</span>
+<span class="nc" id="L31">    private Boolean status;</span>
+<span class="nc" id="L32">    private Long price;</span>
 <span class="nc" id="L33">    private Long cartIdentity;</span>
-<span class="fc" id="L34">    private Long classIdentity;</span>
+<span class="nc" id="L34">    private Long classIdentity;</span>
 
     @JsonIgnore
 <span class="nc" id="L37">    private Long userIdentity;</span>
 
 
     @CreationTimestamp
-<span class="fc" id="L41">    private Instant created_at;</span>
+<span class="nc" id="L41">    private Instant created_at;</span>
 
     @UpdateTimestamp
-<span class="fc" id="L44">    private Instant updated_at;</span>
+<span class="nc" id="L44">    private Instant updated_at;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = &quot;userId&quot;)
-<span class="fc" id="L49">    private UserEntity user;</span>
+<span class="nc" id="L49">    private UserEntity user;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = &quot;classId&quot;)
-<span class="fc" id="L54">    private ClassEntity classes;</span>
+<span class="nc" id="L54">    private ClassEntity classes;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

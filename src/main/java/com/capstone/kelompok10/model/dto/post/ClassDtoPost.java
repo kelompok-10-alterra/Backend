@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClassDtoPost {
     private Boolean status;
-    private String name;
     private String description;
     private Long capacity;
     @DateTimeFormat(iso = ISO.DATE)
@@ -27,6 +26,5 @@ public class ClassDtoPost {
     private Long categoryId;
     private Long roomId;
     private Long typeId;
-    private String videoUrl;
     private String meetUrl;
 }

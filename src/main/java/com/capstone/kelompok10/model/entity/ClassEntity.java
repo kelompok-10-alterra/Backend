@@ -47,7 +47,6 @@ public class ClassEntity {
     private Long hour;
     private Long price;
     private String imageUrl;
-    private String videoUrl;
     private String meetUrl;
     private Long ratings;
 

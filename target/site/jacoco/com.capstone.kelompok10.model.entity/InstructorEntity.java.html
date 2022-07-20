@@ -18,27 +18,27 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="pc bpc" id="L21" title="51 of 70 branches missed.">@Data</span>
+<span class="nc bnc" id="L21" title="All 70 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L23">@NoArgsConstructor</span>
 <span class="nc" id="L24">@AllArgsConstructor</span>
 public class InstructorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L28">    private Long instructorId;</span>
-<span class="fc" id="L29">    private String name;</span>
-<span class="fc" id="L30">    private Long contact;</span>
-<span class="fc" id="L31">    private String address;</span>
-<span class="fc" id="L32">    private String imageUrl;</span>
+<span class="nc" id="L28">    private Long instructorId;</span>
+<span class="nc" id="L29">    private String name;</span>
+<span class="nc" id="L30">    private Long contact;</span>
+<span class="nc" id="L31">    private String address;</span>
+<span class="nc" id="L32">    private String imageUrl;</span>
     
     // @JsonIgnore
     @OneToMany(mappedBy = &quot;instructor&quot;, orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-<span class="fc" id="L36">    private List&lt;ClassEntity&gt; classes;</span>
+<span class="nc" id="L36">    private List&lt;ClassEntity&gt; classes;</span>
 
     @CreationTimestamp
-<span class="fc" id="L39">    private Instant created_at;</span>
+<span class="nc" id="L39">    private Instant created_at;</span>
 
     @UpdateTimestamp
-<span class="fc" id="L42">    private Instant updated_at;</span>
+<span class="nc" id="L42">    private Instant updated_at;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

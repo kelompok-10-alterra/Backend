@@ -19,32 +19,32 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="pc bnc" id="L22" title="All 70 branches missed.">@Data</span>
+<span class="nc bnc" id="L22" title="All 70 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L24">@NoArgsConstructor</span>
 <span class="nc" id="L25">@AllArgsConstructor</span>
 public class MembershipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L29">    private Long membershipId;</span>
-<span class="fc" id="L30">    private Boolean status;</span>
+<span class="nc" id="L29">    private Long membershipId;</span>
+<span class="nc" id="L30">    private Boolean status;</span>
     @JsonIgnore
 <span class="nc" id="L32">    private Long userIdentity;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = &quot;userId&quot;)
-<span class="fc" id="L37">    private UserEntity user;</span>
+<span class="nc" id="L37">    private UserEntity user;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = &quot;memberId&quot;)
-<span class="fc" id="L42">    private MemberEntity member;</span>
+<span class="nc" id="L42">    private MemberEntity member;</span>
 
-<span class="fc" id="L44">    private LocalDateTime createdAt;</span>
-<span class="fc" id="L45">    private LocalDateTime expiredAt;</span>
+<span class="nc" id="L44">    private LocalDateTime createdAt;</span>
+<span class="nc" id="L45">    private LocalDateTime expiredAt;</span>
     
     @UpdateTimestamp
-<span class="fc" id="L48">    private Instant updated_at;</span>
+<span class="nc" id="L48">    private Instant updated_at;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

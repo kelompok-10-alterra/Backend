@@ -19,14 +19,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="pc bnc" id="L22" title="All 30 branches missed.">@Data</span>
+<span class="nc bnc" id="L22" title="All 30 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L24">@NoArgsConstructor</span>
 <span class="nc" id="L25">@AllArgsConstructor</span>
 public class HistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L29">    private Long historyId;</span>
+<span class="nc" id="L29">    private Long historyId;</span>
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
