@@ -110,23 +110,22 @@ public class PaymentServiceImpl implements PaymentService {
         PaymentEntity payment = new PaymentEntity();
         UserEntity user = new UserEntity();
         user.setUserId(paymentDtoPost.getUserId());
+        UserEntity user2 = usereRepository.findById(paymentDtoPost.getUserId()).get();
         CartEntity cart = new CartEntity();
-        cart.setCartId(paymentDtoPost.getCartId());
-        if(cartRepository.findById(paymentDtoPost.getCartId()).isPresent() && usereRepository.findById(paymentDtoPost.getUserId()).isPresent()){
-            UserEntity user2 = usereRepository.findById(paymentDtoPost.getUserId()).get();
-            CartEntity cart2 = cartRepository.findById(paymentDtoPost.getCartId()).get();
+        cart.setCartId(user2.getCart().getCartId());
+        if(usereRepository.findById(paymentDtoPost.getUserId()).isPresent()){
             payment.setTotalPayment(paymentDtoPost.getTotalPayment());
             payment.setMethod(paymentDtoPost.getMethod());
             payment.setUser(user);
-            payment.setCart(cart);
+            payment.setCart(user2.getCart());
             String token = UUID.randomUUID().toString();
             payment.setToken(token);
             payment.setUsername(user2.getUsername());
-            payment.setTotalDebt(cart2.getTotal());
+            payment.setTotalDebt(user2.getCart().getTotal());
             paymentRepository.save(payment);
 
             String link = "https://www.api.rafdev.my.id/capstone/payment/adminAccess/confirmPayment?token=" + token;
-            emailSenderService.sendEmail("capstone.kelompok.10@gmail.com", buildEmail(user2.getUsername(), link, paymentDtoPost.getTotalPayment() ,paymentDtoPost.getMethod()));
+            emailSenderService.sendEmail("capstone.kelompok.10@gmail.com", buildEmail(user2.getUsername(), link, paymentDtoPost.getTotalPayment() ,paymentDtoPost.getMethod(), user2.getCart().getTotal()));
             return token;
         }else{
             log.info("UserId or CartId not found");
@@ -136,7 +135,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public String buildEmail(String username, String link, Long totalPayment, String method) {
+    public String buildEmail(String username, String link, Long totalPayment, String method, Long debt) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
         "\n" +
         "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -192,7 +191,7 @@ public class PaymentServiceImpl implements PaymentService {
         "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
         "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
         "        \n" +
-        "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi user with username : " + username + " Just send a Payment with total payment : " + totalPayment + " And with method : " + method + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Please Check the Bank Account, and if the payment is correct, please click the link below : </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Confirm Payment</a> </p></blockquote>\n CC : Capstone Kelompok 10 <p>Thank you</p>" +
+        "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi user with username : " + username + " Just send a Payment with total payment : " + totalPayment + " With debt : " + debt + " And with method : " + method + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Please Check the Bank Account, and if the payment is correct, please click the link below : </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Confirm Payment</a> </p></blockquote>\n CC : Capstone Kelompok 10 <p>Thank you</p>" +
         "        \n" +
         "      </td>\n" +
         "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

@@ -20,6 +20,7 @@ com\capstone\kelompok10\controller\GraphController.class
 com\capstone\kelompok10\Kelompok10Application.class
 com\capstone\kelompok10\model\payload\RoleToUser.class
 com\capstone\kelompok10\repository\ContentRepository.class
+com\capstone\kelompok10\model\payload\BuyBooking.class
 com\capstone\kelompok10\service\interfaces\TypeService.class
 com\capstone\kelompok10\model\dto\get\BookingDtoGet.class
 com\capstone\kelompok10\model\entity\BookingEntity.class
@@ -84,6 +85,7 @@ com\capstone\kelompok10\service\email\PhonePasswordValidator.class
 com\capstone\kelompok10\model\dto\post\TypeDtoPost.class
 com\capstone\kelompok10\controller\ContentController.class
 com\capstone\kelompok10\model\entity\HistoryEntity.class
+com\capstone\kelompok10\model\payload\BookingToCart.class
 com\capstone\kelompok10\service\implementation\RatingServiceImpl.class
 com\capstone\kelompok10\model\entity\GraphEntity.class
 com\capstone\kelompok10\service\interfaces\GraphService.class

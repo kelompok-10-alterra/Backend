@@ -41,6 +41,10 @@ public class CartEntity {
     @JsonManagedReference
     private List<BookingEntity> booking = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private List<ClassEntity> classes = new ArrayList<>();
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private UserEntity user;

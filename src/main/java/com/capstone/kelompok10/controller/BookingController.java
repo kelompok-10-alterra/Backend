@@ -18,17 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.kelompok10.model.dto.get.BookingDtoGet;
 import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
+import com.capstone.kelompok10.model.payload.BookingToCart;
+import com.capstone.kelompok10.model.payload.BuyBooking;
 import com.capstone.kelompok10.service.interfaces.BookingService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @RestController
 @RequestMapping("/capstone/booking")
 public class BookingController {
-    BookingService bookingService;
-
+    
     @Autowired
-    public BookingController(BookingService bookingService){
-        this.bookingService = bookingService;
-    }
+    private BookingService bookingService;
 
     @GetMapping("/adminAccess/getAllBooking")
     public ResponseEntity<List<BookingDtoGet>> findAll(@RequestParam(required = false) Long bookingId){
@@ -85,4 +87,18 @@ public class BookingController {
     public int totalUser(){
         return bookingService.totalBooking();
     }
+
+    @PostMapping("/userAccess/buyBooking")
+    public String buyBooking(@RequestBody BuyBooking buyBooking){
+        return bookingService.buyClass(buyBooking);
+    }
+
+    @GetMapping("/confirmation/confirmPayment")
+    public String confirmPayment(@RequestParam("token") String token){
+        return bookingService.confirmPayment(token);
+    }
+
+    @PostMapping("/userAccess/bookToCart")
+    public String bookToCart(@RequestBody BookingToCart bookingToCart){
+        return bookingService.addBookingToCart(bookingToCart);    }
 }

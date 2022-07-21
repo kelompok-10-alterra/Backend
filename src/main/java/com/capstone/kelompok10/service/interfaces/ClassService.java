@@ -22,6 +22,8 @@ public interface ClassService {
     List<GetUserByClass> getBookingByClassId(Long classId);
     List<ClassDtoGet> getClassByType(String typeName);
     List<ClassDtoGet> getClassByCategoryName(String categoryName);
+    // String addClassToCart(Long classId, Long userId);
+    // String removeClassFromCart(Long classId, Long userId);
 
     // Verify Method
     void classBooked(Long classId);

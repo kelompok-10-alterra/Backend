@@ -32,6 +32,7 @@ public class BookingEntity {
     private Long price;
     private Long cartIdentity;
     private Long classIdentity;
+    private String token;
 
     @JsonIgnore
     private Long userIdentity;

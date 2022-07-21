@@ -3,7 +3,6 @@
 // import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // import org.jeasy.random.EasyRandom;
-// import org.json.JSONObject;
 // import org.junit.jupiter.api.DisplayName;
 // import org.junit.jupiter.api.Test;
 // import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,6 @@
 // import org.springframework.test.web.servlet.RequestBuilder;
 // import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-// import com.capstone.kelompok10.model.dto.post.CategoryDtoPost;
-// import com.capstone.kelompok10.model.entity.CategoryEntity;
 // import com.capstone.kelompok10.repository.CategoryRepository;
 // import com.capstone.kelompok10.service.interfaces.CategoryService;
 // import com.fasterxml.jackson.databind.ObjectMapper;
