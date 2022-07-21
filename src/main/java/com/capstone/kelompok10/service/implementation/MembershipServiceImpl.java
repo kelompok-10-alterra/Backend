@@ -12,6 +12,7 @@ import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.BuyMembership;
 import com.capstone.kelompok10.repository.MemberRepository;
 import com.capstone.kelompok10.repository.MembershipRepository;
+import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.MemberService;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 import com.capstone.kelompok10.service.interfaces.UserService;
@@ -30,6 +31,9 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -179,6 +183,8 @@ public class MembershipServiceImpl implements MembershipService {
             userEntity.setUserId(membershipDtoPost.getUserId());
             
             if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true && userService.nativeUser(membershipDtoPost.getUserId()) == false){
+                UserEntity user2 = userRepository.findById(membershipDtoPost.getUserId()).get();
+                membership2.setUsername(user2.getUsername());
                 membership2.setUser(userEntity);
                 membership2.setMember(memberEntity);
                 if(membershipDtoPost.getMemberId() == 1){
@@ -224,6 +230,8 @@ public class MembershipServiceImpl implements MembershipService {
         memberEntity.setMemberId(membershipDtoPost.getMemberId());
 
         if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true && userService.nativeUser(membershipDtoPost.getUserId()) == false){
+            UserEntity user2 = userRepository.findById(membershipDtoPost.getUserId()).get();
+            membershipEntity.setUsername(user2.getUsername());
             membershipEntity.setStatus(true);
             membershipEntity.setUser(userEntity);
             membershipEntity.setMember(memberEntity);
@@ -310,8 +318,11 @@ public class MembershipServiceImpl implements MembershipService {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberId(buyMembership.getMemberId());
 
+        UserEntity user2 = userRepository.findById(buyMembership.getUserId()).get();
+
         if(userService.userExist(buyMembership.getUserId()) == true && memberService.memberExist(buyMembership.getMemberId()) == true && userService.nativeUser(buyMembership.getUserId()) == false){
             MemberEntity member2 = memberRepository.findById(buyMembership.getMemberId()).get();
+            membershipEntity.setUsername(user2.getUsername());
             membershipEntity.setStatus(true);
             membershipEntity.setUser(userEntity);
             membershipEntity.setMember(memberEntity);
@@ -322,8 +333,6 @@ public class MembershipServiceImpl implements MembershipService {
                 membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(3));
             }if(buyMembership.getMemberId() == 3){
                 membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(6));
-            }else{
-                membershipEntity.setExpiredAt(LocalDateTime.now());
             }
             Long total = buyMembership.getTotal();
             if(total.equals(member2.getPrice())){
@@ -336,5 +345,38 @@ public class MembershipServiceImpl implements MembershipService {
         }else{
             throw new IllegalStateException("User or Member did'nt exist");
         }
+    }
+
+    @Override
+    public List<MembershipDtoGet> getMembershipByUsername(String username) {
+        log.info("Membership with username {} found", username);
+        List<MembershipEntity> membership = membershipRepository.findByUsername(username);
+        List<MembershipDtoGet> membershipDto = new ArrayList<>();
+        membership.forEach(isi ->{
+            MembershipDtoGet dto = new MembershipDtoGet();
+            dto.setMembershipId(isi.getMembershipId());
+            dto.setStatus(isi.getStatus());
+            dto.setCreatedAt(isi.getCreatedAt().toString());
+            dto.setUpdatedAt(isi.getUpdated_at().toString());
+            dto.setUserId(isi.getUser().getUserId());
+            dto.setUsername(isi.getUser().getUsername());
+            dto.setEmail(isi.getUser().getEmail());
+            dto.setName(isi.getUser().getName());
+            if(isi.getMember() == null){
+                dto.setMemberId(null);
+                dto.setMemberName("No Membership");
+                dto.setMemberPeriod("No Membership");
+            }else{
+                dto.setMemberId(isi.getMember().getMemberId());
+                dto.setMemberName(isi.getMember().getName());
+                dto.setMemberPeriod(isi.getMember().getPeriod());
+            }
+            dto.setContact(isi.getUser().getPhone());
+            dto.setAddress(isi.getUser().getAddress());
+            dto.setExpiredAt(isi.getExpiredAt());
+
+            membershipDto.add(dto);
+        });
+        return membershipDto;
     }
 }

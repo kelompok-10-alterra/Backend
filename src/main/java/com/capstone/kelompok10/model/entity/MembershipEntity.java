@@ -30,6 +30,7 @@ public class MembershipEntity {
     private Boolean status;
     @JsonIgnore
     private Long userIdentity;
+    private String username;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore

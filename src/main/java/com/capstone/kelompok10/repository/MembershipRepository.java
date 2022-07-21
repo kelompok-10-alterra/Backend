@@ -14,4 +14,5 @@ public interface MembershipRepository extends JpaRepository<MembershipEntity, Lo
     @Query("SELECT m FROM MembershipEntity m WHERE m.status LIKE %?1%")
     List<MembershipEntity> findAll(Boolean keyword);
     List<MembershipEntity> findByUser(UserEntity user);
+    List<MembershipEntity> findByUsername(String username);
 }
