@@ -65,32 +65,37 @@ public class MembershipController {
 <span class="nc" id="L65">        return new ResponseEntity&lt;&gt;(membershipService.getMembershipByIdDto(membershipId), HttpStatus.OK);</span>
     }
 
+    @GetMapping(&quot;/userAccess/getMembershipByUsername&quot;)
+    public ResponseEntity&lt;MembershipDtoGet&gt; getMembershipByUsername(@RequestParam(&quot;username&quot;) String username){
+<span class="nc" id="L70">        return new ResponseEntity&lt;&gt;(membershipService.getMembershipByUsername(username), HttpStatus.OK);</span>
+    }
+
     @PostMapping(&quot;/adminAccess/createNewMembership&quot;)
     public ResponseEntity&lt;MembershipDtoPost&gt; createMemberDto(@RequestBody MembershipDtoPost membershipDtoPost){
-<span class="nc" id="L70">        membershipService.createMembershipDto(membershipDtoPost);</span>
-<span class="nc" id="L71">        return new ResponseEntity&lt;&gt;(membershipDtoPost, HttpStatus.OK);</span>
+<span class="nc" id="L75">        membershipService.createMembershipDto(membershipDtoPost);</span>
+<span class="nc" id="L76">        return new ResponseEntity&lt;&gt;(membershipDtoPost, HttpStatus.OK);</span>
     }
 
     @PutMapping(&quot;/adminAccess/updateMembership/{membershipId}&quot;)
     public ResponseEntity&lt;MembershipEntity&gt; updateMembership(@PathVariable(&quot;membershipId&quot;) Long membershipId, @RequestBody MembershipDtoPost membershipDtoPost){
-<span class="nc" id="L76">        membershipService.updateMembership(membershipId, membershipDtoPost);</span>
-<span class="nc" id="L77">        return new ResponseEntity&lt;&gt;(membershipService.getMembershipById(membershipId), HttpStatus.OK);</span>
+<span class="nc" id="L81">        membershipService.updateMembership(membershipId, membershipDtoPost);</span>
+<span class="nc" id="L82">        return new ResponseEntity&lt;&gt;(membershipService.getMembershipById(membershipId), HttpStatus.OK);</span>
     }
 
     @DeleteMapping(&quot;/adminAccess/deleteMembership/{membershipId}&quot;)
     public ResponseEntity&lt;MembershipEntity&gt; deleteMembership(@PathVariable(&quot;membershipId&quot;) Long membershipId){
-<span class="nc" id="L82">        membershipService.deleteMembership(membershipId);</span>
-<span class="nc" id="L83">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+<span class="nc" id="L87">        membershipService.deleteMembership(membershipId);</span>
+<span class="nc" id="L88">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
     }
 
     @GetMapping(&quot;/adminAccess/countTotalMembership&quot;)
     public int totalUser(){
-<span class="nc" id="L88">        return membershipService.totalMembership();</span>
+<span class="nc" id="L93">        return membershipService.totalMembership();</span>
     }
 
     @PostMapping(&quot;/userAccess/buyMembership&quot;)
     public String buyMembership(@RequestBody BuyMembership buyMembership){
-<span class="nc" id="L93">        return membershipService.buyMembership(buyMembership);</span>
+<span class="nc" id="L98">        return membershipService.buyMembership(buyMembership);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

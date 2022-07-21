@@ -21,6 +21,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -54,23 +55,19 @@ public class UserEntity {
     private Boolean status;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<MembershipEntity> memberships;
-
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     private List<BookingEntity> booking;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     private List<FavoriteClassEntity> favClass;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     private List<RatingEntity> rating;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     private List<PaymentEntity> payment;
 
     @Column(nullable = true)

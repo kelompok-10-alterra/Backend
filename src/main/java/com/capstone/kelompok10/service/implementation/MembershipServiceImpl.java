@@ -12,6 +12,7 @@ import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.BuyMembership;
 import com.capstone.kelompok10.repository.MemberRepository;
 import com.capstone.kelompok10.repository.MembershipRepository;
+import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.MemberService;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 import com.capstone.kelompok10.service.interfaces.UserService;
@@ -30,6 +31,9 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -179,7 +183,10 @@ public class MembershipServiceImpl implements MembershipService {
             userEntity.setUserId(membershipDtoPost.getUserId());
             
             if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true && userService.nativeUser(membershipDtoPost.getUserId()) == false){
+                UserEntity user2 = userRepository.findById(membershipDtoPost.getUserId()).get();
+                membership2.setUsername(user2.getUsername());
                 membership2.setUser(userEntity);
+                membership2.setUserIdentity(user2.getUserId());
                 membership2.setMember(memberEntity);
                 if(membershipDtoPost.getMemberId() == 1){
                     membership2.setExpiredAt(LocalDateTime.now().plusMonths(1));
@@ -204,8 +211,13 @@ public class MembershipServiceImpl implements MembershipService {
     @Override
     public void deleteMembership(Long membershipId) {
         if(membershipRepository.findById(membershipId).isPresent() == true){
-            log.info("Membership with id {} successfully deleted", membershipId);
+            MembershipEntity membership = membershipRepository.findById(membershipId).get();
+            UserEntity user = userRepository.findById(membership.getUserIdentity()).get();
+            user.setMembership("No Membership");
+            user.setStatus(false);
+            userRepository.save(user);
             membershipRepository.deleteById(membershipId);
+            log.info("Membership with id {} successfully deleted", membershipId);
         }else{
             log.info("Membership with id {} not found", membershipId);
             throw new IllegalStateException("Membership not Found");
@@ -223,9 +235,12 @@ public class MembershipServiceImpl implements MembershipService {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberId(membershipDtoPost.getMemberId());
 
-        if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true && userService.nativeUser(membershipDtoPost.getUserId()) == false){
+        if(userService.userExist(membershipDtoPost.getUserId()) == true && memberService.memberExist(membershipDtoPost.getMemberId()) == true && userService.nativeUser(membershipDtoPost.getUserId()) == false && membershipRepository.findByUserIdentity(membershipDtoPost.getUserId()) == null){
+            UserEntity user2 = userRepository.findById(membershipDtoPost.getUserId()).get();
+            membershipEntity.setUsername(user2.getUsername());
             membershipEntity.setStatus(true);
             membershipEntity.setUser(userEntity);
+            membershipEntity.setUserIdentity(user2.getUserId());
             membershipEntity.setMember(memberEntity);
             membershipEntity.setCreatedAt(LocalDateTime.now());
             if(membershipDtoPost.getMemberId() == 1){
@@ -240,7 +255,7 @@ public class MembershipServiceImpl implements MembershipService {
             log.info("membership created");
         }else{
             log.info("failed to create membership");
-            throw new IllegalStateException("User or Member did'ny exist");
+            throw new IllegalStateException("User or Member did'nt exist or User Already Have Membership");
         }
     }
 
@@ -310,10 +325,14 @@ public class MembershipServiceImpl implements MembershipService {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberId(buyMembership.getMemberId());
 
-        if(userService.userExist(buyMembership.getUserId()) == true && memberService.memberExist(buyMembership.getMemberId()) == true && userService.nativeUser(buyMembership.getUserId()) == false){
+        UserEntity user2 = userRepository.findById(buyMembership.getUserId()).get();
+
+        if(userService.userExist(buyMembership.getUserId()) == true && memberService.memberExist(buyMembership.getMemberId()) == true && userService.nativeUser(buyMembership.getUserId()) == false && membershipRepository.findByUserIdentity(buyMembership.getUserId()) == null){
             MemberEntity member2 = memberRepository.findById(buyMembership.getMemberId()).get();
+            membershipEntity.setUsername(user2.getUsername());
             membershipEntity.setStatus(true);
             membershipEntity.setUser(userEntity);
+            membershipEntity.setUserIdentity(user2.getUserId());
             membershipEntity.setMember(memberEntity);
             membershipEntity.setCreatedAt(LocalDateTime.now());
             if(buyMembership.getMemberId() == 1){
@@ -322,8 +341,6 @@ public class MembershipServiceImpl implements MembershipService {
                 membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(3));
             }if(buyMembership.getMemberId() == 3){
                 membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(6));
-            }else{
-                membershipEntity.setExpiredAt(LocalDateTime.now());
             }
             Long total = buyMembership.getTotal();
             if(total.equals(member2.getPrice())){
@@ -334,7 +351,37 @@ public class MembershipServiceImpl implements MembershipService {
                 return "The amount of payment not same as debt";
             }
         }else{
-            throw new IllegalStateException("User or Member did'nt exist");
+            return "User or Member did'nt exist or User Already Have Membership";
         }
+    }
+
+    @Override
+    public MembershipDtoGet getMembershipByUsername(String username) {
+        log.info("Membership with username {} found", username);
+        MembershipEntity isi = membershipRepository.findByUsername(username).get();
+        MembershipDtoGet dto = new MembershipDtoGet();
+
+        dto.setMembershipId(isi.getMembershipId());
+        dto.setStatus(isi.getStatus());
+        dto.setCreatedAt(isi.getCreatedAt().toString());
+        dto.setUpdatedAt(isi.getUpdated_at().toString());
+        dto.setUserId(isi.getUser().getUserId());
+        dto.setUsername(isi.getUser().getUsername());
+        dto.setEmail(isi.getUser().getEmail());
+        dto.setName(isi.getUser().getName());
+        if(isi.getMember() == null){
+            dto.setMemberId(null);
+            dto.setMemberName("No Membership");
+            dto.setMemberPeriod("No Membership");
+        }else{
+            dto.setMemberId(isi.getMember().getMemberId());
+            dto.setMemberName(isi.getMember().getName());
+            dto.setMemberPeriod(isi.getMember().getPeriod());
+        }
+        dto.setContact(isi.getUser().getPhone());
+        dto.setAddress(isi.getUser().getAddress());
+        dto.setExpiredAt(isi.getExpiredAt());
+
+        return dto;
     }
 }

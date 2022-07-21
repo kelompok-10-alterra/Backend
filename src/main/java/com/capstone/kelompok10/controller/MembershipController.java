@@ -65,6 +65,11 @@ public class MembershipController {
         return new ResponseEntity<>(membershipService.getMembershipByIdDto(membershipId), HttpStatus.OK);
     }
 
+    @GetMapping("/userAccess/getMembershipByUsername")
+    public ResponseEntity<MembershipDtoGet> getMembershipByUsername(@RequestParam("username") String username){
+        return new ResponseEntity<>(membershipService.getMembershipByUsername(username), HttpStatus.OK);
+    }
+
     @PostMapping("/adminAccess/createNewMembership")
     public ResponseEntity<MembershipDtoPost> createMemberDto(@RequestBody MembershipDtoPost membershipDtoPost){
         membershipService.createMembershipDto(membershipDtoPost);

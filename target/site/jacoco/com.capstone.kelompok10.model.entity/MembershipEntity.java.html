@@ -13,38 +13,40 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="nc bnc" id="L22" title="All 70 branches missed.">@Data</span>
+<span class="nc bnc" id="L23" title="All 78 branches missed.">@Data</span>
 @Entity
-<span class="fc" id="L24">@NoArgsConstructor</span>
-<span class="nc" id="L25">@AllArgsConstructor</span>
+<span class="fc" id="L25">@NoArgsConstructor</span>
+<span class="nc" id="L26">@AllArgsConstructor</span>
 public class MembershipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="nc" id="L29">    private Long membershipId;</span>
-<span class="nc" id="L30">    private Boolean status;</span>
-    @JsonIgnore
-<span class="nc" id="L32">    private Long userIdentity;</span>
+<span class="nc" id="L30">    private Long membershipId;</span>
+<span class="nc" id="L31">    private Boolean status;</span>
+
+<span class="nc" id="L33">    private Long userIdentity;</span>
+<span class="nc" id="L34">    private String username;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = &quot;userId&quot;)
-<span class="nc" id="L37">    private UserEntity user;</span>
+<span class="nc" id="L39">    private UserEntity user;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = &quot;memberId&quot;)
-<span class="nc" id="L42">    private MemberEntity member;</span>
+<span class="nc" id="L44">    private MemberEntity member;</span>
 
-<span class="nc" id="L44">    private LocalDateTime createdAt;</span>
-<span class="nc" id="L45">    private LocalDateTime expiredAt;</span>
+<span class="nc" id="L46">    private LocalDateTime createdAt;</span>
+<span class="nc" id="L47">    private LocalDateTime expiredAt;</span>
     
     @UpdateTimestamp
-<span class="nc" id="L48">    private Instant updated_at;</span>
+<span class="nc" id="L50">    private Instant updated_at;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

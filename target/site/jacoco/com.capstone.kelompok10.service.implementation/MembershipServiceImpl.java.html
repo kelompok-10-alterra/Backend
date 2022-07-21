@@ -12,6 +12,7 @@ import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.BuyMembership;
 import com.capstone.kelompok10.repository.MemberRepository;
 import com.capstone.kelompok10.repository.MembershipRepository;
+import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.MemberService;
 import com.capstone.kelompok10.service.interfaces.MembershipService;
 import com.capstone.kelompok10.service.interfaces.UserService;
@@ -22,14 +23,17 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<span class="fc" id="L25">@Log4j2</span>
+<span class="fc" id="L26">@Log4j2</span>
 @Service
-<span class="nc" id="L27">@AllArgsConstructor</span>
+<span class="nc" id="L28">@AllArgsConstructor</span>
 public class MembershipServiceImpl implements MembershipService {
     MembershipRepository membershipRepository;
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -38,41 +42,41 @@ public class MembershipServiceImpl implements MembershipService {
     private MemberService memberService;
 
     @Autowired
-<span class="fc" id="L41">    public MembershipServiceImpl(MembershipRepository membershipRepository){</span>
-<span class="fc" id="L42">        this.membershipRepository = membershipRepository;</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L45">    public MembershipServiceImpl(MembershipRepository membershipRepository){</span>
+<span class="fc" id="L46">        this.membershipRepository = membershipRepository;</span>
+<span class="fc" id="L47">    }</span>
 
     @Override
     public List&lt;MembershipDtoGet&gt; findAll() {
-<span class="nc" id="L47">        List&lt;MembershipEntity&gt; memberships = membershipRepository.findAll();</span>
-<span class="nc" id="L48">        List&lt;MembershipDtoGet&gt; membershipDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L51">        List&lt;MembershipEntity&gt; memberships = membershipRepository.findAll();</span>
+<span class="nc" id="L52">        List&lt;MembershipDtoGet&gt; membershipDtos = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L50">        memberships.forEach(isi -&gt;{</span>
-<span class="nc" id="L51">            MembershipDtoGet dto = new MembershipDtoGet();</span>
-<span class="nc" id="L52">            dto.setMembershipId(isi.getMembershipId());</span>
-<span class="nc" id="L53">            dto.setStatus(isi.getStatus());</span>
-<span class="nc" id="L54">            dto.setCreatedAt(isi.getCreatedAt().toString());</span>
-<span class="nc" id="L55">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="nc" id="L56">            dto.setUserId(isi.getUser().getUserId());</span>
-<span class="nc" id="L57">            dto.setUsername(isi.getUser().getUsername());</span>
-<span class="nc" id="L58">            dto.setEmail(isi.getUser().getEmail());</span>
-<span class="nc" id="L59">            dto.setName(isi.getUser().getName());</span>
-<span class="nc bnc" id="L60" title="All 2 branches missed.">            if(isi.getMember() == null){</span>
-<span class="nc" id="L61">                dto.setMemberId(null);</span>
-<span class="nc" id="L62">                dto.setMemberName(&quot;No Membership&quot;);</span>
-<span class="nc" id="L63">                dto.setMemberPeriod(&quot;No Membership&quot;);</span>
+<span class="nc" id="L54">        memberships.forEach(isi -&gt;{</span>
+<span class="nc" id="L55">            MembershipDtoGet dto = new MembershipDtoGet();</span>
+<span class="nc" id="L56">            dto.setMembershipId(isi.getMembershipId());</span>
+<span class="nc" id="L57">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L58">            dto.setCreatedAt(isi.getCreatedAt().toString());</span>
+<span class="nc" id="L59">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L60">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="nc" id="L61">            dto.setUsername(isi.getUser().getUsername());</span>
+<span class="nc" id="L62">            dto.setEmail(isi.getUser().getEmail());</span>
+<span class="nc" id="L63">            dto.setName(isi.getUser().getName());</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            if(isi.getMember() == null){</span>
+<span class="nc" id="L65">                dto.setMemberId(null);</span>
+<span class="nc" id="L66">                dto.setMemberName(&quot;No Membership&quot;);</span>
+<span class="nc" id="L67">                dto.setMemberPeriod(&quot;No Membership&quot;);</span>
             }else{
-<span class="nc" id="L65">                dto.setMemberId(isi.getMember().getMemberId());</span>
-<span class="nc" id="L66">                dto.setMemberName(isi.getMember().getName());</span>
-<span class="nc" id="L67">                dto.setMemberPeriod(isi.getMember().getPeriod());</span>
+<span class="nc" id="L69">                dto.setMemberId(isi.getMember().getMemberId());</span>
+<span class="nc" id="L70">                dto.setMemberName(isi.getMember().getName());</span>
+<span class="nc" id="L71">                dto.setMemberPeriod(isi.getMember().getPeriod());</span>
             }
-<span class="nc" id="L69">            dto.setContact(isi.getUser().getPhone());</span>
-<span class="nc" id="L70">            dto.setAddress(isi.getUser().getAddress());</span>
-<span class="nc" id="L71">            dto.setExpiredAt(isi.getExpiredAt());</span>
+<span class="nc" id="L73">            dto.setContact(isi.getUser().getPhone());</span>
+<span class="nc" id="L74">            dto.setAddress(isi.getUser().getAddress());</span>
+<span class="nc" id="L75">            dto.setExpiredAt(isi.getExpiredAt());</span>
 
-<span class="nc" id="L73">            membershipDtos.add(dto);</span>
-<span class="nc" id="L74">        });</span>
-<span class="nc" id="L75">        return membershipDtos;</span>
+<span class="nc" id="L77">            membershipDtos.add(dto);</span>
+<span class="nc" id="L78">        });</span>
+<span class="nc" id="L79">        return membershipDtos;</span>
     }
     
     // @Override
@@ -91,251 +95,294 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public List&lt;MembershipDtoGet&gt; findAllDto() {
-<span class="nc" id="L94">        log.info(&quot;Get all Membership with DTO&quot;);</span>
-<span class="nc" id="L95">        List&lt;MembershipEntity&gt; memberships = membershipRepository.findAll();</span>
-<span class="nc" id="L96">        List&lt;MembershipDtoGet&gt; membershipDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L98">        log.info(&quot;Get all Membership with DTO&quot;);</span>
+<span class="nc" id="L99">        List&lt;MembershipEntity&gt; memberships = membershipRepository.findAll();</span>
+<span class="nc" id="L100">        List&lt;MembershipDtoGet&gt; membershipDtos = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L98">        memberships.forEach(isi -&gt;{</span>
-<span class="nc" id="L99">            MembershipDtoGet dto = new MembershipDtoGet();</span>
-<span class="nc" id="L100">            dto.setMembershipId(isi.getMembershipId());</span>
-<span class="nc" id="L101">            dto.setStatus(isi.getStatus());</span>
-<span class="nc" id="L102">            dto.setCreatedAt(isi.getCreatedAt().toString());</span>
-<span class="nc" id="L103">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="nc" id="L104">            dto.setUserId(isi.getUser().getUserId());</span>
-<span class="nc" id="L105">            dto.setUsername(isi.getUser().getUsername());</span>
-<span class="nc" id="L106">            dto.setEmail(isi.getUser().getEmail());</span>
-<span class="nc" id="L107">            dto.setName(isi.getUser().getName());</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">            if(isi.getMember() == null){</span>
-<span class="nc" id="L109">                dto.setMemberId(null);</span>
-<span class="nc" id="L110">                dto.setMemberName(&quot;No Membership&quot;);</span>
-<span class="nc" id="L111">                dto.setMemberPeriod(&quot;No Membership&quot;);</span>
+<span class="nc" id="L102">        memberships.forEach(isi -&gt;{</span>
+<span class="nc" id="L103">            MembershipDtoGet dto = new MembershipDtoGet();</span>
+<span class="nc" id="L104">            dto.setMembershipId(isi.getMembershipId());</span>
+<span class="nc" id="L105">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L106">            dto.setCreatedAt(isi.getCreatedAt().toString());</span>
+<span class="nc" id="L107">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L108">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="nc" id="L109">            dto.setUsername(isi.getUser().getUsername());</span>
+<span class="nc" id="L110">            dto.setEmail(isi.getUser().getEmail());</span>
+<span class="nc" id="L111">            dto.setName(isi.getUser().getName());</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">            if(isi.getMember() == null){</span>
+<span class="nc" id="L113">                dto.setMemberId(null);</span>
+<span class="nc" id="L114">                dto.setMemberName(&quot;No Membership&quot;);</span>
+<span class="nc" id="L115">                dto.setMemberPeriod(&quot;No Membership&quot;);</span>
             }else{
-<span class="nc" id="L113">                dto.setMemberId(isi.getMember().getMemberId());</span>
-<span class="nc" id="L114">                dto.setMemberName(isi.getMember().getName());</span>
-<span class="nc" id="L115">                dto.setMemberPeriod(isi.getMember().getPeriod());</span>
+<span class="nc" id="L117">                dto.setMemberId(isi.getMember().getMemberId());</span>
+<span class="nc" id="L118">                dto.setMemberName(isi.getMember().getName());</span>
+<span class="nc" id="L119">                dto.setMemberPeriod(isi.getMember().getPeriod());</span>
             }
-<span class="nc" id="L117">            dto.setContact(isi.getUser().getPhone());</span>
-<span class="nc" id="L118">            dto.setAddress(isi.getUser().getAddress());</span>
-<span class="nc" id="L119">            dto.setExpiredAt(isi.getExpiredAt());</span>
+<span class="nc" id="L121">            dto.setContact(isi.getUser().getPhone());</span>
+<span class="nc" id="L122">            dto.setAddress(isi.getUser().getAddress());</span>
+<span class="nc" id="L123">            dto.setExpiredAt(isi.getExpiredAt());</span>
 
-<span class="nc" id="L121">            membershipDtos.add(dto);</span>
-<span class="nc" id="L122">        });</span>
-<span class="nc" id="L123">        return membershipDtos;</span>
+<span class="nc" id="L125">            membershipDtos.add(dto);</span>
+<span class="nc" id="L126">        });</span>
+<span class="nc" id="L127">        return membershipDtos;</span>
     }
 
     @Override
     public MembershipDtoGet getMembershipByIdDto(Long membershipId) {
-<span class="nc bnc" id="L128" title="All 2 branches missed.">        if(membershipRepository.findById(membershipId) != null){</span>
-<span class="nc" id="L129">            log.info(&quot;Membership with id {} found&quot;, membershipId);</span>
-<span class="nc" id="L130">            MembershipEntity isi = membershipRepository.findById(membershipId).get();</span>
-<span class="nc" id="L131">            MembershipDtoGet dto = new MembershipDtoGet();</span>
-<span class="nc" id="L132">            dto.setMembershipId(isi.getMembershipId());</span>
-<span class="nc" id="L133">            dto.setStatus(isi.getStatus());</span>
-<span class="nc" id="L134">            dto.setCreatedAt(isi.getCreatedAt().toString());</span>
-<span class="nc" id="L135">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="nc" id="L136">            dto.setUserId(isi.getUser().getUserId());</span>
-<span class="nc" id="L137">            dto.setUsername(isi.getUser().getUsername());</span>
-<span class="nc" id="L138">            dto.setEmail(isi.getUser().getEmail());</span>
-<span class="nc" id="L139">            dto.setName(isi.getUser().getName());</span>
-<span class="nc bnc" id="L140" title="All 2 branches missed.">            if(isi.getMember() == null){</span>
-<span class="nc" id="L141">                dto.setMemberId(null);</span>
-<span class="nc" id="L142">                dto.setMemberName(&quot;No Membership&quot;);</span>
-<span class="nc" id="L143">                dto.setMemberPeriod(&quot;No Membership&quot;);</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if(membershipRepository.findById(membershipId) != null){</span>
+<span class="nc" id="L133">            log.info(&quot;Membership with id {} found&quot;, membershipId);</span>
+<span class="nc" id="L134">            MembershipEntity isi = membershipRepository.findById(membershipId).get();</span>
+<span class="nc" id="L135">            MembershipDtoGet dto = new MembershipDtoGet();</span>
+<span class="nc" id="L136">            dto.setMembershipId(isi.getMembershipId());</span>
+<span class="nc" id="L137">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L138">            dto.setCreatedAt(isi.getCreatedAt().toString());</span>
+<span class="nc" id="L139">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L140">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="nc" id="L141">            dto.setUsername(isi.getUser().getUsername());</span>
+<span class="nc" id="L142">            dto.setEmail(isi.getUser().getEmail());</span>
+<span class="nc" id="L143">            dto.setName(isi.getUser().getName());</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            if(isi.getMember() == null){</span>
+<span class="nc" id="L145">                dto.setMemberId(null);</span>
+<span class="nc" id="L146">                dto.setMemberName(&quot;No Membership&quot;);</span>
+<span class="nc" id="L147">                dto.setMemberPeriod(&quot;No Membership&quot;);</span>
             }else{
-<span class="nc" id="L145">                dto.setMemberId(isi.getMember().getMemberId());</span>
-<span class="nc" id="L146">                dto.setMemberName(isi.getMember().getName());</span>
-<span class="nc" id="L147">                dto.setMemberPeriod(isi.getMember().getPeriod());</span>
+<span class="nc" id="L149">                dto.setMemberId(isi.getMember().getMemberId());</span>
+<span class="nc" id="L150">                dto.setMemberName(isi.getMember().getName());</span>
+<span class="nc" id="L151">                dto.setMemberPeriod(isi.getMember().getPeriod());</span>
             }
-<span class="nc" id="L149">            dto.setContact(isi.getUser().getPhone());</span>
-<span class="nc" id="L150">            dto.setExpiredAt(isi.getExpiredAt());</span>
+<span class="nc" id="L153">            dto.setContact(isi.getUser().getPhone());</span>
+<span class="nc" id="L154">            dto.setExpiredAt(isi.getExpiredAt());</span>
             
-<span class="nc" id="L152">            return dto;</span>
+<span class="nc" id="L156">            return dto;</span>
         }else{
-<span class="nc" id="L154">            log.info(&quot;Membership with id {} not found&quot;, membershipId);</span>
-<span class="nc" id="L155">            throw new IllegalStateException(&quot;Membership not Found&quot;);</span>
+<span class="nc" id="L158">            log.info(&quot;Membership with id {} not found&quot;, membershipId);</span>
+<span class="nc" id="L159">            throw new IllegalStateException(&quot;Membership not Found&quot;);</span>
         }
     }
 
     @Override
     public MembershipEntity getMembershipById(Long membershipId) {
-<span class="nc bnc" id="L161" title="All 2 branches missed.">        if(membershipRepository.findById(membershipId) != null){</span>
-<span class="nc" id="L162">            log.info(&quot;Membership with id {} found&quot;, membershipId);</span>
-<span class="nc" id="L163">            return membershipRepository.findById(membershipId).get();</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        if(membershipRepository.findById(membershipId) != null){</span>
+<span class="nc" id="L166">            log.info(&quot;Membership with id {} found&quot;, membershipId);</span>
+<span class="nc" id="L167">            return membershipRepository.findById(membershipId).get();</span>
         }else{
-<span class="nc" id="L165">            log.info(&quot;Membership with id {} not found&quot;, membershipId);</span>
-<span class="nc" id="L166">            throw new IllegalStateException(&quot;Membership not Found&quot;);</span>
+<span class="nc" id="L169">            log.info(&quot;Membership with id {} not found&quot;, membershipId);</span>
+<span class="nc" id="L170">            throw new IllegalStateException(&quot;Membership not Found&quot;);</span>
         }
     }
 
     @Override
     public void updateMembership(Long membershipId, MembershipDtoPost membershipDtoPost) {
-<span class="nc bnc" id="L172" title="All 2 branches missed.">        if(membershipRepository.findById(membershipId) != null){</span>
-<span class="nc" id="L173">            MembershipEntity membership2 = membershipRepository.findById(membershipId).get();</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        if(membershipRepository.findById(membershipId) != null){</span>
+<span class="nc" id="L177">            MembershipEntity membership2 = membershipRepository.findById(membershipId).get();</span>
 
-<span class="nc" id="L175">            MemberEntity memberEntity = new MemberEntity();</span>
-<span class="nc" id="L176">            memberEntity.setMemberId(membershipDtoPost.getMemberId());</span>
+<span class="nc" id="L179">            MemberEntity memberEntity = new MemberEntity();</span>
+<span class="nc" id="L180">            memberEntity.setMemberId(membershipDtoPost.getMemberId());</span>
 
-<span class="nc" id="L178">            UserEntity userEntity = new UserEntity();</span>
-<span class="nc" id="L179">            userEntity.setUserId(membershipDtoPost.getUserId());</span>
+<span class="nc" id="L182">            UserEntity userEntity = new UserEntity();</span>
+<span class="nc" id="L183">            userEntity.setUserId(membershipDtoPost.getUserId());</span>
             
-<span class="nc bnc" id="L181" title="All 6 branches missed.">            if(userService.userExist(membershipDtoPost.getUserId()) == true &amp;&amp; memberService.memberExist(membershipDtoPost.getMemberId()) == true &amp;&amp; userService.nativeUser(membershipDtoPost.getUserId()) == false){</span>
-<span class="nc" id="L182">                membership2.setUser(userEntity);</span>
-<span class="nc" id="L183">                membership2.setMember(memberEntity);</span>
-<span class="nc bnc" id="L184" title="All 2 branches missed.">                if(membershipDtoPost.getMemberId() == 1){</span>
-<span class="nc" id="L185">                    membership2.setExpiredAt(LocalDateTime.now().plusMonths(1));</span>
-<span class="nc bnc" id="L186" title="All 2 branches missed.">                }if(membershipDtoPost.getMemberId() == 2){</span>
-<span class="nc" id="L187">                    membership2.setExpiredAt(LocalDateTime.now().plusMonths(3));</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">                }if(membershipDtoPost.getMemberId() == 3){</span>
-<span class="nc" id="L189">                    membership2.setExpiredAt(LocalDateTime.now().plusMonths(6));</span>
+<span class="nc bnc" id="L185" title="All 6 branches missed.">            if(userService.userExist(membershipDtoPost.getUserId()) == true &amp;&amp; memberService.memberExist(membershipDtoPost.getMemberId()) == true &amp;&amp; userService.nativeUser(membershipDtoPost.getUserId()) == false){</span>
+<span class="nc" id="L186">                UserEntity user2 = userRepository.findById(membershipDtoPost.getUserId()).get();</span>
+<span class="nc" id="L187">                membership2.setUsername(user2.getUsername());</span>
+<span class="nc" id="L188">                membership2.setUser(userEntity);</span>
+<span class="nc" id="L189">                membership2.setUserIdentity(user2.getUserId());</span>
+<span class="nc" id="L190">                membership2.setMember(memberEntity);</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">                if(membershipDtoPost.getMemberId() == 1){</span>
+<span class="nc" id="L192">                    membership2.setExpiredAt(LocalDateTime.now().plusMonths(1));</span>
+<span class="nc bnc" id="L193" title="All 2 branches missed.">                }if(membershipDtoPost.getMemberId() == 2){</span>
+<span class="nc" id="L194">                    membership2.setExpiredAt(LocalDateTime.now().plusMonths(3));</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">                }if(membershipDtoPost.getMemberId() == 3){</span>
+<span class="nc" id="L196">                    membership2.setExpiredAt(LocalDateTime.now().plusMonths(6));</span>
                 }
-<span class="nc" id="L191">                membershipRepository.save(membership2);</span>
-<span class="nc" id="L192">                userService.getMembership(membershipDtoPost.getUserId(), membershipDtoPost.getMemberId(), membershipId);</span>
-<span class="nc" id="L193">                log.info(&quot;membership updated&quot;);</span>
-            }else{
-<span class="nc" id="L195">                log.info(&quot;failed to update membership&quot;);</span>
-<span class="nc" id="L196">                throw new IllegalStateException(&quot;User or Member did'ny exist&quot;);</span>
+<span class="nc" id="L198">                membershipRepository.save(membership2);</span>
+<span class="nc" id="L199">                userService.getMembership(membershipDtoPost.getUserId(), membershipDtoPost.getMemberId(), membershipId);</span>
+<span class="nc" id="L200">                log.info(&quot;membership updated&quot;);</span>
+<span class="nc" id="L201">            }else{</span>
+<span class="nc" id="L202">                log.info(&quot;failed to update membership&quot;);</span>
+<span class="nc" id="L203">                throw new IllegalStateException(&quot;User or Member did'ny exist&quot;);</span>
             }       
-<span class="nc" id="L198">        }else{</span>
-<span class="nc" id="L199">            log.info(&quot;Membership with id {} not found&quot;, membershipId);</span>
-<span class="nc" id="L200">            throw new IllegalStateException(&quot;Membership not Found&quot;);</span>
+<span class="nc" id="L205">        }else{</span>
+<span class="nc" id="L206">            log.info(&quot;Membership with id {} not found&quot;, membershipId);</span>
+<span class="nc" id="L207">            throw new IllegalStateException(&quot;Membership not Found&quot;);</span>
         }
-<span class="nc" id="L202">    }</span>
+<span class="nc" id="L209">    }</span>
 
     @Override
     public void deleteMembership(Long membershipId) {
-<span class="nc bnc" id="L206" title="All 2 branches missed.">        if(membershipRepository.findById(membershipId).isPresent() == true){</span>
-<span class="nc" id="L207">            log.info(&quot;Membership with id {} successfully deleted&quot;, membershipId);</span>
-<span class="nc" id="L208">            membershipRepository.deleteById(membershipId);</span>
-        }else{
-<span class="nc" id="L210">            log.info(&quot;Membership with id {} not found&quot;, membershipId);</span>
-<span class="nc" id="L211">            throw new IllegalStateException(&quot;Membership not Found&quot;);</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        if(membershipRepository.findById(membershipId).isPresent() == true){</span>
+<span class="nc" id="L214">            MembershipEntity membership = membershipRepository.findById(membershipId).get();</span>
+<span class="nc" id="L215">            UserEntity user = userRepository.findById(membership.getUserIdentity()).get();</span>
+<span class="nc" id="L216">            user.setMembership(&quot;No Membership&quot;);</span>
+<span class="nc" id="L217">            user.setStatus(false);</span>
+<span class="nc" id="L218">            userRepository.save(user);</span>
+<span class="nc" id="L219">            membershipRepository.deleteById(membershipId);</span>
+<span class="nc" id="L220">            log.info(&quot;Membership with id {} successfully deleted&quot;, membershipId);</span>
+<span class="nc" id="L221">        }else{</span>
+<span class="nc" id="L222">            log.info(&quot;Membership with id {} not found&quot;, membershipId);</span>
+<span class="nc" id="L223">            throw new IllegalStateException(&quot;Membership not Found&quot;);</span>
         }
         
-<span class="nc" id="L214">    }</span>
+<span class="nc" id="L226">    }</span>
 
     @Override
     public void createMembershipDto(MembershipDtoPost membershipDtoPost) {
-<span class="nc" id="L218">        MembershipEntity membershipEntity = new MembershipEntity();</span>
+<span class="nc" id="L230">        MembershipEntity membershipEntity = new MembershipEntity();</span>
 
-<span class="nc" id="L220">        UserEntity userEntity = new UserEntity();</span>
-<span class="nc" id="L221">        userEntity.setUserId(membershipDtoPost.getUserId());</span>
+<span class="nc" id="L232">        UserEntity userEntity = new UserEntity();</span>
+<span class="nc" id="L233">        userEntity.setUserId(membershipDtoPost.getUserId());</span>
 
-<span class="nc" id="L223">        MemberEntity memberEntity = new MemberEntity();</span>
-<span class="nc" id="L224">        memberEntity.setMemberId(membershipDtoPost.getMemberId());</span>
+<span class="nc" id="L235">        MemberEntity memberEntity = new MemberEntity();</span>
+<span class="nc" id="L236">        memberEntity.setMemberId(membershipDtoPost.getMemberId());</span>
 
-<span class="nc bnc" id="L226" title="All 6 branches missed.">        if(userService.userExist(membershipDtoPost.getUserId()) == true &amp;&amp; memberService.memberExist(membershipDtoPost.getMemberId()) == true &amp;&amp; userService.nativeUser(membershipDtoPost.getUserId()) == false){</span>
-<span class="nc" id="L227">            membershipEntity.setStatus(true);</span>
-<span class="nc" id="L228">            membershipEntity.setUser(userEntity);</span>
-<span class="nc" id="L229">            membershipEntity.setMember(memberEntity);</span>
-<span class="nc" id="L230">            membershipEntity.setCreatedAt(LocalDateTime.now());</span>
-<span class="nc bnc" id="L231" title="All 2 branches missed.">            if(membershipDtoPost.getMemberId() == 1){</span>
-<span class="nc" id="L232">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(1));</span>
-<span class="nc bnc" id="L233" title="All 2 branches missed.">            }if(membershipDtoPost.getMemberId() == 2){</span>
-<span class="nc" id="L234">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(3));</span>
-<span class="nc bnc" id="L235" title="All 2 branches missed.">            }if(membershipDtoPost.getMemberId() == 3){</span>
-<span class="nc" id="L236">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(6));</span>
+<span class="nc bnc" id="L238" title="All 8 branches missed.">        if(userService.userExist(membershipDtoPost.getUserId()) == true &amp;&amp; memberService.memberExist(membershipDtoPost.getMemberId()) == true &amp;&amp; userService.nativeUser(membershipDtoPost.getUserId()) == false &amp;&amp; membershipRepository.findByUserIdentity(membershipDtoPost.getUserId()) == null){</span>
+<span class="nc" id="L239">            UserEntity user2 = userRepository.findById(membershipDtoPost.getUserId()).get();</span>
+<span class="nc" id="L240">            membershipEntity.setUsername(user2.getUsername());</span>
+<span class="nc" id="L241">            membershipEntity.setStatus(true);</span>
+<span class="nc" id="L242">            membershipEntity.setUser(userEntity);</span>
+<span class="nc" id="L243">            membershipEntity.setUserIdentity(user2.getUserId());</span>
+<span class="nc" id="L244">            membershipEntity.setMember(memberEntity);</span>
+<span class="nc" id="L245">            membershipEntity.setCreatedAt(LocalDateTime.now());</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">            if(membershipDtoPost.getMemberId() == 1){</span>
+<span class="nc" id="L247">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(1));</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">            }if(membershipDtoPost.getMemberId() == 2){</span>
+<span class="nc" id="L249">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(3));</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">            }if(membershipDtoPost.getMemberId() == 3){</span>
+<span class="nc" id="L251">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(6));</span>
             }
-<span class="nc" id="L238">            membershipRepository.save(membershipEntity);</span>
-<span class="nc" id="L239">            userService.getMembership(membershipDtoPost.getUserId(), membershipDtoPost.getMemberId(), membershipEntity.getMembershipId());</span>
-<span class="nc" id="L240">            log.info(&quot;membership created&quot;);</span>
-        }else{
-<span class="nc" id="L242">            log.info(&quot;failed to create membership&quot;);</span>
-<span class="nc" id="L243">            throw new IllegalStateException(&quot;User or Member did'ny exist&quot;);</span>
+<span class="nc" id="L253">            membershipRepository.save(membershipEntity);</span>
+<span class="nc" id="L254">            userService.getMembership(membershipDtoPost.getUserId(), membershipDtoPost.getMemberId(), membershipEntity.getMembershipId());</span>
+<span class="nc" id="L255">            log.info(&quot;membership created&quot;);</span>
+<span class="nc" id="L256">        }else{</span>
+<span class="nc" id="L257">            log.info(&quot;failed to create membership&quot;);</span>
+<span class="nc" id="L258">            throw new IllegalStateException(&quot;User or Member did'nt exist or User Already Have Membership&quot;);</span>
         }
-<span class="nc" id="L245">    }</span>
+<span class="nc" id="L260">    }</span>
 
     @Override
     public int totalMembership() {
-<span class="nc" id="L249">        List&lt;MembershipEntity&gt; membership = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L250">        membershipRepository.findAll().forEach(membership::add);</span>
-<span class="nc" id="L251">        int sum = membership.size();</span>
-<span class="nc" id="L252">        return sum;</span>
+<span class="nc" id="L264">        List&lt;MembershipEntity&gt; membership = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L265">        membershipRepository.findAll().forEach(membership::add);</span>
+<span class="nc" id="L266">        int sum = membership.size();</span>
+<span class="nc" id="L267">        return sum;</span>
     }
 
 	@Override
 	public Boolean membershipExpired(Long membershipId) {
-<span class="nc" id="L257">        MembershipEntity member = membershipRepository.findById(membershipId).get();</span>
-<span class="nc bnc" id="L258" title="All 2 branches missed.">		if(member.getExpiredAt().isAfter(LocalDateTime.now())){</span>
-<span class="nc" id="L259">            log.info(&quot;Membership is not expired yet&quot;);</span>
-<span class="nc" id="L260">            return false;</span>
+<span class="nc" id="L272">        MembershipEntity member = membershipRepository.findById(membershipId).get();</span>
+<span class="nc bnc" id="L273" title="All 2 branches missed.">		if(member.getExpiredAt().isAfter(LocalDateTime.now())){</span>
+<span class="nc" id="L274">            log.info(&quot;Membership is not expired yet&quot;);</span>
+<span class="nc" id="L275">            return false;</span>
         }else{
-<span class="nc" id="L262">            log.info(&quot;Membership has been expired&quot;);</span>
-<span class="nc" id="L263">            member.setMember(null);</span>
-<span class="nc" id="L264">            member.setStatus(false);</span>
-<span class="nc" id="L265">            membershipRepository.save(member);</span>
-<span class="nc" id="L266">            return true;</span>
+<span class="nc" id="L277">            log.info(&quot;Membership has been expired&quot;);</span>
+<span class="nc" id="L278">            member.setMember(null);</span>
+<span class="nc" id="L279">            member.setStatus(false);</span>
+<span class="nc" id="L280">            membershipRepository.save(member);</span>
+<span class="nc" id="L281">            return true;</span>
         }
 	}
 
     @Override
     public List&lt;MembershipDtoGet&gt; findAll(Boolean keyword) {
-<span class="nc" id="L272">        List&lt;MembershipEntity&gt; memberships = membershipRepository.findAll(keyword);</span>
-<span class="nc" id="L273">        List&lt;MembershipDtoGet&gt; membershipDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L287">        List&lt;MembershipEntity&gt; memberships = membershipRepository.findAll(keyword);</span>
+<span class="nc" id="L288">        List&lt;MembershipDtoGet&gt; membershipDtos = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L275">        memberships.forEach(isi -&gt;{</span>
-<span class="nc" id="L276">            MembershipDtoGet dto = new MembershipDtoGet();</span>
-<span class="nc" id="L277">            dto.setMembershipId(isi.getMembershipId());</span>
-<span class="nc" id="L278">            dto.setStatus(isi.getStatus());</span>
-<span class="nc" id="L279">            dto.setCreatedAt(isi.getCreatedAt().toString());</span>
-<span class="nc" id="L280">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="nc" id="L281">            dto.setUserId(isi.getUser().getUserId());</span>
-<span class="nc" id="L282">            dto.setUsername(isi.getUser().getUsername());</span>
-<span class="nc" id="L283">            dto.setEmail(isi.getUser().getEmail());</span>
-<span class="nc" id="L284">            dto.setName(isi.getUser().getName());</span>
-<span class="nc bnc" id="L285" title="All 2 branches missed.">            if(isi.getMember() == null){</span>
-<span class="nc" id="L286">                dto.setMemberId(null);</span>
-<span class="nc" id="L287">                dto.setMemberName(&quot;No Membership&quot;);</span>
-<span class="nc" id="L288">                dto.setMemberPeriod(&quot;No Membership&quot;);</span>
+<span class="nc" id="L290">        memberships.forEach(isi -&gt;{</span>
+<span class="nc" id="L291">            MembershipDtoGet dto = new MembershipDtoGet();</span>
+<span class="nc" id="L292">            dto.setMembershipId(isi.getMembershipId());</span>
+<span class="nc" id="L293">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L294">            dto.setCreatedAt(isi.getCreatedAt().toString());</span>
+<span class="nc" id="L295">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L296">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="nc" id="L297">            dto.setUsername(isi.getUser().getUsername());</span>
+<span class="nc" id="L298">            dto.setEmail(isi.getUser().getEmail());</span>
+<span class="nc" id="L299">            dto.setName(isi.getUser().getName());</span>
+<span class="nc bnc" id="L300" title="All 2 branches missed.">            if(isi.getMember() == null){</span>
+<span class="nc" id="L301">                dto.setMemberId(null);</span>
+<span class="nc" id="L302">                dto.setMemberName(&quot;No Membership&quot;);</span>
+<span class="nc" id="L303">                dto.setMemberPeriod(&quot;No Membership&quot;);</span>
             }else{
-<span class="nc" id="L290">                dto.setMemberId(isi.getMember().getMemberId());</span>
-<span class="nc" id="L291">                dto.setMemberName(isi.getMember().getName());</span>
-<span class="nc" id="L292">                dto.setMemberPeriod(isi.getMember().getPeriod());</span>
+<span class="nc" id="L305">                dto.setMemberId(isi.getMember().getMemberId());</span>
+<span class="nc" id="L306">                dto.setMemberName(isi.getMember().getName());</span>
+<span class="nc" id="L307">                dto.setMemberPeriod(isi.getMember().getPeriod());</span>
             }
-<span class="nc" id="L294">            dto.setContact(isi.getUser().getPhone());</span>
-<span class="nc" id="L295">            dto.setAddress(isi.getUser().getAddress());</span>
-<span class="nc" id="L296">            dto.setExpiredAt(isi.getExpiredAt());</span>
+<span class="nc" id="L309">            dto.setContact(isi.getUser().getPhone());</span>
+<span class="nc" id="L310">            dto.setAddress(isi.getUser().getAddress());</span>
+<span class="nc" id="L311">            dto.setExpiredAt(isi.getExpiredAt());</span>
 
-<span class="nc" id="L298">            membershipDtos.add(dto);</span>
-<span class="nc" id="L299">        });</span>
-<span class="nc" id="L300">        return membershipDtos;</span>
+<span class="nc" id="L313">            membershipDtos.add(dto);</span>
+<span class="nc" id="L314">        });</span>
+<span class="nc" id="L315">        return membershipDtos;</span>
     }
 
     @Override
     public String buyMembership(BuyMembership buyMembership) {
-<span class="nc" id="L305">        MembershipEntity membershipEntity = new MembershipEntity();</span>
+<span class="nc" id="L320">        MembershipEntity membershipEntity = new MembershipEntity();</span>
 
-<span class="nc" id="L307">        UserEntity userEntity = new UserEntity();</span>
-<span class="nc" id="L308">        userEntity.setUserId(buyMembership.getUserId());</span>
+<span class="nc" id="L322">        UserEntity userEntity = new UserEntity();</span>
+<span class="nc" id="L323">        userEntity.setUserId(buyMembership.getUserId());</span>
 
-<span class="nc" id="L310">        MemberEntity memberEntity = new MemberEntity();</span>
-<span class="nc" id="L311">        memberEntity.setMemberId(buyMembership.getMemberId());</span>
+<span class="nc" id="L325">        MemberEntity memberEntity = new MemberEntity();</span>
+<span class="nc" id="L326">        memberEntity.setMemberId(buyMembership.getMemberId());</span>
 
-<span class="nc bnc" id="L313" title="All 6 branches missed.">        if(userService.userExist(buyMembership.getUserId()) == true &amp;&amp; memberService.memberExist(buyMembership.getMemberId()) == true &amp;&amp; userService.nativeUser(buyMembership.getUserId()) == false){</span>
-<span class="nc" id="L314">            MemberEntity member2 = memberRepository.findById(buyMembership.getMemberId()).get();</span>
-<span class="nc" id="L315">            membershipEntity.setStatus(true);</span>
-<span class="nc" id="L316">            membershipEntity.setUser(userEntity);</span>
-<span class="nc" id="L317">            membershipEntity.setMember(memberEntity);</span>
-<span class="nc" id="L318">            membershipEntity.setCreatedAt(LocalDateTime.now());</span>
-<span class="nc bnc" id="L319" title="All 2 branches missed.">            if(buyMembership.getMemberId() == 1){</span>
-<span class="nc" id="L320">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(1));</span>
-<span class="nc bnc" id="L321" title="All 2 branches missed.">            }if(buyMembership.getMemberId() == 2){</span>
-<span class="nc" id="L322">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(3));</span>
-<span class="nc bnc" id="L323" title="All 2 branches missed.">            }if(buyMembership.getMemberId() == 3){</span>
-<span class="nc" id="L324">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(6));</span>
-            }else{
-<span class="nc" id="L326">                membershipEntity.setExpiredAt(LocalDateTime.now());</span>
+<span class="nc" id="L328">        UserEntity user2 = userRepository.findById(buyMembership.getUserId()).get();</span>
+
+<span class="nc bnc" id="L330" title="All 8 branches missed.">        if(userService.userExist(buyMembership.getUserId()) == true &amp;&amp; memberService.memberExist(buyMembership.getMemberId()) == true &amp;&amp; userService.nativeUser(buyMembership.getUserId()) == false &amp;&amp; membershipRepository.findByUserIdentity(buyMembership.getUserId()) == null){</span>
+<span class="nc" id="L331">            MemberEntity member2 = memberRepository.findById(buyMembership.getMemberId()).get();</span>
+<span class="nc" id="L332">            membershipEntity.setUsername(user2.getUsername());</span>
+<span class="nc" id="L333">            membershipEntity.setStatus(true);</span>
+<span class="nc" id="L334">            membershipEntity.setUser(userEntity);</span>
+<span class="nc" id="L335">            membershipEntity.setUserIdentity(user2.getUserId());</span>
+<span class="nc" id="L336">            membershipEntity.setMember(memberEntity);</span>
+<span class="nc" id="L337">            membershipEntity.setCreatedAt(LocalDateTime.now());</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">            if(buyMembership.getMemberId() == 1){</span>
+<span class="nc" id="L339">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(1));</span>
+<span class="nc bnc" id="L340" title="All 2 branches missed.">            }if(buyMembership.getMemberId() == 2){</span>
+<span class="nc" id="L341">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(3));</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">            }if(buyMembership.getMemberId() == 3){</span>
+<span class="nc" id="L343">                membershipEntity.setExpiredAt(LocalDateTime.now().plusMonths(6));</span>
             }
-<span class="nc" id="L328">            Long total = buyMembership.getTotal();</span>
-<span class="nc bnc" id="L329" title="All 2 branches missed.">            if(total.equals(member2.getPrice())){</span>
-<span class="nc" id="L330">                membershipRepository.save(membershipEntity);</span>
-<span class="nc" id="L331">                userService.getMembership(buyMembership.getUserId(), buyMembership.getMemberId(), membershipEntity.getMembershipId());</span>
-<span class="nc" id="L332">                return &quot;Membership Created&quot;;</span>
+<span class="nc" id="L345">            Long total = buyMembership.getTotal();</span>
+<span class="nc bnc" id="L346" title="All 2 branches missed.">            if(total.equals(member2.getPrice())){</span>
+<span class="nc" id="L347">                membershipRepository.save(membershipEntity);</span>
+<span class="nc" id="L348">                userService.getMembership(buyMembership.getUserId(), buyMembership.getMemberId(), membershipEntity.getMembershipId());</span>
+<span class="nc" id="L349">                return &quot;Membership Created&quot;;</span>
             }else{
-<span class="nc" id="L334">                return &quot;The amount of payment not same as debt&quot;;</span>
+<span class="nc" id="L351">                return &quot;The amount of payment not same as debt&quot;;</span>
             }
         }else{
-<span class="nc" id="L337">            throw new IllegalStateException(&quot;User or Member did'nt exist&quot;);</span>
+<span class="nc" id="L354">            return &quot;User or Member did'nt exist or User Already Have Membership&quot;;</span>
         }
+    }
+
+    @Override
+    public MembershipDtoGet getMembershipByUsername(String username) {
+<span class="nc" id="L360">        log.info(&quot;Membership with username {} found&quot;, username);</span>
+<span class="nc" id="L361">        MembershipEntity isi = membershipRepository.findByUsername(username).get();</span>
+<span class="nc" id="L362">        MembershipDtoGet dto = new MembershipDtoGet();</span>
+
+<span class="nc" id="L364">        dto.setMembershipId(isi.getMembershipId());</span>
+<span class="nc" id="L365">        dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L366">        dto.setCreatedAt(isi.getCreatedAt().toString());</span>
+<span class="nc" id="L367">        dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L368">        dto.setUserId(isi.getUser().getUserId());</span>
+<span class="nc" id="L369">        dto.setUsername(isi.getUser().getUsername());</span>
+<span class="nc" id="L370">        dto.setEmail(isi.getUser().getEmail());</span>
+<span class="nc" id="L371">        dto.setName(isi.getUser().getName());</span>
+<span class="nc bnc" id="L372" title="All 2 branches missed.">        if(isi.getMember() == null){</span>
+<span class="nc" id="L373">            dto.setMemberId(null);</span>
+<span class="nc" id="L374">            dto.setMemberName(&quot;No Membership&quot;);</span>
+<span class="nc" id="L375">            dto.setMemberPeriod(&quot;No Membership&quot;);</span>
+        }else{
+<span class="nc" id="L377">            dto.setMemberId(isi.getMember().getMemberId());</span>
+<span class="nc" id="L378">            dto.setMemberName(isi.getMember().getName());</span>
+<span class="nc" id="L379">            dto.setMemberPeriod(isi.getMember().getPeriod());</span>
+        }
+<span class="nc" id="L381">        dto.setContact(isi.getUser().getPhone());</span>
+<span class="nc" id="L382">        dto.setAddress(isi.getUser().getAddress());</span>
+<span class="nc" id="L383">        dto.setExpiredAt(isi.getExpiredAt());</span>
+
+<span class="nc" id="L385">        return dto;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
