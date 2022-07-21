@@ -4,6 +4,7 @@ import com.capstone.kelompok10.model.entity.MembershipEntity;
 import com.capstone.kelompok10.model.entity.UserEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,6 @@ public interface MembershipRepository extends JpaRepository<MembershipEntity, Lo
     @Query("SELECT m FROM MembershipEntity m WHERE m.status LIKE %?1%")
     List<MembershipEntity> findAll(Boolean keyword);
     List<MembershipEntity> findByUser(UserEntity user);
-    List<MembershipEntity> findByUsername(String username);
+    MembershipEntity findByUserIdentity(Long userIdentity);
+    Optional<MembershipEntity> findByUsername(String username);
 }

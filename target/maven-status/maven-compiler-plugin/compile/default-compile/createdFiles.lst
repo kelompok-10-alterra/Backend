@@ -127,6 +127,7 @@ com\capstone\kelompok10\service\interfaces\CategoryService.class
 com\capstone\kelompok10\model\payload\ResendToken.class
 com\capstone\kelompok10\service\implementation\RoomServiceImpl.class
 com\capstone\kelompok10\repository\FavoriteClassRepository.class
+com\capstone\kelompok10\model\payload\BuyMembership.class
 com\capstone\kelompok10\model\payload\UsernamePassword.class
 com\capstone\kelompok10\repository\HistoryRepository.class
 com\capstone\kelompok10\model\dto\get\ClassDtoGet.class

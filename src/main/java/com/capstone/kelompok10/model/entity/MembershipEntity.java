@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -28,12 +29,12 @@ public class MembershipEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long membershipId;
     private Boolean status;
-    @JsonIgnore
+
     private Long userIdentity;
     private String username;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "userId")
     private UserEntity user;
 

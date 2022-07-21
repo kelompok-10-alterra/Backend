@@ -66,7 +66,7 @@ public class MembershipController {
     }
 
     @GetMapping("/userAccess/getMembershipByUsername")
-    public ResponseEntity<List<MembershipDtoGet>> getMembershipByUsername(@RequestParam("username") String username){
+    public ResponseEntity<MembershipDtoGet> getMembershipByUsername(@RequestParam("username") String username){
         return new ResponseEntity<>(membershipService.getMembershipByUsername(username), HttpStatus.OK);
     }
 
