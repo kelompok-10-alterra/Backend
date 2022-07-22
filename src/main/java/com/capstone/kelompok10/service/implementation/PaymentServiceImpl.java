@@ -124,7 +124,7 @@ public class PaymentServiceImpl implements PaymentService {
             payment.setTotalDebt(user2.getCart().getTotal());
             paymentRepository.save(payment);
 
-            String link = "https://www.api.rafdev.my.id/capstone/payment/adminAccess/confirmPayment?token=" + token;
+            String link = "https://www.api.rafdev.my.id/capstone/payment/confirmation/confirmPayment?token=" + token;
             emailSenderService.sendEmail("capstone.kelompok.10@gmail.com", buildEmail(user2.getUsername(), link, paymentDtoPost.getTotalPayment() ,paymentDtoPost.getMethod(), user2.getCart().getTotal()));
             return token;
         }else{
