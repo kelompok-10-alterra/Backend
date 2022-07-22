@@ -1,12 +1,12 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-kelompok10,com.capstone.kelompok10.config,SecurityConfig,0,968,0,0,0,52,0,4,0,4
+kelompok10,com.capstone.kelompok10.config,SecurityConfig,0,992,0,0,0,54,0,4,0,4
 kelompok10,com.capstone.kelompok10.service.email,EmailValidatorService,4,6,0,0,1,2,1,1,1,1
 kelompok10,com.capstone.kelompok10.service.email,EmailSenderServiceImpl,39,10,0,0,12,3,1,2,1,2
 kelompok10,com.capstone.kelompok10.service.email,PhonePasswordValidator,79,7,16,0,22,2,10,2,2,2
-kelompok10,com.capstone.kelompok10.model.entity,CartEntity,345,12,62,0,8,3,50,1,19,1
+kelompok10,com.capstone.kelompok10.model.entity,CartEntity,393,17,70,0,9,4,56,1,21,1
 kelompok10,com.capstone.kelompok10.model.entity,HistoryEntity,169,8,30,0,5,2,26,1,11,1
 kelompok10,com.capstone.kelompok10.model.entity,FavoriteClassEntity,465,3,86,0,12,1,68,1,25,1
-kelompok10,com.capstone.kelompok10.model.entity,BookingEntity,551,3,102,0,14,1,80,1,29,1
+kelompok10,com.capstone.kelompok10.model.entity,BookingEntity,594,3,110,0,15,1,86,1,31,1
 kelompok10,com.capstone.kelompok10.model.entity,MemberEntity,309,30,62,0,7,3,48,3,17,3
 kelompok10,com.capstone.kelompok10.model.entity,NewsletterEntity,336,3,62,0,9,1,50,1,19,1
 kelompok10,com.capstone.kelompok10.model.entity,ClassEntity,1024,3,190,0,25,1,146,1,51,1
@@ -34,7 +34,7 @@ kelompok10,com.capstone.kelompok10.service.implementation,MemberServiceImpl,154,
 kelompok10,com.capstone.kelompok10.service.implementation,GraphServiceImpl,143,10,6,0,35,2,8,2,5,2
 kelompok10,com.capstone.kelompok10.service.implementation,CartServiceImpl,184,13,6,0,40,2,10,2,7,2
 kelompok10,com.capstone.kelompok10.service.implementation,RoomServiceImpl,175,10,10,0,44,2,12,2,7,2
-kelompok10,com.capstone.kelompok10.service.implementation,PaymentServiceImpl,342,10,10,0,72,4,12,2,7,2
+kelompok10,com.capstone.kelompok10.service.implementation,PaymentServiceImpl,334,10,8,0,71,4,11,2,7,2
 kelompok10,com.capstone.kelompok10.service.implementation,ContentServiceImpl,198,10,8,0,50,2,11,2,7,2
 kelompok10,com.capstone.kelompok10.service.implementation,NewsletterServiceImpl,198,10,8,0,50,2,11,2,7,2
 kelompok10,com.capstone.kelompok10.service.implementation,ClassServiceImpl,1271,10,32,0,276,4,38,2,22,2
@@ -43,9 +43,9 @@ kelompok10,com.capstone.kelompok10.service.implementation,TypeServiceImpl,187,10
 kelompok10,com.capstone.kelompok10.service.implementation,UserServiceImpl,722,76,51,3,153,19,49,4,22,4
 kelompok10,com.capstone.kelompok10.service.implementation,RoleServiceImpl,175,19,8,0,43,7,12,3,8,3
 kelompok10,com.capstone.kelompok10.service.implementation,HistoryServiceImpl,34,10,2,0,8,2,3,2,2,2
-kelompok10,com.capstone.kelompok10.service.implementation,BookingServiceImpl,1025,10,42,0,215,4,34,2,13,2
-kelompok10,com.capstone.kelompok10,Kelompok10Application.new WebMvcConfigurer() {...},0,48,0,0,0,3,0,2,0,2
-kelompok10,com.capstone.kelompok10,Kelompok10Application,5,307,0,0,2,21,1,5,1,5
+kelompok10,com.capstone.kelompok10.service.implementation,BookingServiceImpl,1477,10,72,0,302,4,53,2,17,2
+kelompok10,com.capstone.kelompok10.model.payload,BuyBooking,195,0,38,0,6,0,32,0,13,0
+kelompok10,com.capstone.kelompok10.model.payload,BookingToCart,115,0,22,0,4,0,20,0,9,0
 kelompok10,com.capstone.kelompok10.model.payload,ForgotPassword,75,0,14,0,2,0,14,0,7,0
 kelompok10,com.capstone.kelompok10.model.payload,UserIdentity,275,0,54,0,7,0,44,0,17,0
 kelompok10,com.capstone.kelompok10.model.payload,UsernamePassword,115,0,22,0,3,0,20,0,9,0
@@ -56,6 +56,8 @@ kelompok10,com.capstone.kelompok10.model.payload,TokenResponse,75,0,14,0,2,0,14,
 kelompok10,com.capstone.kelompok10.model.payload,Favorite,115,0,22,0,3,0,20,0,9,0
 kelompok10,com.capstone.kelompok10.model.payload,RegistrationRequest,275,0,54,0,7,0,44,0,17,0
 kelompok10,com.capstone.kelompok10.model.payload,GetUserByClass,195,0,38,0,5,0,32,0,13,0
+kelompok10,com.capstone.kelompok10,Kelompok10Application.new WebMvcConfigurer() {...},0,48,0,0,0,3,0,2,0,2
+kelompok10,com.capstone.kelompok10,Kelompok10Application,5,307,0,0,2,21,1,5,1,5
 kelompok10,com.capstone.kelompok10.model.dto.get,ClassDtoGet,995,0,198,0,26,0,152,0,53,0
 kelompok10,com.capstone.kelompok10.model.dto.get,RatingDtoGet,155,0,30,0,4,0,26,0,11,0
 kelompok10,com.capstone.kelompok10.model.dto.get,RoomDtoGet,195,0,38,0,6,0,32,0,13,0
@@ -86,7 +88,7 @@ kelompok10,com.capstone.kelompok10.controller,MemberController,19,6,0,0,3,3,2,1,
 kelompok10,com.capstone.kelompok10.controller,ContentController,62,6,0,0,11,3,6,1,6,1
 kelompok10,com.capstone.kelompok10.controller,CartController,23,6,0,0,4,3,2,1,2,1
 kelompok10,com.capstone.kelompok10.controller,MembershipController,93,6,2,0,17,3,10,1,9,1
-kelompok10,com.capstone.kelompok10.controller,BookingController,78,6,2,0,14,3,8,1,7,1
+kelompok10,com.capstone.kelompok10.controller,BookingController,93,6,2,0,17,1,11,1,10,1
 kelompok10,com.capstone.kelompok10.controller,FavoriteClassController,38,6,0,0,7,3,4,1,4,1
 kelompok10,com.capstone.kelompok10.controller,InstructorController,52,6,0,0,9,3,5,1,5,1
 kelompok10,com.capstone.kelompok10.controller,GraphController,52,6,0,0,9,3,5,1,5,1
@@ -94,7 +96,7 @@ kelompok10,com.capstone.kelompok10.model.dto.put,UserDtoPut,235,0,46,0,7,0,38,0,
 kelompok10,com.capstone.kelompok10.model.dto.post,CategoryDtoPost,115,0,22,0,4,0,20,0,9,0
 kelompok10,com.capstone.kelompok10.model.dto.post,NewsletterDtoPost,195,0,38,0,5,0,32,0,13,0
 kelompok10,com.capstone.kelompok10.model.dto.post,RoomDtoPost,75,0,14,0,3,0,14,0,7,0
-kelompok10,com.capstone.kelompok10.model.dto.post,PaymentDtoPost,195,0,38,0,5,0,32,0,13,0
+kelompok10,com.capstone.kelompok10.model.dto.post,PaymentDtoPost,155,0,30,0,4,0,26,0,11,0
 kelompok10,com.capstone.kelompok10.model.dto.post,RatingDtoPost,155,0,30,0,4,0,26,0,11,0
 kelompok10,com.capstone.kelompok10.model.dto.post,GraphDtoPost,195,0,38,0,5,0,32,0,13,0
 kelompok10,com.capstone.kelompok10.model.dto.post,BookingDtoPost,155,0,30,0,5,0,26,0,11,0

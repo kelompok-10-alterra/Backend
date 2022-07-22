@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="nc bnc" id="L23" title="All 102 branches missed.">@Data</span>
+<span class="nc bnc" id="L23" title="All 110 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L25">@NoArgsConstructor</span>
 <span class="nc" id="L26">@AllArgsConstructor</span>
@@ -32,35 +32,36 @@ public class BookingEntity {
 <span class="nc" id="L32">    private Long price;</span>
 <span class="nc" id="L33">    private Long cartIdentity;</span>
 <span class="nc" id="L34">    private Long classIdentity;</span>
+<span class="nc" id="L35">    private String token;</span>
 
     @JsonIgnore
-<span class="nc" id="L37">    private Long userIdentity;</span>
+<span class="nc" id="L38">    private Long userIdentity;</span>
 
 
     @CreationTimestamp
-<span class="nc" id="L41">    private Instant created_at;</span>
+<span class="nc" id="L42">    private Instant created_at;</span>
 
     @UpdateTimestamp
-<span class="nc" id="L44">    private Instant updated_at;</span>
+<span class="nc" id="L45">    private Instant updated_at;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = &quot;userId&quot;)
-<span class="nc" id="L49">    private UserEntity user;</span>
+<span class="nc" id="L50">    private UserEntity user;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = &quot;classId&quot;)
-<span class="nc" id="L54">    private ClassEntity classes;</span>
+<span class="nc" id="L55">    private ClassEntity classes;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = &quot;cartId&quot;)
-<span class="nc" id="L59">    private CartEntity cart;</span>
+<span class="nc" id="L60">    private CartEntity cart;</span>
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = &quot;historyId&quot;)
-<span class="nc" id="L64">    private HistoryEntity history;</span>
+<span class="nc" id="L65">    private HistoryEntity history;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

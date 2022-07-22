@@ -41,52 +41,54 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 <span class="fc" id="L41">        http.authorizeRequests().antMatchers(&quot;/swagger-ui/**&quot;).permitAll();</span>
 <span class="fc" id="L42">        http.authorizeRequests().antMatchers(&quot;/v3/api-docs/**&quot;).permitAll();</span>
 <span class="fc" id="L43">        http.authorizeRequests().antMatchers(&quot;/actuator/**&quot;).permitAll();</span>
+<span class="fc" id="L44">        http.authorizeRequests().antMatchers(&quot;/capstone/booking/confirmation/**&quot;).permitAll();</span>
+<span class="fc" id="L45">        http.authorizeRequests().antMatchers(&quot;/capstone/payment/confirmation/**&quot;).permitAll();</span>
         // http.authorizeRequests().antMatchers(&quot;/capstone/**&quot;).permitAll();
-<span class="fc" id="L45">        http.authorizeRequests().antMatchers(&quot;/capstone/category/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L46">        http.authorizeRequests().antMatchers(&quot;/capstone/member/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L47">        http.authorizeRequests().antMatchers(&quot;/capstone/room/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L48">        http.authorizeRequests().antMatchers(&quot;/capstone/booking/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L49">        http.authorizeRequests().antMatchers(&quot;/capstone/class/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L50">        http.authorizeRequests().antMatchers(&quot;/capstone/instructor/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L51">        http.authorizeRequests().antMatchers(&quot;/capstone/membership/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L52">        http.authorizeRequests().antMatchers(&quot;/capstone/user/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L53">        http.authorizeRequests().antMatchers(&quot;/capstone/content/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L54">        http.authorizeRequests().antMatchers(&quot;/capstone/newsletter/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L55">        http.authorizeRequests().antMatchers(&quot;/capstone/cart/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L56">        http.authorizeRequests().antMatchers(&quot;/capstone/favorite/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L57">        http.authorizeRequests().antMatchers(&quot;/capstone/favoriteClass/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L58">        http.authorizeRequests().antMatchers(&quot;/capstone/rating/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L59">        http.authorizeRequests().antMatchers(&quot;/capstone/payment/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L60">        http.authorizeRequests().antMatchers(&quot;/capstone/history/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L61">        http.authorizeRequests().antMatchers(&quot;/capstone/type/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L62">        http.authorizeRequests().antMatchers(&quot;/capstone/category/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L63">        http.authorizeRequests().antMatchers(&quot;/capstone/member/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L64">        http.authorizeRequests().antMatchers(&quot;/capstone/room/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L65">        http.authorizeRequests().antMatchers(&quot;/capstone/booking/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;, &quot;ROLE_USER&quot;);</span>
-<span class="fc" id="L66">        http.authorizeRequests().antMatchers(&quot;/capstone/class/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L67">        http.authorizeRequests().antMatchers(&quot;/capstone/instructor/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L68">        http.authorizeRequests().antMatchers(&quot;/capstone/membership/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L69">        http.authorizeRequests().antMatchers(&quot;/capstone/user/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L70">        http.authorizeRequests().antMatchers(&quot;/capstone/content/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L71">        http.authorizeRequests().antMatchers(&quot;/capstone/newsletter/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L72">        http.authorizeRequests().antMatchers(&quot;/capstone/cart/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L73">        http.authorizeRequests().antMatchers(&quot;/capstone/graph/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L74">        http.authorizeRequests().antMatchers(&quot;/capstone/favorite/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L75">        http.authorizeRequests().antMatchers(&quot;/capstone/favoriteClass/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L76">        http.authorizeRequests().antMatchers(&quot;/capstone/rating/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L77">        http.authorizeRequests().antMatchers(&quot;/capstone/payment/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L78">        http.authorizeRequests().antMatchers(&quot;/capstone/history/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L79">        http.authorizeRequests().antMatchers(&quot;/capstone/type/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L80">        http.authorizeRequests().antMatchers(&quot;/capstone/**&quot;).hasAnyAuthority(&quot;ROLE_SUPER_ADMIN&quot;);</span>
-<span class="fc" id="L81">        http.authorizeRequests().anyRequest().authenticated();</span>
-<span class="fc" id="L82">        http.addFilter(customAuthenticationFilter);</span>
-<span class="fc" id="L83">        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);</span>
-<span class="fc" id="L84">    }</span>
+<span class="fc" id="L47">        http.authorizeRequests().antMatchers(&quot;/capstone/category/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L48">        http.authorizeRequests().antMatchers(&quot;/capstone/member/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L49">        http.authorizeRequests().antMatchers(&quot;/capstone/room/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L50">        http.authorizeRequests().antMatchers(&quot;/capstone/booking/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L51">        http.authorizeRequests().antMatchers(&quot;/capstone/class/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L52">        http.authorizeRequests().antMatchers(&quot;/capstone/instructor/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L53">        http.authorizeRequests().antMatchers(&quot;/capstone/membership/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L54">        http.authorizeRequests().antMatchers(&quot;/capstone/user/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L55">        http.authorizeRequests().antMatchers(&quot;/capstone/content/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L56">        http.authorizeRequests().antMatchers(&quot;/capstone/newsletter/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L57">        http.authorizeRequests().antMatchers(&quot;/capstone/cart/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L58">        http.authorizeRequests().antMatchers(&quot;/capstone/favorite/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L59">        http.authorizeRequests().antMatchers(&quot;/capstone/favoriteClass/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L60">        http.authorizeRequests().antMatchers(&quot;/capstone/rating/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L61">        http.authorizeRequests().antMatchers(&quot;/capstone/payment/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L62">        http.authorizeRequests().antMatchers(&quot;/capstone/history/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L63">        http.authorizeRequests().antMatchers(&quot;/capstone/type/userAccess/**&quot;).hasAnyAuthority(&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L64">        http.authorizeRequests().antMatchers(&quot;/capstone/category/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L65">        http.authorizeRequests().antMatchers(&quot;/capstone/member/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L66">        http.authorizeRequests().antMatchers(&quot;/capstone/room/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L67">        http.authorizeRequests().antMatchers(&quot;/capstone/booking/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;, &quot;ROLE_USER&quot;);</span>
+<span class="fc" id="L68">        http.authorizeRequests().antMatchers(&quot;/capstone/class/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L69">        http.authorizeRequests().antMatchers(&quot;/capstone/instructor/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L70">        http.authorizeRequests().antMatchers(&quot;/capstone/membership/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L71">        http.authorizeRequests().antMatchers(&quot;/capstone/user/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L72">        http.authorizeRequests().antMatchers(&quot;/capstone/content/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L73">        http.authorizeRequests().antMatchers(&quot;/capstone/newsletter/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L74">        http.authorizeRequests().antMatchers(&quot;/capstone/cart/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L75">        http.authorizeRequests().antMatchers(&quot;/capstone/graph/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L76">        http.authorizeRequests().antMatchers(&quot;/capstone/favorite/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L77">        http.authorizeRequests().antMatchers(&quot;/capstone/favoriteClass/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L78">        http.authorizeRequests().antMatchers(&quot;/capstone/rating/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L79">        http.authorizeRequests().antMatchers(&quot;/capstone/payment/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L80">        http.authorizeRequests().antMatchers(&quot;/capstone/history/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L81">        http.authorizeRequests().antMatchers(&quot;/capstone/type/adminAccess/**&quot;).hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L82">        http.authorizeRequests().antMatchers(&quot;/capstone/**&quot;).hasAnyAuthority(&quot;ROLE_SUPER_ADMIN&quot;);</span>
+<span class="fc" id="L83">        http.authorizeRequests().anyRequest().authenticated();</span>
+<span class="fc" id="L84">        http.addFilter(customAuthenticationFilter);</span>
+<span class="fc" id="L85">        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);</span>
+<span class="fc" id="L86">    }</span>
 
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-<span class="fc" id="L89">        return super.authenticationManagerBean();</span>
+<span class="fc" id="L91">        return super.authenticationManagerBean();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

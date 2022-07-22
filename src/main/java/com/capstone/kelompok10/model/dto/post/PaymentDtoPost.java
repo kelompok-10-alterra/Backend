@@ -7,5 +7,4 @@ public class PaymentDtoPost {
     private Long totalPayment;
     private String method;
     private Long userId;
-    private Long cartId;
 }

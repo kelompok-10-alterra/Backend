@@ -39,7 +39,7 @@ public class PaymentController {
         return paymentService.createPaymentDto(paymentDtoPost);
     }
 
-    @GetMapping("/adminAccess/confirmPayment")
+    @GetMapping("/confirmation/confirmPayment")
     public String confirmPayment(@RequestParam("token") String token){
         return paymentService.confirmPayment(token);
     }

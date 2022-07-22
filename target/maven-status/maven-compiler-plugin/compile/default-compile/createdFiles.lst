@@ -19,6 +19,7 @@ com/capstone/kelompok10/controller/RatingController.class
 com/capstone/kelompok10/service/interfaces/CategoryService.class
 com/capstone/kelompok10/service/implementation/RoomServiceImpl.class
 com/capstone/kelompok10/controller/AuthController.class
+com/capstone/kelompok10/model/payload/BookingToCart.class
 com/capstone/kelompok10/model/payload/UsernamePassword.class
 com/capstone/kelompok10/model/dto/get/CategoryDtoGet.class
 com/capstone/kelompok10/controller/MemberController.class
@@ -84,6 +85,7 @@ com/capstone/kelompok10/controller/CategoryController.class
 com/capstone/kelompok10/repository/FavoriteClassRepository.class
 com/capstone/kelompok10/model/dto/post/InstructorDtoPost.class
 com/capstone/kelompok10/model/dto/post/BookingDtoPost.class
+com/capstone/kelompok10/model/payload/BuyBooking.class
 com/capstone/kelompok10/service/implementation/RoleServiceImpl.class
 com/capstone/kelompok10/model/dto/get/BookingDtoGet.class
 com/capstone/kelompok10/repository/InstructorRepository.class

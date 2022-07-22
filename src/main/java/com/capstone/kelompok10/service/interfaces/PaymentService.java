@@ -9,6 +9,6 @@ public interface PaymentService {
     List<PaymentDtoGet> findAll();
     PaymentDtoGet getPaymentById(Long PaymentId);
     String createPaymentDto(PaymentDtoPost PaymentDtoPost);
-    String buildEmail(String username, String link, Long totalPayment, String method);
+    String buildEmail(String username, String link, Long totalPayment, String method, Long debt);
     String confirmPayment(String token);
 }

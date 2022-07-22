@@ -39,7 +39,7 @@ import com.capstone.kelompok10.service.interfaces.PaymentService;
 <span class="nc" id="L39">        return paymentService.createPaymentDto(paymentDtoPost);</span>
     }
 
-    @GetMapping(&quot;/adminAccess/confirmPayment&quot;)
+    @GetMapping(&quot;/confirmation/confirmPayment&quot;)
     public String confirmPayment(@RequestParam(&quot;token&quot;) String token){
 <span class="nc" id="L44">        return paymentService.confirmPayment(token);</span>
     }

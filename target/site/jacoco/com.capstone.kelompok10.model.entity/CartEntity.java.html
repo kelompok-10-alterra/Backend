@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<span class="nc bnc" id="L26" title="All 62 branches missed.">@Data</span>
+<span class="nc bnc" id="L26" title="All 70 branches missed.">@Data</span>
 @Entity
 <span class="fc" id="L28">@NoArgsConstructor</span>
 <span class="nc" id="L29">@AllArgsConstructor</span>
@@ -41,12 +41,16 @@ public class CartEntity {
     @JsonManagedReference
 <span class="nc" id="L42">    private List&lt;BookingEntity&gt; booking = new ArrayList&lt;&gt;();</span>
 
+<span class="pc" id="L44">    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)</span>
+    @JsonManagedReference
+<span class="nc" id="L46">    private List&lt;ClassEntity&gt; classes = new ArrayList&lt;&gt;();</span>
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-<span class="nc" id="L46">    private UserEntity user;</span>
+<span class="nc" id="L50">    private UserEntity user;</span>
 
     @JsonIgnore
     @OneToMany(mappedBy = &quot;cart&quot;, orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-<span class="nc" id="L50">    private List&lt;PaymentEntity&gt; payment;</span>
+<span class="nc" id="L54">    private List&lt;PaymentEntity&gt; payment;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

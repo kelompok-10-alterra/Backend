@@ -6,17 +6,21 @@ import java.util.List;
 import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
 import com.capstone.kelompok10.model.dto.post.ClassDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
+// import com.capstone.kelompok10.model.entity.CartEntity;
 import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.model.entity.ClassEntity;
 import com.capstone.kelompok10.model.entity.InstructorEntity;
 import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.model.entity.TypeEntity;
+// import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.GetUserByClass;
 import com.capstone.kelompok10.repository.BookingRepository;
+import com.capstone.kelompok10.repository.CartRepository;
 import com.capstone.kelompok10.repository.CategoryRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.repository.RoomRepository;
 import com.capstone.kelompok10.repository.TypeRepository;
+import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
 import com.capstone.kelompok10.service.interfaces.ClassService;
 import com.capstone.kelompok10.service.interfaces.InstructorService;
@@ -33,8 +37,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-<span class="fc" id="L36">@Log4j2</span>
-<span class="nc" id="L37">@RequiredArgsConstructor</span>
+<span class="fc" id="L40">@Log4j2</span>
+<span class="nc" id="L41">@RequiredArgsConstructor</span>
 public class ClassServiceImpl implements ClassService {
     ClassRepository classRepository;
 
@@ -51,6 +55,12 @@ public class ClassServiceImpl implements ClassService {
     public RoomRepository roomRepository;
 
     @Autowired
+    public CartRepository cartRepository;
+
+    @Autowired
+    public UserRepository userRepository;
+
+    @Autowired
     private RoomService roomService;
 
     @Autowired
@@ -63,80 +73,80 @@ public class ClassServiceImpl implements ClassService {
     private InstructorService instructorService;
 
     @Autowired
-<span class="fc" id="L66">    public ClassServiceImpl(ClassRepository classRepository){</span>
-<span class="fc" id="L67">        this.classRepository = classRepository;</span>
-<span class="fc" id="L68">    }</span>
+<span class="fc" id="L76">    public ClassServiceImpl(ClassRepository classRepository){</span>
+<span class="fc" id="L77">        this.classRepository = classRepository;</span>
+<span class="fc" id="L78">    }</span>
 
     @Override
     public List&lt;ClassDtoGet&gt; findAll() {
-<span class="nc" id="L72">        List&lt;ClassEntity&gt; classs = classRepository.findAll();</span>
-<span class="nc" id="L73">        List&lt;ClassDtoGet&gt; classDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L82">        List&lt;ClassEntity&gt; classs = classRepository.findAll();</span>
+<span class="nc" id="L83">        List&lt;ClassDtoGet&gt; classDtos = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L75">        classs.forEach(isi -&gt;{</span>
-<span class="nc" id="L76">            ClassDtoGet dto = new ClassDtoGet();</span>
-<span class="nc" id="L77">            dto.setClassId(isi.getClassId());</span>
-<span class="nc" id="L78">            dto.setName(isi.getName());</span>
-<span class="nc" id="L79">            dto.setDescription(isi.getDescription());</span>
-<span class="nc" id="L80">            dto.setStatus(isi.getStatus());</span>
-<span class="nc" id="L81">            dto.setCapacity(isi.getCapacity());</span>
-<span class="nc" id="L82">            dto.setBooked(isi.getBooked());</span>
-<span class="nc" id="L83">            dto.setSchedule(isi.getSchedule());</span>
-<span class="nc" id="L84">            dto.setHour(isi.getHour());</span>
-<span class="nc" id="L85">            dto.setPrice(isi.getPrice());</span>
-<span class="nc" id="L86">            dto.setImageUrl(isi.getType().getImageUrl());</span>
-<span class="nc" id="L87">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
-<span class="nc" id="L88">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="nc" id="L89">            dto.setTypeId(isi.getType().getTypeId());</span>
-<span class="nc" id="L90">            dto.setTypeName(isi.getType().getName());</span>
-<span class="nc" id="L91">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
-<span class="nc" id="L92">            dto.setInstructureName(isi.getInstructor().getName());</span>
-<span class="nc" id="L93">            dto.setContact(isi.getInstructor().getContact());</span>
-<span class="nc" id="L94">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
-<span class="nc" id="L95">            dto.setCategoryName(isi.getCategory().getName());</span>
-<span class="nc" id="L96">            dto.setRoomId(isi.getRoom().getRoomId());</span>
-<span class="nc" id="L97">            dto.setRoomName(isi.getRoom().getName());</span>
-<span class="nc" id="L98">            dto.setRating(classRating(isi.getClassId()));</span>
-<span class="nc" id="L99">            dto.setMeetUrl(isi.getMeetUrl());</span>
+<span class="nc" id="L85">        classs.forEach(isi -&gt;{</span>
+<span class="nc" id="L86">            ClassDtoGet dto = new ClassDtoGet();</span>
+<span class="nc" id="L87">            dto.setClassId(isi.getClassId());</span>
+<span class="nc" id="L88">            dto.setName(isi.getName());</span>
+<span class="nc" id="L89">            dto.setDescription(isi.getDescription());</span>
+<span class="nc" id="L90">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L91">            dto.setCapacity(isi.getCapacity());</span>
+<span class="nc" id="L92">            dto.setBooked(isi.getBooked());</span>
+<span class="nc" id="L93">            dto.setSchedule(isi.getSchedule());</span>
+<span class="nc" id="L94">            dto.setHour(isi.getHour());</span>
+<span class="nc" id="L95">            dto.setPrice(isi.getPrice());</span>
+<span class="nc" id="L96">            dto.setImageUrl(isi.getType().getImageUrl());</span>
+<span class="nc" id="L97">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L98">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L99">            dto.setTypeId(isi.getType().getTypeId());</span>
+<span class="nc" id="L100">            dto.setTypeName(isi.getType().getName());</span>
+<span class="nc" id="L101">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
+<span class="nc" id="L102">            dto.setInstructureName(isi.getInstructor().getName());</span>
+<span class="nc" id="L103">            dto.setContact(isi.getInstructor().getContact());</span>
+<span class="nc" id="L104">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
+<span class="nc" id="L105">            dto.setCategoryName(isi.getCategory().getName());</span>
+<span class="nc" id="L106">            dto.setRoomId(isi.getRoom().getRoomId());</span>
+<span class="nc" id="L107">            dto.setRoomName(isi.getRoom().getName());</span>
+<span class="nc" id="L108">            dto.setRating(classRating(isi.getClassId()));</span>
+<span class="nc" id="L109">            dto.setMeetUrl(isi.getMeetUrl());</span>
 
-<span class="nc" id="L101">            classDtos.add(dto);</span>
-<span class="nc" id="L102">        });</span>
-<span class="nc" id="L103">        return classDtos;</span>
+<span class="nc" id="L111">            classDtos.add(dto);</span>
+<span class="nc" id="L112">        });</span>
+<span class="nc" id="L113">        return classDtos;</span>
     }
 
     @Override
     public List&lt;ClassDtoGet&gt; findAll(String keyword) {
-<span class="nc" id="L108">        List&lt;ClassEntity&gt; classs = classRepository.findAll(keyword);</span>
-<span class="nc" id="L109">        List&lt;ClassDtoGet&gt; classDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L118">        List&lt;ClassEntity&gt; classs = classRepository.findAll(keyword);</span>
+<span class="nc" id="L119">        List&lt;ClassDtoGet&gt; classDtos = new ArrayList&lt;&gt;();</span>
         
-<span class="nc" id="L111">        classs.forEach(isi -&gt;{</span>
-<span class="nc" id="L112">            ClassDtoGet dto = new ClassDtoGet();</span>
-<span class="nc" id="L113">            dto.setClassId(isi.getClassId());</span>
-<span class="nc" id="L114">            dto.setName(isi.getName());</span>
-<span class="nc" id="L115">            dto.setDescription(isi.getDescription());</span>
-<span class="nc" id="L116">            dto.setStatus(isi.getStatus());</span>
-<span class="nc" id="L117">            dto.setCapacity(isi.getCapacity());</span>
-<span class="nc" id="L118">            dto.setBooked(isi.getBooked());</span>
-<span class="nc" id="L119">            dto.setSchedule(isi.getSchedule());</span>
-<span class="nc" id="L120">            dto.setHour(isi.getHour());</span>
-<span class="nc" id="L121">            dto.setPrice(isi.getPrice());</span>
-<span class="nc" id="L122">            dto.setImageUrl(isi.getType().getImageUrl());</span>
-<span class="nc" id="L123">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
-<span class="nc" id="L124">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="nc" id="L125">            dto.setTypeId(isi.getType().getTypeId());</span>
-<span class="nc" id="L126">            dto.setTypeName(isi.getType().getName());</span>
-<span class="nc" id="L127">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
-<span class="nc" id="L128">            dto.setInstructureName(isi.getInstructor().getName());</span>
-<span class="nc" id="L129">            dto.setContact(isi.getInstructor().getContact());</span>
-<span class="nc" id="L130">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
-<span class="nc" id="L131">            dto.setCategoryName(isi.getCategory().getName());</span>
-<span class="nc" id="L132">            dto.setRoomId(isi.getRoom().getRoomId());</span>
-<span class="nc" id="L133">            dto.setRoomName(isi.getRoom().getName());</span>
-<span class="nc" id="L134">            dto.setRating(classRating(isi.getClassId()));</span>
-<span class="nc" id="L135">            dto.setMeetUrl(isi.getMeetUrl());</span>
+<span class="nc" id="L121">        classs.forEach(isi -&gt;{</span>
+<span class="nc" id="L122">            ClassDtoGet dto = new ClassDtoGet();</span>
+<span class="nc" id="L123">            dto.setClassId(isi.getClassId());</span>
+<span class="nc" id="L124">            dto.setName(isi.getName());</span>
+<span class="nc" id="L125">            dto.setDescription(isi.getDescription());</span>
+<span class="nc" id="L126">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L127">            dto.setCapacity(isi.getCapacity());</span>
+<span class="nc" id="L128">            dto.setBooked(isi.getBooked());</span>
+<span class="nc" id="L129">            dto.setSchedule(isi.getSchedule());</span>
+<span class="nc" id="L130">            dto.setHour(isi.getHour());</span>
+<span class="nc" id="L131">            dto.setPrice(isi.getPrice());</span>
+<span class="nc" id="L132">            dto.setImageUrl(isi.getType().getImageUrl());</span>
+<span class="nc" id="L133">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L134">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L135">            dto.setTypeId(isi.getType().getTypeId());</span>
+<span class="nc" id="L136">            dto.setTypeName(isi.getType().getName());</span>
+<span class="nc" id="L137">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
+<span class="nc" id="L138">            dto.setInstructureName(isi.getInstructor().getName());</span>
+<span class="nc" id="L139">            dto.setContact(isi.getInstructor().getContact());</span>
+<span class="nc" id="L140">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
+<span class="nc" id="L141">            dto.setCategoryName(isi.getCategory().getName());</span>
+<span class="nc" id="L142">            dto.setRoomId(isi.getRoom().getRoomId());</span>
+<span class="nc" id="L143">            dto.setRoomName(isi.getRoom().getName());</span>
+<span class="nc" id="L144">            dto.setRating(classRating(isi.getClassId()));</span>
+<span class="nc" id="L145">            dto.setMeetUrl(isi.getMeetUrl());</span>
 
-<span class="nc" id="L137">            classDtos.add(dto);</span>
-<span class="nc" id="L138">        });</span>
-<span class="nc" id="L139">        return classDtos;</span>
+<span class="nc" id="L147">            classDtos.add(dto);</span>
+<span class="nc" id="L148">        });</span>
+<span class="nc" id="L149">        return classDtos;</span>
     }
     
     // @Override
@@ -212,302 +222,328 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public ClassDtoGet getClassByIdDto(Long classId) {
-<span class="nc bnc" id="L215" title="All 2 branches missed.">        if(classRepository.findById(classId) == null){</span>
-<span class="nc" id="L216">            log.info(&quot;Class with id {} can't be found&quot;, classId);</span>
-<span class="nc" id="L217">            throw new IllegalStateException(&quot;Class not found&quot;);</span>
+<span class="nc bnc" id="L225" title="All 2 branches missed.">        if(classRepository.findById(classId) == null){</span>
+<span class="nc" id="L226">            log.info(&quot;Class with id {} can't be found&quot;, classId);</span>
+<span class="nc" id="L227">            throw new IllegalStateException(&quot;Class not found&quot;);</span>
         }else{
-<span class="nc" id="L219">            log.info(&quot;Class with id {} found&quot;, classId);</span>
-<span class="nc" id="L220">            ClassEntity isi = classRepository.findById(classId).get();</span>
-<span class="nc" id="L221">            ClassDtoGet dto = new ClassDtoGet();</span>
-<span class="nc" id="L222">            dto.setClassId(isi.getClassId());</span>
-<span class="nc" id="L223">            dto.setName(isi.getName());</span>
-<span class="nc" id="L224">            dto.setDescription(isi.getDescription());</span>
-<span class="nc" id="L225">            dto.setStatus(isi.getStatus());</span>
-<span class="nc" id="L226">            dto.setCapacity(isi.getCapacity());</span>
-<span class="nc" id="L227">            dto.setBooked(isi.getBooked());</span>
-<span class="nc" id="L228">            dto.setSchedule(isi.getSchedule());</span>
-<span class="nc" id="L229">            dto.setHour(isi.getHour());</span>
-<span class="nc" id="L230">            dto.setPrice(isi.getPrice());</span>
-<span class="nc" id="L231">            dto.setImageUrl(isi.getType().getImageUrl());</span>
-<span class="nc" id="L232">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
-<span class="nc" id="L233">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="nc" id="L234">            dto.setTypeId(isi.getType().getTypeId());</span>
-<span class="nc" id="L235">            dto.setTypeName(isi.getType().getName());</span>
-<span class="nc" id="L236">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
-<span class="nc" id="L237">            dto.setInstructureName(isi.getInstructor().getName());</span>
-<span class="nc" id="L238">            dto.setContact(isi.getInstructor().getContact());</span>
-<span class="nc" id="L239">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
-<span class="nc" id="L240">            dto.setCategoryName(isi.getCategory().getName());</span>
-<span class="nc" id="L241">            dto.setRoomId(isi.getRoom().getRoomId());</span>
-<span class="nc" id="L242">            dto.setRoomName(isi.getRoom().getName());</span>
-<span class="nc" id="L243">            dto.setRating(classRating(isi.getClassId()));</span>
-<span class="nc" id="L244">            dto.setMeetUrl(isi.getMeetUrl());</span>
+<span class="nc" id="L229">            log.info(&quot;Class with id {} found&quot;, classId);</span>
+<span class="nc" id="L230">            ClassEntity isi = classRepository.findById(classId).get();</span>
+<span class="nc" id="L231">            ClassDtoGet dto = new ClassDtoGet();</span>
+<span class="nc" id="L232">            dto.setClassId(isi.getClassId());</span>
+<span class="nc" id="L233">            dto.setName(isi.getName());</span>
+<span class="nc" id="L234">            dto.setDescription(isi.getDescription());</span>
+<span class="nc" id="L235">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L236">            dto.setCapacity(isi.getCapacity());</span>
+<span class="nc" id="L237">            dto.setBooked(isi.getBooked());</span>
+<span class="nc" id="L238">            dto.setSchedule(isi.getSchedule());</span>
+<span class="nc" id="L239">            dto.setHour(isi.getHour());</span>
+<span class="nc" id="L240">            dto.setPrice(isi.getPrice());</span>
+<span class="nc" id="L241">            dto.setImageUrl(isi.getType().getImageUrl());</span>
+<span class="nc" id="L242">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L243">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L244">            dto.setTypeId(isi.getType().getTypeId());</span>
+<span class="nc" id="L245">            dto.setTypeName(isi.getType().getName());</span>
+<span class="nc" id="L246">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
+<span class="nc" id="L247">            dto.setInstructureName(isi.getInstructor().getName());</span>
+<span class="nc" id="L248">            dto.setContact(isi.getInstructor().getContact());</span>
+<span class="nc" id="L249">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
+<span class="nc" id="L250">            dto.setCategoryName(isi.getCategory().getName());</span>
+<span class="nc" id="L251">            dto.setRoomId(isi.getRoom().getRoomId());</span>
+<span class="nc" id="L252">            dto.setRoomName(isi.getRoom().getName());</span>
+<span class="nc" id="L253">            dto.setRating(classRating(isi.getClassId()));</span>
+<span class="nc" id="L254">            dto.setMeetUrl(isi.getMeetUrl());</span>
 
-<span class="nc" id="L246">            return dto;</span>
+<span class="nc" id="L256">            return dto;</span>
         }
     }
 
     @Override
     public ClassEntity getClassById(Long classId) {
-<span class="nc bnc" id="L252" title="All 2 branches missed.">        if(classRepository.findById(classId) == null){</span>
-<span class="nc" id="L253">            log.info(&quot;Class with id {} can't be found&quot;, classId);</span>
-<span class="nc" id="L254">            throw new IllegalStateException(&quot;Class not found&quot;);</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">        if(classRepository.findById(classId) == null){</span>
+<span class="nc" id="L263">            log.info(&quot;Class with id {} can't be found&quot;, classId);</span>
+<span class="nc" id="L264">            throw new IllegalStateException(&quot;Class not found&quot;);</span>
         }else{
-<span class="nc" id="L256">            log.info(&quot;Class with id {} found&quot;, classId);</span>
-<span class="nc" id="L257">            return classRepository.findById(classId).get();</span>
+<span class="nc" id="L266">            log.info(&quot;Class with id {} found&quot;, classId);</span>
+<span class="nc" id="L267">            return classRepository.findById(classId).get();</span>
         }
     }
 
     @Override
     public void updateClass(Long classId, ClassDtoPost classesDtoPost) {
-<span class="nc bnc" id="L263" title="All 2 branches missed.">        if(classRepository.findById(classId) == null){</span>
-<span class="nc" id="L264">            log.info(&quot;Class with id {} can't be found&quot;, classId);</span>
-<span class="nc" id="L265">            throw new IllegalStateException(&quot;Class not found&quot;);</span>
+<span class="nc bnc" id="L273" title="All 2 branches missed.">        if(classRepository.findById(classId) == null){</span>
+<span class="nc" id="L274">            log.info(&quot;Class with id {} can't be found&quot;, classId);</span>
+<span class="nc" id="L275">            throw new IllegalStateException(&quot;Class not found&quot;);</span>
         }else{
-<span class="nc" id="L267">            ClassEntity class2 = classRepository.findById(classId).get();</span>
+<span class="nc" id="L277">            ClassEntity class2 = classRepository.findById(classId).get();</span>
 
-<span class="nc" id="L269">            InstructorEntity instructorEntity = new InstructorEntity();</span>
-<span class="nc" id="L270">            instructorEntity.setInstructorId(classesDtoPost.getInstructorId());</span>
+<span class="nc" id="L279">            InstructorEntity instructorEntity = new InstructorEntity();</span>
+<span class="nc" id="L280">            instructorEntity.setInstructorId(classesDtoPost.getInstructorId());</span>
 
-<span class="nc" id="L272">            CategoryEntity categoryEntity = new CategoryEntity();</span>
-<span class="nc" id="L273">            categoryEntity.setCategoryId(classesDtoPost.getCategoryId());</span>
+<span class="nc" id="L282">            CategoryEntity categoryEntity = new CategoryEntity();</span>
+<span class="nc" id="L283">            categoryEntity.setCategoryId(classesDtoPost.getCategoryId());</span>
 
-<span class="nc" id="L275">            RoomEntity roomEntity = new RoomEntity();</span>
-<span class="nc" id="L276">            roomEntity.setRoomId(classesDtoPost.getRoomId());</span>
+<span class="nc" id="L285">            RoomEntity roomEntity = new RoomEntity();</span>
+<span class="nc" id="L286">            roomEntity.setRoomId(classesDtoPost.getRoomId());</span>
 
-<span class="nc" id="L278">            TypeEntity typeEntity = new TypeEntity();</span>
-<span class="nc" id="L279">            typeEntity.setTypeId(classesDtoPost.getTypeId());</span>
+<span class="nc" id="L288">            TypeEntity typeEntity = new TypeEntity();</span>
+<span class="nc" id="L289">            typeEntity.setTypeId(classesDtoPost.getTypeId());</span>
 
-<span class="nc bnc" id="L281" title="All 4 branches missed.">            if(instructorService.instructorExist(classesDtoPost.getInstructorId()) == true &amp;&amp; categoryService.categoryExist(classesDtoPost.getCategoryId()) == true &amp;&amp;</span>
-<span class="nc bnc" id="L282" title="All 4 branches missed.">                roomService.roomExist(classesDtoPost.getRoomId()) == true &amp;&amp; typeService.typeExist(classesDtoPost.getTypeId()) == true){</span>
-<span class="nc" id="L283">                    TypeEntity type2 = typeRepository.findById(classesDtoPost.getTypeId()).get();</span>
-<span class="nc" id="L284">                    CategoryEntity category2 = categoryRepository.findById(classesDtoPost.getCategoryId()).get();</span>
-<span class="nc" id="L285">                    RoomEntity room2 = roomRepository.findById(classesDtoPost.getRoomId()).get();</span>
-<span class="nc" id="L286">                    class2.setStatus(classesDtoPost.getStatus());</span>
-<span class="nc" id="L287">                    class2.setName(type2.getName() + &quot; &quot; + room2.getName() + &quot; - &quot; + category2.getName());</span>
-<span class="nc" id="L288">                    class2.setDescription(classesDtoPost.getDescription());</span>
-<span class="nc" id="L289">                    class2.setCapacity(classesDtoPost.getCapacity());</span>
-<span class="nc" id="L290">                    class2.setSchedule(classesDtoPost.getSchedule());</span>
-<span class="nc" id="L291">                    class2.setHour(classesDtoPost.getHour());</span>
-<span class="nc" id="L292">                    class2.setPrice(classesDtoPost.getPrice());</span>
-<span class="nc" id="L293">                    class2.setImageUrl(classesDtoPost.getImageUrl());</span>
-<span class="nc" id="L294">                    class2.setCategory(categoryEntity);</span>
-<span class="nc" id="L295">                    class2.setInstructor(instructorEntity);</span>
-<span class="nc" id="L296">                    class2.setRoom(roomEntity);</span>
-<span class="nc" id="L297">                    class2.setType(typeEntity);</span>
-<span class="nc" id="L298">                    class2.setTypeName(type2.getName());</span>
-<span class="nc" id="L299">                    class2.setMeetUrl(classesDtoPost.getMeetUrl());</span>
+<span class="nc bnc" id="L291" title="All 4 branches missed.">            if(instructorService.instructorExist(classesDtoPost.getInstructorId()) == true &amp;&amp; categoryService.categoryExist(classesDtoPost.getCategoryId()) == true &amp;&amp;</span>
+<span class="nc bnc" id="L292" title="All 4 branches missed.">                roomService.roomExist(classesDtoPost.getRoomId()) == true &amp;&amp; typeService.typeExist(classesDtoPost.getTypeId()) == true){</span>
+<span class="nc" id="L293">                    TypeEntity type2 = typeRepository.findById(classesDtoPost.getTypeId()).get();</span>
+<span class="nc" id="L294">                    CategoryEntity category2 = categoryRepository.findById(classesDtoPost.getCategoryId()).get();</span>
+<span class="nc" id="L295">                    RoomEntity room2 = roomRepository.findById(classesDtoPost.getRoomId()).get();</span>
+<span class="nc" id="L296">                    class2.setStatus(classesDtoPost.getStatus());</span>
+<span class="nc" id="L297">                    class2.setName(type2.getName() + &quot; &quot; + room2.getName() + &quot; - &quot; + category2.getName());</span>
+<span class="nc" id="L298">                    class2.setDescription(classesDtoPost.getDescription());</span>
+<span class="nc" id="L299">                    class2.setCapacity(classesDtoPost.getCapacity());</span>
+<span class="nc" id="L300">                    class2.setSchedule(classesDtoPost.getSchedule());</span>
+<span class="nc" id="L301">                    class2.setHour(classesDtoPost.getHour());</span>
+<span class="nc" id="L302">                    class2.setPrice(classesDtoPost.getPrice());</span>
+<span class="nc" id="L303">                    class2.setImageUrl(classesDtoPost.getImageUrl());</span>
+<span class="nc" id="L304">                    class2.setCategory(categoryEntity);</span>
+<span class="nc" id="L305">                    class2.setInstructor(instructorEntity);</span>
+<span class="nc" id="L306">                    class2.setRoom(roomEntity);</span>
+<span class="nc" id="L307">                    class2.setType(typeEntity);</span>
+<span class="nc" id="L308">                    class2.setTypeName(type2.getName());</span>
+<span class="nc" id="L309">                    class2.setMeetUrl(classesDtoPost.getMeetUrl());</span>
                     
-<span class="nc" id="L301">                    classRepository.save(class2);</span>
-<span class="nc" id="L302">                    log.info(&quot;Class updated&quot;);</span>
-<span class="nc" id="L303">            }else{</span>
-<span class="nc" id="L304">                log.info(&quot;Failed to Update Class&quot;);</span>
-<span class="nc" id="L305">                throw new IllegalStateException(&quot;Instructor, Category, Room or Type didn't exist&quot;);  </span>
+<span class="nc" id="L311">                    classRepository.save(class2);</span>
+<span class="nc" id="L312">                    log.info(&quot;Class updated&quot;);</span>
+<span class="nc" id="L313">            }else{</span>
+<span class="nc" id="L314">                log.info(&quot;Failed to Update Class&quot;);</span>
+<span class="nc" id="L315">                throw new IllegalStateException(&quot;Instructor, Category, Room or Type didn't exist&quot;);  </span>
             }
         }
-<span class="nc" id="L308">    }</span>
+<span class="nc" id="L318">    }</span>
 
     @Override
     public void deleteClass(Long classId) {
-<span class="nc bnc" id="L312" title="All 2 branches missed.">        if(classRepository.findById(classId) == null){</span>
-<span class="nc" id="L313">            log.info(&quot;Class with id {} can't be found&quot;, classId);</span>
-<span class="nc" id="L314">            throw new IllegalStateException(&quot;Class not found&quot;);</span>
+<span class="nc bnc" id="L322" title="All 2 branches missed.">        if(classRepository.findById(classId) == null){</span>
+<span class="nc" id="L323">            log.info(&quot;Class with id {} can't be found&quot;, classId);</span>
+<span class="nc" id="L324">            throw new IllegalStateException(&quot;Class not found&quot;);</span>
         }else{
-<span class="nc" id="L316">            log.info(&quot;Class successfully deleted&quot;);</span>
-<span class="nc" id="L317">            classRepository.deleteById(classId);</span>
+<span class="nc" id="L326">            log.info(&quot;Class successfully deleted&quot;);</span>
+<span class="nc" id="L327">            classRepository.deleteById(classId);</span>
         }
-<span class="nc" id="L319">    }</span>
+<span class="nc" id="L329">    }</span>
 
 	@Override
 	public void createClassDto(ClassDtoPost classDtoPost) {
-<span class="nc" id="L323">		ClassEntity classEntity = new ClassEntity();</span>
+<span class="nc" id="L333">		ClassEntity classEntity = new ClassEntity();</span>
 
-<span class="nc" id="L325">        InstructorEntity instructorEntity = new InstructorEntity();</span>
-<span class="nc" id="L326">        instructorEntity.setInstructorId(classDtoPost.getInstructorId());</span>
+<span class="nc" id="L335">        InstructorEntity instructorEntity = new InstructorEntity();</span>
+<span class="nc" id="L336">        instructorEntity.setInstructorId(classDtoPost.getInstructorId());</span>
 
-<span class="nc" id="L328">        CategoryEntity categoryEntity = new CategoryEntity();</span>
-<span class="nc" id="L329">        categoryEntity.setCategoryId(classDtoPost.getCategoryId());</span>
+<span class="nc" id="L338">        CategoryEntity categoryEntity = new CategoryEntity();</span>
+<span class="nc" id="L339">        categoryEntity.setCategoryId(classDtoPost.getCategoryId());</span>
 
-<span class="nc" id="L331">        RoomEntity roomEntity = new RoomEntity();</span>
-<span class="nc" id="L332">        roomEntity.setRoomId(classDtoPost.getRoomId());</span>
+<span class="nc" id="L341">        RoomEntity roomEntity = new RoomEntity();</span>
+<span class="nc" id="L342">        roomEntity.setRoomId(classDtoPost.getRoomId());</span>
 
-<span class="nc" id="L334">        TypeEntity typeEntity = new TypeEntity();</span>
-<span class="nc" id="L335">        typeEntity.setTypeId(classDtoPost.getTypeId());</span>
-<span class="nc bnc" id="L336" title="All 4 branches missed.">        if(instructorService.instructorExist(classDtoPost.getInstructorId()) == true &amp;&amp; categoryService.categoryExist(classDtoPost.getCategoryId()) == true &amp;&amp;</span>
-<span class="nc bnc" id="L337" title="All 4 branches missed.">            roomService.roomExist(classDtoPost.getRoomId()) == true &amp;&amp; typeService.typeExist(classDtoPost.getTypeId()) == true){</span>
-<span class="nc" id="L338">                TypeEntity type2 = typeRepository.findById(classDtoPost.getTypeId()).get();</span>
-<span class="nc" id="L339">                CategoryEntity category2 = categoryRepository.findById(classDtoPost.getCategoryId()).get();</span>
-<span class="nc" id="L340">                RoomEntity room2 = roomRepository.findById(classDtoPost.getRoomId()).get();</span>
-<span class="nc" id="L341">                classEntity.setStatus(classDtoPost.getStatus());</span>
-<span class="nc" id="L342">                classEntity.setName(type2.getName() + &quot; &quot; + room2.getName() + &quot; - &quot; + category2.getName());</span>
-<span class="nc" id="L343">                classEntity.setDescription(classDtoPost.getDescription());</span>
-<span class="nc" id="L344">                classEntity.setCapacity(classDtoPost.getCapacity());</span>
-<span class="nc" id="L345">                classEntity.setBooked(0L);</span>
-<span class="nc" id="L346">                classEntity.setSchedule(classDtoPost.getSchedule());</span>
-<span class="nc" id="L347">                classEntity.setHour(classDtoPost.getHour());</span>
-<span class="nc" id="L348">                classEntity.setPrice(classDtoPost.getPrice());</span>
-<span class="nc" id="L349">                classEntity.setImageUrl(classDtoPost.getImageUrl());</span>
-<span class="nc" id="L350">                classEntity.setInstructor(instructorEntity);</span>
-<span class="nc" id="L351">                classEntity.setCategory(categoryEntity);</span>
-<span class="nc" id="L352">                classEntity.setRoom(roomEntity);</span>
-<span class="nc" id="L353">                classEntity.setType(typeEntity);</span>
-<span class="nc" id="L354">                classEntity.setTypeName(type2.getName());</span>
-<span class="nc" id="L355">                classEntity.setMeetUrl(classDtoPost.getMeetUrl());</span>
+<span class="nc" id="L344">        TypeEntity typeEntity = new TypeEntity();</span>
+<span class="nc" id="L345">        typeEntity.setTypeId(classDtoPost.getTypeId());</span>
+<span class="nc bnc" id="L346" title="All 4 branches missed.">        if(instructorService.instructorExist(classDtoPost.getInstructorId()) == true &amp;&amp; categoryService.categoryExist(classDtoPost.getCategoryId()) == true &amp;&amp;</span>
+<span class="nc bnc" id="L347" title="All 4 branches missed.">            roomService.roomExist(classDtoPost.getRoomId()) == true &amp;&amp; typeService.typeExist(classDtoPost.getTypeId()) == true){</span>
+<span class="nc" id="L348">                TypeEntity type2 = typeRepository.findById(classDtoPost.getTypeId()).get();</span>
+<span class="nc" id="L349">                CategoryEntity category2 = categoryRepository.findById(classDtoPost.getCategoryId()).get();</span>
+<span class="nc" id="L350">                RoomEntity room2 = roomRepository.findById(classDtoPost.getRoomId()).get();</span>
+<span class="nc" id="L351">                classEntity.setStatus(classDtoPost.getStatus());</span>
+<span class="nc" id="L352">                classEntity.setName(type2.getName() + &quot; &quot; + room2.getName() + &quot; - &quot; + category2.getName());</span>
+<span class="nc" id="L353">                classEntity.setDescription(classDtoPost.getDescription());</span>
+<span class="nc" id="L354">                classEntity.setCapacity(classDtoPost.getCapacity());</span>
+<span class="nc" id="L355">                classEntity.setBooked(0L);</span>
+<span class="nc" id="L356">                classEntity.setSchedule(classDtoPost.getSchedule());</span>
+<span class="nc" id="L357">                classEntity.setHour(classDtoPost.getHour());</span>
+<span class="nc" id="L358">                classEntity.setPrice(classDtoPost.getPrice());</span>
+<span class="nc" id="L359">                classEntity.setImageUrl(classDtoPost.getImageUrl());</span>
+<span class="nc" id="L360">                classEntity.setInstructor(instructorEntity);</span>
+<span class="nc" id="L361">                classEntity.setCategory(categoryEntity);</span>
+<span class="nc" id="L362">                classEntity.setRoom(roomEntity);</span>
+<span class="nc" id="L363">                classEntity.setType(typeEntity);</span>
+<span class="nc" id="L364">                classEntity.setTypeName(type2.getName());</span>
+<span class="nc" id="L365">                classEntity.setMeetUrl(classDtoPost.getMeetUrl());</span>
                 
 
-<span class="nc" id="L358">                classRepository.save(classEntity);</span>
-<span class="nc" id="L359">                log.info(&quot;Class created&quot;);</span>
-<span class="nc" id="L360">            }else{</span>
-<span class="nc" id="L361">                log.info(&quot;Failed to create Class&quot;);</span>
-<span class="nc" id="L362">                throw new IllegalStateException(&quot;Instructor, Category, Room or Type didn't exist&quot;);</span>
+<span class="nc" id="L368">                classRepository.save(classEntity);</span>
+<span class="nc" id="L369">                log.info(&quot;Class created&quot;);</span>
+<span class="nc" id="L370">            }else{</span>
+<span class="nc" id="L371">                log.info(&quot;Failed to create Class&quot;);</span>
+<span class="nc" id="L372">                throw new IllegalStateException(&quot;Instructor, Category, Room or Type didn't exist&quot;);</span>
             }
-<span class="nc" id="L364">    }</span>
+<span class="nc" id="L374">    }</span>
 
     @Override
     public void classBooked(Long classId) {
-<span class="nc" id="L368">        ClassEntity class2 = classRepository.findById(classId).get();</span>
-<span class="nc" id="L369">        class2.setCapacity(class2.getCapacity() - 1);</span>
-<span class="nc" id="L370">        class2.setBooked(class2.getBooked() + 1);</span>
-<span class="nc" id="L371">        classRepository.save(class2);</span>
-<span class="nc" id="L372">    }</span>
+<span class="nc" id="L378">        ClassEntity class2 = classRepository.findById(classId).get();</span>
+<span class="nc" id="L379">        class2.setCapacity(class2.getCapacity() - 1);</span>
+<span class="nc" id="L380">        class2.setBooked(class2.getBooked() + 1);</span>
+<span class="nc" id="L381">        classRepository.save(class2);</span>
+<span class="nc" id="L382">    }</span>
 
     @Override
     public Boolean classFull(Long classId) {
-<span class="nc" id="L376">        ClassEntity class2 = classRepository.findById(classId).get();</span>
-<span class="nc" id="L377">        Long capacity = class2.getCapacity();</span>
-<span class="nc bnc" id="L378" title="All 2 branches missed.">        if(capacity &gt; 0){</span>
-<span class="nc" id="L379">            return false;</span>
+<span class="nc" id="L386">        ClassEntity class2 = classRepository.findById(classId).get();</span>
+<span class="nc" id="L387">        Long capacity = class2.getCapacity();</span>
+<span class="nc bnc" id="L388" title="All 2 branches missed.">        if(capacity &gt; 0){</span>
+<span class="nc" id="L389">            return false;</span>
         }else{
-<span class="nc" id="L381">            return true;</span>
+<span class="nc" id="L391">            return true;</span>
         }
     }
 
 	@Override
 	public Long classPrice(Long classId) {
-<span class="nc" id="L387">		ClassEntity class2 = classRepository.findById(classId).get();</span>
-<span class="nc" id="L388">        Long price = class2.getPrice();</span>
-<span class="nc" id="L389">		return price;</span>
+<span class="nc" id="L397">		ClassEntity class2 = classRepository.findById(classId).get();</span>
+<span class="nc" id="L398">        Long price = class2.getPrice();</span>
+<span class="nc" id="L399">		return price;</span>
 	}
 
     @Override
     public void unBookClass(Long classId) {
-<span class="nc" id="L394">        ClassEntity class2 = classRepository.findById(classId).get();</span>
-<span class="nc" id="L395">        Long capacity = class2.getCapacity();</span>
-<span class="nc" id="L396">        Long booked = class2.getBooked();</span>
-<span class="nc bnc" id="L397" title="All 2 branches missed.">        if(class2.getBooked() &gt; 0 ){</span>
-<span class="nc" id="L398">            class2.setCapacity(capacity + 1);</span>
-<span class="nc" id="L399">            class2.setBooked(booked - 1);</span>
-<span class="nc" id="L400">            classRepository.save(class2);</span>
+<span class="nc" id="L404">        ClassEntity class2 = classRepository.findById(classId).get();</span>
+<span class="nc" id="L405">        Long capacity = class2.getCapacity();</span>
+<span class="nc" id="L406">        Long booked = class2.getBooked();</span>
+<span class="nc bnc" id="L407" title="All 2 branches missed.">        if(class2.getBooked() &gt; 0 ){</span>
+<span class="nc" id="L408">            class2.setCapacity(capacity + 1);</span>
+<span class="nc" id="L409">            class2.setBooked(booked - 1);</span>
+<span class="nc" id="L410">            classRepository.save(class2);</span>
         }else{
-<span class="nc" id="L402">            throw new IllegalStateException(&quot;Booked Can't Be below zero&quot;);</span>
+<span class="nc" id="L412">            throw new IllegalStateException(&quot;Booked Can't Be below zero&quot;);</span>
         }
 
-<span class="nc" id="L405">    }</span>
+<span class="nc" id="L415">    }</span>
 
     @Override
     public Boolean classExist(Long classId) {
-<span class="nc bnc" id="L409" title="All 2 branches missed.">        if(classRepository.findById(classId).isPresent() == true){</span>
-<span class="nc" id="L410">            return true;</span>
+<span class="nc bnc" id="L419" title="All 2 branches missed.">        if(classRepository.findById(classId).isPresent() == true){</span>
+<span class="nc" id="L420">            return true;</span>
         }else{
-<span class="nc" id="L412">            return false;</span>
+<span class="nc" id="L422">            return false;</span>
         }
     }
 
     @Override
     public List&lt;GetUserByClass&gt; getBookingByClassId(Long classId) {
-<span class="nc" id="L418">        List&lt;BookingEntity&gt; booking = bookingRepository.findByClassIdentity(classId);</span>
-<span class="nc" id="L419">        List&lt;GetUserByClass&gt; user = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L420">        booking.forEach(isi -&gt;{</span>
-<span class="nc" id="L421">            GetUserByClass dto = new GetUserByClass();</span>
-<span class="nc" id="L422">            dto.setUserId(isi.getUser().getUserId());</span>
-<span class="nc" id="L423">            dto.setUsername(isi.getUser().getName());</span>
-<span class="nc" id="L424">            dto.setStatus(isi.getClasses().getStatus());</span>
-<span class="nc" id="L425">            dto.setJoinedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L428">        List&lt;BookingEntity&gt; booking = bookingRepository.findByClassIdentity(classId);</span>
+<span class="nc" id="L429">        List&lt;GetUserByClass&gt; user = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L430">        booking.forEach(isi -&gt;{</span>
+<span class="nc" id="L431">            GetUserByClass dto = new GetUserByClass();</span>
+<span class="nc" id="L432">            dto.setUserId(isi.getUser().getUserId());</span>
+<span class="nc" id="L433">            dto.setUsername(isi.getUser().getName());</span>
+<span class="nc" id="L434">            dto.setStatus(isi.getClasses().getStatus());</span>
+<span class="nc" id="L435">            dto.setJoinedAt(isi.getCreated_at().toString());</span>
 
-<span class="nc" id="L427">            user.add(dto);</span>
-<span class="nc" id="L428">        });</span>
-<span class="nc" id="L429">        return user;</span>
+<span class="nc" id="L437">            user.add(dto);</span>
+<span class="nc" id="L438">        });</span>
+<span class="nc" id="L439">        return user;</span>
     }
 
     @Override
     public List&lt;ClassDtoGet&gt; getClassByType(String typeName) {
-<span class="nc" id="L434">        List&lt;ClassEntity&gt; classes = classRepository.findByTypeName(typeName);</span>
-<span class="nc" id="L435">        List&lt;ClassDtoGet&gt; classDtos = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L436">        classes.forEach(isi -&gt;{</span>
-<span class="nc" id="L437">            ClassDtoGet dto = new ClassDtoGet();</span>
-<span class="nc" id="L438">            dto.setClassId(isi.getClassId());</span>
-<span class="nc" id="L439">            dto.setName(isi.getName());</span>
-<span class="nc" id="L440">            dto.setDescription(isi.getDescription());</span>
-<span class="nc" id="L441">            dto.setStatus(isi.getStatus());</span>
-<span class="nc" id="L442">            dto.setCapacity(isi.getCapacity());</span>
-<span class="nc" id="L443">            dto.setBooked(isi.getBooked());</span>
-<span class="nc" id="L444">            dto.setSchedule(isi.getSchedule());</span>
-<span class="nc" id="L445">            dto.setHour(isi.getHour());</span>
-<span class="nc" id="L446">            dto.setPrice(isi.getPrice());</span>
-<span class="nc" id="L447">            dto.setImageUrl(isi.getType().getImageUrl());</span>
-<span class="nc" id="L448">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
-<span class="nc" id="L449">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="nc" id="L450">            dto.setTypeId(isi.getType().getTypeId());</span>
-<span class="nc" id="L451">            dto.setTypeName(isi.getType().getName());</span>
-<span class="nc" id="L452">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
-<span class="nc" id="L453">            dto.setInstructureName(isi.getInstructor().getName());</span>
-<span class="nc" id="L454">            dto.setContact(isi.getInstructor().getContact());</span>
-<span class="nc" id="L455">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
-<span class="nc" id="L456">            dto.setCategoryName(isi.getCategory().getName());</span>
-<span class="nc" id="L457">            dto.setRoomId(isi.getRoom().getRoomId());</span>
-<span class="nc" id="L458">            dto.setRoomName(isi.getRoom().getName());</span>
-<span class="nc" id="L459">            dto.setRating(classRating(isi.getClassId()));</span>
-<span class="nc" id="L460">            dto.setMeetUrl(isi.getMeetUrl());</span>
+<span class="nc" id="L444">        List&lt;ClassEntity&gt; classes = classRepository.findByTypeName(typeName);</span>
+<span class="nc" id="L445">        List&lt;ClassDtoGet&gt; classDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L446">        classes.forEach(isi -&gt;{</span>
+<span class="nc" id="L447">            ClassDtoGet dto = new ClassDtoGet();</span>
+<span class="nc" id="L448">            dto.setClassId(isi.getClassId());</span>
+<span class="nc" id="L449">            dto.setName(isi.getName());</span>
+<span class="nc" id="L450">            dto.setDescription(isi.getDescription());</span>
+<span class="nc" id="L451">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L452">            dto.setCapacity(isi.getCapacity());</span>
+<span class="nc" id="L453">            dto.setBooked(isi.getBooked());</span>
+<span class="nc" id="L454">            dto.setSchedule(isi.getSchedule());</span>
+<span class="nc" id="L455">            dto.setHour(isi.getHour());</span>
+<span class="nc" id="L456">            dto.setPrice(isi.getPrice());</span>
+<span class="nc" id="L457">            dto.setImageUrl(isi.getType().getImageUrl());</span>
+<span class="nc" id="L458">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L459">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L460">            dto.setTypeId(isi.getType().getTypeId());</span>
+<span class="nc" id="L461">            dto.setTypeName(isi.getType().getName());</span>
+<span class="nc" id="L462">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
+<span class="nc" id="L463">            dto.setInstructureName(isi.getInstructor().getName());</span>
+<span class="nc" id="L464">            dto.setContact(isi.getInstructor().getContact());</span>
+<span class="nc" id="L465">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
+<span class="nc" id="L466">            dto.setCategoryName(isi.getCategory().getName());</span>
+<span class="nc" id="L467">            dto.setRoomId(isi.getRoom().getRoomId());</span>
+<span class="nc" id="L468">            dto.setRoomName(isi.getRoom().getName());</span>
+<span class="nc" id="L469">            dto.setRating(classRating(isi.getClassId()));</span>
+<span class="nc" id="L470">            dto.setMeetUrl(isi.getMeetUrl());</span>
 
-<span class="nc" id="L462">            classDtos.add(dto);</span>
-<span class="nc" id="L463">        });</span>
-<span class="nc" id="L464">        return classDtos;</span>
+<span class="nc" id="L472">            classDtos.add(dto);</span>
+<span class="nc" id="L473">        });</span>
+<span class="nc" id="L474">        return classDtos;</span>
     }
 
     @Override
     public List&lt;ClassDtoGet&gt; getClassByCategoryName(String categoryName) {
-<span class="nc" id="L469">        List&lt;ClassEntity&gt; classes = classRepository.findByCategoryName(categoryName);</span>
-<span class="nc" id="L470">        List&lt;ClassDtoGet&gt; classDtos = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L471">        classes.forEach(isi -&gt;{</span>
-<span class="nc" id="L472">            ClassDtoGet dto = new ClassDtoGet();</span>
-<span class="nc" id="L473">            dto.setClassId(isi.getClassId());</span>
-<span class="nc" id="L474">            dto.setName(isi.getName());</span>
-<span class="nc" id="L475">            dto.setDescription(isi.getDescription());</span>
-<span class="nc" id="L476">            dto.setStatus(isi.getStatus());</span>
-<span class="nc" id="L477">            dto.setCapacity(isi.getCapacity());</span>
-<span class="nc" id="L478">            dto.setBooked(isi.getBooked());</span>
-<span class="nc" id="L479">            dto.setSchedule(isi.getSchedule());</span>
-<span class="nc" id="L480">            dto.setHour(isi.getHour());</span>
-<span class="nc" id="L481">            dto.setPrice(isi.getPrice());</span>
-<span class="nc" id="L482">            dto.setImageUrl(isi.getType().getImageUrl());</span>
-<span class="nc" id="L483">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
-<span class="nc" id="L484">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
-<span class="nc" id="L485">            dto.setTypeId(isi.getType().getTypeId());</span>
-<span class="nc" id="L486">            dto.setTypeName(isi.getType().getName());</span>
-<span class="nc" id="L487">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
-<span class="nc" id="L488">            dto.setInstructureName(isi.getInstructor().getName());</span>
-<span class="nc" id="L489">            dto.setContact(isi.getInstructor().getContact());</span>
-<span class="nc" id="L490">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
-<span class="nc" id="L491">            dto.setCategoryName(isi.getCategory().getName());</span>
-<span class="nc" id="L492">            dto.setRoomId(isi.getRoom().getRoomId());</span>
-<span class="nc" id="L493">            dto.setRoomName(isi.getRoom().getName());</span>
-<span class="nc" id="L494">            dto.setRating(classRating(isi.getClassId()));</span>
-<span class="nc" id="L495">            dto.setMeetUrl(isi.getMeetUrl());</span>
+<span class="nc" id="L479">        List&lt;ClassEntity&gt; classes = classRepository.findByCategoryName(categoryName);</span>
+<span class="nc" id="L480">        List&lt;ClassDtoGet&gt; classDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L481">        classes.forEach(isi -&gt;{</span>
+<span class="nc" id="L482">            ClassDtoGet dto = new ClassDtoGet();</span>
+<span class="nc" id="L483">            dto.setClassId(isi.getClassId());</span>
+<span class="nc" id="L484">            dto.setName(isi.getName());</span>
+<span class="nc" id="L485">            dto.setDescription(isi.getDescription());</span>
+<span class="nc" id="L486">            dto.setStatus(isi.getStatus());</span>
+<span class="nc" id="L487">            dto.setCapacity(isi.getCapacity());</span>
+<span class="nc" id="L488">            dto.setBooked(isi.getBooked());</span>
+<span class="nc" id="L489">            dto.setSchedule(isi.getSchedule());</span>
+<span class="nc" id="L490">            dto.setHour(isi.getHour());</span>
+<span class="nc" id="L491">            dto.setPrice(isi.getPrice());</span>
+<span class="nc" id="L492">            dto.setImageUrl(isi.getType().getImageUrl());</span>
+<span class="nc" id="L493">            dto.setCreatedAt(isi.getCreated_at().toString());</span>
+<span class="nc" id="L494">            dto.setUpdatedAt(isi.getUpdated_at().toString());</span>
+<span class="nc" id="L495">            dto.setTypeId(isi.getType().getTypeId());</span>
+<span class="nc" id="L496">            dto.setTypeName(isi.getType().getName());</span>
+<span class="nc" id="L497">            dto.setInstructureId(isi.getInstructor().getInstructorId());</span>
+<span class="nc" id="L498">            dto.setInstructureName(isi.getInstructor().getName());</span>
+<span class="nc" id="L499">            dto.setContact(isi.getInstructor().getContact());</span>
+<span class="nc" id="L500">            dto.setCategoryId(isi.getCategory().getCategoryId());</span>
+<span class="nc" id="L501">            dto.setCategoryName(isi.getCategory().getName());</span>
+<span class="nc" id="L502">            dto.setRoomId(isi.getRoom().getRoomId());</span>
+<span class="nc" id="L503">            dto.setRoomName(isi.getRoom().getName());</span>
+<span class="nc" id="L504">            dto.setRating(classRating(isi.getClassId()));</span>
+<span class="nc" id="L505">            dto.setMeetUrl(isi.getMeetUrl());</span>
 
-<span class="nc" id="L497">            classDtos.add(dto);</span>
-<span class="nc" id="L498">        });</span>
-<span class="nc" id="L499">        return classDtos;</span>
+<span class="nc" id="L507">            classDtos.add(dto);</span>
+<span class="nc" id="L508">        });</span>
+<span class="nc" id="L509">        return classDtos;</span>
     }
 
     @Override
     public Long classRating(Long classId) {
-<span class="nc" id="L504">        ClassEntity classes = classRepository.findById(classId).get();</span>
-<span class="nc" id="L505">        Long rating = 0L;</span>
-<span class="nc bnc" id="L506" title="All 2 branches missed.">        for (int i = 0; i &lt; classes.getRating().size(); i++) {</span>
-<span class="nc" id="L507">            rating = rating + classes.getRating().get(i).getRating();</span>
-<span class="nc" id="L508">            rating = rating / classes.getRating().size();</span>
+<span class="nc" id="L514">        ClassEntity classes = classRepository.findById(classId).get();</span>
+<span class="nc" id="L515">        Long rating = 0L;</span>
+<span class="nc bnc" id="L516" title="All 2 branches missed.">        for (int i = 0; i &lt; classes.getRating().size(); i++) {</span>
+<span class="nc" id="L517">            rating = rating + classes.getRating().get(i).getRating();</span>
+<span class="nc" id="L518">            rating = rating / classes.getRating().size();</span>
         }
-<span class="nc" id="L510">        return rating;</span>
+<span class="nc" id="L520">        return rating;</span>
     }
+
+    // @Override
+    // public String addClassToCart(Long classId, Long userId) {
+    //     if(classRepository.findById(classId) != null){
+    //         ClassEntity classes = classRepository.findById(classId).get();
+    //         UserEntity user = userRepository.findById(userId).get();
+    //         CartEntity cart = cartRepository.findById(user.getCart().getCartId()).get();
+    //         cart.getBooking().add(classes);
+    //         return &quot;Class Added to Cart&quot;;
+    //     }else{
+    //         return &quot;Class or User not Found !!&quot;;
+    //     }
+    // }
+
+    // @Override
+    // public String removeClassFromCart(Long classId, Long userId) {
+    //     if(classRepository.findById(classId) != null){
+    //         ClassEntity classes = classRepository.findById(classId).get();
+    //         UserEntity user = userRepository.findById(userId).get();
+    //         CartEntity cart = cartRepository.findById(user.getCart().getCartId()).get();
+    //         cart.getBooking().remove(classes);
+    //         return &quot;Class Added to Cart&quot;;
+    //     }else{
+    //         return &quot;Class or User not Found !!&quot;;
+    //     }
+    // }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

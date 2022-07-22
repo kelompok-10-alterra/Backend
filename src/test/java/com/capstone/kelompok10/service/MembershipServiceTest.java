@@ -86,15 +86,17 @@
 //     //     verify(repository).save(MembershipEntity);
 //     // }
 
-//     @Test
-//     public void deleteMembership(){
-//         MembershipEntity membershipEntity = EASY_RANDOM.nextObject(MembershipEntity.class);
+//     // @Test
+//     // public void deleteMembership(){
+//     //     MembershipEntity membershipEntity = EASY_RANDOM.nextObject(MembershipEntity.class);
+//     //     UserEntity user = EASY_RANDOM.nextObject(UserEntity.class);
+//     //     user.setUserId(membershipEntity.getUserIdentity());
 
-//         when(repository.findById(membershipEntity.getMembershipId())).thenReturn(Optional.of(membershipEntity));
-//         service.deleteMembership(membershipEntity.getMembershipId());
-//         verify(repository, times(1)).deleteById(membershipEntity.getMembershipId());
-//         verify(repository, times(1)).findById(membershipEntity.getMembershipId());
-//     }
+//     //     when(repository.findById(membershipEntity.getMembershipId())).thenReturn(Optional.of(membershipEntity));
+//     //     service.deleteMembership(membershipEntity.getMembershipId());
+//     //     verify(repository, times(1)).deleteById(membershipEntity.getMembershipId());
+//     //     verify(repository, times(1)).findById(membershipEntity.getMembershipId());
+//     // }
 
 //     @Test
 //     public void totalMembership(){

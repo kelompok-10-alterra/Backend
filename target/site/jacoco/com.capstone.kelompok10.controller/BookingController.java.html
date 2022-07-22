@@ -18,26 +18,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.kelompok10.model.dto.get.BookingDtoGet;
 import com.capstone.kelompok10.model.dto.post.BookingDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
+import com.capstone.kelompok10.model.payload.BookingToCart;
+import com.capstone.kelompok10.model.payload.BuyBooking;
 import com.capstone.kelompok10.service.interfaces.BookingService;
 
+import lombok.AllArgsConstructor;
+
+<span class="fc" id="L27">@AllArgsConstructor</span>
 @RestController
 @RequestMapping(&quot;/capstone/booking&quot;)
 public class BookingController {
-    BookingService bookingService;
-
+    
     @Autowired
-<span class="fc" id="L29">    public BookingController(BookingService bookingService){</span>
-<span class="fc" id="L30">        this.bookingService = bookingService;</span>
-<span class="fc" id="L31">    }</span>
+    private BookingService bookingService;
 
     @GetMapping(&quot;/adminAccess/getAllBooking&quot;)
     public ResponseEntity&lt;List&lt;BookingDtoGet&gt;&gt; findAll(@RequestParam(required = false) Long bookingId){
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(bookingId == null){</span>
-<span class="nc" id="L36">            List&lt;BookingDtoGet&gt; booking = bookingService.findAll();</span>
-<span class="nc" id="L37">            return new ResponseEntity&lt;&gt;(booking, HttpStatus.OK);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if(bookingId == null){</span>
+<span class="nc" id="L38">            List&lt;BookingDtoGet&gt; booking = bookingService.findAll();</span>
+<span class="nc" id="L39">            return new ResponseEntity&lt;&gt;(booking, HttpStatus.OK);</span>
         }else{
-<span class="nc" id="L39">            List&lt;BookingDtoGet&gt; booking = bookingService.findAll(bookingId);</span>
-<span class="nc" id="L40">            return new ResponseEntity&lt;&gt;(booking, HttpStatus.OK);</span>
+<span class="nc" id="L41">            List&lt;BookingDtoGet&gt; booking = bookingService.findAll(bookingId);</span>
+<span class="nc" id="L42">            return new ResponseEntity&lt;&gt;(booking, HttpStatus.OK);</span>
         }
     }
 
@@ -55,35 +57,49 @@ public class BookingController {
 
     @GetMapping(&quot;/userAccess/getBookingById&quot;)
     public ResponseEntity&lt;BookingEntity&gt; getBookingById(@RequestParam(&quot;bookingId&quot;) Long bookingId){
-<span class="nc" id="L58">        return new ResponseEntity&lt;&gt;(bookingService.getBookingById(bookingId), HttpStatus.OK);</span>
+<span class="nc" id="L60">        return new ResponseEntity&lt;&gt;(bookingService.getBookingById(bookingId), HttpStatus.OK);</span>
     }
 
     @GetMapping(&quot;/userAccess/getBookingByIdDto&quot;)
     public ResponseEntity&lt;BookingDtoGet&gt; getBookingByIdDto(@RequestParam(&quot;bookingId&quot;) Long bookingId){
-<span class="nc" id="L63">        return new ResponseEntity&lt;&gt;(bookingService.getBookingByIdDto(bookingId), HttpStatus.OK);</span>
+<span class="nc" id="L65">        return new ResponseEntity&lt;&gt;(bookingService.getBookingByIdDto(bookingId), HttpStatus.OK);</span>
     }
 
     @PostMapping(&quot;/userAccess/createNewBooking&quot;)
     public ResponseEntity&lt;BookingDtoPost&gt; createBookingDto(@RequestBody BookingDtoPost bookingDtoPost){
-<span class="nc" id="L68">        bookingService.createBookingDto(bookingDtoPost);</span>
-<span class="nc" id="L69">        return new ResponseEntity&lt;&gt;(bookingDtoPost, HttpStatus.OK);</span>
+<span class="nc" id="L70">        bookingService.createBookingDto(bookingDtoPost);</span>
+<span class="nc" id="L71">        return new ResponseEntity&lt;&gt;(bookingDtoPost, HttpStatus.OK);</span>
     }
 
     @PutMapping(&quot;/adminAccess/updateBooking/{bookingId}&quot;)
     public ResponseEntity&lt;BookingEntity&gt; updateBooking(@PathVariable(&quot;bookingId&quot;) Long bookingId, @RequestBody BookingDtoPost bookingDtoPost){
-<span class="nc" id="L74">        bookingService.updateBooking(bookingId, bookingDtoPost);</span>
-<span class="nc" id="L75">        return new ResponseEntity&lt;&gt;(bookingService.getBookingById(bookingId), HttpStatus.OK);</span>
+<span class="nc" id="L76">        bookingService.updateBooking(bookingId, bookingDtoPost);</span>
+<span class="nc" id="L77">        return new ResponseEntity&lt;&gt;(bookingService.getBookingById(bookingId), HttpStatus.OK);</span>
     }
 
     @DeleteMapping(&quot;/adminAccess/deleteBooking/{bookingId}&quot;)
     public ResponseEntity&lt;BookingEntity&gt; deleteBooking(@PathVariable(&quot;bookingId&quot;) Long bookingId){
-<span class="nc" id="L80">        bookingService.deleteBooking(bookingId);</span>
-<span class="nc" id="L81">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+<span class="nc" id="L82">        bookingService.deleteBooking(bookingId);</span>
+<span class="nc" id="L83">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
     }
 
     @GetMapping(&quot;/adminAccess/countTotalBooking&quot;)
     public int totalUser(){
-<span class="nc" id="L86">        return bookingService.totalBooking();</span>
+<span class="nc" id="L88">        return bookingService.totalBooking();</span>
     }
+
+    @PostMapping(&quot;/userAccess/buyBooking&quot;)
+    public String buyBooking(@RequestBody BuyBooking buyBooking){
+<span class="nc" id="L93">        return bookingService.buyClass(buyBooking);</span>
+    }
+
+    @GetMapping(&quot;/confirmation/confirmPayment&quot;)
+    public String confirmPayment(@RequestParam(&quot;token&quot;) String token){
+<span class="nc" id="L98">        return bookingService.confirmPayment(token);</span>
+    }
+
+    @PostMapping(&quot;/userAccess/bookToCart&quot;)
+    public String bookToCart(@RequestBody BookingToCart bookingToCart){
+<span class="nc" id="L103">        return bookingService.addBookingToCart(bookingToCart);    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -21,4 +21,5 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
     List<BookingEntity> findByUserIdentity(Long userIdentity);
     List<BookingEntity> findByCartIdentity(Long cartIdentity);
     List<BookingEntity> findByClassIdentity(Long classIdentity);
+    BookingEntity findByToken(String token);
 }

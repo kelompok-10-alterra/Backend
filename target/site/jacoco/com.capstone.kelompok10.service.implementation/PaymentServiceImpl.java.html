@@ -110,34 +110,33 @@ public class PaymentServiceImpl implements PaymentService {
 <span class="nc" id="L110">        PaymentEntity payment = new PaymentEntity();</span>
 <span class="nc" id="L111">        UserEntity user = new UserEntity();</span>
 <span class="nc" id="L112">        user.setUserId(paymentDtoPost.getUserId());</span>
-<span class="nc" id="L113">        CartEntity cart = new CartEntity();</span>
-<span class="nc" id="L114">        cart.setCartId(paymentDtoPost.getCartId());</span>
-<span class="nc bnc" id="L115" title="All 4 branches missed.">        if(cartRepository.findById(paymentDtoPost.getCartId()).isPresent() &amp;&amp; usereRepository.findById(paymentDtoPost.getUserId()).isPresent()){</span>
-<span class="nc" id="L116">            UserEntity user2 = usereRepository.findById(paymentDtoPost.getUserId()).get();</span>
-<span class="nc" id="L117">            CartEntity cart2 = cartRepository.findById(paymentDtoPost.getCartId()).get();</span>
-<span class="nc" id="L118">            payment.setTotalPayment(paymentDtoPost.getTotalPayment());</span>
-<span class="nc" id="L119">            payment.setMethod(paymentDtoPost.getMethod());</span>
-<span class="nc" id="L120">            payment.setUser(user);</span>
-<span class="nc" id="L121">            payment.setCart(cart);</span>
-<span class="nc" id="L122">            String token = UUID.randomUUID().toString();</span>
-<span class="nc" id="L123">            payment.setToken(token);</span>
-<span class="nc" id="L124">            payment.setUsername(user2.getUsername());</span>
-<span class="nc" id="L125">            payment.setTotalDebt(cart2.getTotal());</span>
-<span class="nc" id="L126">            paymentRepository.save(payment);</span>
+<span class="nc" id="L113">        UserEntity user2 = usereRepository.findById(paymentDtoPost.getUserId()).get();</span>
+<span class="nc" id="L114">        CartEntity cart = new CartEntity();</span>
+<span class="nc" id="L115">        cart.setCartId(user2.getCart().getCartId());</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if(usereRepository.findById(paymentDtoPost.getUserId()).isPresent()){</span>
+<span class="nc" id="L117">            payment.setTotalPayment(paymentDtoPost.getTotalPayment());</span>
+<span class="nc" id="L118">            payment.setMethod(paymentDtoPost.getMethod());</span>
+<span class="nc" id="L119">            payment.setUser(user);</span>
+<span class="nc" id="L120">            payment.setCart(user2.getCart());</span>
+<span class="nc" id="L121">            String token = UUID.randomUUID().toString();</span>
+<span class="nc" id="L122">            payment.setToken(token);</span>
+<span class="nc" id="L123">            payment.setUsername(user2.getUsername());</span>
+<span class="nc" id="L124">            payment.setTotalDebt(user2.getCart().getTotal());</span>
+<span class="nc" id="L125">            paymentRepository.save(payment);</span>
 
-<span class="nc" id="L128">            String link = &quot;https://www.api.rafdev.my.id/capstone/payment/adminAccess/confirmPayment?token=&quot; + token;</span>
-<span class="nc" id="L129">            emailSenderService.sendEmail(&quot;capstone.kelompok.10@gmail.com&quot;, buildEmail(user2.getUsername(), link, paymentDtoPost.getTotalPayment() ,paymentDtoPost.getMethod()));</span>
-<span class="nc" id="L130">            return token;</span>
+<span class="nc" id="L127">            String link = &quot;https://www.api.rafdev.my.id/capstone/payment/confirmation/confirmPayment?token=&quot; + token;</span>
+<span class="nc" id="L128">            emailSenderService.sendEmail(&quot;capstone.kelompok.10@gmail.com&quot;, buildEmail(user2.getUsername(), link, paymentDtoPost.getTotalPayment() ,paymentDtoPost.getMethod(), user2.getCart().getTotal()));</span>
+<span class="nc" id="L129">            return token;</span>
         }else{
-<span class="nc" id="L132">            log.info(&quot;UserId or CartId not found&quot;);</span>
-<span class="nc" id="L133">            throw new IllegalStateException(&quot;UserId or CartId not found&quot;);</span>
+<span class="nc" id="L131">            log.info(&quot;UserId or CartId not found&quot;);</span>
+<span class="nc" id="L132">            throw new IllegalStateException(&quot;UserId or CartId not found&quot;);</span>
         }
         
     }
 
     @Override
-    public String buildEmail(String username, String link, Long totalPayment, String method) {
-<span class="nc" id="L140">        return &quot;&lt;div style=\&quot;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\&quot;&gt;\n&quot; +</span>
+    public String buildEmail(String username, String link, Long totalPayment, String method, Long debt) {
+<span class="nc" id="L139">        return &quot;&lt;div style=\&quot;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\&quot;&gt;\n&quot; +</span>
         &quot;\n&quot; +
         &quot;&lt;span style=\&quot;display:none;font-size:1px;color:#fff;max-height:0\&quot;&gt;&lt;/span&gt;\n&quot; +
         &quot;\n&quot; +
@@ -192,7 +191,7 @@ public class PaymentServiceImpl implements PaymentService {
         &quot;      &lt;td width=\&quot;10\&quot; valign=\&quot;middle\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
         &quot;      &lt;td style=\&quot;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\&quot;&gt;\n&quot; +
         &quot;        \n&quot; +
-        &quot;            &lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt;Hi user with username : &quot; + username + &quot; Just send a Payment with total payment : &quot; + totalPayment + &quot; And with method : &quot; + method + &quot;,&lt;/p&gt;&lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt; Please Check the Bank Account, and if the payment is correct, please click the link below : &lt;/p&gt;&lt;blockquote style=\&quot;Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\&quot;&gt;&lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt; &lt;a href=\&quot;&quot; + link + &quot;\&quot;&gt;Confirm Payment&lt;/a&gt; &lt;/p&gt;&lt;/blockquote&gt;\n CC : Capstone Kelompok 10 &lt;p&gt;Thank you&lt;/p&gt;&quot; +
+        &quot;            &lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt;Hi user with username : &quot; + username + &quot; Just send a Payment with total payment : &quot; + totalPayment + &quot; With debt : &quot; + debt + &quot; And with method : &quot; + method + &quot;,&lt;/p&gt;&lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt; Please Check the Bank Account, and if the payment is correct, please click the link below : &lt;/p&gt;&lt;blockquote style=\&quot;Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\&quot;&gt;&lt;p style=\&quot;Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\&quot;&gt; &lt;a href=\&quot;&quot; + link + &quot;\&quot;&gt;Confirm Payment&lt;/a&gt; &lt;/p&gt;&lt;/blockquote&gt;\n CC : Capstone Kelompok 10 &lt;p&gt;Thank you&lt;/p&gt;&quot; +
         &quot;        \n&quot; +
         &quot;      &lt;/td&gt;\n&quot; +
         &quot;      &lt;td width=\&quot;10\&quot; valign=\&quot;middle\&quot;&gt;&lt;br&gt;&lt;/td&gt;\n&quot; +
@@ -207,23 +206,23 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public String confirmPayment(String token) {
-<span class="nc bnc" id="L210" title="All 2 branches missed.">		if(paymentRepository.findByToken(token) != null){</span>
-<span class="nc" id="L211">            PaymentEntity payment = paymentRepository.findByToken(token);</span>
-<span class="nc" id="L212">            CartEntity cart = cartRepository.findById(payment.getCart().getCartId()).get();</span>
-<span class="nc" id="L213">            HistoryEntity history = historyRepository.findById(payment.getCart().getUser().getHistory().getHistoryId()).get();</span>
-<span class="nc bnc" id="L214" title="All 2 branches missed.">            for (int i = 0; i &lt; cart.getBooking().size(); i++) {</span>
-<span class="nc" id="L215">                BookingEntity booking = bookingRepository.findById(cart.getBooking().get(i).getBookingId()).get();</span>
-<span class="nc" id="L216">                booking.setStatus(true);</span>
-<span class="nc" id="L217">                bookingRepository.save(booking);</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">		if(paymentRepository.findByToken(token) != null){</span>
+<span class="nc" id="L210">            PaymentEntity payment = paymentRepository.findByToken(token);</span>
+<span class="nc" id="L211">            CartEntity cart = cartRepository.findById(payment.getCart().getCartId()).get();</span>
+<span class="nc" id="L212">            HistoryEntity history = historyRepository.findById(payment.getCart().getUser().getHistory().getHistoryId()).get();</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">            for (int i = 0; i &lt; cart.getBooking().size(); i++) {</span>
+<span class="nc" id="L214">                BookingEntity booking = bookingRepository.findById(cart.getBooking().get(i).getBookingId()).get();</span>
+<span class="nc" id="L215">                booking.setStatus(true);</span>
+<span class="nc" id="L216">                bookingRepository.save(booking);</span>
             }
-<span class="nc" id="L219">            history.getBooking().addAll(cart.getBooking());</span>
-<span class="nc" id="L220">            historyRepository.save(history);</span>
-<span class="nc" id="L221">            cart.setTotal(0L);</span>
-<span class="nc" id="L222">            cart.getBooking().removeAll(cart.getBooking());</span>
-<span class="nc" id="L223">            cartRepository.save(cart);</span>
-<span class="nc" id="L224">            return &quot;Payment Confirmed&quot;;</span>
+<span class="nc" id="L218">            history.getBooking().addAll(cart.getBooking());</span>
+<span class="nc" id="L219">            historyRepository.save(history);</span>
+<span class="nc" id="L220">            cart.setTotal(0L);</span>
+<span class="nc" id="L221">            cart.getBooking().removeAll(cart.getBooking());</span>
+<span class="nc" id="L222">            cartRepository.save(cart);</span>
+<span class="nc" id="L223">            return &quot;Payment Confirmed&quot;;</span>
         }else{
-<span class="nc" id="L226">            return &quot;Payment Token not Found&quot;;</span>
+<span class="nc" id="L225">            return &quot;Payment Token not Found&quot;;</span>
         }
 	}
 }

@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/swagger-ui/**").permitAll();
         http.authorizeRequests().antMatchers("/v3/api-docs/**").permitAll();
         http.authorizeRequests().antMatchers("/actuator/**").permitAll();
+        http.authorizeRequests().antMatchers("/capstone/booking/confirmation/**").permitAll();
+        http.authorizeRequests().antMatchers("/capstone/payment/confirmation/**").permitAll();
         // http.authorizeRequests().antMatchers("/capstone/**").permitAll();
         http.authorizeRequests().antMatchers("/capstone/category/userAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");
         http.authorizeRequests().antMatchers("/capstone/member/userAccess/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER_ADMIN");

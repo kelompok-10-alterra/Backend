@@ -6,17 +6,21 @@ import java.util.List;
 import com.capstone.kelompok10.model.dto.get.ClassDtoGet;
 import com.capstone.kelompok10.model.dto.post.ClassDtoPost;
 import com.capstone.kelompok10.model.entity.BookingEntity;
+// import com.capstone.kelompok10.model.entity.CartEntity;
 import com.capstone.kelompok10.model.entity.CategoryEntity;
 import com.capstone.kelompok10.model.entity.ClassEntity;
 import com.capstone.kelompok10.model.entity.InstructorEntity;
 import com.capstone.kelompok10.model.entity.RoomEntity;
 import com.capstone.kelompok10.model.entity.TypeEntity;
+// import com.capstone.kelompok10.model.entity.UserEntity;
 import com.capstone.kelompok10.model.payload.GetUserByClass;
 import com.capstone.kelompok10.repository.BookingRepository;
+import com.capstone.kelompok10.repository.CartRepository;
 import com.capstone.kelompok10.repository.CategoryRepository;
 import com.capstone.kelompok10.repository.ClassRepository;
 import com.capstone.kelompok10.repository.RoomRepository;
 import com.capstone.kelompok10.repository.TypeRepository;
+import com.capstone.kelompok10.repository.UserRepository;
 import com.capstone.kelompok10.service.interfaces.CategoryService;
 import com.capstone.kelompok10.service.interfaces.ClassService;
 import com.capstone.kelompok10.service.interfaces.InstructorService;
@@ -49,6 +53,12 @@ public class ClassServiceImpl implements ClassService {
 
     @Autowired
     public RoomRepository roomRepository;
+
+    @Autowired
+    public CartRepository cartRepository;
+
+    @Autowired
+    public UserRepository userRepository;
 
     @Autowired
     private RoomService roomService;
@@ -509,4 +519,30 @@ public class ClassServiceImpl implements ClassService {
         }
         return rating;
     }
+
+    // @Override
+    // public String addClassToCart(Long classId, Long userId) {
+    //     if(classRepository.findById(classId) != null){
+    //         ClassEntity classes = classRepository.findById(classId).get();
+    //         UserEntity user = userRepository.findById(userId).get();
+    //         CartEntity cart = cartRepository.findById(user.getCart().getCartId()).get();
+    //         cart.getBooking().add(classes);
+    //         return "Class Added to Cart";
+    //     }else{
+    //         return "Class or User not Found !!";
+    //     }
+    // }
+
+    // @Override
+    // public String removeClassFromCart(Long classId, Long userId) {
+    //     if(classRepository.findById(classId) != null){
+    //         ClassEntity classes = classRepository.findById(classId).get();
+    //         UserEntity user = userRepository.findById(userId).get();
+    //         CartEntity cart = cartRepository.findById(user.getCart().getCartId()).get();
+    //         cart.getBooking().remove(classes);
+    //         return "Class Added to Cart";
+    //     }else{
+    //         return "Class or User not Found !!";
+    //     }
+    // }
 }
