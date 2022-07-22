@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gymapi-be1
-        image: rafdev0904/gym:latest
+        image: rafdev0904/gym:154
         ports:
         - containerPort: 8081
         resources:
