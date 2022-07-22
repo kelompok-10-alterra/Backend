@@ -267,23 +267,21 @@ public class BookingServiceImpl implements BookingService {
 
         if(classRepository.findById(bookingDtoPost.getClassId()) != null && userRepository.findById(bookingDtoPost.getUserId()) != null && classService.classFull(bookingDtoPost.getClassId()) == false
             && userService.nativeUser(bookingDtoPost.getUserId()) == false){
+            UserEntity user2 = userRepository.findById(bookingDtoPost.getUserId()).get();
             Long price = classService.classPrice(bookingDtoPost.getClassId());
-            Long total;
-            if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 2){
+            Long total = price;
+            bookingEntity.setPrice(total);
+            if (user2.getMembership().matches("Silver")){
                 log.info("User have membership and get discount price");
                 total = price - (price * 20 / 100);
                 bookingEntity.setPrice(total);
-            }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 3){
+            }if (user2.getMembership().matches("Gold")){
                 log.info("User have membership and get discount price");
                 total = price - (price * 30 / 100);
                 bookingEntity.setPrice(total);
-            }if (userService.userHaveMembership(bookingDtoPost.getUserId()) == 4){
+            }if (user2.getMembership().matches("Platinum")){
                 log.info("User have membership and get discount price");
                 total = price - (price * 50 / 100);
-                bookingEntity.setPrice(total);
-            }else{
-                log.info("User don't have membership and didn't get discount price");
-                total = price;
                 bookingEntity.setPrice(total);
             }
             bookingEntity.setStatus(bookingDtoPost.getStatus());
@@ -370,7 +368,8 @@ public class BookingServiceImpl implements BookingService {
         if(classRepository.findById(buyBooking.getClassId()) != null && userRepository.findById(buyBooking.getUserId()) != null && classService.classFull(buyBooking.getClassId()) == false
             && userService.nativeUser(buyBooking.getUserId()) == false){
             Long price = classService.classPrice(buyBooking.getClassId());
-            Long total;
+            Long total = price;
+            bookingEntity.setPrice(total);
             if (userService.userHaveMembership(buyBooking.getUserId()) == 2){
                 log.info("User have membership and get discount price");
                 total = price - (price * 20 / 100);
@@ -382,10 +381,6 @@ public class BookingServiceImpl implements BookingService {
             }if (userService.userHaveMembership(buyBooking.getUserId()) == 4){
                 log.info("User have membership and get discount price");
                 total = price - (price * 50 / 100);
-                bookingEntity.setPrice(total);
-            }else{
-                log.info("User don't have membership and didn't get discount price");
-                total = price;
                 bookingEntity.setPrice(total);
             }
             bookingEntity.setStatus(false);
